@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "Rodapé",
@@ -5,7 +14,12 @@
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "color_scheme": "scheme-3"
+        "subheading": "Newsletter",
+        "heading": "Assine e ganhe 20% off na primeira compra",
+        "text": "<p>Seja a primeira a saber das novidades e ofertas exclusivas.</p>",
+        "color_scheme": "scheme-3",
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "footer": {
@@ -13,7 +27,12 @@
       "blocks": {
         "brand": {
           "type": "brand",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/logo_branco.png",
+            "image_width": 140,
+            "text": "<p>Skincare divertido, eficaz e fácil de amar. Cuidado com a pele inspirado na natureza.</p>",
+            "show_social": true
+          }
         },
         "m1": {
           "type": "menu",
@@ -44,13 +63,27 @@
         "t1"
       ],
       "settings": {
-        "color_scheme": "scheme-5"
+        "color_scheme": "scheme-5",
+        "show_country": true,
+        "show_language": true,
+        "show_payment_icons": true,
+        "show_policies": true
       }
     },
     "popup": {
       "type": "promo-popup",
       "settings": {
-        "enabled": false
+        "enabled": false,
+        "delay": 6,
+        "frequency": 7,
+        "subheading": "Boas-vindas",
+        "heading": "Ganhe 20% off na primeira compra",
+        "text": "<p>Assine nossa newsletter e receba seu cupom.</p>",
+        "show_newsletter": true,
+        "discount_code": "",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": ""
       }
     }
   },

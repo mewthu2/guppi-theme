@@ -55,6 +55,9 @@
         "layout": "center",
         "sticky": true,
         "border": true,
+        "transparent": "home",
+        "transparent_color": "#ffffff",
+        "transparent_logo": "shopify://shop_images/logo_branco.png",
         "show_localization": true,
         "color_scheme": "scheme-1"
       }

@@ -28,28 +28,10 @@
             "alignment": "left",
             "color_scheme": "scheme-2"
           }
-        },
-        "s2": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_23_de_set._de_2026_23_55_11_1.png",
-            "image_mobile": "shopify://shop_images/ChatGPT_Image_23_de_set._de_2026_23_55_11_2.png",
-            "subheading": "",
-            "heading": "",
-            "heading_size": "h0",
-            "text": "",
-            "button_label": "Ver kits",
-            "button_link": "shopify://collections/all",
-            "button_label_2": "",
-            "button_link_2": "",
-            "alignment": "left",
-            "color_scheme": "scheme-3"
-          }
         }
       },
       "block_order": [
-        "s1",
-        "s2"
+        "s1"
       ],
       "settings": {
         "height": "full",

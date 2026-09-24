@@ -333,6 +333,15 @@
         };
         window.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
+        if ('IntersectionObserver' in window) {
+          const sentinel = document.createElement('div');
+          sentinel.setAttribute('aria-hidden', 'true');
+          sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:11px;pointer-events:none;visibility:hidden;';
+          document.body.prepend(sentinel);
+          new IntersectionObserver(([entry]) => {
+            this.classList.toggle('is-scrolled', !entry.isIntersecting);
+          }).observe(sentinel);
+        }
       }
     }
   );

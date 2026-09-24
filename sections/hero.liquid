@@ -1,0 +1,128 @@
+{%- liquid
+  assign slide_count = section.blocks.size
+-%}
+<slideshow-component
+  class="hero hero--{{ section.settings.height }} hero--{{ section.settings.text_position }}"
+  data-autoplay="{{ section.settings.autoplay }}"
+  data-speed="{{ section.settings.autoplay_speed }}"
+  style="--overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+  role="region"
+  aria-roledescription="carousel"
+  aria-label="{{ section.settings.accessibility_label | escape }}"
+>
+  <div class="hero__track" data-track>
+    {%- for block in section.blocks -%}
+      <div
+        class="hero__slide color-{{ block.settings.color_scheme }}{% if block.settings.image != blank %} hero__slide--has-image{% endif %}"
+        role="group"
+        aria-roledescription="slide"
+        aria-label="{{ forloop.index }} / {{ slide_count }}"
+        data-slide
+        {{ block.shopify_attributes }}
+      >
+        <div class="hero__media">
+          {%- if block.settings.image != blank -%}
+            {%- liquid
+              assign loading = 'lazy'
+              assign priority = 'auto'
+              if forloop.first and section.index == 1
+                assign loading = 'eager'
+                assign priority = 'high'
+              endif
+            -%}
+            {%- if block.settings.image_mobile != blank -%}
+              <picture>
+                <source media="(max-width: 749px)" srcset="{{ block.settings.image_mobile | image_url: width: 1000 }}">
+                {{ block.settings.image | image_url: width: 3000 | image_tag: widths: '750, 1100, 1500, 1800, 2200, 3000', sizes: '100vw', loading: loading, fetchpriority: priority }}
+              </picture>
+            {%- else -%}
+              {{ block.settings.image | image_url: width: 3000 | image_tag: widths: '375, 750, 1100, 1500, 1800, 2200, 3000', sizes: '100vw', loading: loading, fetchpriority: priority }}
+            {%- endif -%}
+          {%- elsif block.settings.video != blank -%}
+            {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false }}
+          {%- else -%}
+            {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder' }}
+          {%- endif -%}
+        </div>
+        <div class="hero__content page-width">
+          <div class="hero__box text-{{ block.settings.alignment }}{% if section.settings.content_box %} hero__box--boxed{% endif %}">
+            {%- if block.settings.subheading != blank -%}
+              <p class="subheading">{{ block.settings.subheading }}</p>
+            {%- endif -%}
+            {%- if block.settings.heading != blank -%}
+              {%- if forloop.first and section.index == 1 -%}
+                <h2 class="hero__heading {{ block.settings.heading_size }}">{{ block.settings.heading }}</h2>
+              {%- else -%}
+                <p class="hero__heading {{ block.settings.heading_size }}">{{ block.settings.heading }}</p>
+              {%- endif -%}
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <div class="rte hero__text">{{ block.settings.text }}</div>
+            {%- endif -%}
+            <div class="button-group">
+              {%- if block.settings.button_label != blank -%}
+                <a href="{{ block.settings.button_link | default: '#' }}" class="button">{{ block.settings.button_label }}</a>
+              {%- endif -%}
+              {%- if block.settings.button_label_2 != blank -%}
+                <a href="{{ block.settings.button_link_2 | default: '#' }}" class="button button--secondary">{{ block.settings.button_label_2 }}</a>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if slide_count > 1 -%}
+    <div class="hero__controls">
+      <button type="button" class="icon-button icon-button--filled" data-prev aria-label="{{ 'accessibility.previous_slide' | t }}">{% render 'icon', icon: 'chevron-left' %}</button>
+      <div class="dots" role="tablist">
+        {%- for block in section.blocks -%}
+          <button type="button" class="dot{% if forloop.first %} is-active{% endif %}" data-dot="{{ forloop.index0 }}" aria-label="{{ 'accessibility.go_to_slide' | t: index: forloop.index }}"></button>
+        {%- endfor -%}
+      </div>
+      <button type="button" class="icon-button icon-button--filled" data-next aria-label="{{ 'accessibility.next_slide' | t }}">{% render 'icon', icon: 'chevron-right' %}</button>
+    </div>
+  {%- endif -%}
+</slideshow-component>
+
+{% schema %}
+{
+  "name": "Hero / Slideshow",
+  "class": "section-hero",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "select", "id": "height", "label": "Altura", "options": [ { "value": "small", "label": "Pequena" }, { "value": "medium", "label": "Média" }, { "value": "large", "label": "Grande" }, { "value": "full", "label": "Tela cheia" } ], "default": "large" },
+    { "type": "select", "id": "text_position", "label": "Posição do conteúdo", "options": [ { "value": "top-left", "label": "Superior esquerda" }, { "value": "center-left", "label": "Centro esquerda" }, { "value": "bottom-left", "label": "Inferior esquerda" }, { "value": "center", "label": "Centro" }, { "value": "bottom-center", "label": "Inferior centro" }, { "value": "center-right", "label": "Centro direita" } ], "default": "bottom-left" },
+    { "type": "checkbox", "id": "content_box", "label": "Mostrar caixa atrás do texto", "default": false },
+    { "type": "range", "id": "overlay_opacity", "min": 0, "max": 80, "step": 5, "unit": "%", "label": "Escurecer imagem", "default": 0 },
+    { "type": "checkbox", "id": "autoplay", "label": "Troca automática", "default": true },
+    { "type": "range", "id": "autoplay_speed", "min": 3, "max": 10, "step": 1, "unit": "s", "label": "Tempo por slide", "default": 6 },
+    { "type": "text", "id": "accessibility_label", "label": "Descrição do slideshow (acessibilidade)", "default": "Destaques" }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Imagem" },
+        { "type": "image_picker", "id": "image_mobile", "label": "Imagem mobile" },
+        { "type": "video", "id": "video", "label": "Vídeo (usado se não houver imagem)" },
+        { "type": "text", "id": "subheading", "label": "Subtítulo", "default": "Novo" },
+        { "type": "inline_richtext", "id": "heading", "label": "Título", "default": "Sua pele brilhando começa aqui" },
+        { "type": "select", "id": "heading_size", "label": "Tamanho do título", "options": [ { "value": "h1", "label": "Grande" }, { "value": "h0", "label": "Extra grande" }, { "value": "h2", "label": "Médio" } ], "default": "h0" },
+        { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Skincare divertido e eficaz com extratos de frutas e ativos que sua pele ama.</p>" },
+        { "type": "text", "id": "button_label", "label": "Botão", "default": "Comprar agora" },
+        { "type": "url", "id": "button_link", "label": "Link do botão" },
+        { "type": "text", "id": "button_label_2", "label": "Botão secundário" },
+        { "type": "url", "id": "button_link_2", "label": "Link do botão secundário" },
+        { "type": "text_alignment", "id": "alignment", "label": "Alinhamento", "default": "left" },
+        { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-2" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Hero / Slideshow", "blocks": [ { "type": "slide" } ] }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,49 @@
+{%- if section.settings.enabled -%}
+  <promo-popup data-delay="{{ section.settings.delay }}" data-days="{{ section.settings.frequency }}" data-id="{{ section.id }}" data-test="{{ request.design_mode }}">
+    <dialog class="modal promo-popup color-{{ section.settings.color_scheme }}{% if section.settings.image != blank %} promo-popup--image{% endif %}" aria-labelledby="PromoPopupTitle-{{ section.id }}">
+      <button type="button" class="modal__close" data-close aria-label="{{ 'accessibility.close' | t }}">{% render 'icon', icon: 'close' %}</button>
+      {%- if section.settings.image != blank -%}
+        <div class="promo-popup__media">
+          {{ section.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 750px) 400px, 100vw', alt: '' }}
+        </div>
+      {%- endif -%}
+      <div class="promo-popup__content text-center">
+        {%- if section.settings.subheading != blank -%}<p class="subheading">{{ section.settings.subheading }}</p>{%- endif -%}
+        <h2 class="h2" id="PromoPopupTitle-{{ section.id }}">{{ section.settings.heading }}</h2>
+        {%- if section.settings.text != blank -%}<div class="rte">{{ section.settings.text }}</div>{%- endif -%}
+        {%- if section.settings.show_newsletter -%}
+          {% render 'newsletter-form', id: section.id %}
+        {%- endif -%}
+        {%- if section.settings.discount_code != blank -%}
+          <p class="promo-popup__code">{{ 'sections.popup.use_code' | t }} <strong>{{ section.settings.discount_code }}</strong></p>
+        {%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ section.settings.button_link | default: '#' }}" class="button">{{ section.settings.button_label }}</a>
+        {%- endif -%}
+      </div>
+    </dialog>
+  </promo-popup>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Pop-up promocional",
+  "class": "section-popup",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Ativar pop-up", "default": false },
+    { "type": "range", "id": "delay", "min": 0, "max": 60, "step": 1, "unit": "s", "label": "Exibir após", "default": 6 },
+    { "type": "range", "id": "frequency", "min": 1, "max": 30, "step": 1, "unit": "d", "label": "Exibir novamente após", "default": 7 },
+    { "type": "image_picker", "id": "image", "label": "Imagem" },
+    { "type": "text", "id": "subheading", "label": "Subtítulo", "default": "Boas-vindas" },
+    { "type": "inline_richtext", "id": "heading", "label": "Título", "default": "Ganhe 20% off na primeira compra" },
+    { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Assine nossa newsletter e receba seu cupom.</p>" },
+    { "type": "checkbox", "id": "show_newsletter", "label": "Mostrar formulário de e-mail", "default": true },
+    { "type": "text", "id": "discount_code", "label": "Código de desconto" },
+    { "type": "text", "id": "button_label", "label": "Botão" },
+    { "type": "url", "id": "button_link", "label": "Link do botão" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-2" }
+  ],
+  "presets": [ { "name": "Pop-up promocional" } ],
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}

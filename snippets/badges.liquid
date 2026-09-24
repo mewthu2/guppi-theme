@@ -1,0 +1,40 @@
+{% doc %}
+  Renders product badges (sale, sold out, new, custom tag badges).
+
+  @param {product} product - Product object
+  @param {variant} [variant] - Selected variant
+
+  @example
+  {% render 'badges', product: product %}
+{% enddoc %}
+{%- liquid
+  if variant
+    assign available = variant.available
+    assign price = variant.price
+    assign compare = variant.compare_at_price
+  else
+    assign available = product.available
+    assign price = product.price
+    assign compare = product.compare_at_price
+  endif
+-%}
+<div class="badges">
+  {%- if available == false -%}
+    <span class="badge badge--soldout">{{ 'products.product.sold_out' | t }}</span>
+  {%- elsif compare > price -%}
+    {%- if settings.sale_badge_style == 'percent' -%}
+      {%- assign saving = compare | minus: price | times: 100.0 | divided_by: compare | round -%}
+      <span class="badge badge--sale">{{ 'products.product.badge_percent' | t: percent: saving }}</span>
+    {%- else -%}
+      <span class="badge badge--sale">{{ 'products.product.on_sale' | t }}</span>
+    {%- endif -%}
+  {%- endif -%}
+  {%- for tag in product.tags -%}
+    {%- assign tag_down = tag | downcase -%}
+    {%- if tag_down == 'new' or tag_down == 'novo' -%}
+      <span class="badge badge--new">{{ 'products.product.new' | t }}</span>
+    {%- elsif tag_down contains 'badge:' -%}
+      <span class="badge badge--custom">{{ tag | split: ':' | last | strip }}</span>
+    {%- endif -%}
+  {%- endfor -%}
+</div>

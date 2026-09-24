@@ -1,0 +1,66 @@
+{% doc %}
+  Outputs global CSS custom properties from theme settings and color schemes.
+
+  @example
+  {% render 'css-variables' %}
+{% enddoc %}
+{% style %}
+  {{ settings.type_heading_font | font_face: font_display: 'swap' }}
+  {{ settings.type_body_font | font_face: font_display: 'swap' }}
+  {%- assign body_bold = settings.type_body_font | font_modify: 'weight', '600' -%}
+  {{ body_bold | font_face: font_display: 'swap' }}
+  {%- assign body_italic = settings.type_body_font | font_modify: 'style', 'italic' -%}
+  {{ body_italic | font_face: font_display: 'swap' }}
+  {%- assign heading_italic = settings.type_heading_font | font_modify: 'style', 'italic' -%}
+  {{ heading_italic | font_face: font_display: 'swap' }}
+
+  :root {
+    --font-heading-family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+    --font-heading-style: {{ settings.type_heading_font.style }};
+    --font-heading-weight: {{ settings.type_heading_font.weight }};
+    --font-heading-scale: {{ settings.heading_scale | divided_by: 100.0 }};
+    --font-heading-case: {{ settings.heading_case }};
+    --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+    --font-body-style: {{ settings.type_body_font.style }};
+    --font-body-weight: {{ settings.type_body_font.weight }};
+    --font-body-scale: {{ settings.body_scale | divided_by: 100.0 }};
+
+    --page-width: {{ settings.page_width }}px;
+    --section-spacing: {{ settings.section_spacing }}px;
+    --grid-gap: {{ settings.grid_gap }}px;
+
+    --radius-button: {{ settings.button_radius }}px;
+    --radius-card: {{ settings.card_radius }}px;
+    --radius-media: {{ settings.media_radius }}px;
+    --radius-input: {{ settings.input_radius }}px;
+
+    --badge-sale: {{ settings.badge_sale_bg }};
+    --badge-soldout: {{ settings.badge_soldout_bg }};
+    --badge-new: {{ settings.badge_new_bg }};
+    --badge-custom: {{ settings.badge_custom_bg }};
+    --badge-text: {{ settings.badge_text }};
+
+    --logo-width: {{ settings.logo_width }}px;
+    --logo-width-mobile: {{ settings.logo_width_mobile }}px;
+  }
+
+  {% for scheme in settings.color_schemes -%}
+    {%- if forloop.first %}:root,{% endif %}
+    .color-{{ scheme.id }} {
+      --color-background: {{ scheme.settings.background }};
+      --color-background-alt: {{ scheme.settings.background_alt }};
+      --color-foreground: {{ scheme.settings.text }};
+      --color-foreground-muted: {{ scheme.settings.text | color_modify: 'alpha', 0.7 }};
+      --color-foreground-subtle: {{ scheme.settings.text | color_modify: 'alpha', 0.12 }};
+      --color-accent: {{ scheme.settings.accent }};
+      --color-border: {{ scheme.settings.border }};
+      --color-button: {{ scheme.settings.button }};
+      --color-button-label: {{ scheme.settings.button_label }};
+      --color-button-hover: {{ scheme.settings.button | color_mix: scheme.settings.text, 82 }};
+      --color-secondary-button: {{ scheme.settings.secondary_button_label }};
+      --color-card: {{ scheme.settings.card }};
+      --color-card-text: {{ scheme.settings.card_text }};
+      --color-overlay: {{ scheme.settings.text | color_modify: 'alpha', 0.45 }};
+    }
+  {% endfor %}
+{% endstyle %}

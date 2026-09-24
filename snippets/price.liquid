@@ -1,0 +1,58 @@
+{% doc %}
+  Renders product or variant price with compare-at and unit price.
+
+  @param {product} product - Product object
+  @param {variant} [variant] - Variant to show price for
+  @param {string} [class] - Extra CSS class
+  @param {boolean} [show_from] - Show "from" when price varies
+
+  @example
+  {% render 'price', product: product %}
+{% enddoc %}
+{%- liquid
+  if variant == blank
+    assign current_price = product.price
+    assign compare_price = product.compare_at_price
+  else
+    assign current_price = variant.price
+    assign compare_price = variant.compare_at_price
+  endif
+  if settings.currency_code_enabled
+    assign price_output = current_price | money_with_currency
+    assign compare_output = compare_price | money_with_currency
+  else
+    assign price_output = current_price | money
+    assign compare_output = compare_price | money
+  endif
+  assign on_sale = false
+  if compare_price > current_price
+    assign on_sale = true
+  endif
+-%}
+<div class="price{% if on_sale %} price--on-sale{% endif %} {{ class }}">
+  {%- if on_sale -%}
+    <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
+  {%- else -%}
+    <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+  {%- endif -%}
+  <span class="price__current">
+    {%- if show_from and variant == blank and product.price_varies -%}
+      {{ 'products.product.price.from_price' | t: price: price_output }}
+    {%- else -%}
+      {{ price_output }}
+    {%- endif -%}
+  </span>
+  {%- if on_sale -%}
+    <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+    <s class="price__compare">{{ compare_output }}</s>
+  {%- endif -%}
+  {%- if variant.unit_price_measurement -%}
+    <small class="price__unit">
+      {{ variant.unit_price | money }}/
+      {%- if variant.unit_price_measurement.reference_value != 1 -%}
+        {{ variant.unit_price_measurement.reference_value }}
+      {%- endif -%}
+      {{ variant.unit_price_measurement.reference_unit }}
+    </small>
+  {%- endif -%}
+</div>

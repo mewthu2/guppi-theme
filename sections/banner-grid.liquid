@@ -1,0 +1,85 @@
+<section class="section banner-grid color-{{ section.settings.color_scheme }}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <div class="section-header text-{{ section.settings.heading_alignment }}">
+        {%- if section.settings.subheading != blank -%}<p class="subheading">{{ section.settings.subheading }}</p>{%- endif -%}
+        <h2 class="h2">{{ section.settings.heading }}</h2>
+      </div>
+    {%- endif -%}
+    <div class="banner-grid__grid{% if section.settings.mobile_carousel %} banner-grid__grid--scroll{% endif %}" style="--columns: {{ section.settings.columns }};">
+      {%- for block in section.blocks -%}
+        <a
+          {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %}
+          class="banner-tile banner-tile--{{ block.settings.style }} banner-tile--span-{{ block.settings.span }} color-{{ block.settings.color_scheme }} reveal"
+          style="--tile-ratio: {{ section.settings.ratio }};"
+          {{ block.shopify_attributes }}
+        >
+          <div class="banner-tile__media media">
+            {%- if block.settings.image != blank -%}
+              {%- assign alt = block.settings.image.alt | default: block.settings.heading | escape -%}
+              {{ block.settings.image | image_url: width: 1600 | image_tag: widths: '400, 600, 800, 1000, 1200, 1600', sizes: '(min-width: 990px) 50vw, 90vw', loading: 'lazy', alt: alt }}
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag: 'placeholder' }}
+            {%- endif -%}
+          </div>
+          <div class="banner-tile__content text-{{ block.settings.alignment }}">
+            {%- if block.settings.subheading != blank -%}<p class="subheading">{{ block.settings.subheading }}</p>{%- endif -%}
+            {%- if block.settings.heading != blank -%}<h3 class="banner-tile__heading h3">{{ block.settings.heading }}</h3>{%- endif -%}
+            {%- if block.settings.text != blank -%}<div class="rte banner-tile__text">{{ block.settings.text }}</div>{%- endif -%}
+            {%- if block.settings.button_label != blank -%}
+              <span class="button button--small">{{ block.settings.button_label }}</span>
+            {%- endif -%}
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Grade de banners",
+  "class": "section-banner-grid",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "subheading", "label": "Subtítulo" },
+    { "type": "inline_richtext", "id": "heading", "label": "Título" },
+    { "type": "text_alignment", "id": "heading_alignment", "label": "Alinhamento do título", "default": "center" },
+    { "type": "range", "id": "columns", "min": 1, "max": 4, "step": 1, "label": "Colunas no desktop", "default": 3 },
+    { "type": "select", "id": "ratio", "label": "Proporção das imagens", "options": [ { "value": "1", "label": "Quadrado" }, { "value": "0.8", "label": "Retrato" }, { "value": "1.33", "label": "Paisagem" }, { "value": "0.66", "label": "Alto" } ], "default": "0.8" },
+    { "type": "checkbox", "id": "mobile_carousel", "label": "Carrossel no mobile", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 32 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 64 }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Imagem" },
+        { "type": "select", "id": "style", "label": "Estilo", "options": [ { "value": "overlay", "label": "Texto sobre a imagem" }, { "value": "below", "label": "Texto abaixo da imagem" } ], "default": "overlay" },
+        { "type": "select", "id": "span", "label": "Largura", "options": [ { "value": "1", "label": "1 coluna" }, { "value": "2", "label": "2 colunas" }, { "value": "3", "label": "3 colunas" } ], "default": "1" },
+        { "type": "text", "id": "subheading", "label": "Subtítulo" },
+        { "type": "text", "id": "heading", "label": "Título", "default": "Hidratação" },
+        { "type": "richtext", "id": "text", "label": "Texto" },
+        { "type": "text", "id": "button_label", "label": "Botão", "default": "Comprar" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "text_alignment", "id": "alignment", "label": "Alinhamento", "default": "left" },
+        { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-2" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grade de banners",
+      "settings": { "heading": "Compre pela necessidade da sua pele", "subheading": "Para cada pele" },
+      "blocks": [
+        { "type": "banner", "settings": { "heading": "Desidratada", "color_scheme": "scheme-2" } },
+        { "type": "banner", "settings": { "heading": "Sem viço", "color_scheme": "scheme-3" } },
+        { "type": "banner", "settings": { "heading": "Oleosidade", "color_scheme": "scheme-4" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

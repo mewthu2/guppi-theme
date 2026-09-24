@@ -1,0 +1,389 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "s1": {
+          "type": "slide",
+          "settings": {
+            "subheading": "Novo",
+            "heading": "Seu glow começa aqui",
+            "text": "<p>Skincare divertido e eficaz, com extratos de frutas e ativos que sua pele ama.</p>",
+            "button_label": "Comprar agora",
+            "button_link": "shopify://collections/all",
+            "color_scheme": "scheme-2"
+          }
+        },
+        "s2": {
+          "type": "slide",
+          "settings": {
+            "subheading": "Kits",
+            "heading": "Rotina completa com até 40% off",
+            "text": "<p>Combine produtos e economize.</p>",
+            "button_label": "Ver kits",
+            "button_link": "shopify://collections/all",
+            "color_scheme": "scheme-3"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2"
+      ],
+      "settings": {
+        "height": "large",
+        "text_position": "bottom-left"
+      }
+    },
+    "divider_hero": {
+      "type": "divider",
+      "settings": {
+        "style": "wave",
+        "color_top": "#FCE6EA",
+        "color_bottom": "#FFFFFF"
+      }
+    },
+    "intro": {
+      "type": "rich-text",
+      "blocks": {
+        "h": {
+          "type": "heading",
+          "settings": {
+            "heading": "Seu glow-up começa aqui",
+            "size": "h1"
+          }
+        },
+        "t": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Seja para acalmar a pele sensível, tratar a acne ou conquistar aquele efeito pele de vidro, nossos produtos tornam o skincare divertido, eficaz e fácil de amar. Inovação K-beauty com a delícia das frutas.</p>"
+          }
+        },
+        "i": {
+          "type": "icons",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "h",
+        "t",
+        "i"
+      ],
+      "settings": {
+        "padding_top": 48,
+        "padding_bottom": 32
+      }
+    },
+    "skin_needs": {
+      "type": "banner-grid",
+      "blocks": {
+        "b1": {
+          "type": "banner",
+          "settings": {
+            "heading": "Desidratada",
+            "color_scheme": "scheme-2",
+            "button_label": "Comprar"
+          }
+        },
+        "b2": {
+          "type": "banner",
+          "settings": {
+            "heading": "Sem viço",
+            "color_scheme": "scheme-3",
+            "button_label": "Comprar"
+          }
+        },
+        "b3": {
+          "type": "banner",
+          "settings": {
+            "heading": "Oleosidade",
+            "color_scheme": "scheme-4",
+            "button_label": "Comprar"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "settings": {
+        "subheading": "Para cada pele",
+        "heading": "Compre pela necessidade da sua pele",
+        "columns": 3
+      }
+    },
+    "marquee": {
+      "type": "sliding-text",
+      "blocks": {
+        "t1": {
+          "type": "text",
+          "settings": {
+            "text": "Cruelty-free"
+          }
+        },
+        "t2": {
+          "type": "text",
+          "settings": {
+            "text": "100% vegano"
+          }
+        },
+        "t3": {
+          "type": "text",
+          "settings": {
+            "text": "Glow natural"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {
+        "color_scheme": "scheme-4",
+        "size": "large"
+      }
+    },
+    "skin_quiz": {
+      "type": "rich-text",
+      "blocks": {
+        "h": {
+          "type": "heading",
+          "settings": {
+            "heading": "Ainda descobrindo sua pele?",
+            "size": "h2"
+          }
+        },
+        "t": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Ajudamos você a identificar as necessidades da sua pele e encontrar os produtos certos para sua rotina.</p>"
+          }
+        },
+        "b": {
+          "type": "button",
+          "settings": {
+            "label": "Descubra seu tipo de pele",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "h",
+        "t",
+        "b"
+      ],
+      "settings": {
+        "padding_top": 72,
+        "padding_bottom": 32
+      }
+    },
+    "promo_grid": {
+      "type": "banner-grid",
+      "blocks": {
+        "b1": {
+          "type": "banner",
+          "settings": {
+            "span": "2",
+            "subheading": "Lábios",
+            "heading": "Bálsamos frutados",
+            "text": "<p>Use à noite para hidratação profunda, como gloss durante o dia ou como primer para o batom.</p>",
+            "button_label": "Comprar agora",
+            "color_scheme": "scheme-6"
+          }
+        },
+        "b2": {
+          "type": "banner",
+          "settings": {
+            "heading": "Kits presenteáveis",
+            "button_label": "Ver kits",
+            "color_scheme": "scheme-2"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2"
+      ],
+      "settings": {
+        "columns": 3,
+        "ratio": "1",
+        "padding_top": 16
+      }
+    },
+    "divider_1": {
+      "type": "divider",
+      "settings": {
+        "style": "drips",
+        "color_top": "#FFFFFF",
+        "color_bottom": "#FFFFFF",
+        "height": 32
+      }
+    },
+    "bestsellers": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Os mais vendidos",
+        "subheading": "Favoritos",
+        "layout": "carousel"
+      }
+    },
+    "before_after": {
+      "type": "before-after",
+      "settings": {}
+    },
+    "duo": {
+      "type": "image-duo-with-text",
+      "settings": {}
+    },
+    "countdown": {
+      "type": "countdown",
+      "settings": {}
+    },
+    "bundles": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Kits e combos",
+        "subheading": "Economize",
+        "layout": "carousel",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "look": {
+      "type": "featured-look",
+      "blocks": {
+        "h1": {
+          "type": "hotspot",
+          "settings": {
+            "x": 30,
+            "y": 40
+          }
+        },
+        "h2": {
+          "type": "hotspot",
+          "settings": {
+            "x": 62,
+            "y": 55
+          }
+        },
+        "h3": {
+          "type": "hotspot",
+          "settings": {
+            "x": 45,
+            "y": 78
+          }
+        }
+      },
+      "block_order": [
+        "h1",
+        "h2",
+        "h3"
+      ],
+      "settings": {}
+    },
+    "routine": {
+      "type": "multicolumn",
+      "blocks": {
+        "c1": {
+          "type": "column",
+          "settings": {
+            "heading": "1. Demaquilar",
+            "icon": "drop",
+            "text": "<p>Remova maquiagem, protetor solar e impurezas com um bálsamo de limpeza suave.</p>"
+          }
+        },
+        "c2": {
+          "type": "column",
+          "settings": {
+            "heading": "2. Limpar",
+            "icon": "sparkle",
+            "text": "<p>Renove a pele com um gel de limpeza leve que remove o excesso de oleosidade.</p>"
+          }
+        },
+        "c3": {
+          "type": "column",
+          "settings": {
+            "heading": "3. Hidratar",
+            "icon": "heart",
+            "text": "<p>Sele a hidratação com um creme nutritivo que deixa a pele macia e saudável.</p>"
+          }
+        },
+        "c4": {
+          "type": "column",
+          "settings": {
+            "heading": "4. Proteger",
+            "icon": "shield",
+            "text": "<p>Proteja a pele todos os dias com um FPS leve e confortável.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "subheading": "Monte sua rotina",
+        "heading": "Passos básicos de skincare"
+      }
+    },
+    "reviews": {
+      "type": "testimonials",
+      "blocks": {
+        "r1": {
+          "type": "testimonial",
+          "settings": {}
+        },
+        "r2": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Julia M.",
+            "quote": "Virou item obrigatório na minha rotina. Recomendo demais!"
+          }
+        },
+        "r3": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Carla S.",
+            "quote": "Chegou rápido, embalagem linda e resultado visível em poucas semanas."
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {}
+    },
+    "divider_end": {
+      "type": "divider",
+      "settings": {
+        "style": "wave",
+        "color_top": "#FCE6EA",
+        "color_bottom": "#ECFDD1"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "divider_hero",
+    "intro",
+    "skin_needs",
+    "marquee",
+    "skin_quiz",
+    "promo_grid",
+    "divider_1",
+    "bestsellers",
+    "before_after",
+    "duo",
+    "countdown",
+    "bundles",
+    "look",
+    "routine",
+    "reviews",
+    "divider_end"
+  ]
+}

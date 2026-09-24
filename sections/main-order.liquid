@@ -1,0 +1,74 @@
+<section class="section account color-{{ section.settings.color_scheme }}" style="--pt: 64px; --pb: 64px;">
+  <div class="page-width">
+    <div class="account__header">
+      <div>
+        <a href="{{ routes.account_url }}" class="link">← {{ 'customer.account.return' | t }}</a>
+        <h1 class="h2">{{ 'customer.order.title' | t: name: order.name }}</h1>
+        <p>{{ order.created_at | time_tag: format: 'date_at_time' }}</p>
+        {%- if order.cancelled -%}
+          {%- assign cancelled_date = order.cancelled_at | date: '%d/%m/%Y' -%}
+          <p class="form-message form-message--error">{{ 'customer.order.cancelled' | t: date: cancelled_date }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="account__grid">
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">{{ 'customer.order.product' | t }}</th>
+              <th scope="col">{{ 'customer.order.price' | t }}</th>
+              <th scope="col">{{ 'customer.order.quantity' | t }}</th>
+              <th scope="col">{{ 'customer.order.total' | t }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for line_item in order.line_items -%}
+              <tr>
+                <td>
+                  {{ line_item.title | link_to: line_item.product.url }}
+                  {%- if line_item.fulfillment -%}
+                    {%- assign fulfilled_date = line_item.fulfillment.created_at | date: '%d/%m/%Y' -%}
+                    <br><small>{{ 'customer.order.fulfilled_at' | t: date: fulfilled_date }}
+                    {%- if line_item.fulfillment.tracking_url %} · <a href="{{ line_item.fulfillment.tracking_url }}" class="link">{{ 'customer.order.track' | t }}</a>{%- endif -%}</small>
+                  {%- endif -%}
+                </td>
+                <td>{{ line_item.final_price | money }}</td>
+                <td>{{ line_item.quantity }}</td>
+                <td>{{ line_item.final_line_price | money }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+          <tfoot>
+            <tr><td colspan="3">{{ 'customer.order.subtotal' | t }}</td><td>{{ order.line_items_subtotal_price | money }}</td></tr>
+            {%- for discount in order.cart_level_discount_applications -%}
+              <tr><td colspan="3">{{ discount.title }}</td><td>-{{ discount.total_allocated_amount | money }}</td></tr>
+            {%- endfor -%}
+            {%- for shipping_method in order.shipping_methods -%}
+              <tr><td colspan="3">{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})</td><td>{{ shipping_method.price | money }}</td></tr>
+            {%- endfor -%}
+            {%- for tax_line in order.tax_lines -%}
+              <tr><td colspan="3">{{ tax_line.title }} ({{ tax_line.rate_percentage }}%)</td><td>{{ tax_line.price | money }}</td></tr>
+            {%- endfor -%}
+            <tr><td colspan="3"><strong>{{ 'customer.order.total' | t }}</strong></td><td><strong>{{ order.total_net_amount | money_with_currency }}</strong></td></tr>
+          </tfoot>
+        </table>
+      </div>
+      <aside class="account__aside">
+        <h2 class="h5">{{ 'customer.order.billing_address' | t }}</h2>
+        <p><strong>{{ 'customer.order.payment_status' | t }}:</strong> {{ order.financial_status_label }}</p>
+        {{ order.billing_address | format_address }}
+        <h2 class="h5">{{ 'customer.order.shipping_address' | t }}</h2>
+        <p><strong>{{ 'customer.order.fulfillment_status' | t }}:</strong> {{ order.fulfillment_status_label }}</p>
+        {{ order.shipping_address | format_address }}
+      </aside>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Pedido",
+  "settings": [ { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" } ]
+}
+{% endschema %}

@@ -1,0 +1,38 @@
+<section class="section main-list-collections color-{{ section.settings.color_scheme }}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width">
+    <h1 class="h1 text-center section-header">{{ 'sections.collection.list_title' | t }}</h1>
+    {%- paginate collections by 24 -%}
+      <ul class="collection-list__grid collection-list--card" role="list" style="--columns: {{ section.settings.columns }};">
+        {%- for collection in collections -%}
+          <li class="reveal">
+            <a href="{{ collection.url }}" class="collection-card">
+              <span class="collection-card__media media">
+                {%- if collection.featured_image -%}
+                  {{ collection.featured_image | image_url: width: 800 | image_tag: widths: '300, 500, 800', sizes: '(min-width: 990px) 25vw, 50vw', loading: 'lazy', alt: collection.title }}
+                {%- else -%}
+                  {{ 'collection-1' | placeholder_svg_tag: 'placeholder' }}
+                {%- endif -%}
+              </span>
+              <span class="collection-card__title">{{ collection.title }}</span>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+      {% render 'pagination', paginate: paginate %}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Lista de coleções",
+  "class": "section-main-list-collections",
+  "settings": [
+    { "type": "range", "id": "columns", "min": 2, "max": 5, "step": 1, "label": "Colunas no desktop", "default": 4 },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 64 }
+  ],
+  "enabled_on": { "templates": ["list-collections"] }
+}
+{% endschema %}

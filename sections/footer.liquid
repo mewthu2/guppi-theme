@@ -1,0 +1,134 @@
+<footer class="footer color-{{ section.settings.color_scheme }}">
+  <div class="footer__inner page-width">
+    <div class="footer__blocks">
+      {%- for block in section.blocks -%}
+        <div class="footer__block footer__block--{{ block.type }}" {{ block.shopify_attributes }}>
+          {%- case block.type -%}
+            {%- when 'brand' -%}
+              {%- if block.settings.image != blank -%}
+                <div class="footer__logo" style="--footer-logo-width: {{ block.settings.image_width }}px;">
+                  {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '300px' }}
+                </div>
+              {%- else -%}
+                <p class="footer__brand h3">{{ shop.name }}</p>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <div class="rte footer__text">{{ block.settings.text }}</div>
+              {%- endif -%}
+              {%- if block.settings.show_social -%}
+                {% render 'social-icons' %}
+              {%- endif -%}
+            {%- when 'menu' -%}
+              <details class="footer__menu" open>
+                <summary class="footer__heading">{{ block.settings.heading }} {% render 'icon', icon: 'chevron-down' %}</summary>
+                <ul role="list" class="footer__links">
+                  {%- for link in block.settings.menu.links -%}
+                    <li><a href="{{ link.url }}" class="footer__link">{{ link.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              </details>
+            {%- when 'text' -%}
+              <p class="footer__heading">{{ block.settings.heading }}</p>
+              <div class="rte footer__text">{{ block.settings.text }}</div>
+          {%- endcase -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="footer__bottom">
+      <div class="footer__localization">
+        {%- if section.settings.show_country and localization.available_countries.size > 1 -%}
+          {%- form 'localization', class: 'localization-form' -%}
+            <label class="visually-hidden" for="FooterCountry">{{ 'localization.country_label' | t }}</label>
+            <div class="select">
+              <select id="FooterCountry" name="country_code" class="select__input" data-autosubmit>
+                {%- for country in localization.available_countries -%}
+                  <option value="{{ country.iso_code }}"{% if country.iso_code == localization.country.iso_code %} selected{% endif %}>
+                    {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+                  </option>
+                {%- endfor -%}
+              </select>
+              {% render 'icon', icon: 'chevron-down' %}
+            </div>
+          {%- endform -%}
+        {%- endif -%}
+        {%- if section.settings.show_language and localization.available_languages.size > 1 -%}
+          {%- form 'localization', class: 'localization-form' -%}
+            <label class="visually-hidden" for="FooterLanguage">{{ 'localization.language_label' | t }}</label>
+            <div class="select">
+              <select id="FooterLanguage" name="language_code" class="select__input" data-autosubmit>
+                {%- for language in localization.available_languages -%}
+                  <option value="{{ language.iso_code }}"{% if language.iso_code == localization.language.iso_code %} selected{% endif %}>{{ language.endonym_name | capitalize }}</option>
+                {%- endfor -%}
+              </select>
+              {% render 'icon', icon: 'chevron-down' %}
+            </div>
+          {%- endform -%}
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.show_payment_icons -%}
+        <ul class="payment-icons" role="list">
+          {%- for type in shop.enabled_payment_types -%}
+            <li>{{ type | payment_type_svg_tag: class: 'payment-icon' }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      <p class="footer__copyright">
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name | link_to: routes.root_url }}
+        {%- if section.settings.show_policies -%}
+          {%- for policy in shop.policies -%}
+            {%- if policy != blank %} · <a href="{{ policy.url }}">{{ policy.title }}</a>{%- endif -%}
+          {%- endfor -%}
+        {%- endif %}
+        · {{ powered_by_link }}
+      </p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Rodapé",
+  "class": "section-footer",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-5" },
+    { "type": "checkbox", "id": "show_country", "label": "Mostrar seletor de país/moeda", "default": true },
+    { "type": "checkbox", "id": "show_language", "label": "Mostrar seletor de idioma", "default": true },
+    { "type": "checkbox", "id": "show_payment_icons", "label": "Mostrar ícones de pagamento", "default": true },
+    { "type": "checkbox", "id": "show_policies", "label": "Mostrar links das políticas", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Marca",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Logo" },
+        { "type": "range", "id": "image_width", "min": 60, "max": 300, "step": 10, "unit": "px", "label": "Largura do logo", "default": 140 },
+        { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Skincare divertido, eficaz e fácil de amar. Cuidado com a pele inspirado na natureza.</p>" },
+        { "type": "checkbox", "id": "show_social", "label": "Mostrar redes sociais", "default": true }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Título", "default": "Links" },
+        { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Texto",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Título", "default": "Sobre nós" },
+        { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Conte aos clientes sobre sua marca.</p>" }
+      ]
+    }
+  ],
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}

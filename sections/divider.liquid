@@ -1,0 +1,30 @@
+<div class="divider divider--{{ section.settings.style }}{% if section.settings.flip %} divider--flip{% endif %}" style="--divider-top: {{ section.settings.color_top }}; --divider-bottom: {{ section.settings.color_bottom }}; --divider-height: {{ section.settings.height }}px;" aria-hidden="true">
+  {%- case section.settings.style -%}
+    {%- when 'wave' -%}
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0 0h1440v40c-120 26-240 40-360 40S840 66 720 40 480 0 360 0 120 14 0 40z" fill="var(--divider-top)"/></svg>
+    {%- when 'curve' -%}
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0 0h1440v0c-240 53-480 80-720 80S240 53 0 0z" fill="var(--divider-top)"/></svg>
+    {%- when 'zigzag' -%}
+      <svg viewBox="0 0 1440 40" preserveAspectRatio="none"><path d="M0 0h1440v20l-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20-40 20-40-20z" fill="var(--divider-top)"/></svg>
+    {%- when 'drips' -%}
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0 0h1440v24c-40 0-40 40-80 40s-40-40-80-40-60 50-100 50-50-50-100-50-40 30-80 30-60-30-100-30-50 56-100 56-60-56-100-56-40 26-80 26-50-26-100-26-40 44-80 44-60-44-100-44-50 30-100 30-40-30-80-30-60 50-100 50-40-50-80-50-40 30-80 30S40 24 0 24z" fill="var(--divider-top)"/></svg>
+    {%- else -%}
+      <span class="divider__line"></span>
+  {%- endcase -%}
+</div>
+
+{% schema %}
+{
+  "name": "Divisor",
+  "tag": "div",
+  "class": "section-divider",
+  "settings": [
+    { "type": "select", "id": "style", "label": "Estilo", "options": [ { "value": "wave", "label": "Onda" }, { "value": "curve", "label": "Curva" }, { "value": "zigzag", "label": "Zigue-zague" }, { "value": "drips", "label": "Gotas" }, { "value": "line", "label": "Linha" } ], "default": "wave" },
+    { "type": "color", "id": "color_top", "label": "Cor da seção de cima", "default": "#FCE6EA" },
+    { "type": "color", "id": "color_bottom", "label": "Cor da seção de baixo", "default": "#FFFFFF" },
+    { "type": "range", "id": "height", "min": 16, "max": 120, "step": 4, "unit": "px", "label": "Altura", "default": 48 },
+    { "type": "checkbox", "id": "flip", "label": "Inverter", "default": false }
+  ],
+  "presets": [ { "name": "Divisor" } ]
+}
+{% endschema %}

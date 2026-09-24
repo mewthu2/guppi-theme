@@ -1,0 +1,54 @@
+<section class="section customer color-{{ section.settings.color_scheme }}" style="--pt: 64px; --pb: 64px;">
+  <div class="customer__box">
+    <div id="LoginPanel">
+      <h1 class="h2 text-center">{{ 'customer.login_page.title' | t }}</h1>
+      {%- form 'customer_login', novalidate: 'novalidate', class: 'customer__form' -%}
+        {%- if form.errors -%}<div class="form-message form-message--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+        <label class="field">
+          <span class="field__label">{{ 'customer.login_page.email' | t }}</span>
+          <input class="field__input" type="email" name="customer[email]" autocomplete="email" autocapitalize="off" required>
+        </label>
+        {%- if form.password_needed -%}
+          <label class="field">
+            <span class="field__label">{{ 'customer.login_page.password' | t }}</span>
+            <input class="field__input" type="password" name="customer[password]" autocomplete="current-password" required>
+          </label>
+          <a href="#recover" class="link customer__forgot">{{ 'customer.login_page.forgot_password' | t }}</a>
+        {%- endif -%}
+        <button type="submit" class="button button--full">{{ 'customer.login_page.sign_in' | t }}</button>
+        <a href="{{ routes.account_register_url }}" class="button button--secondary button--full">{{ 'customer.login_page.create_account' | t }}</a>
+      {%- endform -%}
+    </div>
+
+    <div id="recover" class="customer__recover">
+      <h2 class="h3 text-center">{{ 'customer.recover_password.title' | t }}</h2>
+      <p class="text-center">{{ 'customer.recover_password.subtext' | t }}</p>
+      {%- form 'recover_customer_password', class: 'customer__form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="form-message form-message--success">{{ 'customer.recover_password.success' | t }}</p>
+        {%- endif -%}
+        {%- if form.errors -%}<div class="form-message form-message--error">{{ form.errors | default_errors }}</div>{%- endif -%}
+        <label class="field">
+          <span class="field__label">{{ 'customer.login_page.email' | t }}</span>
+          <input class="field__input" type="email" name="email" autocomplete="email" required>
+        </label>
+        <button type="submit" class="button button--full">{{ 'customer.recover_password.submit' | t }}</button>
+        <a href="#LoginPanel" class="link text-center">{{ 'customer.recover_password.cancel' | t }}</a>
+      {%- endform -%}
+    </div>
+
+    {%- if shop.checkout.guest_login -%}
+      <hr>
+      {%- form 'guest_login', class: 'customer__form' -%}
+        <button type="submit" class="button button--secondary button--full">{{ 'customer.login_page.guest_continue' | t }}</button>
+      {%- endform -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Login",
+  "settings": [ { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-2" } ]
+}
+{% endschema %}

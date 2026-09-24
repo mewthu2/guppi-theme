@@ -1,0 +1,81 @@
+{% doc %}
+  Renders the desktop navigation with dropdown and mega menus.
+
+  @param {linklist} menu - Menu to render
+  @param {section} section - Header section, used for mega menu promo blocks
+
+  @example
+  {% render 'header-nav', menu: section.settings.menu, section: section %}
+{% enddoc %}
+<nav class="header__nav" aria-label="{{ 'sections.header.menu' | t }}">
+  <ul class="nav" role="list">
+    {%- for link in menu.links -%}
+      {%- liquid
+        assign is_mega = false
+        for child in link.links
+          if child.links != blank
+            assign is_mega = true
+          endif
+        endfor
+        for block in section.blocks
+          if block.type == 'mega_promo' and block.settings.menu_item == link.title
+            assign is_mega = true
+          endif
+        endfor
+      -%}
+      <li class="nav__item">
+        {%- if link.links != blank -%}
+          <details-hover class="nav__dropdown{% if is_mega %} nav__dropdown--mega{% endif %}">
+            <details>
+              <summary class="nav__link{% if link.child_active or link.active %} is-active{% endif %}">
+                {{ link.title }} {% render 'icon', icon: 'chevron-down' %}
+              </summary>
+              {%- if is_mega -%}
+                <div class="mega-menu">
+                  <div class="mega-menu__inner page-width">
+                    <ul class="mega-menu__columns" role="list">
+                      {%- for child in link.links -%}
+                        <li>
+                          <a href="{{ child.url }}" class="mega-menu__heading">{{ child.title }}</a>
+                          {%- if child.links != blank -%}
+                            <ul role="list" class="mega-menu__list">
+                              {%- for grandchild in child.links -%}
+                                <li><a href="{{ grandchild.url }}" class="mega-menu__link"{% if grandchild.current %} aria-current="page"{% endif %}>{{ grandchild.title }}</a></li>
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                    {%- for block in section.blocks -%}
+                      {%- unless block.type == 'mega_promo' and block.settings.menu_item == link.title -%}{%- continue -%}{%- endunless -%}
+                      <a href="{{ block.settings.link }}" class="mega-promo" {{ block.shopify_attributes }}>
+                        <div class="mega-promo__media media">
+                          {%- if block.settings.image != blank -%}
+                            {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', sizes: '300px' }}
+                          {%- else -%}
+                            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder' }}
+                          {%- endif -%}
+                        </div>
+                        <span class="mega-promo__heading h5">{{ block.settings.heading }}</span>
+                        <span class="link">{{ block.settings.button_label }}</span>
+                      </a>
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {%- else -%}
+                <ul class="dropdown" role="list">
+                  {%- for child in link.links -%}
+                    <li><a href="{{ child.url }}" class="dropdown__link"{% if child.current %} aria-current="page"{% endif %}>{{ child.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </details>
+          </details-hover>
+        {%- else -%}
+          <a href="{{ link.url }}" class="nav__link{% if link.active %} is-active{% endif %}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</nav>

@@ -1,0 +1,19 @@
+{% doc %}
+  Renders star rating from the reviews.rating metafield.
+
+  @param {product} product - Product object
+
+  @example
+  {% render 'rating', product: product %}
+{% enddoc %}
+{%- liquid
+  assign rating = product.metafields.reviews.rating.value
+  assign rating_count = product.metafields.reviews.rating_count
+  assign percent = rating.rating | divided_by: rating.scale_max | times: 100
+-%}
+<div class="rating" role="img" aria-label="{{ 'products.product.rating' | t: rating: rating.rating, max: rating.scale_max }}">
+  <span class="rating__stars" style="--rating: {{ percent }}%;" aria-hidden="true">★★★★★</span>
+  {%- if rating_count -%}
+    <span class="rating__count">({{ rating_count }})</span>
+  {%- endif -%}
+</div>

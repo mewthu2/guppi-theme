@@ -1,0 +1,54 @@
+<section class="section main-cart color-{{ section.settings.color_scheme }}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;">
+  <cart-page class="page-width" id="CartPage" data-section-id="{{ section.id }}">
+    <h1 class="h1 main-cart__title">{{ 'cart.general.title' | t }}</h1>
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post" class="main-cart__grid" id="CartForm">
+        <div class="main-cart__items">
+          {% render 'free-shipping-bar' %}
+          {% render 'cart-line-items', context: 'page' %}
+        </div>
+        <aside class="main-cart__summary">
+          {%- if settings.cart_show_note -%}
+            <label class="field">
+              <span class="field__label">{{ 'cart.general.note' | t }}</span>
+              <cart-note><textarea name="note" class="field__input" rows="3" placeholder="{{ 'cart.general.note_placeholder' | t }}">{{ cart.note }}</textarea></cart-note>
+            </label>
+          {%- endif -%}
+          {%- for discount in cart.cart_level_discount_applications -%}
+            <p class="cart-totals__discount">{{ discount.title }} <span>-{{ discount.total_allocated_amount | money }}</span></p>
+          {%- endfor -%}
+          <p class="cart-totals">
+            <span>{{ 'cart.general.subtotal' | t }}</span>
+            <span class="cart-totals__value">{{ cart.total_price | money_with_currency }}</span>
+          </p>
+          <p class="cart-totals__note">{{ 'cart.general.taxes_and_shipping' | t }}</p>
+          <button type="submit" name="checkout" class="button button--full">{{ 'cart.general.checkout' | t }}</button>
+          {%- if additional_checkout_buttons -%}
+            <div class="main-cart__dynamic">{{ content_for_additional_checkout_buttons }}</div>
+          {%- endif -%}
+          <noscript><button type="submit" name="update" class="button button--secondary button--full">{{ 'cart.general.update' | t }}</button></noscript>
+        </aside>
+      </form>
+    {%- else -%}
+      <div class="cart-empty">
+        {% render 'icon', icon: 'cart', class: 'cart-empty__icon' %}
+        <p class="h3">{{ 'cart.general.empty' | t }}</p>
+        <div class="rte">{{ settings.cart_empty_text }}</div>
+        <a href="{{ routes.all_products_collection_url }}" class="button">{{ 'cart.general.continue_shopping' | t }}</a>
+      </div>
+    {%- endif -%}
+  </cart-page>
+</section>
+
+{% schema %}
+{
+  "name": "Carrinho",
+  "class": "section-main-cart",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 64 }
+  ],
+  "enabled_on": { "templates": ["cart"] }
+}
+{% endschema %}

@@ -1,0 +1,20 @@
+<section class="section main-404 color-{{ section.settings.color_scheme }}" style="--pt: 96px; --pb: 96px;">
+  <div class="page-width page-width--narrow text-center">
+    <p class="h0">404</p>
+    <h1 class="h2">{{ 'templates.404.title' | t }}</h1>
+    <p>{{ 'templates.404.subtext' | t }}</p>
+    <div class="button-group button-group--center">
+      <a href="{{ routes.all_products_collection_url }}" class="button">{{ 'cart.general.continue_shopping' | t }}</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Página 404",
+  "class": "section-404",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-2" }
+  ]
+}
+{% endschema %}

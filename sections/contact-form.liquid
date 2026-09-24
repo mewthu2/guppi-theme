@@ -1,0 +1,45 @@
+<section class="section contact color-{{ section.settings.color_scheme }}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width page-width--narrow">
+    {%- if section.settings.heading != blank -%}<h2 class="h2 text-center">{{ section.settings.heading }}</h2>{%- endif -%}
+    {%- form 'contact', id: 'ContactForm', class: 'contact__form' -%}
+      {%- if form.posted_successfully? -%}
+        <p class="form-message form-message--success" role="status">{% render 'icon', icon: 'check' %} {{ 'contact.form.success' | t }}</p>
+      {%- elsif form.errors -%}
+        <div class="form-message form-message--error" role="alert">{{ form.errors | default_errors }}</div>
+      {%- endif -%}
+      <div class="contact__row">
+        <label class="field">
+          <span class="field__label">{{ 'contact.form.name' | t }}</span>
+          <input class="field__input" type="text" name="contact[{{ 'contact.form.name' | t }}]" autocomplete="name" value="{{ form.name }}">
+        </label>
+        <label class="field">
+          <span class="field__label">{{ 'contact.form.email' | t }} *</span>
+          <input class="field__input" type="email" name="contact[email]" autocomplete="email" value="{{ form.email }}" required>
+        </label>
+      </div>
+      <label class="field">
+        <span class="field__label">{{ 'contact.form.phone' | t }}</span>
+        <input class="field__input" type="tel" name="contact[{{ 'contact.form.phone' | t }}]" autocomplete="tel" value="{{ form.phone }}">
+      </label>
+      <label class="field">
+        <span class="field__label">{{ 'contact.form.comment' | t }}</span>
+        <textarea class="field__input" rows="6" name="contact[{{ 'contact.form.comment' | t }}]">{{ form.body }}</textarea>
+      </label>
+      <button type="submit" class="button">{{ 'contact.form.send' | t }}</button>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Formulário de contato",
+  "class": "section-contact",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Título", "default": "Fale com a gente" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 32 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 64 }
+  ],
+  "presets": [ { "name": "Formulário de contato" } ]
+}
+{% endschema %}

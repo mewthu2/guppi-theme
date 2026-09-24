@@ -1,0 +1,90 @@
+{% doc %}
+  Renders a product card for grids and carousels.
+
+  @param {product} product - Product object
+  @param {string} [sizes] - Image sizes attribute
+  @param {boolean} [lazy] - Lazy load the image
+
+  @example
+  {% render 'product-card', product: product %}
+{% enddoc %}
+{%- liquid
+  assign ratio_class = 'media--' | append: settings.card_image_ratio
+  assign image_sizes = sizes | default: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw'
+  assign loading = 'lazy'
+  if lazy == false
+    assign loading = 'eager'
+  endif
+  assign secondary = product.media[1]
+  assign color_option = null
+  for option in product.options_with_values
+    assign option_down = option.name | downcase
+    if option_down == 'color' or option_down == 'cor' or option_down == 'colour'
+      assign color_option = option
+    endif
+  endfor
+-%}
+<article class="product-card" data-product-id="{{ product.id }}">
+  <a href="{{ product.url }}" class="product-card__media media {{ ratio_class }}{% if settings.card_show_secondary_image and secondary %} product-card__media--hover{% endif %}" tabindex="-1" aria-hidden="true">
+    {%- if product.featured_media -%}
+      {%- assign alt = product.featured_media.alt | default: product.title -%}
+      {{ product.featured_media | image_url: width: 1200 | image_tag: widths: '240, 360, 480, 600, 800, 1000, 1200', sizes: image_sizes, loading: loading, alt: alt, class: 'product-card__img' }}
+      {%- if settings.card_show_secondary_image and secondary -%}
+        {{ secondary | image_url: width: 1200 | image_tag: widths: '240, 360, 480, 600, 800, 1000, 1200', sizes: image_sizes, loading: 'lazy', alt: '', class: 'product-card__img product-card__img--secondary' }}
+      {%- endif -%}
+    {%- else -%}
+      {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder' }}
+    {%- endif -%}
+  </a>
+
+  {% render 'badges', product: product %}
+
+  <div class="product-card__info">
+    {%- if settings.card_show_vendor -%}
+      <p class="product-card__vendor">{{ product.vendor }}</p>
+    {%- endif -%}
+    <h3 class="product-card__title">
+      <a href="{{ product.url }}" class="full-link">{{ product.title | escape }}</a>
+    </h3>
+    {%- if settings.card_show_rating and product.metafields.reviews.rating.value != blank -%}
+      {% render 'rating', product: product %}
+    {%- endif -%}
+    {% render 'price', product: product, show_from: true %}
+
+    {%- if settings.card_show_swatches and color_option -%}
+      <ul class="card-swatches" role="list">
+        {%- for value in color_option.values limit: 5 -%}
+          <li>
+            <span class="swatch swatch--small" title="{{ value | escape }}" style="{% render 'swatch-style', value: value %}">
+              <span class="visually-hidden">{{ value | escape }}</span>
+            </span>
+          </li>
+        {%- endfor -%}
+        {%- if color_option.values.size > 5 -%}
+          <li class="card-swatches__more">+{{ color_option.values.size | minus: 5 }}</li>
+        {%- endif -%}
+      </ul>
+    {%- endif -%}
+  </div>
+
+  {%- if settings.card_quick_add -%}
+    <div class="product-card__actions">
+      {%- if product.available == false -%}
+        <button type="button" class="button button--small button--full" disabled>{{ 'products.product.sold_out' | t }}</button>
+      {%- elsif product.has_only_default_variant -%}
+        {%- form 'product', product, class: 'product-card__form', data-product-form: '' -%}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <button type="submit" class="button button--small button--full">
+            <span>{{ 'products.product.add_to_cart' | t }}</span>
+          </button>
+        {%- endform -%}
+      {%- else -%}
+        <quick-add-button data-url="{{ product.url }}">
+          <button type="button" class="button button--small button--full button--secondary">
+            {{ 'products.product.choose_options' | t }}
+          </button>
+        </quick-add-button>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</article>

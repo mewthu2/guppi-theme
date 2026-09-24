@@ -1,0 +1,94 @@
+<cart-drawer class="drawer drawer--right" id="CartDrawer" data-count="{{ cart.item_count }}">
+  <div class="drawer__overlay" data-close></div>
+  <div class="drawer__panel color-{{ settings.color_schemes.first.id }}" role="dialog" aria-modal="true" aria-labelledby="CartDrawerTitle" tabindex="-1">
+    <div class="drawer__header">
+      <h2 class="drawer__title h4" id="CartDrawerTitle">
+        {{ 'cart.general.title' | t }} <span class="count-bubble">{{ cart.item_count }}</span>
+      </h2>
+      <button type="button" class="icon-button" data-close aria-label="{{ 'accessibility.close' | t }}">{% render 'icon', icon: 'close' %}</button>
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <div class="drawer__body">
+        {% render 'free-shipping-bar' %}
+        {% render 'cart-line-items', context: 'drawer' %}
+
+        {%- assign upsell = settings.cart_upsell_collection -%}
+        {%- if upsell != blank and upsell.products_count > 0 -%}
+          <div class="cart-upsell">
+            <p class="cart-upsell__title h6">{{ 'cart.general.upsell' | t }}</p>
+            <div class="cart-upsell__list">
+              {%- assign shown = 0 -%}
+              {%- for product in upsell.products limit: 8 -%}
+                {%- assign in_cart = cart.items | where: 'product_id', product.id | size -%}
+                {%- if in_cart == 0 and product.available and shown < 4 -%}
+                  {%- assign shown = shown | plus: 1 -%}
+                  <div class="upsell-item">
+                    <a href="{{ product.url }}" class="upsell-item__media">
+                      {%- if product.featured_image -%}
+                        {{ product.featured_image | image_url: width: 160 | image_tag: loading: 'lazy' }}
+                      {%- endif -%}
+                    </a>
+                    <div class="upsell-item__info">
+                      <a href="{{ product.url }}" class="upsell-item__title">{{ product.title }}</a>
+                      {% render 'price', product: product %}
+                    </div>
+                    {%- if product.has_only_default_variant -%}
+                      {%- form 'product', product, data-product-form: '' -%}
+                        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                        <button type="submit" class="icon-button icon-button--filled" aria-label="{{ 'products.product.add_to_cart' | t }}">{% render 'icon', icon: 'plus' %}</button>
+                      {%- endform -%}
+                    {%- else -%}
+                      <quick-add-button data-url="{{ product.url }}">
+                        <button type="button" class="icon-button icon-button--filled" aria-label="{{ 'products.product.choose_options' | t }}">{% render 'icon', icon: 'plus' %}</button>
+                      </quick-add-button>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="drawer__footer">
+        {%- if settings.cart_show_note -%}
+          <details class="cart-note">
+            <summary>{{ 'cart.general.note' | t }}</summary>
+            <cart-note>
+              <textarea name="note" class="field__input" rows="3" placeholder="{{ 'cart.general.note_placeholder' | t }}">{{ cart.note }}</textarea>
+            </cart-note>
+          </details>
+        {%- endif -%}
+        {%- for discount in cart.cart_level_discount_applications -%}
+          <p class="cart-totals__discount">{{ discount.title }} <span>-{{ discount.total_allocated_amount | money }}</span></p>
+        {%- endfor -%}
+        <p class="cart-totals">
+          <span>{{ 'cart.general.subtotal' | t }}</span>
+          <span class="cart-totals__value">{{ cart.total_price | money_with_currency }}</span>
+        </p>
+        <p class="cart-totals__note">{{ 'cart.general.taxes_and_shipping' | t }}</p>
+        <form action="{{ routes.cart_url }}" method="post">
+          <button type="submit" name="checkout" class="button button--full">{{ 'cart.general.checkout' | t }}</button>
+        </form>
+        <a href="{{ routes.cart_url }}" class="link cart-drawer__view">{{ 'cart.general.view_cart' | t }}</a>
+      </div>
+    {%- else -%}
+      <div class="drawer__body drawer__body--empty">
+        <div class="cart-empty">
+          {% render 'icon', icon: 'cart', class: 'cart-empty__icon' %}
+          <p class="h4">{{ 'cart.general.empty' | t }}</p>
+          <div class="rte">{{ settings.cart_empty_text }}</div>
+          <a href="{{ routes.all_products_collection_url }}" class="button">{{ 'cart.general.continue_shopping' | t }}</a>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</cart-drawer>
+
+{% schema %}
+{
+  "name": "Gaveta do carrinho",
+  "settings": []
+}
+{% endschema %}

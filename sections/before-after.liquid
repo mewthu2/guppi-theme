@@ -1,0 +1,74 @@
+<section class="section before-after-section color-{{ section.settings.color_scheme }}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width before-after__grid before-after--{{ section.settings.layout }}">
+    <before-after class="before-after reveal" style="--position: {{ section.settings.start_position }}%;">
+      <div class="before-after__img before-after__img--after media">
+        {%- if section.settings.image_after != blank -%}
+          {{ section.settings.image_after | image_url: width: 1600 | image_tag: widths: '500, 800, 1100, 1400, 1600', sizes: '(min-width: 990px) 50vw, 100vw', loading: 'lazy', draggable: 'false' }}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'placeholder placeholder--after' }}
+        {%- endif -%}
+        <span class="before-after__label before-after__label--after">{{ section.settings.label_after }}</span>
+      </div>
+      <div class="before-after__img before-after__img--before media" aria-hidden="true">
+        {%- if section.settings.image_before != blank -%}
+          {{ section.settings.image_before | image_url: width: 1600 | image_tag: widths: '500, 800, 1100, 1400, 1600', sizes: '(min-width: 990px) 50vw, 100vw', loading: 'lazy', draggable: 'false' }}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'placeholder placeholder--before' }}
+        {%- endif -%}
+        <span class="before-after__label before-after__label--before">{{ section.settings.label_before }}</span>
+      </div>
+      <div class="before-after__handle" aria-hidden="true">
+        <span class="before-after__knob">{% render 'icon', icon: 'drag' %}</span>
+      </div>
+      <label class="visually-hidden" for="BeforeAfter-{{ section.id }}">{{ 'sections.before_after.label' | t }}</label>
+      <input type="range" id="BeforeAfter-{{ section.id }}" class="before-after__range" min="0" max="100" value="{{ section.settings.start_position }}">
+    </before-after>
+
+    <div class="before-after__content text-{{ section.settings.alignment }} reveal">
+      {%- if section.settings.subheading != blank -%}<p class="subheading">{{ section.settings.subheading }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="h1">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<div class="rte">{{ section.settings.text }}</div>{%- endif -%}
+      {%- assign featured = section.settings.product -%}
+      {%- if featured != blank -%}
+        <div class="mini-product">
+          <a href="{{ featured.url }}" class="mini-product__media">
+            {%- if featured.featured_image -%}{{ featured.featured_image | image_url: width: 200 | image_tag: loading: 'lazy' }}{%- endif -%}
+          </a>
+          <div>
+            <a href="{{ featured.url }}" class="mini-product__title">{{ featured.title }}</a>
+            {% render 'price', product: featured %}
+          </div>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <div class="button-group"><a href="{{ section.settings.button_link | default: '#' }}" class="button">{{ section.settings.button_label }}</a></div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Antes e depois",
+  "class": "section-before-after",
+  "settings": [
+    { "type": "image_picker", "id": "image_before", "label": "Imagem antes" },
+    { "type": "image_picker", "id": "image_after", "label": "Imagem depois" },
+    { "type": "text", "id": "label_before", "label": "Rótulo antes", "default": "Antes" },
+    { "type": "text", "id": "label_after", "label": "Rótulo depois", "default": "Depois" },
+    { "type": "range", "id": "start_position", "min": 10, "max": 90, "step": 5, "unit": "%", "label": "Posição inicial", "default": 50 },
+    { "type": "select", "id": "layout", "label": "Posição da imagem", "options": [ { "value": "left", "label": "Esquerda" }, { "value": "right", "label": "Direita" } ], "default": "left" },
+    { "type": "text", "id": "subheading", "label": "Subtítulo", "default": "Resultados visíveis" },
+    { "type": "inline_richtext", "id": "heading", "label": "Título", "default": "Da fruta ao glow" },
+    { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>A skincare coreana confia em extratos de frutas hidratantes há décadas. Combinamos esses extratos com ceramidas e ácido hialurônico para revelar sua pele mais luminosa.</p>" },
+    { "type": "product", "id": "product", "label": "Produto em destaque" },
+    { "type": "text", "id": "button_label", "label": "Botão", "default": "Comprar luminosidade" },
+    { "type": "url", "id": "button_link", "label": "Link do botão" },
+    { "type": "text_alignment", "id": "alignment", "label": "Alinhamento", "default": "left" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-2" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 80 }
+  ],
+  "presets": [ { "name": "Antes e depois" } ]
+}
+{% endschema %}

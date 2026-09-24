@@ -1,0 +1,111 @@
+<section class="section featured-look color-{{ section.settings.color_scheme }}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width featured-look__grid featured-look--{{ section.settings.layout }}">
+    <div class="featured-look__image media reveal">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1800 | image_tag: widths: '500, 800, 1100, 1400, 1800', sizes: '(min-width: 990px) 55vw, 100vw', loading: 'lazy' }}
+      {%- else -%}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder' }}
+      {%- endif -%}
+      {%- for block in section.blocks -%}
+        {%- assign product = block.settings.product -%}
+        <div class="hotspot" style="--x: {{ block.settings.x }}%; --y: {{ block.settings.y }}%;" {{ block.shopify_attributes }}>
+          <button type="button" class="hotspot__dot" popovertarget="Hotspot-{{ block.id }}" aria-label="{{ product.title | default: forloop.index }}">
+            <span>{{ forloop.index }}</span>
+          </button>
+          <div class="hotspot__popover" id="Hotspot-{{ block.id }}" popover>
+            {%- if product != blank -%}
+              <a href="{{ product.url }}" class="mini-product">
+                <span class="mini-product__media">
+                  {%- if product.featured_image -%}{{ product.featured_image | image_url: width: 200 | image_tag: loading: 'lazy' }}{%- endif -%}
+                </span>
+                <span>
+                  <span class="mini-product__title">{{ product.title }}</span>
+                  {% render 'price', product: product %}
+                </span>
+              </a>
+            {%- else -%}
+              <p>{{ 'sections.featured_look.select_product' | t }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="featured-look__content reveal">
+      {%- if section.settings.subheading != blank -%}<p class="subheading">{{ section.settings.subheading }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="h2">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<div class="rte">{{ section.settings.text }}</div>{%- endif -%}
+      <ol class="featured-look__list" role="list">
+        {%- for block in section.blocks -%}
+          {%- assign product = block.settings.product -%}
+          {%- if product != blank -%}
+            <li class="look-item">
+              <span class="look-item__index">{{ forloop.index }}</span>
+              <a href="{{ product.url }}" class="look-item__media">
+                {%- if product.featured_image -%}{{ product.featured_image | image_url: width: 200 | image_tag: loading: 'lazy' }}{%- endif -%}
+              </a>
+              <div class="look-item__info">
+                <a href="{{ product.url }}" class="look-item__title">{{ product.title }}</a>
+                {% render 'price', product: product %}
+              </div>
+              {%- if product.has_only_default_variant and product.available -%}
+                {%- form 'product', product, data-product-form: '' -%}
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  <button type="submit" class="icon-button icon-button--filled" aria-label="{{ 'products.product.add_to_cart' | t }}">{% render 'icon', icon: 'plus' %}</button>
+                {%- endform -%}
+              {%- elsif product.available -%}
+                <quick-add-button data-url="{{ product.url }}">
+                  <button type="button" class="icon-button icon-button--filled" aria-label="{{ 'products.product.choose_options' | t }}">{% render 'icon', icon: 'plus' %}</button>
+                </quick-add-button>
+              {%- endif -%}
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ol>
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link | default: '#' }}" class="button">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Look em destaque",
+  "class": "section-featured-look",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Imagem" },
+    { "type": "select", "id": "layout", "label": "Posição da imagem", "options": [ { "value": "left", "label": "Esquerda" }, { "value": "right", "label": "Direita" } ], "default": "left" },
+    { "type": "text", "id": "subheading", "label": "Subtítulo", "default": "Monte sua rotina" },
+    { "type": "inline_richtext", "id": "heading", "label": "Título", "default": "Sua rotina completa para uma pele equilibrada" },
+    { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Texturas que equilibram óleo e água, sem ressecar nem pesar.</p>" },
+    { "type": "text", "id": "button_label", "label": "Botão" },
+    { "type": "url", "id": "button_link", "label": "Link do botão" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-3" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 80 }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot",
+      "name": "Ponto do produto",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Produto" },
+        { "type": "range", "id": "x", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Posição horizontal", "default": 50 },
+        { "type": "range", "id": "y", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Posição vertical", "default": 50 }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Look em destaque",
+      "blocks": [
+        { "type": "hotspot", "settings": { "x": 30, "y": 40 } },
+        { "type": "hotspot", "settings": { "x": 60, "y": 55 } },
+        { "type": "hotspot", "settings": { "x": 45, "y": 75 } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,48 @@
+<section class="section account color-{{ section.settings.color_scheme }}" style="--pt: 64px; --pb: 64px;">
+  <div class="page-width page-width--narrow">
+    <a href="{{ routes.account_url }}" class="link">← {{ 'customer.account.return' | t }}</a>
+    <h1 class="h2">{{ 'customer.addresses.title' | t }}</h1>
+
+    {%- paginate customer.addresses by 10 -%}
+      <details class="accordion address-form">
+        <summary class="button">{{ 'customer.addresses.add_new' | t }}</summary>
+        <div class="accordion__content">
+          {%- form 'customer_address', customer.new_address, class: 'customer__form' -%}
+            {% render 'address-fields', form: form, id: 'new' %}
+            <button type="submit" class="button">{{ 'customer.addresses.add' | t }}</button>
+          {%- endform -%}
+        </div>
+      </details>
+
+      <ul class="address-list" role="list">
+        {%- for address in customer.addresses -%}
+          <li class="address-card">
+            {%- if address == customer.default_address -%}<span class="badge badge--new">{{ 'customer.addresses.default' | t }}</span>{%- endif -%}
+            {{ address | format_address }}
+            <details class="accordion">
+              <summary class="link">{{ 'customer.addresses.edit' | t }}</summary>
+              <div class="accordion__content">
+                {%- form 'customer_address', address, class: 'customer__form' -%}
+                  {% render 'address-fields', form: form, id: address.id %}
+                  <button type="submit" class="button">{{ 'customer.addresses.update' | t }}</button>
+                {%- endform -%}
+              </div>
+            </details>
+            <form method="post" action="{{ routes.account_addresses_url }}/{{ address.id }}" data-confirm="{{ 'customer.addresses.delete_confirm' | t }}">
+              <input type="hidden" name="_method" value="delete">
+              <button type="submit" class="link">{{ 'customer.addresses.delete' | t }}</button>
+            </form>
+          </li>
+        {%- endfor -%}
+      </ul>
+      {% render 'pagination', paginate: paginate %}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Endereços",
+  "settings": [ { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" } ]
+}
+{% endschema %}

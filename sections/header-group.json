@@ -1,0 +1,49 @@
+{
+  "type": "header",
+  "name": "Cabeçalho",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "blocks": {
+        "a1": {
+          "type": "announcement",
+          "settings": {
+            "text": "Frete grátis acima de R$ 199"
+          }
+        },
+        "a2": {
+          "type": "announcement",
+          "settings": {
+            "text": "Skincare acessível para todas"
+          }
+        },
+        "a3": {
+          "type": "announcement",
+          "settings": {
+            "text": "Vegano e cruelty-free"
+          }
+        }
+      },
+      "block_order": [
+        "a1",
+        "a2",
+        "a3"
+      ],
+      "settings": {
+        "style": "marquee",
+        "color_scheme": "scheme-5"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "layout": "center",
+        "color_scheme": "scheme-1"
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "header"
+  ]
+}

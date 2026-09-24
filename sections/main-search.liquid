@@ -1,0 +1,60 @@
+<section class="section main-search color-{{ section.settings.color_scheme }}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;" id="ResultsSection-{{ section.id }}">
+  <div class="page-width">
+    <div class="main-search__header text-center">
+      <h1 class="h1">{{ 'general.search.title' | t }}</h1>
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search-form search-form--page">
+        <label class="visually-hidden" for="SearchPageInput">{{ 'general.search.search' | t }}</label>
+        {% render 'icon', icon: 'search', class: 'search-form__icon' %}
+        <input id="SearchPageInput" class="search-form__input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}">
+        <input type="hidden" name="options[prefix]" value="last">
+        <button type="submit" class="button button--small">{{ 'general.search.submit' | t }}</button>
+      </form>
+    </div>
+
+    {%- if search.performed -%}
+      {%- paginate search.results by 24 -%}
+        {% render 'facets', results: search, section_id: section.id, enable_sorting: true %}
+        <div class="results" id="Results-{{ section.id }}">
+          {%- if search.results_count == 0 -%}
+            <div class="empty-state">
+              <p class="h4">{{ 'general.search.no_results' | t: terms: search.terms }}</p>
+            </div>
+          {%- else -%}
+            <ul class="product-grid" role="list" style="--columns: 4;">
+              {%- for item in search.results -%}
+                <li>
+                  {%- case item.object_type -%}
+                    {%- when 'product' -%}
+                      {% render 'product-card', product: item %}
+                    {%- when 'article' -%}
+                      {% render 'article-card', article: item %}
+                    {%- when 'page' -%}
+                      <a href="{{ item.url }}" class="page-card">
+                        <span class="subheading">{{ 'general.search.page' | t }}</span>
+                        <span class="h4">{{ item.title }}</span>
+                        <span>{{ item.content | strip_html | truncatewords: 20 }}</span>
+                      </a>
+                  {%- endcase -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+            {% render 'pagination', paginate: paginate %}
+          {%- endif -%}
+        </div>
+      {%- endpaginate -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Resultados da busca",
+  "class": "section-main-search",
+  "settings": [
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 64 }
+  ],
+  "enabled_on": { "templates": ["search"] }
+}
+{% endschema %}

@@ -1,0 +1,50 @@
+<section class="section image-duo color-{{ section.settings.color_scheme }}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width image-duo__grid image-duo--{{ section.settings.layout }}">
+    <div class="image-duo__media reveal">
+      <div class="image-duo__img image-duo__img--1 media">
+        {%- if section.settings.image_1 != blank -%}
+          {{ section.settings.image_1 | image_url: width: 1400 | image_tag: widths: '400, 600, 800, 1000, 1400', sizes: '(min-width: 990px) 30vw, 60vw', loading: 'lazy' }}
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder' }}
+        {%- endif -%}
+      </div>
+      <div class="image-duo__img image-duo__img--2 media">
+        {%- if section.settings.image_2 != blank -%}
+          {{ section.settings.image_2 | image_url: width: 1000 | image_tag: widths: '300, 500, 700, 1000', sizes: '(min-width: 990px) 20vw, 40vw', loading: 'lazy' }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder' }}
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="image-duo__content text-{{ section.settings.alignment }} reveal">
+      {%- if section.settings.subheading != blank -%}<p class="subheading">{{ section.settings.subheading }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="h1">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<div class="rte">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <div class="button-group"><a href="{{ section.settings.button_link | default: '#' }}" class="button">{{ section.settings.button_label }}</a></div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Duas imagens com texto",
+  "class": "section-image-duo",
+  "settings": [
+    { "type": "image_picker", "id": "image_1", "label": "Imagem principal" },
+    { "type": "image_picker", "id": "image_2", "label": "Imagem secundária" },
+    { "type": "select", "id": "layout", "label": "Posição das imagens", "options": [ { "value": "left", "label": "Esquerda" }, { "value": "right", "label": "Direita" } ], "default": "left" },
+    { "type": "text", "id": "subheading", "label": "Subtítulo", "default": "Melhor juntos" },
+    { "type": "inline_richtext", "id": "heading", "label": "Título", "default": "Pele fresca, confiança renovada" },
+    { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Com extratos de frutas ricos em vitaminas e ativos que a pele ama, nossos produtos ajudam você e sua pele a se sentirem saudáveis, radiantes e renovadas.</p>" },
+    { "type": "text", "id": "button_label", "label": "Botão", "default": "Descubra seu glow" },
+    { "type": "url", "id": "button_link", "label": "Link do botão" },
+    { "type": "text_alignment", "id": "alignment", "label": "Alinhamento", "default": "left" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-3" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 80 }
+  ],
+  "presets": [ { "name": "Duas imagens com texto" } ]
+}
+{% endschema %}

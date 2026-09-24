@@ -1,0 +1,62 @@
+<section class="section collection-list color-{{ section.settings.color_scheme }}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <div class="section-header text-center">
+        {%- if section.settings.subheading != blank -%}<p class="subheading">{{ section.settings.subheading }}</p>{%- endif -%}
+        <h2 class="h2">{{ section.settings.heading }}</h2>
+      </div>
+    {%- endif -%}
+    <ul class="collection-list__grid collection-list--{{ section.settings.style }}" role="list" style="--columns: {{ section.settings.columns }};">
+      {%- for block in section.blocks -%}
+        {%- assign collection = block.settings.collection -%}
+        <li class="reveal" {{ block.shopify_attributes }}>
+          <a href="{{ collection.url | default: '#' }}" class="collection-card">
+            <span class="collection-card__media media">
+              {%- assign image = block.settings.image | default: collection.featured_image -%}
+              {%- if image != blank -%}
+                {{ image | image_url: width: 800 | image_tag: widths: '200, 400, 600, 800', sizes: '(min-width: 990px) 20vw, 40vw', loading: 'lazy', alt: collection.title }}
+              {%- else -%}
+                {{ 'collection-2' | placeholder_svg_tag: 'placeholder' }}
+              {%- endif -%}
+            </span>
+            {%- assign card_title = block.settings.title | default: collection.title -%}
+            <span class="collection-card__title">
+              {%- if card_title != blank -%}{{ card_title }}{%- else -%}{{ 'sections.collection_list.placeholder' | t }}{%- endif -%}
+            </span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Lista de coleções",
+  "class": "section-collection-list",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "subheading", "label": "Subtítulo" },
+    { "type": "inline_richtext", "id": "heading", "label": "Título", "default": "Compre por categoria" },
+    { "type": "select", "id": "style", "label": "Estilo", "options": [ { "value": "circle", "label": "Círculo" }, { "value": "card", "label": "Card" } ], "default": "circle" },
+    { "type": "range", "id": "columns", "min": 2, "max": 6, "step": 1, "label": "Colunas no desktop", "default": 6 },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 48 }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Coleção",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Coleção" },
+        { "type": "image_picker", "id": "image", "label": "Imagem personalizada" },
+        { "type": "text", "id": "title", "label": "Título personalizado" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Lista de coleções", "blocks": [ { "type": "collection" }, { "type": "collection" }, { "type": "collection" }, { "type": "collection" }, { "type": "collection" }, { "type": "collection" } ] }
+  ]
+}
+{% endschema %}

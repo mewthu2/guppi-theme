@@ -1,0 +1,49 @@
+<section class="section video-section color-{{ section.settings.color_scheme }}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;">
+  <div class="{% if section.settings.full_width %}video-section--full{% else %}page-width{% endif %}">
+    {%- if section.settings.heading != blank -%}
+      <div class="section-header text-center page-width"><h2 class="h2">{{ section.settings.heading }}</h2></div>
+    {%- endif -%}
+    <deferred-video class="video media reveal" style="--ratio: 1.777;">
+      {%- if section.settings.video != blank -%}
+        <template>{{ section.settings.video | video_tag: autoplay: true, controls: true, playsinline: true }}</template>
+      {%- elsif section.settings.video_url != blank -%}
+        <template>
+          {%- if section.settings.video_url.type == 'youtube' -%}
+            <iframe src="https://www.youtube.com/embed/{{ section.settings.video_url.id }}?autoplay=1&rel=0" title="{{ section.settings.description | escape }}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+          {%- else -%}
+            <iframe src="https://player.vimeo.com/video/{{ section.settings.video_url.id }}?autoplay=1" title="{{ section.settings.description | escape }}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          {%- endif -%}
+        </template>
+      {%- endif -%}
+      <button type="button" class="video__poster" aria-label="{{ 'sections.video.play' | t }}: {{ section.settings.description | escape }}">
+        {%- if section.settings.cover_image != blank -%}
+          {{ section.settings.cover_image | image_url: width: 2400 | image_tag: widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', loading: 'lazy', alt: '' }}
+        {%- elsif section.settings.video != blank -%}
+          {{ section.settings.video.preview_image | image_url: width: 2000 | image_tag: loading: 'lazy', alt: '' }}
+        {%- else -%}
+          {{ 'hero-apparel-2' | placeholder_svg_tag: 'placeholder' }}
+        {%- endif -%}
+        <span class="video__play">{% render 'icon', icon: 'play' %}</span>
+      </button>
+    </deferred-video>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Vídeo",
+  "class": "section-video",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Título" },
+    { "type": "video", "id": "video", "label": "Vídeo enviado à Shopify" },
+    { "type": "video_url", "id": "video_url", "label": "Ou URL do YouTube/Vimeo", "accept": ["youtube", "vimeo"] },
+    { "type": "image_picker", "id": "cover_image", "label": "Imagem de capa" },
+    { "type": "text", "id": "description", "label": "Descrição do vídeo (acessibilidade)", "default": "Vídeo da marca" },
+    { "type": "checkbox", "id": "full_width", "label": "Largura total", "default": false },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 64 }
+  ],
+  "presets": [ { "name": "Vídeo" } ]
+}
+{% endschema %}

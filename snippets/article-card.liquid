@@ -1,0 +1,27 @@
+{% doc %}
+  Renders a blog article card.
+
+  @param {article} article - Article object
+  @param {boolean} [show_excerpt] - Show the excerpt
+
+  @example
+  {% render 'article-card', article: article %}
+{% enddoc %}
+<article class="article-card">
+  <a href="{{ article.url }}" class="article-card__media media" tabindex="-1" aria-hidden="true">
+    {%- if article.image -%}
+      {{ article.image | image_url: width: 1000 | image_tag: widths: '300, 500, 700, 1000', sizes: '(min-width: 990px) 33vw, 100vw', loading: 'lazy', alt: article.title }}
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder' }}
+    {%- endif -%}
+  </a>
+  <div class="article-card__info">
+    <p class="article-card__meta">{{ article.published_at | time_tag: format: 'date' }}</p>
+    <h3 class="h4"><a href="{{ article.url }}" class="full-link">{{ article.title | escape }}</a></h3>
+    {%- if show_excerpt -%}
+      <p class="article-card__excerpt">
+        {%- if article.excerpt != blank -%}{{ article.excerpt | strip_html | truncatewords: 24 }}{%- else -%}{{ article.content | strip_html | truncatewords: 24 }}{%- endif -%}
+      </p>
+    {%- endif -%}
+  </div>
+</article>

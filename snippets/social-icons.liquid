@@ -1,0 +1,21 @@
+{% doc %}
+  Renders social media icon links from theme settings.
+
+  @example
+  {% render 'social-icons' %}
+{% enddoc %}
+{%- assign networks = 'instagram,tiktok,facebook,youtube,pinterest,whatsapp' | split: ',' -%}
+<ul class="social-icons" role="list">
+  {%- for network in networks -%}
+    {%- assign key = 'social_' | append: network | append: '_link' -%}
+    {%- assign url = settings[key] -%}
+    {%- if url != blank -%}
+      <li>
+        <a href="{{ url }}" class="icon-button" target="_blank" rel="noopener" aria-describedby="a11y-new-window-message">
+          {% render 'icon', icon: network %}
+          <span class="visually-hidden">{{ network | capitalize }}</span>
+        </a>
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+</ul>

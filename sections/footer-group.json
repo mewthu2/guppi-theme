@@ -1,0 +1,62 @@
+{
+  "type": "footer",
+  "name": "Rodapé",
+  "sections": {
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "color_scheme": "scheme-3"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "brand": {
+          "type": "brand",
+          "settings": {}
+        },
+        "m1": {
+          "type": "menu",
+          "settings": {
+            "heading": "Categorias",
+            "menu": "main-menu"
+          }
+        },
+        "m2": {
+          "type": "menu",
+          "settings": {
+            "heading": "Atendimento",
+            "menu": "footer"
+          }
+        },
+        "t1": {
+          "type": "text",
+          "settings": {
+            "heading": "Contato",
+            "text": "<p>contato@sualoja.com.br<br>Seg a sex, 9h às 18h</p>"
+          }
+        }
+      },
+      "block_order": [
+        "brand",
+        "m1",
+        "m2",
+        "t1"
+      ],
+      "settings": {
+        "color_scheme": "scheme-5"
+      }
+    },
+    "popup": {
+      "type": "promo-popup",
+      "settings": {
+        "enabled": false
+      }
+    }
+  },
+  "order": [
+    "newsletter",
+    "footer",
+    "popup"
+  ]
+}

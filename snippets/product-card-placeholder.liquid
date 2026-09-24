@@ -1,0 +1,15 @@
+{% doc %}
+  Renders a placeholder product card used when no collection is selected.
+
+  @example
+  {% render 'product-card-placeholder' %}
+{% enddoc %}
+<article class="product-card">
+  <div class="product-card__media media media--{{ settings.card_image_ratio }}">
+    {{ 'product-1' | placeholder_svg_tag: 'placeholder' }}
+  </div>
+  <div class="product-card__info">
+    <h3 class="product-card__title">{{ 'sections.featured_collection.placeholder_title' | t }}</h3>
+    <div class="price"><span class="price__current">{{ 4990 | money }}</span></div>
+  </div>
+</article>

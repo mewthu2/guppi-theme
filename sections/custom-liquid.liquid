@@ -1,0 +1,20 @@
+<div class="section color-{{ section.settings.color_scheme }}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width">
+    {{ section.settings.custom_liquid }}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Liquid personalizado",
+  "tag": "section",
+  "class": "section-custom-liquid",
+  "settings": [
+    { "type": "liquid", "id": "custom_liquid", "label": "Liquid personalizado", "info": "Adicione snippets de apps ou outro código Liquid." },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 40 }
+  ],
+  "presets": [ { "name": "Liquid personalizado" } ]
+}
+{% endschema %}

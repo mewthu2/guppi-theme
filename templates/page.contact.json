@@ -1,0 +1,50 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_bottom": 0
+      }
+    },
+    "form": {
+      "type": "contact-form",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {}
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Os produtos são veganos?",
+            "answer": "<p>Sim! Todos os nossos produtos são 100% veganos e cruelty-free.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Posso trocar ou devolver?",
+            "answer": "<p>Você tem até 7 dias após o recebimento para solicitar troca ou devolução.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "form",
+    "faq"
+  ]
+}

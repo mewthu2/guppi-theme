@@ -1,0 +1,36 @@
+<section class="section collection-banner color-{{ section.settings.color_scheme }}{% if section.settings.show_image and collection.image %} collection-banner--image{% endif %}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width collection-banner__inner">
+    <div class="collection-banner__text text-{{ section.settings.alignment }}">
+      <nav class="breadcrumbs" aria-label="{{ 'general.breadcrumbs' | t }}">
+        <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a> / <span>{%- if collection.title != blank -%}{{ collection.title }}{%- else -%}{{ 'sections.collection.all' | t }}{%- endif -%}</span>
+      </nav>
+      <h1 class="h1">
+        {%- if collection.title != blank -%}{{ collection.title }}{%- else -%}{{ 'sections.collection.all' | t }}{%- endif -%}
+      </h1>
+      {%- if section.settings.show_description and collection.description != blank -%}
+        <div class="rte collection-banner__desc">{{ collection.description }}</div>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.show_image and collection.image -%}
+      <div class="collection-banner__media media">
+        {{ collection.image | image_url: width: 1400 | image_tag: widths: '400, 700, 1000, 1400', sizes: '(min-width: 990px) 40vw, 100vw', alt: collection.title }}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Banner da coleção",
+  "class": "section-collection-banner",
+  "settings": [
+    { "type": "checkbox", "id": "show_description", "label": "Mostrar descrição", "default": true },
+    { "type": "checkbox", "id": "show_image", "label": "Mostrar imagem da coleção", "default": true },
+    { "type": "text_alignment", "id": "alignment", "label": "Alinhamento", "default": "left" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-2" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 48 }
+  ],
+  "enabled_on": { "templates": ["collection"] }
+}
+{% endschema %}

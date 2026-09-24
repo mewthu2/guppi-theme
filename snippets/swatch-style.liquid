@@ -1,0 +1,15 @@
+{% doc %}
+  Outputs inline background style for a product option value swatch.
+
+  @param {product_option_value} value - Option value
+
+  @example
+  {% render 'swatch-style', value: value %}
+{% enddoc %}
+{%- if value.swatch.image -%}
+  background-image: url({{ value.swatch.image | image_url: width: 80 }}); background-size: cover;
+{%- elsif value.swatch.color -%}
+  background-color: {{ value.swatch.color }};
+{%- else -%}
+  background-color: {{ value | handleize | split: '-' | last }};
+{%- endif -%}

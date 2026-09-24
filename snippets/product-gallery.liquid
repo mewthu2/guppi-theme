@@ -1,0 +1,67 @@
+{% doc %}
+  Renders the product media gallery with thumbnails.
+
+  @param {product} product - Product object
+  @param {string} section_id - Section ID
+  @param {string} [layout] - 'slider' or 'grid'
+
+  @example
+  {% render 'product-gallery', product: product, section_id: section.id %}
+{% enddoc %}
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign featured_id = current_variant.featured_media.id | default: product.featured_media.id
+-%}
+<product-gallery class="gallery gallery--{{ layout | default: 'slider' }}" data-section-id="{{ section_id }}">
+  <ul class="gallery__track" role="list" data-track>
+    {%- for media in product.media -%}
+      <li class="gallery__item{% if media.id == featured_id %} is-active{% endif %}" data-media-id="{{ media.id }}">
+        <div class="gallery__media media{% if media.media_type != 'image' %} gallery__media--video{% endif %}" style="--ratio: {{ media.aspect_ratio | default: 1 }};">
+          {%- case media.media_type -%}
+            {%- when 'image' -%}
+              {%- liquid
+                assign loading = 'lazy'
+                assign media_alt = media.alt | default: product.title | escape
+                if forloop.first
+                  assign loading = 'eager'
+                endif
+              -%}
+              {{ media | image_url: width: 1800 | image_tag: widths: '400, 600, 800, 1000, 1200, 1500, 1800', sizes: '(min-width: 990px) 55vw, 100vw', loading: loading, alt: media_alt }}
+            {%- when 'video' -%}
+              {{ media | video_tag: controls: true, playsinline: true, muted: true, loop: true, image_size: '1200x' }}
+            {%- when 'external_video' -%}
+              {{ media | external_video_tag }}
+            {%- when 'model' -%}
+              {{ media | model_viewer_tag: reveal: 'interaction', toggleable: true }}
+            {%- else -%}
+              {{ media | media_tag }}
+          {%- endcase -%}
+        </div>
+      </li>
+    {%- else -%}
+      <li class="gallery__item is-active">
+        <div class="gallery__media media">{{ 'product-1' | placeholder_svg_tag: 'placeholder' }}</div>
+      </li>
+    {%- endfor -%}
+  </ul>
+
+  {%- if product.media.size > 1 -%}
+    <ul class="gallery__thumbs" role="list">
+      {%- for media in product.media -%}
+        <li>
+          <button type="button" class="gallery__thumb{% if media.id == featured_id %} is-active{% endif %}" data-thumb="{{ media.id }}" aria-label="{{ 'products.product.media.load' | t: index: forloop.index }}">
+            {{ media.preview_image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}
+            {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+              <span class="gallery__thumb-badge">{% render 'icon', icon: 'play' %}</span>
+            {%- endif -%}
+          </button>
+        </li>
+      {%- endfor -%}
+    </ul>
+    <div class="gallery__dots" aria-hidden="true">
+      {%- for media in product.media -%}
+        <span class="dot{% if media.id == featured_id %} is-active{% endif %}"></span>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</product-gallery>

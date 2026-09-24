@@ -1,0 +1,55 @@
+{%- liquid
+  assign end = section.settings.end_date | append: 'T' | append: section.settings.end_time | append: ':00'
+-%}
+<section class="section countdown-banner color-{{ section.settings.color_scheme }}{% if section.settings.image != blank %} countdown-banner--image{% endif %}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px; --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};">
+  {%- if section.settings.image != blank -%}
+    <div class="countdown-banner__bg">
+      {{ section.settings.image | image_url: width: 2400 | image_tag: widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', loading: 'lazy' }}
+    </div>
+  {%- endif -%}
+  <div class="page-width countdown-banner__inner text-center reveal">
+    {%- if section.settings.subheading != blank -%}<p class="subheading">{{ section.settings.subheading }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<h2 class="h0">{{ section.settings.heading }}</h2>{%- endif -%}
+    <countdown-timer class="countdown" data-end="{{ end }}" data-offset="{{ section.settings.timezone_offset }}">
+      <div class="countdown__grid" data-running>
+        <div class="countdown__unit"><span class="countdown__num" data-days>--</span><span class="countdown__label">{{ 'sections.countdown.days' | t }}</span></div>
+        <div class="countdown__unit"><span class="countdown__num" data-hours>--</span><span class="countdown__label">{{ 'sections.countdown.hours' | t }}</span></div>
+        <div class="countdown__unit"><span class="countdown__num" data-minutes>--</span><span class="countdown__label">{{ 'sections.countdown.minutes' | t }}</span></div>
+        <div class="countdown__unit"><span class="countdown__num" data-seconds>--</span><span class="countdown__label">{{ 'sections.countdown.seconds' | t }}</span></div>
+      </div>
+      <div class="countdown__done" data-done hidden>
+        <p class="h3">{{ section.settings.expired_heading }}</p>
+        {%- if section.settings.expired_text != blank -%}<div class="rte">{{ section.settings.expired_text }}</div>{%- endif -%}
+      </div>
+    </countdown-timer>
+    {%- if section.settings.text != blank -%}<div class="rte countdown-banner__text">{{ section.settings.text }}</div>{%- endif -%}
+    {%- if section.settings.button_label != blank -%}
+      <div class="button-group button-group--center"><a href="{{ section.settings.button_link | default: '#' }}" class="button">{{ section.settings.button_label }}</a></div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contagem regressiva",
+  "class": "section-countdown",
+  "settings": [
+    { "type": "text", "id": "end_date", "label": "Data de término", "info": "Formato AAAA-MM-DD", "default": "2026-12-31" },
+    { "type": "text", "id": "end_time", "label": "Hora de término", "info": "Formato HH:MM (24h)", "default": "23:59" },
+    { "type": "select", "id": "timezone_offset", "label": "Fuso horário", "options": [ { "value": "-05:00", "label": "UTC-5 (Acre)" }, { "value": "-04:00", "label": "UTC-4 (Manaus)" }, { "value": "-03:00", "label": "UTC-3 (Brasília)" }, { "value": "+00:00", "label": "UTC (Lisboa inverno)" }, { "value": "+01:00", "label": "UTC+1" } ], "default": "-03:00" },
+    { "type": "image_picker", "id": "image", "label": "Imagem de fundo" },
+    { "type": "range", "id": "overlay_opacity", "min": 0, "max": 80, "step": 5, "unit": "%", "label": "Escurecer imagem", "default": 20 },
+    { "type": "text", "id": "subheading", "label": "Subtítulo", "default": "Oferta por tempo limitado" },
+    { "type": "inline_richtext", "id": "heading", "label": "Título", "default": "Economize até 40% nos kits!" },
+    { "type": "richtext", "id": "text", "label": "Texto" },
+    { "type": "text", "id": "button_label", "label": "Botão", "default": "Ver kits" },
+    { "type": "url", "id": "button_link", "label": "Link do botão" },
+    { "type": "text", "id": "expired_heading", "label": "Título após o término", "default": "A promoção acabou!" },
+    { "type": "richtext", "id": "expired_text", "label": "Texto após o término", "default": "<p>Fique de olho nas próximas ofertas.</p>" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-6" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 80 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 80 }
+  ],
+  "presets": [ { "name": "Contagem regressiva" } ]
+}
+{% endschema %}

@@ -1,0 +1,70 @@
+<article class="section main-article color-{{ section.settings.color_scheme }}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width page-width--narrow">
+    <header class="main-article__header text-center">
+      <p class="subheading">{{ article.published_at | time_tag: format: 'date' }}{% if section.settings.show_author %} · {{ article.author }}{% endif %}</p>
+      <h1 class="h1">{{ article.title | escape }}</h1>
+    </header>
+  </div>
+  {%- if article.image -%}
+    <div class="page-width">
+      <div class="main-article__image media">
+        {{ article.image | image_url: width: 2400 | image_tag: widths: '600, 900, 1200, 1600, 2000, 2400', sizes: '(min-width: 1440px) 1400px, 100vw', loading: 'eager', fetchpriority: 'high', alt: article.title }}
+      </div>
+    </div>
+  {%- endif -%}
+  <div class="page-width page-width--narrow">
+    <div class="rte main-article__content">{{ article.content }}</div>
+    {%- if article.tags.size > 0 -%}
+      <ul class="tag-list" role="list">
+        {%- for tag in article.tags -%}<li><a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="pill">{{ tag }}</a></li>{%- endfor -%}
+      </ul>
+    {%- endif -%}
+    <share-button data-url="{{ request.origin }}{{ article.url }}" data-title="{{ article.title | escape }}" class="main-article__share">
+      <button type="button" class="button button--secondary button--small">{{ 'products.product.share' | t }}</button>
+    </share-button>
+
+    {%- if blog.comments_enabled? -%}
+      <div class="comments">
+        <h2 class="h3">{{ 'blogs.comments.title' | t: count: article.comments_count }}</h2>
+        {%- paginate article.comments by 10 -%}
+          {%- for comment in article.comments -%}
+            <div class="comment">
+              <div class="rte">{{ comment.content }}</div>
+              <p class="comment__meta">{{ comment.author }} · {{ comment.created_at | time_tag: format: 'date' }}</p>
+            </div>
+          {%- endfor -%}
+          {% render 'pagination', paginate: paginate %}
+        {%- endpaginate -%}
+        {%- form 'new_comment', article, class: 'comments__form' -%}
+          <h3 class="h4">{{ 'blogs.comments.leave' | t }}</h3>
+          {%- if form.posted_successfully? -%}
+            <p class="form-message form-message--success">
+              {%- if blog.moderated? -%}{{ 'blogs.comments.success_moderated' | t }}{%- else -%}{{ 'blogs.comments.success' | t }}{%- endif -%}
+            </p>
+          {%- endif -%}
+          {%- if form.errors -%}<div class="form-message form-message--error">{{ form.errors | default_errors }}</div>{%- endif -%}
+          <div class="contact__row">
+            <label class="field"><span class="field__label">{{ 'blogs.comments.name' | t }}</span><input class="field__input" type="text" name="comment[author]" value="{{ form.author }}" required></label>
+            <label class="field"><span class="field__label">{{ 'blogs.comments.email' | t }}</span><input class="field__input" type="email" name="comment[email]" value="{{ form.email }}" required></label>
+          </div>
+          <label class="field"><span class="field__label">{{ 'blogs.comments.message' | t }}</span><textarea class="field__input" name="comment[body]" rows="5" required>{{ form.body }}</textarea></label>
+          <button type="submit" class="button">{{ 'blogs.comments.post' | t }}</button>
+        {%- endform -%}
+      </div>
+    {%- endif -%}
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Artigo",
+  "class": "section-main-article",
+  "settings": [
+    { "type": "checkbox", "id": "show_author", "label": "Mostrar autor", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 64 }
+  ],
+  "enabled_on": { "templates": ["article"] }
+}
+{% endschema %}

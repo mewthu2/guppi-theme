@@ -1,0 +1,29 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+<div class="quick-add" data-section-id="{{ section.id }}">
+  <div class="quick-add__media media">
+    {%- assign media = current_variant.featured_media | default: product.featured_media -%}
+    {%- if media -%}
+      {{ media | image_url: width: 900 | image_tag: sizes: '(min-width: 750px) 360px, 100vw', widths: '300, 500, 700, 900', alt: product.title }}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder' }}
+    {%- endif -%}
+  </div>
+  <div class="quick-add__info">
+    <h2 class="h3"><a href="{{ product.url }}">{{ product.title }}</a></h2>
+    <div id="Price-{{ section.id }}" data-dynamic>
+      {% render 'price', product: product, variant: current_variant, class: 'price--large' %}
+    </div>
+    <div id="Picker-{{ section.id }}" data-dynamic>
+      {% render 'variant-picker', product: product, section_id: section.id %}
+    </div>
+    {% render 'buy-buttons', product: product, section_id: section.id, show_quantity: true, show_dynamic_checkout: false %}
+    <a href="{{ product.url }}" class="link link--arrow">{{ 'products.product.view_details' | t }} {% render 'icon', icon: 'arrow-right' %}</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Adição rápida",
+  "settings": []
+}
+{% endschema %}

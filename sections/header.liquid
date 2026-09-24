@@ -1,0 +1,171 @@
+{%- liquid
+  assign menu = section.settings.menu
+  assign sticky = section.settings.sticky
+-%}
+<sticky-header class="header-wrapper color-{{ section.settings.color_scheme }}{% if section.settings.border %} header-wrapper--border{% endif %}" data-sticky="{{ sticky }}">
+  <header class="header header--{{ section.settings.layout }} page-width">
+    <div class="header__left">
+      <button type="button" class="icon-button header__menu-toggle" aria-controls="MenuDrawer" aria-expanded="false" data-open-menu aria-label="{{ 'sections.header.menu' | t }}">
+        {% render 'icon', icon: 'menu' %}
+      </button>
+      {%- if section.settings.layout == 'center' -%}
+        {% render 'header-nav', menu: menu, section: section %}
+      {%- endif -%}
+    </div>
+
+    {%- if request.page_type == 'index' -%}<h1 class="header__heading">{%- endif -%}
+    <a href="{{ routes.root_url }}" class="header__logo">
+      {%- if settings.logo != blank -%}
+        {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+        {%- assign logo_2x = settings.logo_width | times: 2 -%}
+        {{ settings.logo | image_url: width: logo_2x | image_tag: class: 'header__logo-img', widths: '100, 200, 300, 400, 600', alt: logo_alt, loading: 'eager', fetchpriority: 'high' }}
+      {%- else -%}
+        <span class="header__logo-text h3">{{ shop.name }}</span>
+      {%- endif -%}
+    </a>
+    {%- if request.page_type == 'index' -%}</h1>{%- endif -%}
+
+    {%- if section.settings.layout == 'left' -%}
+      {% render 'header-nav', menu: menu, section: section %}
+    {%- endif -%}
+
+    <div class="header__icons">
+      {%- if section.settings.show_localization and localization.available_countries.size > 1 -%}
+        {%- form 'localization', class: 'localization-form header__localization' -%}
+          <label class="visually-hidden" for="HeaderCountry">{{ 'localization.country_label' | t }}</label>
+          <div class="select select--minimal">
+            <select id="HeaderCountry" name="country_code" data-autosubmit>
+              {%- for country in localization.available_countries -%}
+                <option value="{{ country.iso_code }}"{% if country.iso_code == localization.country.iso_code %} selected{% endif %}>
+                  {{ country.iso_code }} · {{ country.currency.iso_code }} {{ country.currency.symbol }}
+                </option>
+              {%- endfor -%}
+            </select>
+            {% render 'icon', icon: 'chevron-down' %}
+          </div>
+        {%- endform -%}
+      {%- endif -%}
+      <button type="button" class="icon-button" data-open-search aria-label="{{ 'general.search.search' | t }}">
+        {% render 'icon', icon: 'search' %}
+      </button>
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="icon-button header__account" aria-label="{{ 'customer.account_fallback' | t }}">
+          {% render 'icon', icon: 'account' %}
+        </a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="icon-button header__cart" data-open-cart aria-label="{{ 'cart.general.title' | t }}">
+        {% render 'icon', icon: 'cart' %}
+        <span class="count-bubble" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </header>
+</sticky-header>
+
+<menu-drawer class="drawer drawer--left" id="MenuDrawer">
+  <div class="drawer__overlay" data-close></div>
+  <div class="drawer__panel color-{{ section.settings.color_scheme }}" role="dialog" aria-modal="true" aria-label="{{ 'sections.header.menu' | t }}" tabindex="-1">
+    <div class="drawer__header">
+      <span class="h4">{{ 'sections.header.menu' | t }}</span>
+      <button type="button" class="icon-button" data-close aria-label="{{ 'accessibility.close' | t }}">{% render 'icon', icon: 'close' %}</button>
+    </div>
+    <nav class="drawer__body mobile-nav">
+      <ul role="list">
+        {%- for link in menu.links -%}
+          <li>
+            {%- if link.links != blank -%}
+              <details class="mobile-nav__details">
+                <summary class="mobile-nav__link">{{ link.title }} {% render 'icon', icon: 'chevron-down' %}</summary>
+                <ul role="list" class="mobile-nav__sub">
+                  <li><a href="{{ link.url }}" class="mobile-nav__sublink mobile-nav__sublink--all">{{ 'sections.header.view_all' | t }}</a></li>
+                  {%- for child in link.links -%}
+                    <li>
+                      {%- if child.links != blank -%}
+                        <details class="mobile-nav__details">
+                          <summary class="mobile-nav__sublink">{{ child.title }} {% render 'icon', icon: 'chevron-down' %}</summary>
+                          <ul role="list" class="mobile-nav__sub">
+                            {%- for grandchild in child.links -%}
+                              <li><a href="{{ grandchild.url }}" class="mobile-nav__sublink">{{ grandchild.title }}</a></li>
+                            {%- endfor -%}
+                          </ul>
+                        </details>
+                      {%- else -%}
+                        <a href="{{ child.url }}" class="mobile-nav__sublink">{{ child.title }}</a>
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </details>
+            {%- else -%}
+              <a href="{{ link.url }}" class="mobile-nav__link"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+    <div class="drawer__footer mobile-nav__footer">
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="mobile-nav__account">
+          {% render 'icon', icon: 'account' %}
+          {%- if customer -%}{{ 'customer.account.title' | t }}{%- else -%}{{ 'customer.log_in' | t }}{%- endif -%}
+        </a>
+      {%- endif -%}
+      {% render 'social-icons' %}
+    </div>
+  </div>
+</menu-drawer>
+
+<dialog class="modal search-modal color-{{ section.settings.color_scheme }}" id="SearchModal" aria-label="{{ 'general.search.search' | t }}">
+  <div class="search-modal__inner page-width">
+    <predictive-search data-enabled="{{ settings.predictive_search_enabled }}">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search-form">
+        <label class="visually-hidden" for="SearchModalInput">{{ 'general.search.search' | t }}</label>
+        {% render 'icon', icon: 'search', class: 'search-form__icon' %}
+        <input
+          id="SearchModalInput"
+          class="search-form__input"
+          type="search"
+          name="q"
+          placeholder="{{ 'general.search.placeholder' | t }}"
+          autocomplete="off"
+          role="combobox"
+          aria-expanded="false"
+          aria-controls="PredictiveResults"
+          aria-autocomplete="list"
+        >
+        <input type="hidden" name="options[prefix]" value="last">
+        <button type="button" class="icon-button" data-close aria-label="{{ 'accessibility.close' | t }}">{% render 'icon', icon: 'close' %}</button>
+      </form>
+      <div class="predictive-results" id="PredictiveResults" aria-live="polite"></div>
+    </predictive-search>
+  </div>
+</dialog>
+
+{% schema %}
+{
+  "name": "Cabeçalho",
+  "class": "section-header",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "select", "id": "layout", "label": "Posição do logo", "options": [ { "value": "center", "label": "Centralizado" }, { "value": "left", "label": "Esquerda" } ], "default": "center" },
+    { "type": "checkbox", "id": "sticky", "label": "Cabeçalho fixo ao rolar", "default": true },
+    { "type": "checkbox", "id": "border", "label": "Mostrar borda inferior", "default": true },
+    { "type": "checkbox", "id": "show_localization", "label": "Mostrar seletor de país/moeda", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" }
+  ],
+  "blocks": [
+    {
+      "type": "mega_promo",
+      "name": "Destaque do mega menu",
+      "settings": [
+        { "type": "text", "id": "menu_item", "label": "Item do menu", "info": "Nome exato do item do menu onde o destaque aparece. Ex.: Loja" },
+        { "type": "image_picker", "id": "image", "label": "Imagem" },
+        { "type": "text", "id": "heading", "label": "Título", "default": "Novidades" },
+        { "type": "text", "id": "button_label", "label": "Texto do link", "default": "Ver agora" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}

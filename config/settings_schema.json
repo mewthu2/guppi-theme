@@ -1,0 +1,148 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Glow",
+    "theme_version": "1.0.0",
+    "theme_author": "Guppi",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://help.shopify.com/manual/online-store/themes"
+  },
+  {
+    "name": "Logo e favicon",
+    "settings": [
+      { "type": "image_picker", "id": "logo", "label": "Logo" },
+      { "type": "range", "id": "logo_width", "min": 50, "max": 300, "step": 5, "unit": "px", "label": "Largura do logo (desktop)", "default": 130 },
+      { "type": "range", "id": "logo_width_mobile", "min": 40, "max": 200, "step": 5, "unit": "px", "label": "Largura do logo (mobile)", "default": 100 },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon", "info": "32 x 32px .png recomendado" }
+    ]
+  },
+  {
+    "name": "Cores",
+    "settings": [
+      {
+        "type": "color_scheme_group",
+        "id": "color_schemes",
+        "definition": [
+          { "type": "header", "content": "Geral" },
+          { "type": "color", "id": "background", "label": "Fundo", "default": "#FFFFFF" },
+          { "type": "color", "id": "background_alt", "label": "Fundo alternativo", "default": "#F0F0F0" },
+          { "type": "color", "id": "text", "label": "Texto", "default": "#31242E" },
+          { "type": "color", "id": "accent", "label": "Destaque", "default": "#ED356D" },
+          { "type": "color", "id": "border", "label": "Bordas", "default": "#E6CDD2" },
+          { "type": "header", "content": "Botões" },
+          { "type": "color", "id": "button", "label": "Fundo do botão", "default": "#ED356D" },
+          { "type": "color", "id": "button_label", "label": "Texto do botão", "default": "#FFFFFF" },
+          { "type": "color", "id": "secondary_button_label", "label": "Contorno do botão secundário", "default": "#31242E" },
+          { "type": "header", "content": "Cards" },
+          { "type": "color", "id": "card", "label": "Fundo do card", "default": "#FCE6EA" },
+          { "type": "color", "id": "card_text", "label": "Texto do card", "default": "#31242E" }
+        ],
+        "role": {
+          "background": "background",
+          "text": "text",
+          "primary_button": "button",
+          "on_primary_button": "button_label",
+          "primary_button_border": "button",
+          "secondary_button": "background",
+          "on_secondary_button": "secondary_button_label",
+          "secondary_button_border": "secondary_button_label",
+          "icons": "text",
+          "links": "accent"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Tipografia",
+    "settings": [
+      { "type": "header", "content": "Títulos" },
+      { "type": "font_picker", "id": "type_heading_font", "label": "Fonte", "default": "lora_n4" },
+      { "type": "range", "id": "heading_scale", "min": 80, "max": 150, "step": 5, "unit": "%", "label": "Escala", "default": 100 },
+      { "type": "select", "id": "heading_case", "label": "Caixa", "options": [ { "value": "none", "label": "Normal" }, { "value": "uppercase", "label": "MAIÚSCULAS" } ], "default": "none" },
+      { "type": "header", "content": "Corpo" },
+      { "type": "font_picker", "id": "type_body_font", "label": "Fonte", "default": "figtree_n4" },
+      { "type": "range", "id": "body_scale", "min": 90, "max": 130, "step": 5, "unit": "%", "label": "Escala", "default": 100 }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      { "type": "range", "id": "page_width", "min": 1000, "max": 1800, "step": 20, "unit": "px", "label": "Largura da página", "default": 1440 },
+      { "type": "range", "id": "section_spacing", "min": 24, "max": 120, "step": 4, "unit": "px", "label": "Espaçamento vertical das seções", "default": 64 },
+      { "type": "range", "id": "grid_gap", "min": 8, "max": 40, "step": 2, "unit": "px", "label": "Espaço entre itens da grade", "default": 16 }
+    ]
+  },
+  {
+    "name": "Botões e cantos",
+    "settings": [
+      { "type": "range", "id": "button_radius", "min": 0, "max": 40, "step": 2, "unit": "px", "label": "Arredondamento dos botões", "default": 40 },
+      { "type": "range", "id": "card_radius", "min": 0, "max": 32, "step": 2, "unit": "px", "label": "Arredondamento dos cards", "default": 16 },
+      { "type": "range", "id": "media_radius", "min": 0, "max": 40, "step": 2, "unit": "px", "label": "Arredondamento das imagens", "default": 20 },
+      { "type": "range", "id": "input_radius", "min": 0, "max": 30, "step": 2, "unit": "px", "label": "Arredondamento dos campos", "default": 12 }
+    ]
+  },
+  {
+    "name": "Cards de produto",
+    "settings": [
+      { "type": "select", "id": "card_image_ratio", "label": "Proporção da imagem", "options": [ { "value": "adapt", "label": "Adaptar à imagem" }, { "value": "square", "label": "Quadrado" }, { "value": "portrait", "label": "Retrato" } ], "default": "portrait" },
+      { "type": "checkbox", "id": "card_show_secondary_image", "label": "Mostrar segunda imagem ao passar o mouse", "default": true },
+      { "type": "checkbox", "id": "card_show_vendor", "label": "Mostrar fabricante", "default": false },
+      { "type": "checkbox", "id": "card_show_rating", "label": "Mostrar avaliação", "info": "Requer um app de avaliações que use o metafield reviews.rating", "default": true },
+      { "type": "checkbox", "id": "card_quick_add", "label": "Ativar botão de adição rápida", "default": true },
+      { "type": "checkbox", "id": "card_show_swatches", "label": "Mostrar amostras de cor", "default": true }
+    ]
+  },
+  {
+    "name": "Selos",
+    "settings": [
+      { "type": "select", "id": "sale_badge_style", "label": "Selo de promoção", "options": [ { "value": "percent", "label": "Porcentagem (ex.: 20% off)" }, { "value": "text", "label": "Texto (Promoção)" } ], "default": "percent" },
+      { "type": "color", "id": "badge_sale_bg", "label": "Fundo do selo de promoção", "default": "#F04518" },
+      { "type": "color", "id": "badge_soldout_bg", "label": "Fundo do selo esgotado", "default": "#777777" },
+      { "type": "color", "id": "badge_new_bg", "label": "Fundo do selo novo", "default": "#69B3A6" },
+      { "type": "header", "content": "Selos personalizados por tag" },
+      { "type": "paragraph", "content": "Adicione a tag badge:Nome a um produto para exibir um selo. Ex.: badge:Mais vendido" },
+      { "type": "color", "id": "badge_custom_bg", "label": "Fundo do selo personalizado", "default": "#F26791" },
+      { "type": "color", "id": "badge_text", "label": "Texto dos selos", "default": "#FFFFFF" }
+    ]
+  },
+  {
+    "name": "Carrinho",
+    "settings": [
+      { "type": "select", "id": "cart_type", "label": "Tipo de carrinho", "options": [ { "value": "drawer", "label": "Gaveta lateral" }, { "value": "page", "label": "Página" } ], "default": "drawer" },
+      { "type": "checkbox", "id": "cart_show_note", "label": "Permitir observação no pedido", "default": true },
+      { "type": "text", "id": "free_shipping_threshold", "label": "Valor para frete grátis", "info": "Apenas números, na moeda da loja. Deixe vazio para ocultar a barra.", "default": "199" },
+      { "type": "collection", "id": "cart_upsell_collection", "label": "Coleção de sugestões no carrinho" },
+      { "type": "richtext", "id": "cart_empty_text", "label": "Texto do carrinho vazio", "default": "<p>Seu carrinho está vazio por enquanto. Que tal começar pelos nossos mais vendidos?</p>" }
+    ]
+  },
+  {
+    "name": "Busca",
+    "settings": [
+      { "type": "checkbox", "id": "predictive_search_enabled", "label": "Ativar sugestões de busca", "default": true },
+      { "type": "checkbox", "id": "predictive_search_show_price", "label": "Mostrar preço nas sugestões", "default": true }
+    ]
+  },
+  {
+    "name": "Redes sociais",
+    "settings": [
+      { "type": "text", "id": "social_instagram_link", "label": "Instagram", "info": "https://instagram.com/sualoja" },
+      { "type": "text", "id": "social_tiktok_link", "label": "TikTok", "info": "https://tiktok.com/@sualoja" },
+      { "type": "text", "id": "social_facebook_link", "label": "Facebook", "info": "https://facebook.com/sualoja" },
+      { "type": "text", "id": "social_youtube_link", "label": "YouTube", "info": "https://youtube.com/@sualoja" },
+      { "type": "text", "id": "social_pinterest_link", "label": "Pinterest", "info": "https://pinterest.com/sualoja" },
+      { "type": "text", "id": "social_whatsapp_link", "label": "WhatsApp", "info": "https://wa.me/5511999999999" }
+    ]
+  },
+  {
+    "name": "Animações",
+    "settings": [
+      { "type": "checkbox", "id": "animations_enabled", "label": "Revelar seções ao rolar a página", "default": true }
+    ]
+  },
+  {
+    "name": "Moeda",
+    "settings": [
+      { "type": "checkbox", "id": "currency_code_enabled", "label": "Mostrar código da moeda", "default": false }
+    ]
+  }
+]

@@ -1,0 +1,31 @@
+<section class="section newsletter color-{{ section.settings.color_scheme }}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width newsletter__inner reveal">
+    {%- if section.settings.subheading != blank -%}
+      <p class="subheading">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="h2">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.text != blank -%}
+      <div class="rte newsletter__text">{{ section.settings.text }}</div>
+    {%- endif -%}
+    {% render 'newsletter-form', id: section.id %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "tag": "div",
+  "class": "section-newsletter",
+  "settings": [
+    { "type": "text", "id": "subheading", "label": "Subtítulo", "default": "Newsletter" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Assine e ganhe 20% off na primeira compra" },
+    { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Seja a primeira a saber das novidades e ofertas exclusivas.</p>" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-3" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 64 }
+  ],
+  "presets": [ { "name": "Newsletter" } ]
+}
+{% endschema %}

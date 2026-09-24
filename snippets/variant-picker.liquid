@@ -1,0 +1,69 @@
+{% doc %}
+  Renders variant option selectors (pills, swatches or dropdown).
+
+  @param {product} product - Product object
+  @param {string} section_id - Section ID to re-render on change
+  @param {string} [style] - 'pills' or 'dropdown'
+
+  @example
+  {% render 'variant-picker', product: product, section_id: section.id %}
+{% enddoc %}
+{%- unless product.has_only_default_variant -%}
+  <variant-picker class="variant-picker" data-section-id="{{ section_id }}" data-url="{{ product.url }}">
+    {%- for option in product.options_with_values -%}
+      {%- liquid
+        assign option_down = option.name | downcase
+        assign is_color = false
+        if option_down == 'color' or option_down == 'cor' or option_down == 'colour'
+          assign is_color = true
+        endif
+      -%}
+      {%- if style == 'dropdown' and is_color == false -%}
+        <div class="variant-picker__option">
+          <label class="variant-picker__label" for="Option-{{ section_id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+          <div class="select">
+            <select id="Option-{{ section_id }}-{{ forloop.index0 }}" name="options[{{ option.name | escape }}]" class="select__input">
+              {%- for value in option.values -%}
+                <option value="{{ value | escape }}"{% if value.selected %} selected{% endif %}>
+                  {{ value }}{% unless value.available %} — {{ 'products.product.unavailable' | t }}{% endunless %}
+                </option>
+              {%- endfor -%}
+            </select>
+            {% render 'icon', icon: 'chevron-down' %}
+          </div>
+        </div>
+      {%- else -%}
+        <fieldset class="variant-picker__option">
+          <legend class="variant-picker__label">
+            {{ option.name }}: <span class="variant-picker__selected">{{ option.selected_value }}</span>
+          </legend>
+          <div class="variant-picker__values">
+            {%- for value in option.values -%}
+              <input
+                type="radio"
+                id="{{ section_id }}-{{ option.position }}-{{ forloop.index0 }}"
+                name="options[{{ option.name | escape }}]"
+                value="{{ value | escape }}"
+                class="visually-hidden"
+                {% if value.selected %}checked{% endif %}
+              >
+              {%- if is_color or value.swatch -%}
+                <label for="{{ section_id }}-{{ option.position }}-{{ forloop.index0 }}" class="swatch-pill{% unless value.available %} is-unavailable{% endunless %}" title="{{ value | escape }}">
+                  <span class="swatch" style="{% render 'swatch-style', value: value %}"></span>
+                  <span class="visually-hidden">{{ value }}</span>
+                </label>
+              {%- else -%}
+                <label for="{{ section_id }}-{{ option.position }}-{{ forloop.index0 }}" class="pill{% unless value.available %} is-unavailable{% endunless %}">
+                  {{ value }}
+                </label>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </fieldset>
+      {%- endif -%}
+    {%- endfor -%}
+    <script type="application/json" data-variants>
+      {{ product.variants | json }}
+    </script>
+  </variant-picker>
+{%- endunless -%}

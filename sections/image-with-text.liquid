@@ -1,0 +1,80 @@
+<section class="section image-with-text color-{{ section.settings.color_scheme }}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width image-with-text__grid image-with-text--{{ section.settings.layout }}{% if section.settings.full_bleed %} image-with-text--bleed{% endif %}">
+    <div class="image-with-text__media media reveal" style="--ratio: {{ section.settings.ratio }};">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1800 | image_tag: widths: '500, 800, 1100, 1400, 1800', sizes: '(min-width: 990px) 50vw, 100vw', loading: 'lazy' }}
+      {%- elsif section.settings.video != blank -%}
+        {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false }}
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'placeholder' }}
+      {%- endif -%}
+    </div>
+    <div class="image-with-text__content text-{{ section.settings.alignment }} reveal">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'subheading' -%}
+            <p class="subheading" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+          {%- when 'heading' -%}
+            <h2 class="{{ block.settings.size }}" {{ block.shopify_attributes }}>{{ block.settings.heading }}</h2>
+          {%- when 'text' -%}
+            <div class="rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+          {%- when 'checklist' -%}
+            <ul class="checklist" role="list" {{ block.shopify_attributes }}>
+              {%- assign items = block.settings.items | newline_to_br | split: '<br />' -%}
+              {%- for item in items -%}
+                {%- assign clean = item | strip -%}
+                {%- if clean != blank -%}<li>{% render 'icon', icon: 'check' %} {{ clean }}</li>{%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- when 'button' -%}
+            <div class="button-group" {{ block.shopify_attributes }}>
+              <a href="{{ block.settings.link | default: '#' }}" class="button{% if block.settings.secondary %} button--secondary{% endif %}">{{ block.settings.label }}</a>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Imagem com texto",
+  "class": "section-image-with-text",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Imagem" },
+    { "type": "video", "id": "video", "label": "Vídeo (usado se não houver imagem)" },
+    { "type": "select", "id": "layout", "label": "Posição da imagem", "options": [ { "value": "left", "label": "Esquerda" }, { "value": "right", "label": "Direita" } ], "default": "left" },
+    { "type": "select", "id": "ratio", "label": "Proporção da imagem", "options": [ { "value": "1", "label": "Quadrado" }, { "value": "0.8", "label": "Retrato" }, { "value": "1.5", "label": "Paisagem" } ], "default": "1" },
+    { "type": "checkbox", "id": "full_bleed", "label": "Imagem de ponta a ponta", "default": false },
+    { "type": "text_alignment", "id": "alignment", "label": "Alinhamento", "default": "left" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 64 }
+  ],
+  "blocks": [
+    { "type": "subheading", "name": "Subtítulo", "settings": [ { "type": "text", "id": "text", "label": "Texto", "default": "Glow diário" } ] },
+    {
+      "type": "heading",
+      "name": "Título",
+      "settings": [
+        { "type": "inline_richtext", "id": "heading", "label": "Título", "default": "Skincare na sua rotina" },
+        { "type": "select", "id": "size", "label": "Tamanho", "options": [ { "value": "h3", "label": "Pequeno" }, { "value": "h2", "label": "Médio" }, { "value": "h1", "label": "Grande" } ], "default": "h1" }
+      ]
+    },
+    { "type": "text", "name": "Texto", "settings": [ { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Use à noite para hidratação profunda, como tratamento durante o dia ou como primer para a maquiagem.</p>" } ] },
+    { "type": "checklist", "name": "Lista de benefícios", "settings": [ { "type": "textarea", "id": "items", "label": "Itens (um por linha)", "default": "Hidratação por 24h\nTextura leve\nFragrância frutada" } ] },
+    {
+      "type": "button",
+      "name": "Botão",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Texto", "default": "Comprar agora" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "checkbox", "id": "secondary", "label": "Estilo secundário", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Imagem com texto", "blocks": [ { "type": "subheading" }, { "type": "heading" }, { "type": "text" }, { "type": "button" } ] }
+  ]
+}
+{% endschema %}

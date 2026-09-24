@@ -1,0 +1,38 @@
+<section class="section main-blog color-{{ section.settings.color_scheme }}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width">
+    <div class="section-header text-center">
+      <h1 class="h1">{{ blog.title | escape }}</h1>
+      {%- if blog.all_tags.size > 0 -%}
+        <ul class="tag-list" role="list">
+          <li><a href="{{ blog.url }}" class="pill{% unless current_tags %} is-active{% endunless %}">{{ 'blogs.all' | t }}</a></li>
+          {%- for tag in blog.all_tags -%}
+            <li>{{ tag | link_to_tag: tag | replace: '<a ', '<a class="pill" ' }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+    {%- paginate blog.articles by section.settings.per_page -%}
+      <ul class="blog-grid" role="list">
+        {%- for article in blog.articles -%}
+          <li class="reveal">{% render 'article-card', article: article, show_excerpt: section.settings.show_excerpt %}</li>
+        {%- endfor -%}
+      </ul>
+      {% render 'pagination', paginate: paginate %}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog",
+  "class": "section-main-blog",
+  "settings": [
+    { "type": "range", "id": "per_page", "min": 3, "max": 24, "step": 3, "label": "Artigos por página", "default": 9 },
+    { "type": "checkbox", "id": "show_excerpt", "label": "Mostrar resumo", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento superior", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "label": "Espaçamento inferior", "default": 64 }
+  ],
+  "enabled_on": { "templates": ["blog"] }
+}
+{% endschema %}

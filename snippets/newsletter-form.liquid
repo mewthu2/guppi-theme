@@ -1,0 +1,34 @@
+{% doc %}
+  Renders a customer newsletter signup form.
+
+  @param {string} id - Unique ID suffix
+
+  @example
+  {% render 'newsletter-form', id: section.id %}
+{% enddoc %}
+{%- assign form_id = 'Newsletter-' | append: id -%}
+{%- form 'customer', id: form_id, class: 'newsletter-form' -%}
+  <input type="hidden" name="contact[tags]" value="newsletter">
+  {%- if form.posted_successfully? -%}
+    <p class="form-message form-message--success" role="status">{% render 'icon', icon: 'check' %} {{ 'newsletter.success' | t }}</p>
+  {%- else -%}
+    <div class="newsletter-form__field">
+      <label class="visually-hidden" for="NewsletterEmail-{{ id }}">{{ 'newsletter.label' | t }}</label>
+      <input
+        id="NewsletterEmail-{{ id }}"
+        type="email"
+        name="contact[email]"
+        class="field__input"
+        value="{{ form.email }}"
+        autocomplete="email"
+        placeholder="{{ 'newsletter.label' | t }}"
+        required
+        {% if form.errors %}aria-invalid="true" aria-describedby="NewsletterError-{{ id }}"{% endif %}
+      >
+      <button type="submit" class="button">{{ 'newsletter.button' | t }}</button>
+    </div>
+    {%- if form.errors -%}
+      <p class="form-message form-message--error" id="NewsletterError-{{ id }}">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+    {%- endif -%}
+  {%- endif -%}
+{%- endform -%}

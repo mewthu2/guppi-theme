@@ -1,0 +1,153 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Fórmula leve com extratos de frutas para uma pele hidratada e luminosa.</p>",
+            "style": "text--subtle"
+          }
+        },
+        "picker": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "inventory": {
+          "type": "inventory",
+          "settings": {}
+        },
+        "buy": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "benefits": {
+          "type": "benefits",
+          "settings": {}
+        },
+        "desc": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Descrição",
+            "show_description": true,
+            "open": true,
+            "icon": "sparkle"
+          }
+        },
+        "how": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Como usar",
+            "icon": "drop",
+            "content": "<p>Aplique sobre a pele limpa, com movimentos suaves, de manhã e à noite.</p>"
+          }
+        },
+        "ing": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Ingredientes",
+            "icon": "leaf",
+            "content": "<p>Adicione a lista de ingredientes aqui.</p>"
+          }
+        },
+        "ship": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Entrega e trocas",
+            "icon": "truck",
+            "content": "<p>Enviamos em até 2 dias úteis. Trocas em até 7 dias.</p>"
+          }
+        },
+        "comp": {
+          "type": "complementary",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "rating",
+        "price",
+        "text",
+        "picker",
+        "inventory",
+        "buy",
+        "benefits",
+        "desc",
+        "how",
+        "ing",
+        "ship",
+        "comp",
+        "share"
+      ],
+      "settings": {}
+    },
+    "marquee": {
+      "type": "sliding-text",
+      "blocks": {
+        "t1": {
+          "type": "text",
+          "settings": {
+            "text": "Cruelty-free"
+          }
+        },
+        "t2": {
+          "type": "text",
+          "settings": {
+            "text": "100% vegano"
+          }
+        },
+        "t3": {
+          "type": "text",
+          "settings": {
+            "text": "Glow natural"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {
+        "size": "medium",
+        "color_scheme": "scheme-4"
+      }
+    },
+    "before_after": {
+      "type": "before-after",
+      "settings": {}
+    },
+    "recommendations": {
+      "type": "product-recommendations",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "marquee",
+    "before_after",
+    "recommendations"
+  ]
+}

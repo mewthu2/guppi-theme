@@ -1,0 +1,74 @@
+{%- if predictive_search.performed -%}
+  {%- liquid
+    assign products = predictive_search.resources.products
+    assign collections = predictive_search.resources.collections
+    assign pages = predictive_search.resources.pages
+    assign articles = predictive_search.resources.articles
+    assign queries = predictive_search.resources.queries
+    assign total = products.size | plus: collections.size | plus: pages.size | plus: articles.size | plus: queries.size
+  -%}
+  <div class="predictive" id="predictive-search-results">
+    {%- if total > 0 -%}
+      <div class="predictive__grid">
+        <div class="predictive__aside">
+          {%- if queries.size > 0 -%}
+            <p class="predictive__heading">{{ 'general.search.suggestions' | t }}</p>
+            <ul role="list" class="predictive__list">
+              {%- for query in queries -%}
+                <li><a href="{{ query.url }}" class="predictive__link">{{ query.styled_text }}</a></li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          {%- if collections.size > 0 -%}
+            <p class="predictive__heading">{{ 'general.search.collections' | t }}</p>
+            <ul role="list" class="predictive__list">
+              {%- for collection in collections -%}
+                <li><a href="{{ collection.url }}" class="predictive__link">{{ collection.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          {%- if pages.size > 0 or articles.size > 0 -%}
+            <p class="predictive__heading">{{ 'general.search.pages' | t }}</p>
+            <ul role="list" class="predictive__list">
+              {%- for page in pages -%}
+                <li><a href="{{ page.url }}" class="predictive__link">{{ page.title }}</a></li>
+              {%- endfor -%}
+              {%- for article in articles -%}
+                <li><a href="{{ article.url }}" class="predictive__link">{{ article.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+        {%- if products.size > 0 -%}
+          <div class="predictive__products">
+            <p class="predictive__heading">{{ 'general.search.products' | t }}</p>
+            <ul role="list" class="predictive__product-list">
+              {%- for product in products -%}
+                <li>
+                  <a href="{{ product.url }}" class="predictive__product">
+                    <span class="predictive__thumb">
+                      {%- if product.featured_media -%}
+                        {{ product.featured_media | image_url: width: 160 | image_tag: loading: 'lazy' }}
+                      {%- endif -%}
+                    </span>
+                    <span>
+                      <span class="predictive__title">{{ product.title }}</span>
+                      {%- if settings.predictive_search_show_price -%}
+                        {% render 'price', product: product %}
+                      {%- endif -%}
+                    </span>
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      </div>
+      <a href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&options%5Bprefix%5D=last" class="button button--secondary predictive__all">
+        {{ 'general.search.view_all' | t: terms: predictive_search.terms }} {% render 'icon', icon: 'arrow-right' %}
+      </a>
+    {%- else -%}
+      <p class="predictive__empty">{{ 'general.search.no_results' | t: terms: predictive_search.terms }}</p>
+    {%- endif -%}
+  </div>
+{%- endif -%}

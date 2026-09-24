@@ -319,13 +319,16 @@
         const setHeight = () => document.documentElement.style.setProperty('--header-height', `${this.offsetHeight}px`);
         setHeight();
         if ('ResizeObserver' in window) new ResizeObserver(setHeight).observe(this);
-        if (this.dataset.sticky !== 'true') return;
+        const transparent = this.classList.contains('header-wrapper--transparent');
+        if (this.dataset.sticky !== 'true' && !transparent) return;
         let last = 0;
         const onScroll = () => {
           const y = window.scrollY;
           this.classList.toggle('is-scrolled', y > 10);
           const menuOpen = this.querySelector('details[open]');
-          this.classList.toggle('is-hidden', y > last && y > 300 && !menuOpen);
+          if (this.dataset.hideOnScroll === 'true') {
+            this.classList.toggle('is-hidden', y > last && y > 300 && !menuOpen);
+          }
           last = y;
         };
         window.addEventListener('scroll', onScroll, { passive: true });

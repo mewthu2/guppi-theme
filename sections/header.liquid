@@ -18,6 +18,7 @@
 <sticky-header
   class="header-wrapper color-{{ section.settings.color_scheme }}{% if section.settings.border %} header-wrapper--border{% endif %}{% if transparent %} header-wrapper--transparent{% endif %}"
   data-sticky="{{ sticky }}"
+  data-hide-on-scroll="{{ section.settings.hide_on_scroll }}"
   {% if transparent %}style="--transparent-color: {{ section.settings.transparent_color }};"{% endif %}
 >
   <header class="header header--{{ section.settings.layout }} page-width">
@@ -171,6 +172,7 @@
     { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
     { "type": "select", "id": "layout", "label": "Posição do logo", "options": [ { "value": "center", "label": "Centralizado" }, { "value": "left", "label": "Esquerda" } ], "default": "center" },
     { "type": "checkbox", "id": "sticky", "label": "Cabeçalho fixo ao rolar", "default": true },
+    { "type": "checkbox", "id": "hide_on_scroll", "label": "Esconder ao rolar para baixo", "info": "Reaparece ao rolar para cima.", "default": false },
     { "type": "checkbox", "id": "border", "label": "Mostrar borda inferior", "default": true },
     { "type": "header", "content": "Cabeçalho transparente" },
     { "type": "paragraph", "content": "O cabeçalho fica sobre a primeira seção da página e ganha fundo sólido ao rolar ou ao passar o mouse. Funciona melhor com um Hero/Slideshow ou banner com imagem no topo." },

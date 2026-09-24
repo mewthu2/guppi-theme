@@ -55,7 +55,7 @@
         "layout": "center",
         "sticky": false,
         "hide_on_scroll": false,
-        "border": false,
+        "border": true,
         "transparent": "home",
         "transparent_color": "#ffffff",
         "show_localization": true,

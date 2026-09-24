@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -8,9 +17,13 @@
           "settings": {
             "subheading": "Novo",
             "heading": "Seu glow começa aqui",
+            "heading_size": "h0",
             "text": "<p>Skincare divertido e eficaz, com extratos de frutas e ativos que sua pele ama.</p>",
             "button_label": "Comprar agora",
             "button_link": "shopify://collections/all",
+            "button_label_2": "",
+            "button_link_2": "",
+            "alignment": "left",
             "color_scheme": "scheme-2"
           }
         },
@@ -19,9 +32,13 @@
           "settings": {
             "subheading": "Kits",
             "heading": "Rotina completa com até 40% off",
+            "heading_size": "h0",
             "text": "<p>Combine produtos e economize.</p>",
             "button_label": "Ver kits",
             "button_link": "shopify://collections/all",
+            "button_label_2": "",
+            "button_link_2": "",
+            "alignment": "left",
             "color_scheme": "scheme-3"
           }
         }
@@ -32,15 +49,22 @@
       ],
       "settings": {
         "height": "large",
-        "text_position": "bottom-left"
+        "text_position": "bottom-left",
+        "content_box": false,
+        "overlay_opacity": 0,
+        "autoplay": true,
+        "autoplay_speed": 6,
+        "accessibility_label": "Destaques"
       }
     },
     "divider_hero": {
       "type": "divider",
       "settings": {
         "style": "wave",
-        "color_top": "#FCE6EA",
-        "color_bottom": "#FFFFFF"
+        "color_top": "#fce6ea",
+        "color_bottom": "#ffffff",
+        "height": 48,
+        "flip": false
       }
     },
     "intro": {
@@ -61,7 +85,14 @@
         },
         "i": {
           "type": "icons",
-          "settings": {}
+          "settings": {
+            "icon_1": "heart",
+            "label_1": "Cruelty-free",
+            "icon_2": "leaf",
+            "label_2": "100% vegano",
+            "icon_3": "globe",
+            "label_3": "Feito no Brasil"
+          }
         }
       },
       "block_order": [
@@ -70,6 +101,9 @@
         "i"
       ],
       "settings": {
+        "alignment": "center",
+        "width": "narrow",
+        "color_scheme": "",
         "padding_top": 48,
         "padding_bottom": 32
       }
@@ -80,25 +114,43 @@
         "b1": {
           "type": "banner",
           "settings": {
+            "style": "overlay",
+            "span": "1",
+            "subheading": "",
             "heading": "Desidratada",
-            "color_scheme": "scheme-2",
-            "button_label": "Comprar"
+            "text": "",
+            "button_label": "Comprar",
+            "link": "",
+            "alignment": "left",
+            "color_scheme": "scheme-2"
           }
         },
         "b2": {
           "type": "banner",
           "settings": {
+            "style": "overlay",
+            "span": "1",
+            "subheading": "",
             "heading": "Sem viço",
-            "color_scheme": "scheme-3",
-            "button_label": "Comprar"
+            "text": "",
+            "button_label": "Comprar",
+            "link": "",
+            "alignment": "left",
+            "color_scheme": "scheme-3"
           }
         },
         "b3": {
           "type": "banner",
           "settings": {
+            "style": "overlay",
+            "span": "1",
+            "subheading": "",
             "heading": "Oleosidade",
-            "color_scheme": "scheme-4",
-            "button_label": "Comprar"
+            "text": "",
+            "button_label": "Comprar",
+            "link": "",
+            "alignment": "left",
+            "color_scheme": "scheme-4"
           }
         }
       },
@@ -110,7 +162,13 @@
       "settings": {
         "subheading": "Para cada pele",
         "heading": "Compre pela necessidade da sua pele",
-        "columns": 3
+        "heading_alignment": "center",
+        "columns": 3,
+        "ratio": "0.8",
+        "mobile_carousel": true,
+        "color_scheme": "",
+        "padding_top": 32,
+        "padding_bottom": 64
       }
     },
     "marquee": {
@@ -141,8 +199,14 @@
         "t3"
       ],
       "settings": {
+        "size": "large",
+        "separator": "sparkle",
+        "speed": 30,
+        "reverse": false,
+        "tilt": false,
         "color_scheme": "scheme-4",
-        "size": "large"
+        "padding_top": 20,
+        "padding_bottom": 20
       }
     },
     "skin_quiz": {
@@ -165,7 +229,8 @@
           "type": "button",
           "settings": {
             "label": "Descubra seu tipo de pele",
-            "link": "shopify://collections/all"
+            "link": "shopify://collections/all",
+            "secondary": false
           }
         }
       },
@@ -175,6 +240,9 @@
         "b"
       ],
       "settings": {
+        "alignment": "center",
+        "width": "narrow",
+        "color_scheme": "",
         "padding_top": 72,
         "padding_bottom": 32
       }
@@ -185,19 +253,28 @@
         "b1": {
           "type": "banner",
           "settings": {
+            "style": "overlay",
             "span": "2",
             "subheading": "Lábios",
             "heading": "Bálsamos frutados",
             "text": "<p>Use à noite para hidratação profunda, como gloss durante o dia ou como primer para o batom.</p>",
             "button_label": "Comprar agora",
+            "link": "",
+            "alignment": "left",
             "color_scheme": "scheme-6"
           }
         },
         "b2": {
           "type": "banner",
           "settings": {
+            "style": "overlay",
+            "span": "1",
+            "subheading": "",
             "heading": "Kits presenteáveis",
+            "text": "",
             "button_label": "Ver kits",
+            "link": "",
+            "alignment": "left",
             "color_scheme": "scheme-2"
           }
         }
@@ -207,47 +284,110 @@
         "b2"
       ],
       "settings": {
+        "subheading": "",
+        "heading": "",
+        "heading_alignment": "center",
         "columns": 3,
         "ratio": "1",
-        "padding_top": 16
+        "mobile_carousel": true,
+        "color_scheme": "",
+        "padding_top": 16,
+        "padding_bottom": 64
       }
     },
     "divider_1": {
       "type": "divider",
       "settings": {
         "style": "drips",
-        "color_top": "#FFFFFF",
-        "color_bottom": "#FFFFFF",
-        "height": 32
+        "color_top": "#ffffff",
+        "color_bottom": "#ffffff",
+        "height": 32,
+        "flip": false
       }
     },
     "bestsellers": {
       "type": "featured-collection",
       "settings": {
-        "heading": "Os mais vendidos",
         "subheading": "Favoritos",
-        "layout": "carousel"
+        "heading": "Os mais vendidos",
+        "collection": "",
+        "products": [],
+        "limit": 8,
+        "columns": 4,
+        "layout": "carousel",
+        "show_view_all": true,
+        "color_scheme": "",
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "before_after": {
       "type": "before-after",
-      "settings": {}
+      "settings": {
+        "label_before": "Antes",
+        "label_after": "Depois",
+        "start_position": 50,
+        "layout": "left",
+        "subheading": "Resultados visíveis",
+        "heading": "Da fruta ao glow",
+        "text": "<p>A skincare coreana confia em extratos de frutas hidratantes há décadas. Combinamos esses extratos com ceramidas e ácido hialurônico para revelar sua pele mais luminosa.</p>",
+        "product": "",
+        "button_label": "Comprar luminosidade",
+        "button_link": "",
+        "alignment": "left",
+        "color_scheme": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     },
     "duo": {
       "type": "image-duo-with-text",
-      "settings": {}
+      "settings": {
+        "layout": "left",
+        "subheading": "Melhor juntos",
+        "heading": "Pele fresca, confiança renovada",
+        "text": "<p>Com extratos de frutas ricos em vitaminas e ativos que a pele ama, nossos produtos ajudam você e sua pele a se sentirem saudáveis, radiantes e renovadas.</p>",
+        "button_label": "Descubra seu glow",
+        "button_link": "",
+        "alignment": "left",
+        "color_scheme": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     },
     "countdown": {
       "type": "countdown",
-      "settings": {}
+      "settings": {
+        "end_date": "2026-12-31",
+        "end_time": "23:59",
+        "timezone_offset": "-03:00",
+        "overlay_opacity": 20,
+        "subheading": "Oferta por tempo limitado",
+        "heading": "Economize até 40% nos kits!",
+        "text": "",
+        "button_label": "Ver kits",
+        "button_link": "",
+        "expired_heading": "A promoção acabou!",
+        "expired_text": "<p>Fique de olho nas próximas ofertas.</p>",
+        "color_scheme": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     },
     "bundles": {
       "type": "featured-collection",
       "settings": {
-        "heading": "Kits e combos",
         "subheading": "Economize",
+        "heading": "Kits e combos",
+        "collection": "",
+        "products": [],
+        "limit": 8,
+        "columns": 4,
         "layout": "carousel",
-        "color_scheme": "scheme-1"
+        "show_view_all": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "look": {
@@ -256,6 +396,7 @@
         "h1": {
           "type": "hotspot",
           "settings": {
+            "product": "",
             "x": 30,
             "y": 40
           }
@@ -263,6 +404,7 @@
         "h2": {
           "type": "hotspot",
           "settings": {
+            "product": "",
             "x": 62,
             "y": 55
           }
@@ -270,6 +412,7 @@
         "h3": {
           "type": "hotspot",
           "settings": {
+            "product": "",
             "x": 45,
             "y": 78
           }
@@ -280,7 +423,17 @@
         "h2",
         "h3"
       ],
-      "settings": {}
+      "settings": {
+        "layout": "left",
+        "subheading": "Monte sua rotina",
+        "heading": "Sua rotina completa para uma pele equilibrada",
+        "text": "<p>Texturas que equilibram óleo e água, sem ressecar nem pesar.</p>",
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     },
     "routine": {
       "type": "multicolumn",
@@ -288,33 +441,45 @@
         "c1": {
           "type": "column",
           "settings": {
-            "heading": "1. Demaquilar",
             "icon": "drop",
-            "text": "<p>Remova maquiagem, protetor solar e impurezas com um bálsamo de limpeza suave.</p>"
+            "heading": "1. Demaquilar",
+            "text": "<p>Remova maquiagem, protetor solar e impurezas com um bálsamo de limpeza suave.</p>",
+            "product": "",
+            "link_label": "",
+            "link": ""
           }
         },
         "c2": {
           "type": "column",
           "settings": {
-            "heading": "2. Limpar",
             "icon": "sparkle",
-            "text": "<p>Renove a pele com um gel de limpeza leve que remove o excesso de oleosidade.</p>"
+            "heading": "2. Limpar",
+            "text": "<p>Renove a pele com um gel de limpeza leve que remove o excesso de oleosidade.</p>",
+            "product": "",
+            "link_label": "",
+            "link": ""
           }
         },
         "c3": {
           "type": "column",
           "settings": {
-            "heading": "3. Hidratar",
             "icon": "heart",
-            "text": "<p>Sele a hidratação com um creme nutritivo que deixa a pele macia e saudável.</p>"
+            "heading": "3. Hidratar",
+            "text": "<p>Sele a hidratação com um creme nutritivo que deixa a pele macia e saudável.</p>",
+            "product": "",
+            "link_label": "",
+            "link": ""
           }
         },
         "c4": {
           "type": "column",
           "settings": {
-            "heading": "4. Proteger",
             "icon": "shield",
-            "text": "<p>Proteja a pele todos os dias com um FPS leve e confortável.</p>"
+            "heading": "4. Proteger",
+            "text": "<p>Proteja a pele todos os dias com um FPS leve e confortável.</p>",
+            "product": "",
+            "link_label": "",
+            "link": ""
           }
         }
       },
@@ -326,7 +491,18 @@
       ],
       "settings": {
         "subheading": "Monte sua rotina",
-        "heading": "Passos básicos de skincare"
+        "heading": "Passos básicos de skincare",
+        "heading_alignment": "center",
+        "columns": 4,
+        "style": "card",
+        "ratio": "1",
+        "text_alignment": "left",
+        "mobile_carousel": true,
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "",
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "reviews": {
@@ -334,20 +510,29 @@
       "blocks": {
         "r1": {
           "type": "testimonial",
-          "settings": {}
+          "settings": {
+            "rating": 5,
+            "quote": "Minha pele nunca esteve tão luminosa. A textura é leve e o cheirinho é maravilhoso!",
+            "author": "Ana P.",
+            "product": ""
+          }
         },
         "r2": {
           "type": "testimonial",
           "settings": {
+            "rating": 5,
+            "quote": "Virou item obrigatório na minha rotina. Recomendo demais!",
             "author": "Julia M.",
-            "quote": "Virou item obrigatório na minha rotina. Recomendo demais!"
+            "product": ""
           }
         },
         "r3": {
           "type": "testimonial",
           "settings": {
+            "rating": 5,
+            "quote": "Chegou rápido, embalagem linda e resultado visível em poucas semanas.",
             "author": "Carla S.",
-            "quote": "Chegou rápido, embalagem linda e resultado visível em poucas semanas."
+            "product": ""
           }
         }
       },
@@ -356,14 +541,23 @@
         "r2",
         "r3"
       ],
-      "settings": {}
+      "settings": {
+        "subheading": "Quem usa, ama",
+        "heading": "O que nossas clientes dizem",
+        "columns": 3,
+        "color_scheme": "",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
     },
     "divider_end": {
       "type": "divider",
       "settings": {
         "style": "wave",
-        "color_top": "#FCE6EA",
-        "color_bottom": "#ECFDD1"
+        "color_top": "#fce6ea",
+        "color_bottom": "#ecfdd1",
+        "height": 48,
+        "flip": false
       }
     }
   },

@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "header",
   "name": "Cabeçalho",
@@ -8,19 +17,22 @@
         "a1": {
           "type": "announcement",
           "settings": {
-            "text": "Frete grátis acima de R$ 199"
+            "text": "Frete grátis acima de R$ 199",
+            "link": ""
           }
         },
         "a2": {
           "type": "announcement",
           "settings": {
-            "text": "Skincare acessível para todas"
+            "text": "Skincare acessível para todas",
+            "link": ""
           }
         },
         "a3": {
           "type": "announcement",
           "settings": {
-            "text": "Vegano e cruelty-free"
+            "text": "Vegano e cruelty-free",
+            "link": ""
           }
         }
       },
@@ -31,13 +43,19 @@
       ],
       "settings": {
         "style": "marquee",
+        "speed": 36,
+        "autoplay": true,
         "color_scheme": "scheme-5"
       }
     },
     "header": {
       "type": "header",
       "settings": {
+        "menu": "main-menu",
         "layout": "center",
+        "sticky": true,
+        "border": true,
+        "show_localization": true,
         "color_scheme": "scheme-1"
       }
     }

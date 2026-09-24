@@ -313,35 +313,85 @@
   customElements.define('cart-page', class extends HTMLElement {});
 
   customElements.define(
-    'sticky-header',
+    'site-header',
     class extends HTMLElement {
       connectedCallback() {
+        this.transparent = this.dataset.transparent === 'true';
+        this.hideOnScroll = this.dataset.hideOnScroll === 'true';
+        this.hovering = false;
+        this.lastY = window.scrollY;
+
         const setHeight = () => document.documentElement.style.setProperty('--header-height', `${this.offsetHeight}px`);
         setHeight();
         if ('ResizeObserver' in window) new ResizeObserver(setHeight).observe(this);
-        const transparent = this.classList.contains('header-wrapper--transparent');
-        if (this.dataset.sticky !== 'true' && !transparent) return;
-        let last = 0;
-        const onScroll = () => {
-          const y = window.scrollY;
-          this.classList.toggle('is-scrolled', y > 10);
-          const menuOpen = this.querySelector('details[open]');
-          if (this.dataset.hideOnScroll === 'true') {
-            this.classList.toggle('is-hidden', y > last && y > 300 && !menuOpen);
-          }
-          last = y;
+
+        this.update = this.update.bind(this);
+        let ticking = false;
+        this.onScroll = () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(() => {
+            ticking = false;
+            this.update();
+          });
         };
-        window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
-        if ('IntersectionObserver' in window) {
-          const sentinel = document.createElement('div');
-          sentinel.setAttribute('aria-hidden', 'true');
-          sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:11px;pointer-events:none;visibility:hidden;';
-          document.body.prepend(sentinel);
-          new IntersectionObserver(([entry]) => {
-            this.classList.toggle('is-scrolled', !entry.isIntersecting);
-          }).observe(sentinel);
+        window.addEventListener('scroll', this.onScroll, { passive: true });
+        window.addEventListener('resize', this.onScroll, { passive: true });
+        window.addEventListener('pageshow', this.update);
+        window.addEventListener('load', this.update);
+
+        if (window.matchMedia('(hover: hover)').matches) {
+          this.addEventListener('mouseenter', () => {
+            this.hovering = true;
+            this.update();
+          });
+          this.addEventListener('mouseleave', () => {
+            this.hovering = false;
+            this.update();
+          });
         }
+        this.addEventListener('focusin', this.update);
+        this.addEventListener('focusout', () => setTimeout(this.update, 0));
+        this.addEventListener('toggle', this.update, true);
+
+        if ('IntersectionObserver' in window) {
+          this.sentinel = document.createElement('div');
+          this.sentinel.setAttribute('aria-hidden', 'true');
+          this.sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:5px;pointer-events:none;visibility:hidden;';
+          document.body.prepend(this.sentinel);
+          this.observer = new IntersectionObserver(this.update);
+          this.observer.observe(this.sentinel);
+        }
+
+        this.update();
+      }
+
+      disconnectedCallback() {
+        window.removeEventListener('scroll', this.onScroll);
+        window.removeEventListener('resize', this.onScroll);
+        window.removeEventListener('pageshow', this.update);
+        window.removeEventListener('load', this.update);
+        this.observer?.disconnect();
+        this.sentinel?.remove();
+      }
+
+      update() {
+        const y = Math.max(window.scrollY || 0, document.documentElement.scrollTop || 0);
+        const scrolled = y > 5;
+        const menuOpen = !!this.querySelector('details[open]');
+        this.classList.toggle('is-scrolled', scrolled);
+
+        if (this.transparent) {
+          const focused = !!this.querySelector(':focus-visible');
+          const solid = scrolled || this.hovering || menuOpen || focused;
+          const state = solid ? 'solid' : 'transparent';
+          if (this.dataset.state !== state) this.dataset.state = state;
+        }
+
+        if (this.hideOnScroll) {
+          this.classList.toggle('is-hidden', y > this.lastY && y > 300 && !menuOpen);
+        }
+        this.lastY = y;
       }
     }
   );

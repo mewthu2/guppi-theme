@@ -1,6 +1,7 @@
 {%- liquid
   assign menu = section.settings.menu
   assign sticky = section.settings.sticky
+  assign scheme = section.settings.color_scheme
   assign transparent = false
   case section.settings.transparent
     when 'home'
@@ -14,12 +15,37 @@
     when 'all'
       assign transparent = true
   endcase
+  assign has_light_logo = false
+  if transparent and settings.logo_light != blank
+    assign has_light_logo = true
+  endif
 -%}
-<sticky-header
-  class="header-wrapper color-{{ section.settings.color_scheme }}{% if section.settings.border %} header-wrapper--border{% endif %}{% if transparent %} header-wrapper--transparent{% endif %}"
-  data-sticky="{{ sticky }}"
-  data-hide-on-scroll="{{ section.settings.hide_on_scroll }}"
-  {% if transparent %}style="--transparent-color: {{ section.settings.transparent_color }};"{% endif %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    position: {% if sticky %}sticky{% else %}relative{% endif %};
+    top: 0;
+    z-index: 50;
+    {%- if transparent %}
+    margin-bottom: calc(-1 * var(--header-height, 80px));
+    {%- endif %}
+  }
+  {%- if transparent %}
+  main > .shopify-section:first-child .hero__content {
+    padding-top: calc(var(--header-height, 80px) + 2rem);
+  }
+  main > .shopify-section:first-child > .section:not(.hero) {
+    padding-top: calc(var(--pt, 64px) + var(--header-height, 80px));
+  }
+  {%- endif %}
+{%- endstyle -%}
+
+<site-header
+  class="site-header color-{{ section.settings.color_scheme }}{% if section.settings.border %} site-header--border{% endif %}"
+  data-state="{% if transparent %}transparent{% else %}solid{% endif %}"
+  data-transparent="{{ transparent }}"
+  data-hide-on-scroll="{% if sticky and section.settings.hide_on_scroll %}true{% else %}false{% endif %}"
+  style="--header-bg: {{ scheme.settings.background }}; --header-fg: {{ scheme.settings.text }}; --header-border: {{ scheme.settings.border }}; --header-fg-transparent: {{ section.settings.transparent_color }};"
 >
   <header class="header header--{{ section.settings.layout }} page-width">
     <div class="header__left">
@@ -36,12 +62,12 @@
       {%- if settings.logo != blank -%}
         {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
         {%- assign logo_2x = settings.logo_width | times: 2 -%}
-        {%- assign logo_class = 'header__logo-img' -%}
-        {%- if transparent and settings.logo_light != blank -%}
-          {%- assign logo_class = 'header__logo-img header__logo-img--solid' -%}
-          {{ settings.logo_light | image_url: width: logo_2x | image_tag: class: 'header__logo-img header__logo-img--transparent', widths: '100, 200, 300, 400, 600', alt: logo_alt, loading: 'eager', fetchpriority: 'high' }}
+        {%- assign dark_class = 'header__logo-img header__logo-img--dark' -%}
+        {%- if has_light_logo -%}
+          {%- assign dark_class = 'header__logo-img header__logo-img--dark header__logo-img--swap' -%}
+          {{ settings.logo_light | image_url: width: logo_2x | image_tag: class: 'header__logo-img header__logo-img--light', widths: '100, 200, 300, 400, 600', alt: logo_alt, loading: 'eager', fetchpriority: 'high' }}
         {%- endif -%}
-        {{ settings.logo | image_url: width: logo_2x | image_tag: class: logo_class, widths: '100, 200, 300, 400, 600', alt: logo_alt, loading: 'eager', fetchpriority: 'high' }}
+        {{ settings.logo | image_url: width: logo_2x | image_tag: class: dark_class, widths: '100, 200, 300, 400, 600', alt: logo_alt, loading: 'eager', fetchpriority: 'high' }}
       {%- else -%}
         <span class="header__logo-text h3">{{ shop.name }}</span>
       {%- endif -%}
@@ -82,7 +108,7 @@
       </a>
     </div>
   </header>
-</sticky-header>
+</site-header>
 
 <menu-drawer class="drawer drawer--left" id="MenuDrawer">
   <div class="drawer__overlay" data-close></div>

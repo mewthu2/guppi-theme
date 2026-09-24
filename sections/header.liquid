@@ -36,9 +36,9 @@
         {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
         {%- assign logo_2x = settings.logo_width | times: 2 -%}
         {%- assign logo_class = 'header__logo-img' -%}
-        {%- if transparent and section.settings.transparent_logo != blank -%}
+        {%- if transparent and settings.logo_light != blank -%}
           {%- assign logo_class = 'header__logo-img header__logo-img--solid' -%}
-          {{ section.settings.transparent_logo | image_url: width: logo_2x | image_tag: class: 'header__logo-img header__logo-img--transparent', widths: '100, 200, 300, 400, 600', alt: logo_alt, loading: 'eager', fetchpriority: 'high' }}
+          {{ settings.logo_light | image_url: width: logo_2x | image_tag: class: 'header__logo-img header__logo-img--transparent', widths: '100, 200, 300, 400, 600', alt: logo_alt, loading: 'eager', fetchpriority: 'high' }}
         {%- endif -%}
         {{ settings.logo | image_url: width: logo_2x | image_tag: class: logo_class, widths: '100, 200, 300, 400, 600', alt: logo_alt, loading: 'eager', fetchpriority: 'high' }}
       {%- else -%}
@@ -176,7 +176,6 @@
     { "type": "paragraph", "content": "O cabeçalho fica sobre a primeira seção da página e ganha fundo sólido ao rolar ou ao passar o mouse. Funciona melhor com um Hero/Slideshow ou banner com imagem no topo." },
     { "type": "select", "id": "transparent", "label": "Transparente em", "options": [ { "value": "none", "label": "Desativado" }, { "value": "home", "label": "Página inicial" }, { "value": "home_collection", "label": "Página inicial e coleções" }, { "value": "all", "label": "Todas as páginas" } ], "default": "none" },
     { "type": "color", "id": "transparent_color", "label": "Cor do texto e ícones", "default": "#FFFFFF" },
-    { "type": "image_picker", "id": "transparent_logo", "label": "Logo do cabeçalho transparente (versão branca)", "info": "Aparece só enquanto o cabeçalho está transparente. Ao rolar a página, volta o logo principal (versão escura) definido em Configurações do tema > Logo e favicon." },
     { "type": "checkbox", "id": "show_localization", "label": "Mostrar seletor de país/moeda", "default": true },
     { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" }
   ],

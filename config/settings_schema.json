@@ -10,7 +10,8 @@
   {
     "name": "Logo e favicon",
     "settings": [
-      { "type": "image_picker", "id": "logo", "label": "Logo principal (versão escura)", "info": "Usado no cabeçalho com fundo sólido e nas demais páginas. A versão branca para o cabeçalho transparente fica em Cabeçalho > Cabeçalho transparente." },
+      { "type": "image_picker", "id": "logo", "label": "Logo preto", "info": "Usado no cabeçalho com fundo branco (padrão)." },
+      { "type": "image_picker", "id": "logo_light", "label": "Logo branco", "info": "Usado quando o cabeçalho está transparente (ative em Cabeçalho > Transparente em)." },
       { "type": "range", "id": "logo_width", "min": 50, "max": 300, "step": 5, "unit": "px", "label": "Largura do logo (desktop)", "default": 130 },
       { "type": "range", "id": "logo_width_mobile", "min": 40, "max": 200, "step": 5, "unit": "px", "label": "Largura do logo (mobile)", "default": 100 },
       { "type": "image_picker", "id": "favicon", "label": "Favicon", "info": "32 x 32px .png recomendado" }

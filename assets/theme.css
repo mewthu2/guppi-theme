@@ -878,9 +878,54 @@ textarea.field__input {
   border-bottom: 1px solid var(--color-border);
 }
 
-.header-wrapper[data-sticky='true'] {
+.section-header {
+  position: relative;
+  z-index: 50;
+}
+
+.section-header:has(> [data-sticky='true']) {
   position: sticky;
   top: 0;
+}
+
+.section-header:has(> .header-wrapper--transparent) {
+  margin-bottom: calc(-1 * var(--header-height, 5rem));
+}
+
+.header-wrapper--transparent {
+  background-color: transparent;
+  border-bottom-color: transparent;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header-wrapper--transparent:not(.is-scrolled, :hover, :focus-within, :has(details[open])) {
+  --color-foreground: var(--transparent-color);
+  background-color: transparent;
+  border-bottom-color: transparent;
+  box-shadow: none;
+  color: var(--transparent-color);
+}
+
+.header-wrapper--transparent:not(.is-scrolled, :hover, :focus-within, :has(details[open])) .nav__link:hover,
+.header-wrapper--transparent:not(.is-scrolled, :hover, :focus-within, :has(details[open])) .icon-button:hover {
+  background: rgb(255 255 255 / 0.15);
+}
+
+.header__logo-img--transparent,
+.header-wrapper--transparent:not(.is-scrolled, :hover, :focus-within, :has(details[open])) .header__logo-img--solid {
+  display: none;
+}
+
+.header-wrapper--transparent:not(.is-scrolled, :hover, :focus-within, :has(details[open])) .header__logo-img--transparent {
+  display: block;
+}
+
+body:has(.header-wrapper--transparent) main > .shopify-section:first-child .hero__content {
+  padding-top: calc(var(--header-height, 5rem) + 2rem);
+}
+
+body:has(.header-wrapper--transparent) main > .shopify-section:first-child > .section:not(.hero) {
+  padding-top: calc(var(--pt, var(--section-spacing)) + var(--header-height, 5rem));
 }
 
 .header-wrapper.is-hidden {

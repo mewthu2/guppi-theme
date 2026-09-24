@@ -1,8 +1,25 @@
 {%- liquid
   assign menu = section.settings.menu
   assign sticky = section.settings.sticky
+  assign transparent = false
+  case section.settings.transparent
+    when 'home'
+      if request.page_type == 'index'
+        assign transparent = true
+      endif
+    when 'home_collection'
+      if request.page_type == 'index' or request.page_type == 'collection'
+        assign transparent = true
+      endif
+    when 'all'
+      assign transparent = true
+  endcase
 -%}
-<sticky-header class="header-wrapper color-{{ section.settings.color_scheme }}{% if section.settings.border %} header-wrapper--border{% endif %}" data-sticky="{{ sticky }}">
+<sticky-header
+  class="header-wrapper color-{{ section.settings.color_scheme }}{% if section.settings.border %} header-wrapper--border{% endif %}{% if transparent %} header-wrapper--transparent{% endif %}"
+  data-sticky="{{ sticky }}"
+  {% if transparent %}style="--transparent-color: {{ section.settings.transparent_color }};"{% endif %}
+>
   <header class="header header--{{ section.settings.layout }} page-width">
     <div class="header__left">
       <button type="button" class="icon-button header__menu-toggle" aria-controls="MenuDrawer" aria-expanded="false" data-open-menu aria-label="{{ 'sections.header.menu' | t }}">
@@ -18,7 +35,12 @@
       {%- if settings.logo != blank -%}
         {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
         {%- assign logo_2x = settings.logo_width | times: 2 -%}
-        {{ settings.logo | image_url: width: logo_2x | image_tag: class: 'header__logo-img', widths: '100, 200, 300, 400, 600', alt: logo_alt, loading: 'eager', fetchpriority: 'high' }}
+        {%- assign logo_class = 'header__logo-img' -%}
+        {%- if transparent and section.settings.transparent_logo != blank -%}
+          {%- assign logo_class = 'header__logo-img header__logo-img--solid' -%}
+          {{ section.settings.transparent_logo | image_url: width: logo_2x | image_tag: class: 'header__logo-img header__logo-img--transparent', widths: '100, 200, 300, 400, 600', alt: logo_alt, loading: 'eager', fetchpriority: 'high' }}
+        {%- endif -%}
+        {{ settings.logo | image_url: width: logo_2x | image_tag: class: logo_class, widths: '100, 200, 300, 400, 600', alt: logo_alt, loading: 'eager', fetchpriority: 'high' }}
       {%- else -%}
         <span class="header__logo-text h3">{{ shop.name }}</span>
       {%- endif -%}
@@ -150,6 +172,11 @@
     { "type": "select", "id": "layout", "label": "Posição do logo", "options": [ { "value": "center", "label": "Centralizado" }, { "value": "left", "label": "Esquerda" } ], "default": "center" },
     { "type": "checkbox", "id": "sticky", "label": "Cabeçalho fixo ao rolar", "default": true },
     { "type": "checkbox", "id": "border", "label": "Mostrar borda inferior", "default": true },
+    { "type": "header", "content": "Cabeçalho transparente" },
+    { "type": "paragraph", "content": "O cabeçalho fica sobre a primeira seção da página e ganha fundo sólido ao rolar ou ao passar o mouse. Funciona melhor com um Hero/Slideshow ou banner com imagem no topo." },
+    { "type": "select", "id": "transparent", "label": "Transparente em", "options": [ { "value": "none", "label": "Desativado" }, { "value": "home", "label": "Página inicial" }, { "value": "home_collection", "label": "Página inicial e coleções" }, { "value": "all", "label": "Todas as páginas" } ], "default": "none" },
+    { "type": "color", "id": "transparent_color", "label": "Cor do texto e ícones", "default": "#FFFFFF" },
+    { "type": "image_picker", "id": "transparent_logo", "label": "Logo do cabeçalho transparente (versão branca)", "info": "Aparece só enquanto o cabeçalho está transparente. Ao rolar a página, volta o logo principal (versão escura) definido em Configurações do tema > Logo e favicon." },
     { "type": "checkbox", "id": "show_localization", "label": "Mostrar seletor de país/moeda", "default": true },
     { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" }
   ],

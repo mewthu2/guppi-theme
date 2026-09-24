@@ -316,6 +316,9 @@
     'sticky-header',
     class extends HTMLElement {
       connectedCallback() {
+        const setHeight = () => document.documentElement.style.setProperty('--header-height', `${this.offsetHeight}px`);
+        setHeight();
+        if ('ResizeObserver' in window) new ResizeObserver(setHeight).observe(this);
         if (this.dataset.sticky !== 'true') return;
         let last = 0;
         const onScroll = () => {
@@ -326,6 +329,7 @@
           last = y;
         };
         window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
       }
     }
   );

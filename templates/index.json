@@ -15,8 +15,8 @@
         "s1": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_23_de_set._de_2026_23_55_12_3.png",
-            "image_mobile": "shopify://shop_images/ChatGPT_Image_23_de_set._de_2026_23_55_13_4.png",
+            "image": "shopify://shop_images/ChatGPT_Image_24_de_set._de_2026_00_02_59_1.png",
+            "image_mobile": "shopify://shop_images/ChatGPT_Image_24_de_set._de_2026_00_02_59_2.png",
             "subheading": "",
             "heading": "",
             "heading_size": "h0",
@@ -47,7 +47,7 @@
       "type": "divider",
       "settings": {
         "style": "wave",
-        "color_top": "#fce6ea",
+        "color_top": "#E3CFD3",
         "color_bottom": "#ffffff",
         "height": 48,
         "flip": false

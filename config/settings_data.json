@@ -10,6 +10,7 @@
 {
   "current": {
     "logo": "shopify://shop_images/logo_preto.png",
+    "logo_light": "shopify://shop_images/logo_branco.png",
     "type_heading_font": "lora_n4",
     "type_body_font": "figtree_n4",
     "sections": {

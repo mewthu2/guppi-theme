@@ -15,11 +15,13 @@
         "s1": {
           "type": "slide",
           "settings": {
-            "subheading": "Novo",
-            "heading": "Seu glow começa aqui",
+            "image": "shopify://shop_images/ChatGPT_Image_23_de_set._de_2026_23_55_12_3.png",
+            "image_mobile": "shopify://shop_images/ChatGPT_Image_23_de_set._de_2026_23_55_13_4.png",
+            "subheading": "",
+            "heading": "",
             "heading_size": "h0",
-            "text": "<p>Skincare divertido e eficaz, com extratos de frutas e ativos que sua pele ama.</p>",
-            "button_label": "Comprar agora",
+            "text": "",
+            "button_label": "",
             "button_link": "shopify://collections/all",
             "button_label_2": "",
             "button_link_2": "",
@@ -30,10 +32,12 @@
         "s2": {
           "type": "slide",
           "settings": {
-            "subheading": "Kits",
-            "heading": "Rotina completa com até 40% off",
+            "image": "shopify://shop_images/ChatGPT_Image_23_de_set._de_2026_23_55_11_1.png",
+            "image_mobile": "shopify://shop_images/ChatGPT_Image_23_de_set._de_2026_23_55_11_2.png",
+            "subheading": "",
+            "heading": "",
             "heading_size": "h0",
-            "text": "<p>Combine produtos e economize.</p>",
+            "text": "",
             "button_label": "Ver kits",
             "button_link": "shopify://collections/all",
             "button_label_2": "",
@@ -48,7 +52,7 @@
         "s2"
       ],
       "settings": {
-        "height": "large",
+        "height": "full",
         "text_position": "bottom-left",
         "content_box": false,
         "overlay_opacity": 0,

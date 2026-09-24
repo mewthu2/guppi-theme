@@ -53,7 +53,7 @@
       "settings": {
         "menu": "main-menu",
         "layout": "center",
-        "sticky": true,
+        "sticky": false,
         "hide_on_scroll": false,
         "border": false,
         "transparent": "home",

@@ -1,0 +1,93 @@
+<div class="gp">
+  <header class="gp-hdr">
+    <button class="gp-ico" id="GpMenuBtn" type="button" aria-label="{{ 'sections.header.menu' | t }}" aria-expanded="false" aria-controls="GpMenu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path class="gp-p-bars" d="M4 7h16M4 12h16M4 17h16"/><path class="gp-p-x" d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <a class="gp-logo-link" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 400 | image_tag: class: 'gp-logo', alt: shop.name, widths: '200, 300, 400' }}
+      {%- else -%}
+        <img class="gp-logo" src="{{ 'guppi-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="310" height="110">
+      {%- endif -%}
+    </a>
+    <div class="gp-right">
+      <a class="gp-ico" href="{{ routes.search_url }}" data-open-search aria-label="{{ 'general.search.search' | t }}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+      </a>
+      <a class="gp-ico" href="{{ routes.cart_url }}" data-open-cart aria-label="{{ 'cart.general.title' | t }}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 8.5h13l-1 11h-11z"/><path d="M9 8.5V7a3 3 0 016 0v1.5"/></svg>
+        <span class="gp-count" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </header>
+</div>
+
+<div class="gp gp-menu-wrap" id="GpMenu" aria-hidden="true">
+  <div class="gp-menu-backdrop" data-gp-menu-close></div>
+  <nav class="gp-menu" aria-label="{{ 'sections.header.menu' | t }}">
+    {%- if section.blocks.size > 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.settings.soon or block.settings.link == blank -%}
+          <span class="gp-m-item off" aria-disabled="true" {{ block.shopify_attributes }}>{{ block.settings.label }}{% if block.settings.soon %}<small>{{ block.settings.soon_label }}</small>{% endif %}</span>
+        {%- else -%}
+          <a class="gp-m-item" href="{{ block.settings.link }}" data-gp-menu-close {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for link in section.settings.menu.links -%}
+        <a class="gp-m-item" href="{{ link.url }}" data-gp-menu-close>{{ link.title }}</a>
+      {%- endfor -%}
+    {%- endif -%}
+  </nav>
+</div>
+
+<dialog class="modal search-modal color-{{ section.settings.color_scheme }}" id="SearchModal" aria-label="{{ 'general.search.search' | t }}">
+  <div class="search-modal__inner page-width">
+    <predictive-search data-enabled="{{ settings.predictive_search_enabled }}">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search-form">
+        <label class="visually-hidden" for="SearchModalInput">{{ 'general.search.search' | t }}</label>
+        {% render 'icon', icon: 'search', class: 'search-form__icon' %}
+        <input
+          id="SearchModalInput"
+          class="search-form__input"
+          type="search"
+          name="q"
+          placeholder="{{ 'general.search.placeholder' | t }}"
+          autocomplete="off"
+          role="combobox"
+          aria-expanded="false"
+          aria-controls="PredictiveResults"
+          aria-autocomplete="list"
+        >
+        <input type="hidden" name="options[prefix]" value="last">
+        <button type="button" class="icon-button" data-close aria-label="{{ 'accessibility.close' | t }}">{% render 'icon', icon: 'close' %}</button>
+      </form>
+      <div class="predictive-results" id="PredictiveResults" aria-live="polite"></div>
+    </predictive-search>
+  </div>
+</dialog>
+
+{% schema %}
+{
+  "name": "Cabeçalho Güppi",
+  "class": "section-gp-header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Use a versão clara do logo. Sem imagem, usa o logo Güppi padrão." },
+    { "type": "link_list", "id": "menu", "label": "Menu", "info": "Usado quando não há itens adicionados como blocos.", "default": "main-menu" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores da busca", "default": "scheme-1" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item do menu",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Texto", "default": "Produtos" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "checkbox", "id": "soon", "label": "Marcar como em breve", "default": false },
+        { "type": "text", "id": "soon_label", "label": "Texto de em breve", "default": "Em breve" }
+      ]
+    }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}

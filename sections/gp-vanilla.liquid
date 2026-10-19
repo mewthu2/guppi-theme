@@ -1,0 +1,59 @@
+<section class="gp" id="{{ section.settings.anchor | default: 'vanilla' | handle }}">
+  {%- if section.settings.claim_1 != blank or section.settings.claim_2 != blank -%}
+    <div class="gp-claim">
+      {%- if section.settings.claim_1 != blank -%}<p>{{ section.settings.claim_1 }}</p>{%- endif -%}
+      {%- if section.settings.claim_2 != blank -%}<p>{{ section.settings.claim_2 }}</p>{%- endif -%}
+    </div>
+  {%- endif -%}
+  <div class="gp-vanilla" style="background: {{ section.settings.bg }};">
+    <div class="gp-v-photo">
+      {%- if section.settings.photo != blank -%}
+        {{ section.settings.photo | image_url: width: 1000 | image_tag: class: 'gp-media-fill', widths: '400, 800, 1000', sizes: '400px', loading: 'lazy' }}
+      {%- else -%}
+        Foto
+      {%- endif -%}
+    </div>
+    <div class="gp-v-row">
+      <div class="gp-v-text">
+        {%- if section.settings.title != blank -%}<h3>{{ section.settings.title | newline_to_br }}</h3>{%- endif -%}
+        {{ section.settings.text }}
+        {%- if section.settings.button_label != blank -%}
+          {%- if section.settings.button_link != blank -%}
+            <a class="gp-pill" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+          {%- else -%}
+            <button class="gp-pill" type="button">{{ section.settings.button_label }}</button>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+      <div class="gp-v-video" style="border-color: {{ section.settings.bg }};">
+        {%- if section.settings.video != blank -%}
+          {{ section.settings.video | video_tag: class: 'gp-media-fill', autoplay: true, muted: true, loop: true, playsinline: true, controls: false, preload: 'metadata', image_size: '600x' }}
+        {%- elsif section.settings.video_image != blank -%}
+          {{ section.settings.video_image | image_url: width: 600 | image_tag: class: 'gp-media-fill', widths: '300, 600', sizes: '200px', loading: 'lazy' }}
+        {%- else -%}
+          Vídeo
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Güppi · Fragrância",
+  "settings": [
+    { "type": "inline_richtext", "id": "claim_1", "label": "Frase 1", "default": "<b>Eficácia</b> de farmácia" },
+    { "type": "inline_richtext", "id": "claim_2", "label": "Frase 2", "default": "Experiência de <b>Perfumaria</b>" },
+    { "type": "image_picker", "id": "photo", "label": "Foto horizontal" },
+    { "type": "textarea", "id": "title", "label": "Título", "default": "Vanilla\nCashmere" },
+    { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Aquele cheiro de pele macia,<br>como um toque de cashmere.</p><p>Baunilha suave, quase um abraço.</p><p>Fica perto, envolve devagar e deixa a pele perfumada, com um frescor que acolhe.</p>" },
+    { "type": "text", "id": "button_label", "label": "Texto do botão", "default": "Descubra o cheiro Güppi" },
+    { "type": "url", "id": "button_link", "label": "Link do botão" },
+    { "type": "video", "id": "video", "label": "Vídeo vertical" },
+    { "type": "image_picker", "id": "video_image", "label": "Imagem vertical (se não houver vídeo)" },
+    { "type": "color", "id": "bg", "label": "Cor de fundo", "default": "#AA0259" },
+    { "type": "text", "id": "anchor", "label": "Âncora", "info": "Permite linkar para esta seção com /#vanilla", "default": "vanilla" }
+  ],
+  "presets": [{ "name": "Güppi · Fragrância" }]
+}
+{% endschema %}

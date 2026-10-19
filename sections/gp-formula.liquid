@@ -1,0 +1,51 @@
+<section class="gp gp-pdp gp-pdp-cream-scroll" data-gp-cream>
+  <div class="gp-pdp-cream">
+    {%- if section.settings.intro != blank -%}<p class="gp-pdp-cream-intro">{{ section.settings.intro | newline_to_br }}</p>{%- endif -%}
+    <div class="gp-pdp-cream-layout">
+      <div class="gp-pdp-cream-photo-wrap" aria-hidden="true">
+        <div class="gp-pdp-cream-fig">
+          {%- if section.settings.image != blank -%}
+            {{ section.settings.image | image_url: width: 500 | image_tag: class: 'gp-pdp-cream-img', widths: '250, 500', sizes: '170px', alt: '' }}
+          {%- else -%}
+            <img class="gp-pdp-cream-img" src="{{ 'guppi-cream.webp' | asset_url }}" alt="" width="480" height="1318" loading="lazy">
+          {%- endif -%}
+        </div>
+      </div>
+      <ul class="gp-pdp-bullets">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Güppi · Fórmula (creme)",
+  "settings": [
+    { "type": "textarea", "id": "intro", "label": "Título", "default": "O cuidado começa\nna fórmula." },
+    { "type": "image_picker", "id": "image", "label": "Imagem do creme", "info": "PNG ou WebP com fundo transparente, na vertical. Vazio, usa a textura padrão." }
+  ],
+  "blocks": [
+    { "type": "item", "name": "Ingrediente", "settings": [ { "type": "text", "id": "text", "label": "Texto", "default": "Manteiga de karité" } ] }
+  ],
+  "presets": [
+    {
+      "name": "Güppi · Fórmula (creme)",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Manteiga de karité" } },
+        { "type": "item", "settings": { "text": "Ácido hialurônico · 7 pesos moleculares" } },
+        { "type": "item", "settings": { "text": "Óleo de macadâmia" } },
+        { "type": "item", "settings": { "text": "Óleo de coco" } },
+        { "type": "item", "settings": { "text": "Óleo de girassol" } },
+        { "type": "item", "settings": { "text": "Óleo de argan" } },
+        { "type": "item", "settings": { "text": "Óleo de linhaça" } },
+        { "type": "item", "settings": { "text": "Óleo de oliva" } },
+        { "type": "item", "settings": { "text": "Óleo de abacate" } },
+        { "type": "item", "settings": { "text": "Óleo de semente de uva" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

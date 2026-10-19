@@ -1,153 +1,330 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
-      "type": "main-product",
+      "type": "gp-main-product",
       "blocks": {
-        "vendor": {
-          "type": "vendor",
-          "settings": {}
-        },
-        "title": {
-          "type": "title",
-          "settings": {}
-        },
-        "rating": {
-          "type": "rating",
-          "settings": {}
-        },
-        "price": {
-          "type": "price",
-          "settings": {}
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Fórmula leve com extratos de frutas para uma pele hidratada e luminosa.</p>",
-            "style": "text--subtle"
-          }
-        },
-        "picker": {
-          "type": "variant_picker",
-          "settings": {}
-        },
-        "inventory": {
-          "type": "inventory",
-          "settings": {}
-        },
-        "buy": {
-          "type": "buy_buttons",
-          "settings": {}
-        },
-        "benefits": {
-          "type": "benefits",
-          "settings": {}
-        },
         "desc": {
-          "type": "collapsible_tab",
+          "type": "collapsible",
           "settings": {
             "heading": "Descrição",
             "show_description": true,
-            "open": true,
-            "icon": "sparkle"
+            "content": "",
+            "open": true
           }
         },
         "how": {
-          "type": "collapsible_tab",
+          "type": "collapsible",
           "settings": {
             "heading": "Como usar",
-            "icon": "drop",
-            "content": "<p>Aplique sobre a pele limpa, com movimentos suaves, de manhã e à noite.</p>"
+            "show_description": false,
+            "content": "<p>Consulte as orientações de uso na embalagem do produto.</p>",
+            "open": false
           }
         },
         "ing": {
-          "type": "collapsible_tab",
+          "type": "collapsible",
           "settings": {
             "heading": "Ingredientes",
-            "icon": "leaf",
-            "content": "<p>Adicione a lista de ingredientes aqui.</p>"
+            "show_description": false,
+            "content": "<p>Consulte a lista completa de ingredientes na embalagem.</p>",
+            "open": false
           }
         },
         "ship": {
-          "type": "collapsible_tab",
+          "type": "collapsible",
           "settings": {
             "heading": "Entrega e trocas",
-            "icon": "truck",
-            "content": "<p>Enviamos em até 2 dias úteis. Trocas em até 7 dias.</p>"
+            "show_description": false,
+            "content": "<p>O frete e o prazo de entrega são calculados no momento da compra. Consulte a política de trocas antes de concluir seu pedido.</p>",
+            "open": false
           }
-        },
-        "comp": {
-          "type": "complementary",
-          "settings": {}
-        },
-        "share": {
-          "type": "share",
-          "settings": {}
         }
       },
       "block_order": [
-        "vendor",
-        "title",
-        "rating",
-        "price",
-        "text",
-        "picker",
-        "inventory",
-        "buy",
-        "benefits",
         "desc",
         "how",
         "ing",
-        "ship",
-        "comp",
-        "share"
+        "ship"
       ],
-      "settings": {}
+      "settings": {
+        "home_label": "Início",
+        "eyebrow": "",
+        "intro": "Um convite para transformar a hidratação em um momento de cuidado.",
+        "pix_discount": 5,
+        "pix_label": "no Pix",
+        "buy_label": "Comprar",
+        "sticky": true
+      }
     },
-    "marquee": {
-      "type": "sliding-text",
+    "formula": {
+      "type": "gp-formula",
       "blocks": {
-        "t1": {
-          "type": "text",
+        "f1": {
+          "type": "item",
           "settings": {
-            "text": "Cruelty-free"
+            "text": "Manteiga de karité"
           }
         },
-        "t2": {
-          "type": "text",
+        "f2": {
+          "type": "item",
           "settings": {
-            "text": "100% vegano"
+            "text": "Ácido hialurônico · 7 pesos moleculares"
           }
         },
-        "t3": {
-          "type": "text",
+        "f3": {
+          "type": "item",
           "settings": {
-            "text": "Glow natural"
+            "text": "Óleo de macadâmia"
+          }
+        },
+        "f4": {
+          "type": "item",
+          "settings": {
+            "text": "Óleo de coco"
+          }
+        },
+        "f5": {
+          "type": "item",
+          "settings": {
+            "text": "Óleo de girassol"
+          }
+        },
+        "f6": {
+          "type": "item",
+          "settings": {
+            "text": "Óleo de argan"
+          }
+        },
+        "f7": {
+          "type": "item",
+          "settings": {
+            "text": "Óleo de linhaça"
+          }
+        },
+        "f8": {
+          "type": "item",
+          "settings": {
+            "text": "Óleo de oliva"
+          }
+        },
+        "f9": {
+          "type": "item",
+          "settings": {
+            "text": "Óleo de abacate"
+          }
+        },
+        "f10": {
+          "type": "item",
+          "settings": {
+            "text": "Óleo de semente de uva"
           }
         }
       },
       "block_order": [
-        "t1",
-        "t2",
-        "t3"
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6",
+        "f7",
+        "f8",
+        "f9",
+        "f10"
       ],
       "settings": {
-        "size": "medium",
-        "color_scheme": "scheme-4"
+        "intro": "O cuidado começa\nna fórmula."
       }
     },
-    "before_after": {
-      "type": "before-after",
-      "settings": {}
+    "band": {
+      "type": "gp-marquee",
+      "settings": {
+        "text": "100% Vegano – Glow Natural – Feito no Brasil –",
+        "style": "band",
+        "speed": 16,
+        "bg": "#B4D2BA",
+        "color": "#F6F3EC"
+      }
     },
-    "recommendations": {
-      "type": "product-recommendations",
-      "settings": {}
+    "actives": {
+      "type": "gp-actives",
+      "blocks": {
+        "a1": {
+          "type": "active",
+          "settings": {
+            "icon": "karite",
+            "title": "Manteiga de karité",
+            "text": "<p>Manteiga vegetal rica em lipídios, com textura nutritiva. Repõe a emoliência e forma um filme que reduz a perda de água, deixando a pele macia e confortável.</p>"
+          }
+        },
+        "a2": {
+          "type": "active",
+          "settings": {
+            "icon": "hialuronico",
+            "title": "Ácido hialurônico",
+            "text": "<p>Umectante que atrai e retém água. A combinação de 7 pesos moleculares reúne diferentes tamanhos de moléculas para hidratação e formação de um filme hidratante na superfície da pele.</p>"
+          }
+        },
+        "a3": {
+          "type": "active",
+          "settings": {
+            "icon": "macadamia",
+            "title": "Óleo de macadâmia",
+            "text": "<p>Óleo vegetal com ácidos graxos oleico e palmitoleico. Sua ação emoliente suaviza a superfície da pele e proporciona um toque sedoso.</p>"
+          }
+        },
+        "a4": {
+          "type": "active",
+          "settings": {
+            "icon": "coco",
+            "title": "Óleo de coco",
+            "text": "<p>Óleo rico em ácidos graxos, especialmente ácido láurico. Forma um filme emoliente que reduz a perda de água e preserva a maciez da pele.</p>"
+          }
+        },
+        "a5": {
+          "type": "active",
+          "settings": {
+            "icon": "girassol",
+            "title": "Óleo de girassol",
+            "text": "<p>Fonte de ácidos graxos, incluindo ácido linoleico. Complementa os lipídios da barreira cutânea e proporciona emoliência com toque suave.</p>"
+          }
+        },
+        "a6": {
+          "type": "active",
+          "settings": {
+            "icon": "argan",
+            "title": "Óleo de argan",
+            "text": "<p>Óleo vegetal com ácidos graxos e tocoferóis naturalmente presentes. Oferece emoliência e deixa a pele com uma sensação mais suave e flexível.</p>"
+          }
+        },
+        "a7": {
+          "type": "active",
+          "settings": {
+            "icon": "linhaca",
+            "title": "Óleo de linhaça",
+            "text": "<p>Óleo vegetal com ácido alfa-linolênico, um ômega 3. Sua composição lipídica oferece emoliência e complementa o cuidado da barreira cutânea.</p>"
+          }
+        },
+        "a8": {
+          "type": "active",
+          "settings": {
+            "icon": "oliva",
+            "title": "Óleo de oliva",
+            "text": "<p>Rico em ácido oleico, é um emoliente de toque envolvente. Suaviza áreas ressecadas e forma um filme que preserva a hidratação da pele.</p>"
+          }
+        },
+        "a9": {
+          "type": "active",
+          "settings": {
+            "icon": "abacate",
+            "title": "Óleo de abacate",
+            "text": "<p>Óleo de textura nutritiva, com ácidos graxos como o oleico. Proporciona emoliência e conforto, deixando a superfície da pele mais macia.</p>"
+          }
+        },
+        "a10": {
+          "type": "active",
+          "settings": {
+            "icon": "uva",
+            "title": "Óleo de semente de uva",
+            "text": "<p>Óleo vegetal com ácido linoleico. Sua ação emoliente suaviza a pele e complementa a hidratação com um toque delicado.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5",
+        "a6",
+        "a7",
+        "a8",
+        "a9",
+        "a10"
+      ],
+      "settings": {
+        "title": "Ativos",
+        "label": "ATIVOS DA FÓRMULA",
+        "hint": "Deslize para conhecer os ativos →"
+      }
+    },
+    "videos": {
+      "type": "gp-videos",
+      "blocks": {
+        "v1": {
+          "type": "video",
+          "settings": {
+            "label": "Vídeos"
+          }
+        },
+        "v2": {
+          "type": "video",
+          "settings": {
+            "label": "Vídeos"
+          }
+        },
+        "v3": {
+          "type": "video",
+          "settings": {
+            "label": "Vídeos"
+          }
+        },
+        "v4": {
+          "type": "video",
+          "settings": {
+            "label": "Vídeos"
+          }
+        }
+      },
+      "block_order": [
+        "v1",
+        "v2",
+        "v3",
+        "v4"
+      ],
+      "settings": {
+        "title": "Güppi na rotina",
+        "intro": "O cuidado em movimento."
+      }
+    },
+    "story": {
+      "type": "gp-story",
+      "settings": {
+        "style": "story",
+        "eyebrow": "VANILLA CASHMERE",
+        "title": "Cheiro de pele macia,\ncomo um toque de cashmere.",
+        "text": "Fragrância autoral, cremosa e envolvente.",
+        "link_label": "Conheça o hidratante ↑"
+      }
+    },
+    "news": {
+      "type": "gp-story",
+      "settings": {
+        "style": "news",
+        "eyebrow": "",
+        "title": "Eficácia de farmácia.\nExperiência de perfumaria.",
+        "text": "Conheça o universo Güppi e acompanhe as novidades.",
+        "link_label": "Visitar a loja →",
+        "link": "shopify://collections/all"
+      }
     }
   },
   "order": [
     "main",
-    "marquee",
-    "before_after",
-    "recommendations"
+    "formula",
+    "band",
+    "actives",
+    "videos",
+    "story",
+    "news"
   ]
 }

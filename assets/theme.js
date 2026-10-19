@@ -663,6 +663,7 @@
           }, 60),
           { passive: true }
         );
+        if (this.dataset.autoplay === 'true') this.initVideos();
         const active = this.querySelector('.gallery__item.is-active');
         if (active && active !== this.track.firstElementChild) {
           this.show(active.dataset.mediaId, false);
@@ -679,6 +680,39 @@
           this.track.scrollTo({ left: items[i].offsetLeft - this.track.offsetLeft, behavior: smooth ? 'smooth' : 'auto' });
         }
         this.setActive(i);
+      }
+
+      initVideos() {
+        const videos = [...this.querySelectorAll('video')];
+        if (!videos.length) return;
+        videos.forEach((video) => {
+          video.muted = true;
+          video.playsInline = true;
+          video.setAttribute('muted', '');
+          video.setAttribute('playsinline', '');
+        });
+        const play = (video) => {
+          const attempt = video.play();
+          if (attempt && attempt.catch) attempt.catch(() => {});
+        };
+        if (!('IntersectionObserver' in window)) {
+          videos.forEach(play);
+          return;
+        }
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const video = entry.target;
+              if (entry.isIntersecting) {
+                play(video);
+              } else if (!video.paused) {
+                video.pause();
+              }
+            });
+          },
+          { threshold: 0.5 }
+        );
+        videos.forEach((video) => observer.observe(video));
       }
 
       setActive(i) {

@@ -1,0 +1,27 @@
+<section class="gp gp-pdp {% if section.settings.style == 'news' %}gp-pdp-news{% else %}gp-pdp-story{% endif %}">
+  {%- if section.settings.eyebrow != blank -%}<span class="gp-pdp-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+  {%- if section.settings.title != blank -%}<h2>{{ section.settings.title | newline_to_br }}</h2>{%- endif -%}
+  {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+  {%- if section.settings.link_label != blank -%}
+    {%- if section.settings.link == blank -%}
+      <a href="#" data-gp-top>{{ section.settings.link_label }}</a>
+    {%- else -%}
+      <a href="{{ section.settings.link }}">{{ section.settings.link_label }}</a>
+    {%- endif -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Güppi · Texto central",
+  "settings": [
+    { "type": "select", "id": "style", "label": "Estilo", "options": [ { "value": "story", "label": "História (maior)" }, { "value": "news", "label": "Novidades (menor)" } ], "default": "story" },
+    { "type": "text", "id": "eyebrow", "label": "Sobretítulo", "default": "VANILLA CASHMERE" },
+    { "type": "textarea", "id": "title", "label": "Título", "default": "Cheiro de pele macia,\ncomo um toque de cashmere." },
+    { "type": "text", "id": "text", "label": "Texto", "default": "Fragrância autoral, cremosa e envolvente." },
+    { "type": "text", "id": "link_label", "label": "Texto do link", "default": "Conheça o hidratante ↑" },
+    { "type": "url", "id": "link", "label": "Link", "info": "Vazio, o link volta para o topo da página." }
+  ],
+  "presets": [{ "name": "Güppi · Texto central" }]
+}
+{% endschema %}

@@ -2,7 +2,7 @@
 <section class="section main-product color-{{ section.settings.color_scheme }}" style="--pt: {{ section.settings.padding_top }}px; --pb: {{ section.settings.padding_bottom }}px;" data-section-id="{{ section.id }}">
   <div class="page-width product product--{{ section.settings.gallery_layout }}">
     <div class="product__media">
-      {% render 'product-gallery', product: product, section_id: section.id, layout: section.settings.gallery_layout %}
+      {% render 'product-gallery', product: product, section_id: section.id, layout: section.settings.gallery_layout, autoplay: section.settings.video_autoplay %}
     </div>
 
     <div class="product__info">
@@ -173,6 +173,7 @@
   "class": "section-main-product",
   "settings": [
     { "type": "select", "id": "gallery_layout", "label": "Layout da galeria", "options": [ { "value": "slider", "label": "Slider com miniaturas" }, { "value": "grid", "label": "Grade" } ], "default": "slider" },
+    { "type": "checkbox", "id": "video_autoplay", "label": "Reproduzir vídeos automaticamente", "info": "Os vídeos tocam sem som e em loop, inclusive no celular.", "default": true },
     { "type": "checkbox", "id": "sticky_info", "label": "Fixar informações ao rolar", "default": true },
     { "type": "checkbox", "id": "sticky_atc", "label": "Barra fixa de adicionar ao carrinho", "default": true },
     { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores", "default": "scheme-1" },

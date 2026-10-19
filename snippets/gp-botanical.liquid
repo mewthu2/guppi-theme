@@ -1,0 +1,32 @@
+{% doc %}
+  Ilustrações botânicas dos cards de ativos.
+
+  @param {string} icon - karite, hialuronico, macadamia, coco, girassol, argan, linhaca, oliva, abacate, uva
+
+  @example
+  {% render 'gp-botanical', icon: 'karite' %}
+{% enddoc %}
+<svg class="gp-pdp-active-art gp-botanical" viewBox="0 0 140 100" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  {%- case icon -%}
+    {%- when 'karite' -%}
+      <path d="M68 82V34m0 13C41 46 35 26 39 18c27 0 39 10 29 29Zm0-3c23-3 37-17 37-29-25 1-38 11-37 29Z"/><ellipse cx="49" cy="69" rx="16" ry="20" transform="rotate(-20 49 69)"/><ellipse cx="88" cy="70" rx="18" ry="23" transform="rotate(20 88 70)"/><path d="M87 54c-7 8-7 23 0 32"/>
+    {%- when 'hialuronico' -%}
+      <circle cx="70" cy="50" r="17"/><circle cx="34" cy="25" r="13"/><circle cx="24" cy="68" r="10"/><circle cx="108" cy="24" r="8"/><circle cx="112" cy="69" r="6"/><circle cx="73" cy="10" r="4"/><circle cx="68" cy="88" r="3"/><path d="m45 33 12 9m-23 22 20-9m32-15 15-11m-15 30 19 7M71 14v18M69 67v18"/>
+    {%- when 'macadamia' -%}
+      <circle cx="58" cy="50" r="28"/><path d="M45 28c-14 15-14 32 0 45m11-44c-8 13-8 28 0 41M79 23c20-10 31 5 30 26S97 82 80 77"/><ellipse cx="94" cy="51" rx="10" ry="19"/>
+    {%- when 'coco' -%}
+      <path d="M29 44q38-39 78 0l-8 35q-34 23-63-2Z"/><ellipse cx="68" cy="44" rx="39" ry="21"/><ellipse cx="68" cy="44" rx="29" ry="14"/><path d="m40 58 6 24m49-24-5 23m-26-18 1 27"/>
+    {%- when 'girassol' -%}
+      <circle cx="70" cy="36" r="15"/><path d="M70 21q-15-29-15-6m15 6q15-29 15-6M57 29q-28-14-21 1m19 8q-30 7-18 17m23-8q-17 27-1 25m13-21q10 30 21 15m-8-23q29 14 25-4m-25-6q28-10 17-22M70 52v42m0-14q-30-3-28-20 24 0 28 20Zm0 8q28-2 27-18-22-1-27 18Z"/>
+    {%- when 'argan' -%}
+      <path d="M72 88V28m0 9q-27-4-25-23 26 1 25 23Zm0 10q26-1 27-23-24 2-27 23Z"/><ellipse cx="49" cy="70" rx="14" ry="21"/><ellipse cx="87" cy="69" rx="14" ry="22"/><path d="m47 49 3-7m36 5 3-5M46 57q-8 17 0 28m38-32q-7 16-1 29"/>
+    {%- when 'linhaca' -%}
+      <path d="M69 94V52m0 17-19-9m19 22 16-13"/><path d="M70 36C43 6 51-2 66 16c12-24 26-19 14 3 30-7 34 10 9 17 19 18 4 30-12 15-8 25-23 16-18-5-27 4-30-13-9-19"/><circle cx="70" cy="35" r="7"/>
+    {%- when 'oliva' -%}
+      <path d="m37 88 58-75M48 72Q19 61 24 42q29 3 24 30Zm12-16q-27-13-18-32 26 7 18 32Zm12-16q4-29 25-27 2 24-25 27Zm-5 18q28-20 42-5-9 21-42 5Z"/><ellipse cx="84" cy="75" rx="10" ry="15" transform="rotate(24 84 75)"/><ellipse cx="104" cy="79" rx="9" ry="14" transform="rotate(-12 104 79)"/>
+    {%- when 'abacate' -%}
+      <path d="M59 12C46 12 47 30 34 46 11 74 30 92 59 92s48-18 25-46C71 30 72 12 59 12Z"/><path d="M60 21c-8 0-9 17-21 30-16 21-6 33 20 33s36-12 20-33C67 38 68 21 60 21Z"/><ellipse cx="60" cy="65" rx="14" ry="17"/><path d="M98 20q-12 9-5 24c16 26 20 50 32 42 9-8 0-26-12-42-8-13-5-21-15-24Z"/>
+    {%- when 'uva' -%}
+      <path d="M70 20V6m0 14q25-29 37-13-11 21-37 13Zm-1 0q-15-19-29-9 6 16 29 9Z"/><circle cx="48" cy="36" r="13"/><circle cx="75" cy="36" r="13"/><circle cx="101" cy="36" r="13"/><circle cx="61" cy="58" r="13"/><circle cx="88" cy="58" r="13"/><circle cx="74" cy="80" r="13"/>
+  {%- endcase -%}
+</svg>

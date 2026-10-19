@@ -1,0 +1,61 @@
+<section class="gp gp-combo">
+  <div class="gp-head">
+    {%- if section.settings.eyebrow != blank -%}<p class="gp-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    {%- if section.settings.title != blank -%}<h2>{{ section.settings.title }}</h2>{%- endif -%}
+  </div>
+  <div class="gp-rail" data-gp-drag>
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign link = block.settings.link
+        if link == blank and block.settings.product != blank
+          assign link = block.settings.product.url
+        endif
+        assign img = block.settings.image
+        if img == blank and block.settings.product != blank
+          assign img = block.settings.product.featured_image
+        endif
+      -%}
+      {%- if link != blank -%}<a class="gp-card gp-c-{{ block.settings.color }}" href="{{ link }}"{% if block.settings.product != blank %} aria-label="{{ block.settings.product.title | escape }}"{% endif %} {{ block.shopify_attributes }}>{%- else -%}<div class="gp-card gp-c-{{ block.settings.color }}" {{ block.shopify_attributes }}>{%- endif -%}
+        {%- if img != blank -%}
+          {{ img | image_url: width: 500 | image_tag: class: 'gp-media-fill', widths: '200, 350, 500', sizes: '150px', loading: 'lazy', alt: '' }}
+        {%- else -%}
+          Foto
+        {%- endif -%}
+      {%- if link != blank -%}</a>{%- else -%}</div>{%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Güppi · Kits e combo",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sobretítulo", "default": "Combine" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Kits e Combo" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Kit",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Produto" },
+        { "type": "image_picker", "id": "image", "label": "Foto", "info": "Substitui a foto do produto." },
+        { "type": "url", "id": "link", "label": "Link", "info": "Substitui o link do produto." },
+        { "type": "select", "id": "color", "label": "Cor", "options": [ { "value": "pink", "label": "Rosa" }, { "value": "purple", "label": "Roxo" }, { "value": "green", "label": "Verde" }, { "value": "lilac", "label": "Lilás" } ], "default": "pink" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Güppi · Kits e combo",
+      "blocks": [
+        { "type": "card", "settings": { "color": "pink" } },
+        { "type": "card", "settings": { "color": "purple" } },
+        { "type": "card", "settings": { "color": "green" } },
+        { "type": "card", "settings": { "color": "lilac" } },
+        { "type": "card", "settings": { "color": "pink" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

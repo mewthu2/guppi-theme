@@ -1967,6 +1967,14 @@ details[open] > .nav__link .icon {
   aspect-ratio: 4 / 5;
 }
 
+.media--tall {
+  aspect-ratio: 3 / 4;
+}
+
+.media--extra-tall {
+  aspect-ratio: 2 / 3;
+}
+
 .media--adapt {
   aspect-ratio: auto;
 }

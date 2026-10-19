@@ -1,0 +1,24 @@
+<section class="gp gp-hero" style="background: {{ section.settings.bg }};">
+  {%- if section.settings.video != blank -%}
+    {{ section.settings.video | video_tag: class: 'gp-media-fill', autoplay: true, muted: true, loop: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1100x' }}
+  {%- elsif section.settings.image != blank -%}
+    {{ section.settings.image | image_url: width: 1100 | image_tag: class: 'gp-media-fill', widths: '430, 860, 1100', sizes: '(min-width: 430px) 430px, 100vw', loading: 'eager', fetchpriority: 'high' }}
+  {%- else -%}
+    <div class="gp-slot">{{ section.settings.placeholder }}</div>
+  {%- endif -%}
+  <svg class="gp-wave" viewBox="0 0 390 58" preserveAspectRatio="none" aria-hidden="true"><path fill="{{ section.settings.wave_color }}" d="M0,40 C70,12 150,6 215,20 C290,36 340,46 390,32 L390,58 L0,58 Z"/></svg>
+</section>
+
+{% schema %}
+{
+  "name": "Güppi · Abertura",
+  "settings": [
+    { "type": "video", "id": "video", "label": "Vídeo", "info": "Toca sem som, em loop." },
+    { "type": "image_picker", "id": "image", "label": "Imagem (se não houver vídeo)" },
+    { "type": "text", "id": "placeholder", "label": "Texto sem mídia", "default": "Vídeo" },
+    { "type": "color", "id": "bg", "label": "Cor de fundo", "default": "#DECFF0" },
+    { "type": "color", "id": "wave_color", "label": "Cor da onda", "default": "#F6F3EC" }
+  ],
+  "presets": [{ "name": "Güppi · Abertura" }]
+}
+{% endschema %}

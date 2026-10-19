@@ -11,65 +11,6 @@
   "type": "footer",
   "name": "Rodapé",
   "sections": {
-    "newsletter": {
-      "type": "newsletter",
-      "settings": {
-        "subheading": "Newsletter",
-        "heading": "Assine e ganhe 20% off na primeira compra",
-        "text": "<p>Seja a primeira a saber das novidades e ofertas exclusivas.</p>",
-        "color_scheme": "scheme-3",
-        "padding_top": 64,
-        "padding_bottom": 64
-      }
-    },
-    "footer": {
-      "type": "footer",
-      "blocks": {
-        "brand": {
-          "type": "brand",
-          "settings": {
-            "image": "shopify://shop_images/logo_branco.png",
-            "image_width": 140,
-            "text": "<p>Skincare divertido, eficaz e fácil de amar. Cuidado com a pele inspirado na natureza.</p>",
-            "show_social": true
-          }
-        },
-        "m1": {
-          "type": "menu",
-          "settings": {
-            "heading": "Categorias",
-            "menu": "main-menu"
-          }
-        },
-        "m2": {
-          "type": "menu",
-          "settings": {
-            "heading": "Atendimento",
-            "menu": "footer"
-          }
-        },
-        "t1": {
-          "type": "text",
-          "settings": {
-            "heading": "Contato",
-            "text": "<p>contato@sualoja.com.br<br>Seg a sex, 9h às 18h</p>"
-          }
-        }
-      },
-      "block_order": [
-        "brand",
-        "m1",
-        "m2",
-        "t1"
-      ],
-      "settings": {
-        "color_scheme": "scheme-5",
-        "show_country": true,
-        "show_language": true,
-        "show_payment_icons": true,
-        "show_policies": true
-      }
-    },
     "popup": {
       "type": "promo-popup",
       "settings": {
@@ -85,11 +26,23 @@
         "button_link": "",
         "color_scheme": ""
       }
+    },
+    "gp_footer": {
+      "type": "gp-footer",
+      "settings": {
+        "tagline": "Cuidado que dá vontade de repetir.",
+        "heading_1": "Explore",
+        "menu_1": "main-menu",
+        "heading_2": "Atendimento",
+        "contact_label": "Fale com a Güppi",
+        "sign": "<p><b>OAK BRASIL</b><br/>Protótipo de front criado e assinado pela OAK<br/>Strategy / Creativity / Performance</p>",
+        "show_sign": true,
+        "home_minimal": true
+      }
     }
   },
   "order": [
-    "newsletter",
-    "footer",
+    "gp_footer",
     "popup"
   ]
 }

@@ -1,0 +1,53 @@
+<section class="gp gp-pdp gp-pdp-videos" aria-labelledby="Videos-{{ section.id }}-title">
+  <div class="gp-pdp-heading">
+    <h2 id="Videos-{{ section.id }}-title">{{ section.settings.title }}</h2>
+    <div>
+      <button class="gp-pdp-card-arrow" type="button" aria-label="Vídeo anterior" data-gp-scroll="Videos-{{ section.id }}" data-dir="-1">‹</button>
+      <button class="gp-pdp-card-arrow" type="button" aria-label="Próximo vídeo" data-gp-scroll="Videos-{{ section.id }}" data-dir="1">›</button>
+    </div>
+  </div>
+  {%- if section.settings.intro != blank -%}<p class="gp-pdp-video-intro">{{ section.settings.intro }}</p>{%- endif -%}
+  <div class="gp-track gp-pdp-video-track" id="Videos-{{ section.id }}" data-gp-drag tabindex="0" aria-label="Vídeos de uso dos produtos">
+    {%- for block in section.blocks -%}
+      {%- assign num = forloop.index | prepend: '0' | slice: -2, 2 -%}
+      <article class="gp-pdp-video-card" aria-label="Vídeo {{ forloop.index }}" {{ block.shopify_attributes }}>
+        {%- if block.settings.video != blank -%}
+          {{ block.settings.video | video_tag: class: 'gp-media-fill', autoplay: true, muted: true, loop: true, playsinline: true, controls: false, preload: 'metadata', image_size: '600x' }}
+        {%- elsif block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 600 | image_tag: class: 'gp-media-fill', widths: '300, 600', sizes: '300px', loading: 'lazy', alt: '' }}
+        {%- else -%}
+          <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.2"/><path d="m20 16 13 8-13 8V16Z" fill="currentColor"/></svg>
+          <span>{{ block.settings.label }}</span>
+        {%- endif -%}
+        <small>{{ num }}</small>
+      </article>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Güppi · Vídeos de uso",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Güppi na rotina" },
+    { "type": "text", "id": "intro", "label": "Texto", "default": "O cuidado em movimento." }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Vídeo",
+      "settings": [
+        { "type": "video", "id": "video", "label": "Vídeo" },
+        { "type": "image_picker", "id": "image", "label": "Imagem (se não houver vídeo)" },
+        { "type": "text", "id": "label", "label": "Texto sem mídia", "default": "Vídeos" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Güppi · Vídeos de uso",
+      "blocks": [ { "type": "video" }, { "type": "video" }, { "type": "video" }, { "type": "video" } ]
+    }
+  ]
+}
+{% endschema %}

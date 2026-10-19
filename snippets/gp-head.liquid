@@ -1,0 +1,31 @@
+{% doc %}
+  Fonte DM Sans (arquivos do tema) e estilos/scripts do layout Güppi.
+
+  @example
+  {% render 'gp-head' %}
+{% enddoc %}
+{{ 'DMSans-Regular.ttf' | asset_url | preload_tag: as: 'font', type: 'font/ttf', crossorigin: true }}
+{{ 'DMSans-Bold.ttf' | asset_url | preload_tag: as: 'font', type: 'font/ttf', crossorigin: true }}
+{% style %}
+  @font-face {
+    font-family: "DM Sans";
+    src: url("{{ 'DMSans-Regular.ttf' | asset_url }}") format("truetype");
+    font-weight: 100 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "DM Sans";
+    src: url("{{ 'DMSans-Bold.ttf' | asset_url }}") format("truetype");
+    font-weight: 700 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  :root {
+    --font-heading-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    --font-body-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    --font-heading-weight: 800;
+  }
+{% endstyle %}
+{{ 'guppi.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'guppi.js' | asset_url }}" defer="defer"></script>

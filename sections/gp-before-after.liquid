@@ -1,0 +1,34 @@
+<section class="gp gp-ba-sec" style="background: {{ section.settings.bg }};">
+  <div class="gp-ba" data-gp-ba role="slider" aria-label="Comparar antes e depois" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+    {%- if section.settings.before != blank -%}
+      {{ section.settings.before | image_url: width: 1000 | image_tag: class: 'gp-media-fill', widths: '400, 800, 1000', sizes: '400px', loading: 'lazy', alt: section.settings.label_before }}
+    {%- endif -%}
+    <div class="gp-after">
+      {%- if section.settings.after != blank -%}
+        {{ section.settings.after | image_url: width: 1000 | image_tag: class: 'gp-media-fill', widths: '400, 800, 1000', sizes: '400px', loading: 'lazy', alt: section.settings.label_after }}
+      {%- endif -%}
+    </div>
+    <span class="gp-lbl l">{{ section.settings.label_before }}</span><span class="gp-lbl r">{{ section.settings.label_after }}</span>
+    <div class="gp-handle"><svg viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6" transform="translate(0 0) scale(.82) translate(2.6 2.6)"/></svg></div>
+  </div>
+  {%- if section.settings.eyebrow != blank -%}<p class="gp-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+  {%- if section.settings.title != blank -%}<h2>{{ section.settings.title | newline_to_br }}</h2>{%- endif -%}
+  {%- if section.settings.text != blank -%}<p class="gp-body">{{ section.settings.text }}</p>{%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Güppi · Antes e depois",
+  "settings": [
+    { "type": "image_picker", "id": "before", "label": "Imagem antes" },
+    { "type": "image_picker", "id": "after", "label": "Imagem depois" },
+    { "type": "text", "id": "label_before", "label": "Rótulo antes", "default": "Antes" },
+    { "type": "text", "id": "label_after", "label": "Rótulo depois", "default": "Depois" },
+    { "type": "text", "id": "eyebrow", "label": "Sobretítulo", "default": "Sinta a diferença" },
+    { "type": "textarea", "id": "title", "label": "Título", "default": "O cheiro\nmuda tudo" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Baunilha macia, frescor e pele perfumada. A diferença está no cheiro que você deixa por onde passa." },
+    { "type": "color", "id": "bg", "label": "Cor de fundo", "default": "#BB9CC5" }
+  ],
+  "presets": [{ "name": "Güppi · Antes e depois" }]
+}
+{% endschema %}

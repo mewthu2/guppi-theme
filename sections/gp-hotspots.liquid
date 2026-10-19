@@ -1,0 +1,80 @@
+<section class="gp gp-hot">
+  <div class="gp-hot-img">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 1000 | image_tag: class: 'gp-media-fill', widths: '400, 800, 1000', sizes: '400px', loading: 'lazy' }}
+    {%- else -%}
+      Foto da linha
+    {%- endif -%}
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign p = block.settings.product
+        assign title = block.settings.title | default: p.title
+        assign text = block.settings.text
+        if text == blank and p != blank
+          assign text = p.description | strip_html | truncatewords: 30
+        endif
+        assign img = block.settings.image | default: p.featured_image
+        assign url = block.settings.link | default: p.url
+      -%}
+      <button
+        class="gp-dot"
+        type="button"
+        style="left: {{ block.settings.x }}%; top: {{ block.settings.y }}%;"
+        aria-label="{{ title | escape }}"
+        data-num="{{ forloop.index }}"
+        data-title="{{ title | escape }}"
+        data-size="{{ block.settings.size | escape }}"
+        data-text="{{ text | escape }}"
+        {% if img != blank %}data-img="{{ img | image_url: width: 600 }}"{% endif %}
+        {% if url != blank %}data-url="{{ url }}"{% endif %}
+        data-cta="{{ section.settings.cta_label | escape }}"
+        data-soon="{{ section.settings.soon_label | escape }}"
+        {{ block.shopify_attributes }}
+      >{{ forloop.index }}</button>
+    {%- endfor -%}
+  </div>
+  {%- if section.settings.eyebrow != blank -%}<p class="gp-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+  {%- if section.settings.title != blank -%}<h2>{{ section.settings.title | newline_to_br }}</h2>{%- endif -%}
+  {%- if section.settings.text != blank -%}<p class="gp-body">{{ section.settings.text | newline_to_br }}</p>{%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Güppi · Foto com pontos",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Foto" },
+    { "type": "text", "id": "eyebrow", "label": "Sobretítulo", "default": "A linha Güppi" },
+    { "type": "textarea", "id": "title", "label": "Título", "default": "Um cheiro,\nquatro jeitos\nde sentir" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Vanilla Cashmere em quatro texturas.\nToque em cada produto e descubra o seu." },
+    { "type": "text", "id": "cta_label", "label": "Botão da ficha", "default": "Ver produto" },
+    { "type": "text", "id": "soon_label", "label": "Botão sem link", "default": "Em breve" }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot",
+      "name": "Ponto",
+      "settings": [
+        { "type": "range", "id": "x", "label": "Posição horizontal", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 },
+        { "type": "range", "id": "y", "label": "Posição vertical", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 },
+        { "type": "product", "id": "product", "label": "Produto", "info": "Preenche nome, texto, foto e link automaticamente." },
+        { "type": "text", "id": "title", "label": "Nome" },
+        { "type": "text", "id": "size", "label": "Tamanho", "default": "200 ml" },
+        { "type": "textarea", "id": "text", "label": "Texto" },
+        { "type": "image_picker", "id": "image", "label": "Foto" },
+        { "type": "url", "id": "link", "label": "Link", "info": "Sem link e sem produto, o botão aparece como em breve." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Güppi · Foto com pontos",
+      "blocks": [
+        { "type": "hotspot", "settings": { "x": 19, "y": 27, "title": "Body Splash", "size": "200 ml", "text": "Frescor e pele perfumada, do jeito mais leve. O cheiro Güppi para usar em qualquer momento." } },
+        { "type": "hotspot", "settings": { "x": 71, "y": 33, "title": "Óleo Corporal", "size": "200 ml", "text": "Textura em óleo, com a baunilha suave bem perto da pele. Pele perfumada, com toque macio." } },
+        { "type": "hotspot", "settings": { "x": 39, "y": 55, "title": "Manteiga Corporal", "size": "200 g", "text": "Textura cremosa e rica, para quem quer sentir o cheiro de pele macia de pertinho." } },
+        { "type": "hotspot", "settings": { "x": 79, "y": 82, "title": "Loção Corporal", "size": "400 ml", "text": "Textura leve, feita para o dia a dia, com o mesmo cheiro de Vanilla Cashmere." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

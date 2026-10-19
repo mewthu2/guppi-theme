@@ -1,0 +1,48 @@
+{%- if template.name == 'index' and section.settings.home_minimal -%}
+  <div class="gp gp-end">{{ section.settings.sign }}</div>
+{%- else -%}
+  <footer class="gp gp-footer">
+    <div>
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 220 | image_tag: class: 'gp-flogo', alt: shop.name, loading: 'lazy' }}
+      {%- else -%}
+        <img class="gp-flogo" src="{{ 'guppi-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="310" height="110" loading="lazy">
+      {%- endif -%}
+      {%- if section.settings.tagline != blank -%}<p>{{ section.settings.tagline }}</p>{%- endif -%}
+    </div>
+    {%- if section.settings.menu_1 != blank -%}
+      <div>
+        <strong>{{ section.settings.heading_1 | default: section.settings.menu_1.title }}</strong>
+        {%- for link in section.settings.menu_1.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+      </div>
+    {%- endif -%}
+    <div>
+      <strong>{{ section.settings.heading_2 }}</strong>
+      {%- for link in section.settings.menu_2.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+      {%- if section.settings.menu_2 == blank -%}<a href="{{ routes.root_url }}pages/contact">{{ section.settings.contact_label }}</a>{%- endif -%}
+      <small>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</small>
+    </div>
+    {%- if section.settings.show_sign and section.settings.sign != blank -%}
+      <div class="gp-sign">{{ section.settings.sign }}</div>
+    {%- endif -%}
+  </footer>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Rodapé Güppi",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Use a versão clara do logo." },
+    { "type": "text", "id": "tagline", "label": "Frase", "default": "Cuidado que dá vontade de repetir." },
+    { "type": "text", "id": "heading_1", "label": "Título da coluna 1", "default": "Explore" },
+    { "type": "link_list", "id": "menu_1", "label": "Menu da coluna 1", "default": "main-menu" },
+    { "type": "text", "id": "heading_2", "label": "Título da coluna 2", "default": "Atendimento" },
+    { "type": "link_list", "id": "menu_2", "label": "Menu da coluna 2" },
+    { "type": "text", "id": "contact_label", "label": "Link de contato (sem menu na coluna 2)", "default": "Fale com a Güppi" },
+    { "type": "richtext", "id": "sign", "label": "Assinatura", "default": "<p><b>OAK BRASIL</b><br>Protótipo de front criado e assinado pela OAK<br>Strategy / Creativity / Performance</p>" },
+    { "type": "checkbox", "id": "show_sign", "label": "Mostrar assinatura no rodapé escuro", "default": true },
+    { "type": "checkbox", "id": "home_minimal", "label": "Na página inicial, mostrar só a assinatura (fundo branco)", "default": true }
+  ],
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}

@@ -1,0 +1,57 @@
+<section class="gp gp-pdp gp-pdp-actives" aria-labelledby="Actives-{{ section.id }}-title">
+  <div class="gp-pdp-heading">
+    <h2 id="Actives-{{ section.id }}-title">{{ section.settings.title }}</h2>
+    <div>
+      <button class="gp-pdp-card-arrow" type="button" aria-label="Ativo anterior" data-gp-scroll="Actives-{{ section.id }}" data-dir="-1">‹</button>
+      <button class="gp-pdp-card-arrow" type="button" aria-label="Próximo ativo" data-gp-scroll="Actives-{{ section.id }}" data-dir="1">›</button>
+    </div>
+  </div>
+  <div class="gp-track" id="Actives-{{ section.id }}" data-gp-drag tabindex="0" aria-label="Cards de ativos, deslize para os lados">
+    {%- for block in section.blocks -%}
+      <article class="gp-pdp-active-card" {{ block.shopify_attributes }}>
+        <span class="gp-pdp-active-number">{{ forloop.index | prepend: '0' | slice: -2, 2 }} / {{ section.settings.label }}</span>
+        {%- if block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 320 | image_tag: class: 'gp-pdp-active-img', loading: 'lazy', alt: '' }}
+        {%- else -%}
+          {% render 'gp-botanical', icon: block.settings.icon %}
+        {%- endif -%}
+        <h3>{{ block.settings.title }}</h3>
+        <div class="gp-acc-text">{{ block.settings.text }}</div>
+      </article>
+    {%- endfor -%}
+  </div>
+  {%- if section.settings.hint != blank -%}<p class="gp-pdp-hint">{{ section.settings.hint }}</p>{%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Güppi · Ativos",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Ativos" },
+    { "type": "text", "id": "label", "label": "Rótulo dos cards", "default": "ATIVOS DA FÓRMULA" },
+    { "type": "text", "id": "hint", "label": "Dica", "default": "Deslize para conhecer os ativos →" }
+  ],
+  "blocks": [
+    {
+      "type": "active",
+      "name": "Ativo",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Ilustração", "options": [ { "value": "karite", "label": "Karité" }, { "value": "hialuronico", "label": "Ácido hialurônico" }, { "value": "macadamia", "label": "Macadâmia" }, { "value": "coco", "label": "Coco" }, { "value": "girassol", "label": "Girassol" }, { "value": "argan", "label": "Argan" }, { "value": "linhaca", "label": "Linhaça" }, { "value": "oliva", "label": "Oliva" }, { "value": "abacate", "label": "Abacate" }, { "value": "uva", "label": "Semente de uva" } ], "default": "karite" },
+        { "type": "image_picker", "id": "image", "label": "Imagem própria", "info": "Substitui a ilustração." },
+        { "type": "text", "id": "title", "label": "Título", "default": "Manteiga de karité" },
+        { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Descreva o ativo.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Güppi · Ativos",
+      "blocks": [
+        { "type": "active", "settings": { "icon": "karite", "title": "Manteiga de karité", "text": "<p>Manteiga vegetal rica em lipídios, com textura nutritiva. Repõe a emoliência e forma um filme que reduz a perda de água, deixando a pele macia e confortável.</p>" } },
+        { "type": "active", "settings": { "icon": "hialuronico", "title": "Ácido hialurônico", "text": "<p>Umectante que atrai e retém água. A combinação de 7 pesos moleculares reúne diferentes tamanhos de moléculas para hidratação e formação de um filme hidratante na superfície da pele.</p>" } },
+        { "type": "active", "settings": { "icon": "macadamia", "title": "Óleo de macadâmia", "text": "<p>Óleo vegetal com ácidos graxos oleico e palmitoleico. Sua ação emoliente suaviza a superfície da pele e proporciona um toque sedoso.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,196 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign pix_pct = section.settings.pix_discount
+  assign pix_factor = 100 | minus: pix_pct
+  assign form_id = 'GpProductForm-' | append: section.id
+  assign crumb_collection = collection | default: product.collections.first
+
+  assign pix_price = current_variant.price | times: pix_factor | divided_by: 100
+  if pix_pct > 0
+    assign struck = current_variant.price
+  elsif current_variant.compare_at_price > current_variant.price
+    assign struck = current_variant.compare_at_price
+  else
+    assign struck = nil
+  endif
+
+  assign featured_id = current_variant.featured_media.id | default: product.featured_media.id
+  assign active_index = 0
+  for media in product.media
+    if media.id == featured_id
+      assign active_index = forloop.index0
+    endif
+  endfor
+-%}
+<div class="gp gp-pdp" data-gp-product>
+  <div class="gp-pdp-crumb">
+    <a href="{{ routes.root_url }}">‹ {{ section.settings.home_label }}</a>
+    <span>{% if crumb_collection != blank %}/ {{ crumb_collection.title }} {% endif %}/ {{ product.title }}</span>
+  </div>
+
+  <section class="gp-pdp-gallery" aria-label="Fotos do produto" data-gp-gallery>
+    <div class="gp-pdp-stage gp-ph{{ active_index | modulo: 4 | plus: 1 }}">
+      {%- for media in product.media -%}
+        {%- capture cls %}gp-pdp-photo{% if forloop.index0 == active_index %} is-on{% endif %}{% endcapture -%}
+        {%- case media.media_type -%}
+          {%- when 'video' -%}
+            {{ media | video_tag: class: cls, muted: true, loop: true, playsinline: true, controls: false, preload: 'metadata', image_size: '900x' }}
+          {%- else -%}
+            {%- assign loading = 'lazy' -%}
+            {%- if forloop.index0 == active_index -%}{%- assign loading = 'eager' -%}{%- endif -%}
+            {%- assign media_alt = media.alt | default: product.title -%}
+            {{ media.preview_image | image_url: width: 1000 | image_tag: class: cls, widths: '430, 650, 860, 1000', sizes: '(min-width: 430px) 430px, 100vw', loading: loading, alt: media_alt }}
+        {%- endcase -%}
+      {%- else -%}
+        <span class="gp-pdp-ph">Foto 1</span>
+      {%- endfor -%}
+      {%- if product.media.size > 1 -%}
+        <button class="gp-pdp-arrow gp-pdp-prev" type="button" aria-label="Foto anterior">‹</button>
+        <button class="gp-pdp-arrow gp-pdp-next" type="button" aria-label="Próxima foto">›</button>
+        <span class="gp-pdp-counter">{{ active_index | plus: 1 }} / {{ product.media.size }}</span>
+      {%- endif -%}
+    </div>
+    {%- if product.media.size > 1 -%}
+      <div class="gp-pdp-thumbs">
+        {%- for media in product.media -%}
+          <button class="gp-pdp-thumb gp-ph{{ forloop.index0 | modulo: 4 | plus: 1 }}" type="button" data-i="{{ forloop.index0 }}" aria-pressed="{% if forloop.index0 == active_index %}true{% else %}false{% endif %}" aria-label="Ver foto {{ forloop.index }}">
+            {{ media.preview_image | image_url: width: 220 | image_tag: loading: 'lazy', alt: '' }}
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </section>
+
+  <section class="gp-pdp-info">
+    {%- assign eyebrow = section.settings.eyebrow | default: product.vendor -%}
+    {%- if eyebrow != blank -%}<span class="gp-pdp-eyebrow">{{ eyebrow }}</span>{%- endif -%}
+    <h1>{{ product.title | escape }}</h1>
+    <div class="gp-pdp-price">
+      <s data-gp-compare{% if struck == blank %} hidden{% endif %}>{{ struck | money }}</s>
+      <div class="gp-pdp-pix">
+        <strong data-gp-pix>{% if pix_pct > 0 %}{{ pix_price | money }}{% else %}{{ current_variant.price | money }}{% endif %}</strong>
+        {%- if pix_pct > 0 and section.settings.pix_label != blank -%}<span>{{ section.settings.pix_label }}</span>{%- endif -%}
+      </div>
+    </div>
+
+    {%- assign intro = product.metafields.custom.intro.value | default: section.settings.intro -%}
+    {%- if intro != blank -%}<p class="gp-pdp-intro">{{ intro }}</p>{%- endif -%}
+
+    {%- form 'product', product, id: form_id, novalidate: 'novalidate', data-product-form: '' -%}
+      {%- if product.has_only_default_variant -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+      {%- else -%}
+        <label class="visually-hidden" for="GpVariant-{{ section.id }}">{{ product.options | join: ' / ' }}</label>
+        <select class="gp-pdp-variant" id="GpVariant-{{ section.id }}" name="id" data-gp-variant>
+          {%- for variant in product.variants -%}
+            {%- liquid
+              assign v_pix = variant.price | times: pix_factor | divided_by: 100
+              if pix_pct > 0
+                assign v_main = v_pix | money
+                assign v_struck = variant.price | money
+              else
+                assign v_main = variant.price | money
+                if variant.compare_at_price > variant.price
+                  assign v_struck = variant.compare_at_price | money
+                else
+                  assign v_struck = ''
+                endif
+              endif
+            -%}
+            <option
+              value="{{ variant.id }}"
+              {% if variant.id == current_variant.id %}selected{% endif %}
+              data-pix="{{ v_main | escape }}"
+              data-compare="{{ v_struck | escape }}"
+              data-available="{{ variant.available }}"
+              {%- if variant.featured_media -%}
+                {%- for media in product.media -%}
+                  {%- if media.id == variant.featured_media.id %} data-media="{{ forloop.index0 }}"{% endif -%}
+                {%- endfor -%}
+              {%- endif %}
+            >{{ variant.title }}{% unless variant.available %} — {{ 'products.product.sold_out' | t }}{% endunless %}</option>
+          {%- endfor -%}
+        </select>
+      {%- endif -%}
+      <button
+        type="submit"
+        name="add"
+        class="gp-pdp-buy"
+        data-gp-submit
+        data-label-add="{{ section.settings.buy_label | escape }}"
+        data-label-soldout="{{ 'products.product.sold_out' | t | escape }}"
+        {% unless current_variant.available %}disabled{% endunless %}
+      >{% if current_variant.available %}{{ section.settings.buy_label }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</button>
+      <p class="form-message" role="alert" hidden></p>
+    {%- endform -%}
+
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when '@app' -%}
+          {% render block %}
+        {%- when 'collapsible' -%}
+          <details {{ block.shopify_attributes }}{% if block.settings.open %} open{% endif %}>
+            <summary>{{ block.settings.heading }}</summary>
+            <div class="gp-acc-body">
+              {%- if block.settings.show_description and product.description != blank -%}{{ product.description }}{%- endif -%}
+              {{ block.settings.content }}
+            </div>
+          </details>
+        {%- when 'custom_liquid' -%}
+          <div {{ block.shopify_attributes }}>{{ block.settings.custom_liquid }}</div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </section>
+
+  {%- if section.settings.sticky -%}
+    <div class="gp-pdp-sticky">
+      <div>
+        <strong data-gp-pix>{% if pix_pct > 0 %}{{ pix_price | money }}{% else %}{{ current_variant.price | money }}{% endif %}</strong>
+        {%- if pix_pct > 0 and section.settings.pix_label != blank -%}<small>{{ section.settings.pix_label }}</small>{%- endif -%}
+      </div>
+      <button
+        type="submit"
+        form="{{ form_id }}"
+        class="gp-pdp-buy gp-pdp-buy-sm"
+        data-gp-submit
+        data-label-add="{{ section.settings.buy_label | escape }}"
+        data-label-soldout="{{ 'products.product.sold_out' | t | escape }}"
+        {% unless current_variant.available %}disabled{% endunless %}
+      >{% if current_variant.available %}{{ section.settings.buy_label }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</button>
+    </div>
+  {%- endif -%}
+
+  <script type="application/ld+json">
+    {{ product | structured_data }}
+  </script>
+</div>
+
+{% schema %}
+{
+  "name": "Güppi · Produto",
+  "class": "section-gp-main-product",
+  "settings": [
+    { "type": "text", "id": "home_label", "label": "Texto do link de início", "default": "Início" },
+    { "type": "text", "id": "eyebrow", "label": "Sobretítulo", "info": "Vazio, usa o fabricante do produto." },
+    { "type": "text", "id": "intro", "label": "Frase de introdução", "info": "Usada quando o produto não tem o metafield custom.intro.", "default": "Um convite para transformar a hidratação em um momento de cuidado." },
+    { "type": "range", "id": "pix_discount", "label": "Desconto no Pix", "min": 0, "max": 30, "step": 1, "unit": "%", "default": 5, "info": "0 mostra só o preço normal." },
+    { "type": "text", "id": "pix_label", "label": "Texto do Pix", "default": "no Pix" },
+    { "type": "text", "id": "buy_label", "label": "Texto do botão de compra", "default": "Comprar" },
+    { "type": "checkbox", "id": "sticky", "label": "Barra de compra fixa no rodapé", "default": true }
+  ],
+  "blocks": [
+    { "type": "@app" },
+    {
+      "type": "collapsible",
+      "name": "Aba recolhível",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Título", "default": "Como usar" },
+        { "type": "checkbox", "id": "show_description", "label": "Mostrar descrição do produto", "default": false },
+        { "type": "richtext", "id": "content", "label": "Conteúdo" },
+        { "type": "checkbox", "id": "open", "label": "Aberta por padrão", "default": false }
+      ]
+    },
+    { "type": "custom_liquid", "name": "Liquid personalizado", "settings": [ { "type": "liquid", "id": "custom_liquid", "label": "Liquid personalizado" } ] }
+  ]
+}
+{% endschema %}

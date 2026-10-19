@@ -8,6 +8,12 @@
     "theme_support_url": "https://help.shopify.com/manual/online-store/themes"
   },
   {
+    "name": "Layout Güppi",
+    "settings": [
+      { "type": "select", "id": "gp_frame", "label": "Moldura mobile centralizada (430 px)", "info": "Em telas grandes, a página aparece como no protótipo: uma coluna de celular centralizada.", "options": [ { "value": "home_product", "label": "Página inicial e produto" }, { "value": "all", "label": "Todas as páginas" }, { "value": "none", "label": "Desativada" } ], "default": "home_product" }
+    ]
+  },
+  {
     "name": "Logo e favicon",
     "settings": [
       { "type": "image_picker", "id": "logo", "label": "Logo preto", "info": "Usado no cabeçalho com fundo branco (padrão)." },
@@ -85,7 +91,7 @@
   {
     "name": "Cards de produto",
     "settings": [
-      { "type": "select", "id": "card_image_ratio", "label": "Proporção da imagem", "options": [ { "value": "adapt", "label": "Adaptar à imagem" }, { "value": "square", "label": "Quadrado" }, { "value": "portrait", "label": "Retrato" } ], "default": "portrait" },
+      { "type": "select", "id": "card_image_ratio", "label": "Proporção da imagem", "options": [ { "value": "adapt", "label": "Adaptar à imagem" }, { "value": "square", "label": "Quadrado (1:1)" }, { "value": "portrait", "label": "Retrato (4:5)" }, { "value": "tall", "label": "Alto (3:4)" }, { "value": "extra-tall", "label": "Extra alto (2:3)" } ], "default": "tall" },
       { "type": "checkbox", "id": "card_show_secondary_image", "label": "Mostrar segunda imagem ao passar o mouse", "default": true },
       { "type": "checkbox", "id": "card_show_vendor", "label": "Mostrar fabricante", "default": false },
       { "type": "checkbox", "id": "card_show_rating", "label": "Mostrar avaliação", "info": "Requer um app de avaliações que use o metafield reviews.rating", "default": true },

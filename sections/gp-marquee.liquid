@@ -1,0 +1,20 @@
+{%- assign text = section.settings.text | escape -%}
+<div class="gp gp-marquee{% if section.settings.style == 'band' %} gp-marquee--band{% endif %}" style="background: {{ section.settings.bg }}; --gp-mq-speed: {{ section.settings.speed }}s;" aria-label="{{ section.settings.text | remove: '–' | escape }}">
+  <div class="gp-mq-track" aria-hidden="true">
+    {%- for i in (1..6) -%}<span style="color: {{ section.settings.color }};">{{ text }}</span>{%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Güppi · Faixa animada",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Texto", "default": "100% Vegano – Glow Natural – Feito no Brasil –" },
+    { "type": "select", "id": "style", "label": "Estilo", "options": [ { "value": "home", "label": "Página inicial" }, { "value": "band", "label": "Faixa do produto" } ], "default": "home" },
+    { "type": "range", "id": "speed", "label": "Duração do ciclo", "min": 6, "max": 60, "step": 1, "unit": "s", "default": 16 },
+    { "type": "color", "id": "bg", "label": "Cor de fundo", "default": "#B4D2BA" },
+    { "type": "color", "id": "color", "label": "Cor do texto", "default": "#F6F3EC" }
+  ],
+  "presets": [{ "name": "Güppi · Faixa animada" }]
+}
+{% endschema %}

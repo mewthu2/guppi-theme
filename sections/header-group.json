@@ -11,60 +11,58 @@
   "type": "header",
   "name": "Cabeçalho",
   "sections": {
-    "announcement": {
-      "type": "announcement-bar",
+    "gp_header": {
+      "type": "gp-header",
       "blocks": {
-        "a1": {
-          "type": "announcement",
+        "m1": {
+          "type": "item",
           "settings": {
-            "text": "Frete grátis acima de R$ 199",
-            "link": ""
+            "label": "Produtos",
+            "link": "shopify://collections/all",
+            "soon": false,
+            "soon_label": "Em breve"
           }
         },
-        "a2": {
-          "type": "announcement",
+        "m2": {
+          "type": "item",
           "settings": {
-            "text": "Skincare acessível para todas",
-            "link": ""
+            "label": "Vanilla",
+            "link": "/#vanilla",
+            "soon": false,
+            "soon_label": "Em breve"
           }
         },
-        "a3": {
-          "type": "announcement",
+        "m3": {
+          "type": "item",
           "settings": {
-            "text": "Vegano e cruelty-free",
-            "link": ""
+            "label": "Contato",
+            "link": "/pages/contact",
+            "soon": false,
+            "soon_label": "Em breve"
+          }
+        },
+        "m4": {
+          "type": "item",
+          "settings": {
+            "label": "Dúvidas",
+            "soon": true,
+            "soon_label": "Em breve"
           }
         }
       },
       "block_order": [
-        "a1",
-        "a2",
-        "a3"
+        "m1",
+        "m2",
+        "m3",
+        "m4"
       ],
       "settings": {
-        "style": "marquee",
-        "speed": 36,
-        "autoplay": true,
-        "color_scheme": "scheme-5"
-      }
-    },
-    "header": {
-      "type": "header",
-      "settings": {
         "menu": "main-menu",
-        "layout": "center",
-        "sticky": true,
-        "hide_on_scroll": false,
-        "border": true,
-        "transparent": "home",
-        "transparent_color": "#ffffff",
-        "show_localization": true,
-        "color_scheme": "scheme-2"
+        "color_scheme": "scheme-1"
       }
     }
   },
   "order": [
-    "announcement",
-    "header"
+    "gp_header"
   ]
 }

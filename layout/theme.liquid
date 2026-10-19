@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="{{ settings.color_schemes.first.settings.background }}">
+    <meta name="theme-color" content="#9B7FC9">
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
@@ -39,6 +39,7 @@
 
     {{ 'theme.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+    {% render 'gp-head' %}
 
     <script>
       document.documentElement.classList.replace('no-js', 'js');
@@ -65,16 +66,28 @@
     {{ content_for_header }}
   </head>
 
-  <body class="template-{{ template.name | handle }}{% if settings.animations_enabled %} animations-enabled{% endif %}">
+  {%- liquid
+    assign gp_framed = false
+    if settings.gp_frame == 'all'
+      assign gp_framed = true
+    elsif settings.gp_frame == 'home_product'
+      if template.name == 'index' or template.name == 'product'
+        assign gp_framed = true
+      endif
+    endif
+  -%}
+  <body class="gp-theme template-{{ template.name | handle }}{% if gp_framed %} gp-framed{% endif %}{% if settings.animations_enabled %} animations-enabled{% endif %}">
     <a class="skip-link button" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
 
-    {% sections 'header-group' %}
+    <div class="gp-app">
+      {% sections 'header-group' %}
 
-    <main id="MainContent" class="main-content" role="main" tabindex="-1">
-      {{ content_for_layout }}
-    </main>
+      <main id="MainContent" class="main-content" role="main" tabindex="-1">
+        {{ content_for_layout }}
+      </main>
 
-    {% sections 'footer-group' %}
+      {% sections 'footer-group' %}
+    </div>
 
     {%- if settings.cart_type == 'drawer' -%}
       {% section 'cart-drawer' %}

@@ -1,0 +1,61 @@
+<section class="gp gp-line" id="linha">
+  {%- if section.settings.eyebrow != blank -%}<p class="gp-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+  {%- if section.settings.title != blank -%}<h2 class="gp-title">{{ section.settings.title | newline_to_br }}</h2>{%- endif -%}
+  <div class="gp-rail" data-gp-drag>
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign link = block.settings.link
+        if link == blank and block.settings.product != blank
+          assign link = block.settings.product.url
+        endif
+        assign img = block.settings.image
+        if img == blank and block.settings.product != blank
+          assign img = block.settings.product.featured_image
+        endif
+        assign name_plain = block.settings.name | strip_newlines
+      -%}
+      {%- if link != blank -%}<a class="gp-card gp-c-{{ block.settings.color }}" href="{{ link }}" aria-label="{{ name_plain | escape }}" {{ block.shopify_attributes }}>{%- else -%}<div class="gp-card gp-c-{{ block.settings.color }}" {{ block.shopify_attributes }}>{%- endif -%}
+        {%- if img != blank -%}
+          {{ img | image_url: width: 700 | image_tag: class: 'gp-media-fill', widths: '300, 500, 700', sizes: '240px', loading: 'lazy', alt: '' }}
+        {%- else -%}
+          Foto
+        {%- endif -%}
+        {%- if block.settings.name != blank -%}<span class="gp-name">{{ block.settings.name | newline_to_br }}</span>{%- endif -%}
+      {%- if link != blank -%}</a>{%- else -%}</div>{%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Güppi · Linha (carrossel)",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sobretítulo", "default": "A linha Güppi" },
+    { "type": "textarea", "id": "title", "label": "Título", "default": "Texturas que acolhem,\npara cada momento" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Foto" },
+        { "type": "product", "id": "product", "label": "Produto", "info": "Usa a foto e o link do produto quando os campos ao lado estiverem vazios." },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "textarea", "id": "name", "label": "Nome", "default": "Loção\nCorporal" },
+        { "type": "select", "id": "color", "label": "Cor", "options": [ { "value": "pink", "label": "Rosa" }, { "value": "purple", "label": "Roxo" }, { "value": "green", "label": "Verde" }, { "value": "lilac", "label": "Lilás" } ], "default": "pink" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Güppi · Linha (carrossel)",
+      "blocks": [
+        { "type": "card", "settings": { "name": "Body\nSplash", "color": "pink" } },
+        { "type": "card", "settings": { "name": "Óleo\nCorporal", "color": "purple" } },
+        { "type": "card", "settings": { "name": "Manteiga\nCorporal", "color": "green" } },
+        { "type": "card", "settings": { "name": "Loção\nCorporal", "color": "lilac" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

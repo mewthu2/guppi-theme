@@ -1,0 +1,50 @@
+<section class="gp gp-quotes" style="background: {{ section.settings.bg }};">
+  {%- if section.settings.eyebrow != blank -%}<p class="gp-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+  {%- if section.settings.title != blank -%}<h2 class="gp-title">{{ section.settings.title | newline_to_br }}</h2>{%- endif -%}
+  <div class="gp-rail" data-gp-drag>
+    {%- for block in section.blocks -%}
+      {%- if block.settings.quote != blank -%}
+        <figure class="gp-quote gp-quote--filled" {{ block.shopify_attributes }}>
+          <blockquote class="gp-quote__text" style="margin: 0;">
+            {%- if block.settings.rating > 0 -%}<div class="gp-quote__stars" aria-label="{{ block.settings.rating }} de 5">{% for i in (1..block.settings.rating) %}★{% endfor %}</div>{%- endif -%}
+            {{ block.settings.quote }}
+          </blockquote>
+          {%- if block.settings.author != blank -%}<figcaption class="gp-quote__author">{{ block.settings.author }}</figcaption>{%- endif -%}
+        </figure>
+      {%- else -%}
+        <div class="gp-quote" {{ block.shopify_attributes }}>{{ section.settings.empty_label }}</div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  <svg class="gp-wave" viewBox="0 0 390 52" preserveAspectRatio="none" aria-hidden="true"><path fill="{{ section.settings.wave_color }}" d="M0,26 C60,44 130,50 200,34 C270,18 330,6 390,12 L390,52 L0,52 Z"/></svg>
+</section>
+
+{% schema %}
+{
+  "name": "Güppi · Depoimentos",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sobretítulo", "default": "Quem usa, ama" },
+    { "type": "textarea", "id": "title", "label": "Título", "default": "O que nossas\nclientes dizem" },
+    { "type": "text", "id": "empty_label", "label": "Texto de card vazio", "default": "Em breve" },
+    { "type": "color", "id": "bg", "label": "Cor de fundo", "default": "#BB9CC5" },
+    { "type": "color", "id": "wave_color", "label": "Cor da onda", "default": "#FFFFFF" }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Depoimento",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Depoimento", "info": "Vazio, o card mostra o texto de card vazio." },
+        { "type": "text", "id": "author", "label": "Autora" },
+        { "type": "range", "id": "rating", "label": "Estrelas", "min": 0, "max": 5, "step": 1, "default": 5 }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Güppi · Depoimentos",
+      "blocks": [ { "type": "quote" }, { "type": "quote" }, { "type": "quote" }, { "type": "quote" } ]
+    }
+  ]
+}
+{% endschema %}

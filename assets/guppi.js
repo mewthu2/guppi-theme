@@ -251,8 +251,77 @@
     videos.forEach(function (v) { io.observe(v); });
   }
 
+  // Rodapé: janela do cupom da newsletter
+  var couponLastFocus = null;
+  function setCoupon(open) {
+    var wrap = document.getElementById('GpCoupon');
+    if (!wrap) return;
+    if (open) couponLastFocus = document.activeElement;
+    wrap.classList.toggle('open', open);
+    wrap.setAttribute('aria-hidden', String(!open));
+    if (open) {
+      var focusEl = wrap.querySelector('input[type="email"]') || wrap.querySelector('[data-gp-copy]') || wrap.querySelector('.gp-close');
+      setTimeout(function () { if (focusEl) focusEl.focus(); }, 60);
+      if (wrap.querySelector('[data-gp-coupon-result="success"]')) {
+        requestAnimationFrame(function () { wrap.classList.add('is-revealed'); });
+      }
+    } else if (couponLastFocus) {
+      couponLastFocus.focus();
+    }
+  }
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-gp-coupon-open]')) { setCoupon(true); return; }
+    if (e.target.closest('[data-gp-coupon-close]')) { setCoupon(false); return; }
+    var copy = e.target.closest('[data-gp-copy]');
+    if (copy) {
+      var label = copy.textContent;
+      var done = function () { copy.textContent = copy.dataset.done; setTimeout(function () { copy.textContent = label; }, 2200); };
+      if (navigator.clipboard) navigator.clipboard.writeText(copy.dataset.gpCopy).then(done, function () {});
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    var wrap = document.getElementById('GpCoupon');
+    if (e.key === 'Escape' && wrap && wrap.classList.contains('open')) setCoupon(false);
+  });
+
+  // Depois do envio a página recarrega: reabre a janela com o cupom ou com o erro
+  function initCoupon(root) {
+    if (root.querySelector('#GpCoupon [data-gp-coupon-result]')) setCoupon(true);
+  }
+
+  // Rodapé: olho do peixinho segue o mouse
+  function initFishEye(root) {
+    var pupil = root.querySelector('.gp-fish-pupil');
+    if (!pupil || reduceMotion || !window.matchMedia('(pointer: fine)').matches) return;
+    var svg = pupil.ownerSVGElement, pending = false, px = 0, py = 0;
+    window.addEventListener('pointermove', function (e) {
+      px = e.clientX; py = e.clientY;
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(function () {
+        pending = false;
+        var r = svg.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > innerHeight) return;
+        var s = r.width / 460, ex = r.left + 300 * s, ey = r.top + 262 * s;
+        var dx = px - ex, dy = py - ey, d = Math.hypot(dx, dy) || 1, m = Math.min(10, d / 30);
+        pupil.style.transform = 'translate(' + (dx / d * m) + 'px,' + (dy / d * m) + 'px)';
+      });
+    }, { passive: true });
+  }
+
+  // Rodapé: colunas viram sanfona no celular
+  var footWide = window.matchMedia('(min-width: 990px)');
+  function syncFootCols() {
+    var wide = footWide.matches && document.body.classList.contains('gp-wide');
+    document.querySelectorAll('[data-gp-foot-col]').forEach(function (d) { d.open = wide; });
+  }
+  if (footWide.addEventListener) footWide.addEventListener('change', syncFootCols);
+
   function init(root) {
     root = root || document;
+    initCoupon(root);
+    initFishEye(root);
+    syncFootCols();
     initDrag(root);
     initBeforeAfter(root);
     initGallery(root);

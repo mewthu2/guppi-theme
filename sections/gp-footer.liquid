@@ -1,48 +1,164 @@
-{%- if template.name == 'index' and section.settings.home_minimal -%}
-  <div class="gp gp-end">{{ section.settings.sign }}</div>
-{%- else -%}
-  <footer class="gp gp-footer">
-    <div>
-      {%- if section.settings.logo != blank -%}
-        {{ section.settings.logo | image_url: width: 220 | image_tag: class: 'gp-flogo', alt: shop.name, loading: 'lazy' }}
-      {%- else -%}
-        <img class="gp-flogo" src="{{ 'guppi-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="310" height="110" loading="lazy">
-      {%- endif -%}
-      {%- if section.settings.tagline != blank -%}<p>{{ section.settings.tagline }}</p>{%- endif -%}
-    </div>
-    {%- if section.settings.menu_1 != blank -%}
-      <div>
-        <strong>{{ section.settings.heading_1 | default: section.settings.menu_1.title }}</strong>
-        {%- for link in section.settings.menu_1.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+<footer class="gp gp-foot{% if section.settings.coupon_enabled %} has-fish{% endif %}">
+  <div class="gp-foot-top">
+    {%- if section.settings.coupon_enabled -%}
+      <button class="gp-fish" type="button" data-gp-coupon-open aria-haspopup="dialog" aria-controls="GpCoupon">
+        <span class="visually-hidden">{{ section.settings.badge_1 }} {{ section.settings.badge_2 }} {{ section.settings.fish_cta }}</span>
+        {%- if section.settings.fish_cta != blank -%}<span class="gp-fish-cta" aria-hidden="true">{{ section.settings.fish_cta }}</span>{%- endif -%}
+        <svg class="gp-fish-scene" viewBox="0 0 460 420" aria-hidden="true">
+          <defs><clipPath id="GpFishBody"><ellipse cx="210" cy="292" rx="140" ry="92"/></clipPath></defs>
+          <g class="gp-fish-swim">
+            <path class="gp-fish-tail" d="M92 292 C70 252 40 216 14 204 C26 254 26 330 14 380 C40 368 70 332 92 292 Z" fill="#AA0259"/>
+            <path d="M150 216 C168 160 232 142 282 192 C252 198 206 206 150 216 Z" fill="#AA0259"/>
+            <path class="gp-fish-fin" d="M196 370 C206 402 240 410 262 398 C246 386 228 376 196 370 Z" fill="#AA0259"/>
+            <ellipse cx="210" cy="292" rx="140" ry="92" fill="#CF0058"/>
+            <g clip-path="url(#GpFishBody)">
+              <ellipse cx="225" cy="352" rx="120" ry="48" fill="#E0397F"/>
+              <g fill="none" stroke="#AA0259" stroke-width="4" stroke-linecap="round" opacity=".45">
+                <path d="M140 250 q14 14 0 28"/><path d="M176 236 q14 14 0 28"/><path d="M158 284 q14 14 0 28"/><path d="M194 270 q14 14 0 28"/><path d="M212 236 q14 14 0 28"/>
+              </g>
+            </g>
+            <path d="M262 236 C246 264 246 318 264 346" fill="none" stroke="#AA0259" stroke-width="5" stroke-linecap="round" opacity=".55"/>
+            <circle cx="322" cy="318" r="13" fill="#FF9EC8" opacity=".7"/>
+            <circle cx="300" cy="262" r="31" fill="#fff"/>
+            <g class="gp-fish-pupil"><circle cx="304" cy="264" r="15" fill="#322C3D"/><circle cx="299" cy="258" r="5" fill="#fff"/></g>
+            <ellipse class="gp-fish-mouth" cx="346" cy="302" rx="13" ry="12" fill="#5B1235" stroke="#AA0259" stroke-width="4"/>
+          </g>
+        </svg>
+        <span class="gp-fish-bubble" aria-hidden="true"><span>{{ section.settings.badge_1 }}</span><strong>{{ section.settings.badge_2 }}</strong></span>
+        <span class="gp-fish-mini m1" aria-hidden="true"></span><span class="gp-fish-mini m2" aria-hidden="true"></span><span class="gp-fish-mini m3" aria-hidden="true"></span>
+      </button>
+    {%- endif -%}
+
+    <div class="gp-foot-main">
+      <a class="gp-foot-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 600 | image_tag: alt: shop.name, loading: 'lazy', widths: '300, 450, 600' }}
+        {%- else -%}
+          <span class="gp-foot-logo-mark" style="--gp-logo: url('{{ 'guppi-logo.png' | asset_url }}');"></span>
+        {%- endif -%}
+      </a>
+      {%- if section.settings.tagline != blank -%}<p class="gp-foot-tagline">{{ section.settings.tagline }}</p>{%- endif -%}
+
+      <div class="gp-foot-cols">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'menu' and block.settings.menu.links.size == 0 -%}{%- continue -%}{%- endif -%}
+          <details class="gp-foot-col" data-gp-foot-col open {{ block.shopify_attributes }}>
+            <summary>{{ block.settings.heading | default: block.settings.menu.title }}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></summary>
+            <div class="gp-foot-list">
+              {%- if block.type == 'menu' -%}
+                {%- for link in block.settings.menu.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+              {%- else -%}
+                {{ block.settings.text }}
+              {%- endif -%}
+            </div>
+          </details>
+        {%- endfor -%}
       </div>
-    {%- endif -%}
-    <div>
-      <strong>{{ section.settings.heading_2 }}</strong>
-      {%- for link in section.settings.menu_2.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
-      {%- if section.settings.menu_2 == blank -%}<a href="{{ routes.root_url }}pages/contact">{{ section.settings.contact_label }}</a>{%- endif -%}
-      <small>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</small>
     </div>
-    {%- if section.settings.show_sign and section.settings.sign != blank -%}
-      <div class="gp-sign">{{ section.settings.sign }}</div>
+  </div>
+
+  <div class="gp-foot-bottom">
+    <p class="gp-foot-copy">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}{% if section.settings.legal != blank %} · {{ section.settings.legal }}{% endif %}</p>
+    {%- if section.settings.show_payment -%}
+      <ul class="gp-foot-pay" role="list">
+        {%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag }}</li>{%- endfor -%}
+      </ul>
     {%- endif -%}
-  </footer>
+  </div>
+</footer>
+
+{%- if section.settings.coupon_enabled -%}
+  <div class="gp gp-coupon-wrap" id="GpCoupon" aria-hidden="true">
+    <div class="gp-backdrop" data-gp-coupon-close></div>
+    <div class="gp-coupon" role="dialog" aria-modal="true" aria-labelledby="GpCouponTitle">
+      <button class="gp-close" type="button" data-gp-coupon-close aria-label="{{ 'accessibility.close' | t }}">×</button>
+      {%- form 'customer', id: 'GpCouponForm', class: 'gp-coupon-form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter,cupom-boas-vindas">
+        <div class="gp-coupon-hero" aria-hidden="true">
+          <span class="gp-coupon-bubble"><strong>{{ section.settings.badge_2 }}</strong></span>
+          <span class="gp-fish-mini m1"></span><span class="gp-fish-mini m2"></span><span class="gp-fish-mini m3"></span>
+          {%- if form.posted_successfully? -%}
+            {%- for i in (1..8) -%}<span class="gp-drop" style="--a: {{ i | times: 45 }}deg;"></span>{%- endfor -%}
+            <span class="gp-ticket"><small>{{ section.settings.ticket_label }}</small><code>{{ section.settings.coupon_code }}</code></span>
+          {%- endif -%}
+        </div>
+        <div class="gp-coupon-body">
+          {%- if form.posted_successfully? -%}
+            <div data-gp-coupon-result="success">
+              <h2 id="GpCouponTitle">{{ section.settings.success_title }}</h2>
+              <p>{{ section.settings.success_text }}</p>
+              <button class="gp-cta" type="button" data-gp-copy="{{ section.settings.coupon_code | escape }}" data-done="{{ section.settings.copied_label | escape }}">{{ section.settings.copy_label }}</button>
+              <a class="gp-cta gp-cta--ghost" href="/discount/{{ section.settings.coupon_code | url_encode }}?redirect={{ section.settings.apply_redirect | default: routes.all_products_collection_url | url_encode }}">{{ section.settings.apply_label }}</a>
+            </div>
+          {%- else -%}
+            {%- if form.errors -%}<span data-gp-coupon-result="error" hidden></span>{%- endif -%}
+            {%- if section.settings.eyebrow != blank -%}<p class="gp-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+            <h2 id="GpCouponTitle">{{ section.settings.title }}</h2>
+            {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+            <label class="visually-hidden" for="GpCouponEmail">{{ 'newsletter.label' | t }}</label>
+            <div class="gp-coupon-field">
+              <input id="GpCouponEmail" type="email" name="contact[email]" value="{{ form.email }}" autocomplete="email" placeholder="{{ section.settings.placeholder }}" required{% if form.errors %} aria-invalid="true" aria-describedby="GpCouponError"{% endif %}>
+              <button class="gp-cta" type="submit">{{ section.settings.button_label }}</button>
+            </div>
+            {%- if form.errors -%}<p class="gp-coupon-error" id="GpCouponError" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>{%- endif -%}
+            {%- if section.settings.privacy != blank -%}<small class="gp-coupon-privacy">{{ section.settings.privacy }}</small>{%- endif -%}
+          {%- endif -%}
+        </div>
+      {%- endform -%}
+    </div>
+  </div>
 {%- endif -%}
 
 {% schema %}
 {
   "name": "Rodapé Güppi",
+  "max_blocks": 4,
   "settings": [
-    { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Use a versão clara do logo." },
+    { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Use uma versão escura ou colorida do logo. Sem imagem, usa o logo Güppi em roxo." },
     { "type": "text", "id": "tagline", "label": "Frase", "default": "Cuidado que dá vontade de repetir." },
-    { "type": "text", "id": "heading_1", "label": "Título da coluna 1", "default": "Explore" },
-    { "type": "link_list", "id": "menu_1", "label": "Menu da coluna 1", "default": "main-menu" },
-    { "type": "text", "id": "heading_2", "label": "Título da coluna 2", "default": "Atendimento" },
-    { "type": "link_list", "id": "menu_2", "label": "Menu da coluna 2" },
-    { "type": "text", "id": "contact_label", "label": "Link de contato (sem menu na coluna 2)", "default": "Fale com a Güppi" },
-    { "type": "richtext", "id": "sign", "label": "Assinatura", "default": "<p><b>OAK BRASIL</b><br>Protótipo de front criado e assinado pela OAK<br>Strategy / Creativity / Performance</p>" },
-    { "type": "checkbox", "id": "show_sign", "label": "Mostrar assinatura no rodapé escuro", "default": true },
-    { "type": "checkbox", "id": "home_minimal", "label": "Na página inicial, mostrar só a assinatura (fundo branco)", "default": true }
+    { "type": "text", "id": "legal", "label": "Texto legal", "info": "Aparece ao lado do copyright. Ex.: CNPJ 00.000.000/0001-00" },
+    { "type": "checkbox", "id": "show_payment", "label": "Mostrar formas de pagamento", "default": true },
+    { "type": "header", "content": "Peixinho do cupom" },
+    { "type": "checkbox", "id": "coupon_enabled", "label": "Mostrar peixinho e cupom da newsletter", "default": true },
+    { "type": "text", "id": "badge_1", "label": "Bolha: primeira linha", "default": "Receba" },
+    { "type": "text", "id": "badge_2", "label": "Bolha: destaque", "default": "5% OFF!" },
+    { "type": "text", "id": "fish_cta", "label": "Chamada no card", "default": "Assine a newsletter e ganhe desconto" },
+    { "type": "header", "content": "Janela de cadastro" },
+    { "type": "text", "id": "eyebrow", "label": "Sobretítulo", "default": "Boas-vindas" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Ganhe 5% OFF na primeira compra" },
+    { "type": "text", "id": "text", "label": "Texto", "default": "Cadastre seu e-mail na nossa newsletter e o cupom aparece na hora." },
+    { "type": "text", "id": "placeholder", "label": "Texto do campo", "default": "Seu melhor e-mail" },
+    { "type": "text", "id": "button_label", "label": "Botão", "default": "Quero meu cupom" },
+    { "type": "text", "id": "privacy", "label": "Aviso", "default": "Você pode cancelar a inscrição quando quiser." },
+    { "type": "header", "content": "Cupom revelado" },
+    { "type": "text", "id": "coupon_code", "label": "Código do cupom", "info": "Crie o desconto com este código em Descontos, no admin da Shopify.", "default": "GUPPI5" },
+    { "type": "text", "id": "ticket_label", "label": "Texto acima do código", "default": "Seu cupom" },
+    { "type": "text", "id": "success_title", "label": "Título", "default": "Prontinho, cupom liberado!" },
+    { "type": "text", "id": "success_text", "label": "Texto", "default": "Use o código no checkout ou clique abaixo para aplicar o desconto automaticamente." },
+    { "type": "text", "id": "copy_label", "label": "Botão copiar", "default": "Copiar código" },
+    { "type": "text", "id": "copied_label", "label": "Botão copiar (após copiar)", "default": "Código copiado!" },
+    { "type": "text", "id": "apply_label", "label": "Botão aplicar", "default": "Aplicar e ir às compras" },
+    { "type": "url", "id": "apply_redirect", "label": "Página após aplicar", "info": "Sem link, vai para todos os produtos." }
   ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Coluna de links",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Título", "info": "Sem título, usa o nome do menu." },
+        { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Coluna de texto",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Título", "default": "Fale com a gente" },
+        { "type": "richtext", "id": "text", "label": "Texto", "default": "<p><a href=\"/pages/contact\">Fale com a Güppi</a></p>" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Rodapé Güppi", "blocks": [{ "type": "menu", "settings": { "heading": "Explore", "menu": "main-menu" } }, { "type": "menu", "settings": { "heading": "Ajuda" } }, { "type": "text" }] }],
   "enabled_on": { "groups": ["footer"] }
 }
 {% endschema %}

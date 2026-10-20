@@ -29,15 +29,16 @@
     },
     "gp_footer": {
       "type": "gp-footer",
+      "blocks": {
+        "explore": { "type": "menu", "settings": { "heading": "Explore", "menu": "main-menu" } },
+        "help": { "type": "menu", "settings": { "heading": "Ajuda", "menu": "footer" } },
+        "contact": { "type": "text", "settings": { "heading": "Fale com a gente", "text": "<p><a href=\"/pages/contact\">Fale com a Güppi</a></p>" } }
+      },
+      "block_order": ["explore", "help", "contact"],
       "settings": {
         "tagline": "Cuidado que dá vontade de repetir.",
-        "heading_1": "Explore",
-        "menu_1": "main-menu",
-        "heading_2": "Atendimento",
-        "contact_label": "Fale com a Güppi",
-        "sign": "<p><b>OAK BRASIL</b><br/>Protótipo de front criado e assinado pela OAK<br/>Strategy / Creativity / Performance</p>",
-        "show_sign": true,
-        "home_minimal": true
+        "coupon_enabled": true,
+        "coupon_code": "GUPPI5"
       }
     }
   },

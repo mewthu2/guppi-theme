@@ -8,7 +8,7 @@
   <div class="gp-vanilla" style="background: {{ section.settings.bg }};">
     <div class="gp-v-photo">
       {%- if section.settings.photo != blank -%}
-        {{ section.settings.photo | image_url: width: 1000 | image_tag: class: 'gp-media-fill', widths: '400, 800, 1000', sizes: '400px', loading: 'lazy' }}
+        {{ section.settings.photo | image_url: width: 2400 | image_tag: class: 'gp-media-fill', widths: '400, 800, 1000, 1600, 2400', sizes: '(min-width: 990px) 1240px, 100vw', loading: 'lazy' }}
       {%- else -%}
         Foto
       {%- endif -%}
@@ -29,7 +29,7 @@
         {%- if section.settings.video != blank -%}
           {{ section.settings.video | video_tag: class: 'gp-media-fill', autoplay: true, muted: true, loop: true, playsinline: true, controls: false, preload: 'metadata', image_size: '600x' }}
         {%- elsif section.settings.video_image != blank -%}
-          {{ section.settings.video_image | image_url: width: 600 | image_tag: class: 'gp-media-fill', widths: '300, 600', sizes: '200px', loading: 'lazy' }}
+          {{ section.settings.video_image | image_url: width: 600 | image_tag: class: 'gp-media-fill', widths: '300, 600', sizes: '(min-width: 990px) 380px, 46vw', loading: 'lazy' }}
         {%- else -%}
           Vídeo
         {%- endif -%}

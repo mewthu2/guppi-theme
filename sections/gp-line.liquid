@@ -16,7 +16,7 @@
       -%}
       {%- if link != blank -%}<a class="gp-card gp-c-{{ block.settings.color }}" href="{{ link }}" aria-label="{{ name_plain | escape }}" {{ block.shopify_attributes }}>{%- else -%}<div class="gp-card gp-c-{{ block.settings.color }}" {{ block.shopify_attributes }}>{%- endif -%}
         {%- if img != blank -%}
-          {{ img | image_url: width: 700 | image_tag: class: 'gp-media-fill', widths: '300, 500, 700', sizes: '240px', loading: 'lazy', alt: '' }}
+          {{ img | image_url: width: 700 | image_tag: class: 'gp-media-fill', widths: '300, 500, 700', sizes: '(min-width: 990px) 300px, (min-width: 750px) 240px, 56vw', loading: 'lazy', alt: '' }}
         {%- else -%}
           Foto
         {%- endif -%}

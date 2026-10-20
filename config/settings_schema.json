@@ -10,7 +10,7 @@
   {
     "name": "Layout Güppi",
     "settings": [
-      { "type": "select", "id": "gp_frame", "label": "Moldura mobile centralizada (430 px)", "info": "Em telas grandes, a página aparece como no protótipo: uma coluna de celular centralizada.", "options": [ { "value": "home_product", "label": "Página inicial e produto" }, { "value": "all", "label": "Todas as páginas" }, { "value": "none", "label": "Desativada" } ], "default": "home_product" }
+      { "type": "select", "id": "gp_frame", "label": "Moldura mobile centralizada (430 px)", "info": "Desativada, o layout se adapta ao computador. Ativada, a página aparece em telas grandes como uma coluna de celular centralizada.", "options": [ { "value": "none", "label": "Desativada (layout desktop)" }, { "value": "home_product", "label": "Página inicial e produto" }, { "value": "all", "label": "Todas as páginas" } ], "default": "none" }
     ]
   },
   {

@@ -76,7 +76,7 @@
       endif
     endif
   -%}
-  <body class="gp-theme template-{{ template.name | handle }}{% if gp_framed %} gp-framed{% endif %}{% if settings.animations_enabled %} animations-enabled{% endif %}">
+  <body class="gp-theme template-{{ template.name | handle }}{% if gp_framed %} gp-framed{% else %} gp-wide{% endif %}{% if settings.animations_enabled %} animations-enabled{% endif %}">
     <a class="skip-link button" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
 
     <div class="gp-app">

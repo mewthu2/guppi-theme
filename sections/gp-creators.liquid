@@ -9,7 +9,7 @@
           {%- if block.settings.video != blank -%}
             {{ block.settings.video | video_tag: class: 'gp-media-fill', autoplay: true, muted: true, loop: true, playsinline: true, controls: false, preload: 'metadata', image_size: '700x' }}
           {%- elsif block.settings.image != blank -%}
-            {{ block.settings.image | image_url: width: 700 | image_tag: class: 'gp-media-fill', widths: '350, 700', sizes: '350px', loading: 'lazy' }}
+            {{ block.settings.image | image_url: width: 700 | image_tag: class: 'gp-media-fill', widths: '350, 700', sizes: '(min-width: 990px) 300px, 82vw', loading: 'lazy' }}
           {%- else -%}
             {%- if block.settings.title != blank -%}<strong>{{ block.settings.title | newline_to_br }}</strong>{%- endif -%}
             {%- if block.settings.caption != blank -%}<em>{{ block.settings.caption }}</em>{%- endif -%}

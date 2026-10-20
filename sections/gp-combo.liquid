@@ -17,7 +17,7 @@
       -%}
       {%- if link != blank -%}<a class="gp-card gp-c-{{ block.settings.color }}" href="{{ link }}"{% if block.settings.product != blank %} aria-label="{{ block.settings.product.title | escape }}"{% endif %} {{ block.shopify_attributes }}>{%- else -%}<div class="gp-card gp-c-{{ block.settings.color }}" {{ block.shopify_attributes }}>{%- endif -%}
         {%- if img != blank -%}
-          {{ img | image_url: width: 500 | image_tag: class: 'gp-media-fill', widths: '200, 350, 500', sizes: '150px', loading: 'lazy', alt: '' }}
+          {{ img | image_url: width: 500 | image_tag: class: 'gp-media-fill', widths: '200, 350, 500', sizes: '(min-width: 990px) 240px, 33vw', loading: 'lazy', alt: '' }}
         {%- else -%}
           Foto
         {%- endif -%}

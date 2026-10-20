@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Güppi — layout mobile (DM Sans)
+   Güppi — layout mobile-first (DM Sans), com tablet e desktop no fim do arquivo
    Porte do protótipo de front. Todas as classes usam o prefixo gp- para não
    colidir com o theme.css.
    ========================================================================== */
@@ -377,3 +377,198 @@ a.gp-card { cursor: pointer; }
 }
 .gp-footer .gp-sign p { max-width: none; margin: 0; font-size: 11px; }
 .gp-footer .gp-sign b, .gp-footer .gp-sign strong { display: inline; font-size: 11px; }
+
+/* ==========================================================================
+   Tablet e desktop
+   Valem só sem a moldura mobile (body.gp-wide). O mobile acima fica igual;
+   aqui as seções ganham margens laterais, mais cards por linha e, a partir
+   de 990px, colunas lado a lado.
+   ========================================================================== */
+.gp-nav { display: none; }
+
+@media (min-width: 750px) {
+  .gp-wide { --gp-gut: 40px; }
+
+  .gp-wide .gp-rail, .gp-wide .gp-reels { gap: 20px; padding: 0 var(--gp-gut); scroll-padding: 0 var(--gp-gut); }
+  .gp-wide .gp-line .gp-card { flex-basis: calc((100% - 40px) / 3); }
+  .gp-wide .gp-combo .gp-head { padding: 0 var(--gp-gut); }
+  .gp-wide .gp-combo .gp-card { flex-basis: calc((100% - 60px) / 4); }
+  .gp-wide .gp-reel { flex-basis: calc((100% - 40px) / 3); scroll-snap-align: start; border-radius: 32px; }
+  .gp-wide .gp-reel strong { font-size: 28px; }
+  .gp-wide .gp-arrow.prev { left: calc(var(--gp-gut) - 23px); }
+  .gp-wide .gp-arrow.next { right: calc(var(--gp-gut) - 23px); }
+  .gp-wide .gp-quotes .gp-quote { flex-basis: calc((100% - 20px) / 2); }
+  .gp-wide .gp-quote--filled { min-height: 220px; padding: 28px; }
+  .gp-wide .gp-quote__text { font-size: 15.5px; }
+
+  .gp-wide .gp-claim { padding: 56px var(--gp-gut) 44px; font-size: 26px; }
+  .gp-wide .gp-vanilla { padding: 36px var(--gp-gut) 48px; }
+  .gp-wide .gp-v-text h3 { font-size: 44px; }
+  .gp-wide .gp-v-text p { font-size: 15px; }
+  .gp-wide .gp-pill { font-size: 13px; padding: 12px 20px; }
+
+  .gp-wide .gp-ba-sec, .gp-wide .gp-hot { padding-left: var(--gp-gut); padding-right: var(--gp-gut); }
+  .gp-wide .gp-footer { padding-left: var(--gp-gut); padding-right: var(--gp-gut); }
+
+  .gp-wide .gp-track { gap: 20px; }
+  .gp-wide .gp-pdp-active-card { flex-basis: calc((100% - 20px) / 2); }
+  .gp-wide .gp-pdp-video-card { flex-basis: calc((100% - 40px) / 3); }
+  .gp-wide .gp-pdp-actives, .gp-wide .gp-pdp-videos { padding-left: var(--gp-gut); padding-right: var(--gp-gut); }
+
+  /* Ficha vira janela centralizada */
+  .gp-wide .gp-sheet {
+    top: 50%; bottom: auto; width: 460px; max-height: calc(100vh - 48px); overflow-y: auto; border-radius: 30px;
+    padding: 32px 30px 30px; opacity: 0; transform: translate(-50%, -46%); transition: transform .3s cubic-bezier(.2,.8,.2,1), opacity .25s ease;
+  }
+  .gp-wide .gp-sheet-wrap.open .gp-sheet { opacity: 1; transform: translate(-50%, -50%); }
+  .gp-wide .gp-sheet .gp-s-photo { height: 220px; }
+}
+
+@media (min-width: 990px) {
+  .gp-wide { --gp-gut: max(48px, calc((100vw - 1240px) / 2)); --gp-hdr-h: 72px; }
+
+  /* Cabeçalho com menu horizontal */
+  .gp-wide .gp-hdr { padding-left: var(--gp-gut); padding-right: var(--gp-gut); gap: 40px; }
+  .gp-wide #GpMenuBtn, .gp-wide .gp-menu-wrap { display: none; }
+  .gp-wide .gp-hdr .gp-logo { height: 38px; }
+  .gp-wide .gp-nav { display: flex; flex: 1; justify-content: center; align-items: center; gap: 36px; }
+  .gp-hdr .gp-nav-item {
+    position: relative; padding: 6px 0; color: var(--gp-cream); font-size: 15px; letter-spacing: .02em; text-decoration: none; white-space: nowrap;
+  }
+  a.gp-nav-item::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 2px; background: var(--gp-cream);
+    transform: scaleX(0); transform-origin: left; transition: transform .25s ease;
+  }
+  a.gp-nav-item:hover::after, a.gp-nav-item:focus-visible::after { transform: scaleX(1); }
+  .gp-nav-item.off { opacity: .55; cursor: default; }
+  .gp-nav-item small { margin-left: 6px; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; }
+  .gp-wide .gp-hdr .gp-right { gap: 10px; }
+
+  /* Hero */
+  .gp-wide .gp-hero { min-height: min(860px, calc(100svh - var(--gp-hdr-h))); max-height: none; padding-bottom: 96px; }
+  .gp-wide .gp-hero .gp-slot { font-size: 140px; }
+  .gp-wide .gp-hero .gp-wave { height: 96px; }
+
+  /* Títulos de seção */
+  .gp-wide .gp-eyebrow { font-size: 14px; }
+  .gp-wide .gp-title { font-size: 44px; line-height: 1.08; }
+
+  /* Linha */
+  .gp-wide .gp-line { padding: 88px 0 96px; }
+  .gp-wide .gp-line .gp-rail { margin-top: 44px; gap: 24px; }
+  .gp-wide .gp-line .gp-card { flex-basis: calc((100% - 72px) / 4); border-radius: 32px; }
+  .gp-wide .gp-card .gp-name { font-size: 21px; left: 30px; bottom: 28px; }
+  .gp-wide a.gp-card img { transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+  .gp-wide a.gp-card:hover img { transform: scale(1.04); }
+
+  /* Vanilla Cashmere */
+  .gp-wide .gp-claim { padding: 80px var(--gp-gut) 60px; font-size: 32px; }
+  .gp-wide .gp-vanilla { padding: 48px var(--gp-gut) 80px; }
+  .gp-wide .gp-v-photo { aspect-ratio: 1240 / 440; border-radius: 36px; }
+  .gp-wide .gp-v-row { grid-template-columns: minmax(0, 1fr) 380px; gap: 56px; margin-top: -170px; }
+  .gp-wide .gp-v-text { padding: 210px 0 0; max-width: 560px; }
+  .gp-wide .gp-v-text h3 { font-size: 64px; margin-bottom: 22px; }
+  .gp-wide .gp-v-text p { font-size: 17px; line-height: 1.5; margin-bottom: 12px; }
+  .gp-wide .gp-pill { margin-top: 20px; font-size: 14px; padding: 15px 26px; }
+  .gp-wide .gp-v-video { border-width: 6px; border-radius: 36px; }
+  .gp-wide .gp-v-video .gp-media-fill { border-radius: 30px; }
+
+  /* Faixa */
+  .gp-wide .gp-marquee { padding: 26px 0; margin: 48px 0 52px; }
+  .gp-wide .gp-marquee span { font-size: 32px; }
+  .gp-wide .gp-marquee--band { margin: 8px 0 0; }
+
+  /* Creators */
+  .gp-wide .gp-creators { padding: 56px 0 96px; }
+  .gp-wide .gp-slider-wrap { margin-top: 44px; }
+  .gp-wide .gp-reel { flex-basis: calc((100% - 60px) / 4); }
+
+  /* Kits */
+  .gp-wide .gp-combo { padding: 32px 0 104px; }
+  .gp-wide .gp-combo h2 { font-size: 52px; margin-bottom: 32px; }
+  .gp-wide .gp-combo .gp-card { flex-basis: calc((100% - 80px) / 5); border-radius: 28px; }
+
+  /* Antes e depois / foto com pontos: imagem e texto lado a lado */
+  .gp-wide .gp-ba-sec, .gp-wide .gp-hot {
+    display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); grid-template-rows: 1fr auto auto auto 1fr;
+    column-gap: 72px; padding-top: 104px; padding-bottom: 104px;
+  }
+  .gp-wide .gp-ba, .gp-wide .gp-hot-img { grid-column: 1; grid-row: 1 / -1; border-radius: 32px; }
+  .gp-wide .gp-ba-sec > .gp-eyebrow, .gp-wide .gp-hot > .gp-eyebrow { grid-column: 2; grid-row: 2; margin-top: 0; }
+  .gp-wide .gp-ba-sec > h2, .gp-wide .gp-hot > h2 { grid-column: 2; grid-row: 3; font-size: 56px; max-width: 460px; margin: 12px 0 20px; }
+  .gp-wide .gp-ba-sec > .gp-body, .gp-wide .gp-hot > .gp-body { grid-column: 2; grid-row: 4; font-size: 17px; line-height: 1.5; max-width: 440px; }
+  .gp-wide .gp-hot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .gp-wide .gp-dot { width: 52px; height: 52px; margin: -26px 0 0 -26px; font-size: 19px; }
+  .gp-wide .gp-dot:hover { background: var(--gp-dark); }
+
+  /* Depoimentos */
+  .gp-wide .gp-quotes { padding: 104px 0 150px; }
+  .gp-wide .gp-quotes .gp-rail { margin-top: 48px; }
+  .gp-wide .gp-quotes .gp-quote { flex-basis: calc((100% - 40px) / 3); }
+  .gp-wide .gp-quote--filled { min-height: 260px; padding: 32px; }
+  .gp-wide .gp-quote__text { font-size: 17px; line-height: 1.5; }
+  .gp-wide .gp-quotes .gp-wave { height: 80px; }
+
+  /* Rodapé */
+  .gp-wide .gp-footer { padding-top: 64px; padding-bottom: 48px; gap: 48px 72px; justify-content: flex-start; }
+  .gp-wide .gp-footer > div:first-child { flex: 1; }
+  .gp-wide .gp-footer p { max-width: 300px; font-size: 14px; }
+  .gp-wide .gp-footer a { font-size: 14px; }
+  .gp-wide .gp-footer a:hover { text-decoration: underline; }
+  .gp-wide .gp-flogo { width: 132px; }
+  .gp-wide.template-product .gp-footer { padding-bottom: 48px; }
+
+  /* ---------- Produto: galeria à esquerda, compra à direita ---------- */
+  .gp-wide .gp-pdp[data-gp-product] {
+    display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); column-gap: 72px; align-items: start;
+    padding: 0 var(--gp-gut) 88px;
+  }
+  .gp-wide .gp-pdp-crumb { grid-column: 1 / -1; padding: 24px 0; font-size: 13px; }
+  .gp-wide .gp-pdp-gallery { position: sticky; top: calc(var(--gp-hdr-h) + 24px); }
+  .gp-wide .gp-pdp-stage { border-radius: 28px; }
+  .gp-wide .gp-pdp-arrow { opacity: 0; transition: opacity .2s ease; }
+  .gp-wide .gp-pdp-stage:hover .gp-pdp-arrow, .gp-wide .gp-pdp-arrow:focus-visible { opacity: 1; }
+  .gp-wide .gp-pdp-prev { left: 18px; } .gp-wide .gp-pdp-next { right: 18px; }
+  .gp-wide .gp-pdp-thumbs { gap: 12px; margin-top: 12px; }
+  .gp-wide .gp-pdp-thumb { flex-basis: calc((100% - 60px) / 6); border-radius: 14px; }
+  .gp-wide .gp-pdp-info { padding: 8px 0 0; max-width: 540px; }
+  .gp-wide .gp-pdp h1 { font-size: 40px; line-height: 1.12; margin: 14px 0 24px; }
+  .gp-wide .gp-pdp-pix strong { font-size: 36px; }
+  .gp-wide .gp-pdp-pix span { font-size: 15px; }
+  .gp-wide .gp-pdp-intro { font-size: 16px; margin: 20px 0 28px !important; }
+  .gp-wide .gp-pdp-buy { padding: 17px 20px; font-size: 16px; transition: background .2s ease; }
+  .gp-wide .gp-pdp-buy:not([disabled]):hover { background: #8a6cbb; }
+  .gp-wide .gp-pdp details { padding: 20px 0; }
+  .gp-wide .gp-pdp summary { font-size: 16px; }
+  .gp-wide .gp-pdp details .gp-acc-body { font-size: 15px; }
+  .gp-wide .gp-pdp-sticky { display: none; }
+
+  /* Fórmula */
+  .gp-wide .gp-pdp-cream { padding: 64px var(--gp-gut) 40px; height: min(860px, calc(100svh - var(--gp-hdr-h))); }
+  .gp-wide .gp-pdp-cream-intro { font-size: 44px; line-height: 1.15; max-width: 820px; margin: 0 auto 40px !important; text-align: center; }
+  .gp-wide .gp-pdp-cream-layout { grid-template-columns: 1fr 1fr; gap: 64px; max-width: 980px; margin: 0 auto; height: calc(100% - 190px); max-height: 600px; }
+  .gp-wide .gp-pdp-cream-photo-wrap { justify-items: end; }
+  .gp-wide .gp-pdp-cream-fig { width: auto; height: 100%; }
+  .gp-wide .gp-pdp-cream-img { width: auto; height: 100% !important; max-width: none; }
+  .gp-wide .gp-pdp-bullets { gap: 22px; padding-left: 0; }
+  .gp-wide .gp-pdp-bullets li { font-size: 18px; padding-left: 24px; }
+  .gp-wide .gp-pdp-bullets li::before { width: 8px; height: 8px; top: 8px; }
+
+  /* Ativos e vídeos */
+  .gp-wide .gp-pdp-actives { padding-top: 72px; }
+  .gp-wide .gp-pdp-videos { padding-top: 72px; padding-bottom: 24px; }
+  .gp-wide .gp-pdp-heading h2 { font-size: 34px; margin-bottom: 28px; }
+  .gp-wide .gp-pdp-card-arrow { width: 44px; height: 44px; font-size: 24px; margin-left: 8px; }
+  .gp-wide .gp-pdp-card-arrow:hover { background: #eee7f4; }
+  .gp-wide .gp-pdp-active-card { flex-basis: calc((100% - 60px) / 4); min-height: 440px; border-radius: 24px; }
+  .gp-wide .gp-pdp-active-card .gp-acc-text { font-size: 15px; }
+  .gp-wide .gp-pdp-video-intro { font-size: 15px; margin-top: -16px !important; }
+  .gp-wide .gp-pdp-video-card { flex-basis: calc((100% - 60px) / 4); border-radius: 22px; }
+
+  /* História e novidades */
+  .gp-wide .gp-pdp-story { padding: 96px var(--gp-gut) 32px; }
+  .gp-wide .gp-pdp-story h2 { font-size: 44px; margin: 16px 0; }
+  .gp-wide .gp-pdp-story p, .gp-wide .gp-pdp-news p { max-width: 640px; font-size: 17px; line-height: 1.55; }
+  .gp-wide .gp-pdp-news { padding: 48px var(--gp-gut) 104px; }
+  .gp-wide .gp-pdp-news h2 { font-size: 34px; }
+}

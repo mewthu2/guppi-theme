@@ -10,6 +10,21 @@
         <img class="gp-logo" src="{{ 'guppi-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="310" height="110">
       {%- endif -%}
     </a>
+    <nav class="gp-nav" aria-label="{{ 'sections.header.menu' | t }}">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.settings.soon or block.settings.link == blank -%}
+            <span class="gp-nav-item off" aria-disabled="true">{{ block.settings.label }}{% if block.settings.soon %}<small>{{ block.settings.soon_label }}</small>{% endif %}</span>
+          {%- else -%}
+            <a class="gp-nav-item" href="{{ block.settings.link }}">{{ block.settings.label }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for link in section.settings.menu.links -%}
+          <a class="gp-nav-item" href="{{ link.url }}">{{ link.title }}</a>
+        {%- endfor -%}
+      {%- endif -%}
+    </nav>
     <div class="gp-right">
       <a class="gp-ico" href="{{ routes.search_url }}" data-open-search aria-label="{{ 'general.search.search' | t }}">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>

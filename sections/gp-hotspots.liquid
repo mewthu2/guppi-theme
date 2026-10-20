@@ -1,7 +1,7 @@
 <section class="gp gp-hot">
   <div class="gp-hot-img">
     {%- if section.settings.image != blank -%}
-      {{ section.settings.image | image_url: width: 1000 | image_tag: class: 'gp-media-fill', widths: '400, 800, 1000', sizes: '400px', loading: 'lazy' }}
+      {{ section.settings.image | image_url: width: 1400 | image_tag: class: 'gp-media-fill', widths: '400, 800, 1000, 1400', sizes: '(min-width: 990px) 620px, 100vw', loading: 'lazy' }}
     {%- else -%}
       Foto da linha
     {%- endif -%}

@@ -1,8 +1,8 @@
 <section class="gp gp-hero" style="background: {{ section.settings.bg }};">
   {%- if section.settings.video != blank -%}
-    {{ section.settings.video | video_tag: class: 'gp-media-fill', autoplay: true, muted: true, loop: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1100x' }}
+    {{ section.settings.video | video_tag: class: 'gp-media-fill', autoplay: true, muted: true, loop: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1920x' }}
   {%- elsif section.settings.image != blank -%}
-    {{ section.settings.image | image_url: width: 1100 | image_tag: class: 'gp-media-fill', widths: '430, 860, 1100', sizes: '(min-width: 430px) 430px, 100vw', loading: 'eager', fetchpriority: 'high' }}
+    {{ section.settings.image | image_url: width: 2400 | image_tag: class: 'gp-media-fill', widths: '430, 860, 1100, 1600, 2000, 2400', sizes: '100vw', loading: 'eager', fetchpriority: 'high' }}
   {%- else -%}
     <div class="gp-slot">{{ section.settings.placeholder }}</div>
   {%- endif -%}

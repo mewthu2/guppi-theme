@@ -5,7 +5,7 @@
       <div class="gp-pdp-cream-photo-wrap" aria-hidden="true">
         <div class="gp-pdp-cream-fig">
           {%- if section.settings.image != blank -%}
-            {{ section.settings.image | image_url: width: 500 | image_tag: class: 'gp-pdp-cream-img', widths: '250, 500', sizes: '170px', alt: '' }}
+            {{ section.settings.image | image_url: width: 700 | image_tag: class: 'gp-pdp-cream-img', widths: '250, 500, 700', sizes: '(min-width: 990px) 260px, 170px', alt: '' }}
           {%- else -%}
             <img class="gp-pdp-cream-img" src="{{ 'guppi-cream.webp' | asset_url }}" alt="" width="480" height="1318" loading="lazy">
           {%- endif -%}

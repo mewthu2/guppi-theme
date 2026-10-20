@@ -1,11 +1,11 @@
 <section class="gp gp-ba-sec" style="background: {{ section.settings.bg }};">
   <div class="gp-ba" data-gp-ba role="slider" aria-label="Comparar antes e depois" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
     {%- if section.settings.before != blank -%}
-      {{ section.settings.before | image_url: width: 1000 | image_tag: class: 'gp-media-fill', widths: '400, 800, 1000', sizes: '400px', loading: 'lazy', alt: section.settings.label_before }}
+      {{ section.settings.before | image_url: width: 1400 | image_tag: class: 'gp-media-fill', widths: '400, 800, 1000, 1400', sizes: '(min-width: 990px) 680px, 100vw', loading: 'lazy', alt: section.settings.label_before }}
     {%- endif -%}
     <div class="gp-after">
       {%- if section.settings.after != blank -%}
-        {{ section.settings.after | image_url: width: 1000 | image_tag: class: 'gp-media-fill', widths: '400, 800, 1000', sizes: '400px', loading: 'lazy', alt: section.settings.label_after }}
+        {{ section.settings.after | image_url: width: 1400 | image_tag: class: 'gp-media-fill', widths: '400, 800, 1000, 1400', sizes: '(min-width: 990px) 680px, 100vw', loading: 'lazy', alt: section.settings.label_after }}
       {%- endif -%}
     </div>
     <span class="gp-lbl l">{{ section.settings.label_before }}</span><span class="gp-lbl r">{{ section.settings.label_after }}</span>

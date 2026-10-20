@@ -34,12 +34,12 @@
         {%- capture cls %}gp-pdp-photo{% if forloop.index0 == active_index %} is-on{% endif %}{% endcapture -%}
         {%- case media.media_type -%}
           {%- when 'video' -%}
-            {{ media | video_tag: class: cls, muted: true, loop: true, playsinline: true, controls: false, preload: 'metadata', image_size: '900x' }}
+            {{ media | video_tag: class: cls, muted: true, loop: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1400x' }}
           {%- else -%}
             {%- assign loading = 'lazy' -%}
             {%- if forloop.index0 == active_index -%}{%- assign loading = 'eager' -%}{%- endif -%}
             {%- assign media_alt = media.alt | default: product.title -%}
-            {{ media.preview_image | image_url: width: 1000 | image_tag: class: cls, widths: '430, 650, 860, 1000', sizes: '(min-width: 430px) 430px, 100vw', loading: loading, alt: media_alt }}
+            {{ media.preview_image | image_url: width: 1400 | image_tag: class: cls, widths: '430, 650, 860, 1000, 1400', sizes: '(min-width: 990px) 54vw, 100vw', loading: loading, alt: media_alt }}
         {%- endcase -%}
       {%- else -%}
         <span class="gp-pdp-ph">Foto 1</span>

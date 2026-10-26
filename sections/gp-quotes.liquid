@@ -16,7 +16,7 @@
       {%- endif -%}
     {%- endfor -%}
   </div>
-  <svg class="gp-wave" viewBox="0 0 390 52" preserveAspectRatio="none" aria-hidden="true"><path fill="{{ section.settings.wave_color }}" d="M0,26 C60,44 130,50 200,34 C270,18 330,6 390,12 L390,52 L0,52 Z"/></svg>
+  <svg class="gp-wave" viewBox="0 0 390 52" preserveAspectRatio="none" aria-hidden="true"><path fill="{{ section.settings.wave_color }}" d="M0,26 C60,44 130,50 200,34 C270,18 330,6 390,12 L390,52 L0,52 Z"><animate class="gp-wave-anim" attributeName="d" dur="14s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".45 0 .55 1;.45 0 .55 1;.45 0 .55 1" values="M0,26 C60,44 130,50 200,34 C270,18 330,6 390,12 L390,52 L0,52 Z;M0,16 C70,6 140,14 205,28 C275,42 335,44 390,28 L390,52 L0,52 Z;M0,32 C55,46 125,38 195,24 C265,10 325,16 390,22 L390,52 L0,52 Z;M0,26 C60,44 130,50 200,34 C270,18 330,6 390,12 L390,52 L0,52 Z"/></path></svg>
 </section>
 
 {% schema %}

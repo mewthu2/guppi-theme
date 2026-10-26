@@ -255,73 +255,74 @@ a.gp-card { cursor: pointer; }
 .gp-foot-pay { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
 .gp-foot-pay svg { width: 38px; height: 24px; display: block; }
 
-/* Peixe em traço contínuo que solta o anel do cupom */
+/* Ü do logo: o pingo da direita sobe e vira o anel do cupom */
 .gp-fish {
   position: relative; display: block; width: auto; margin: 0 16px; aspect-ratio: 460 / 420; padding: 0; border: 0; cursor: pointer;
-  background: var(--gp-purple); border-radius: 32px; overflow: hidden; font: inherit; color: inherit; text-align: left;
+  background: var(--gp-lilac); border-radius: 32px; overflow: hidden; font: inherit; color: inherit; text-align: left;
   container-type: inline-size;
 }
 .gp-fish::before {
   content: ""; position: absolute; inset: auto -10% -30% -10%; height: 60%; border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(246, 243, 236, .14), transparent); pointer-events: none;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, .35), transparent); pointer-events: none;
 }
 .gp-fish-scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .gp-fish-cta {
-  position: absolute; top: 7%; left: 7%; z-index: 2; max-width: 52%; color: var(--gp-cream);
+  position: absolute; top: 7%; left: 7%; z-index: 2; max-width: 52%; color: var(--gp-dark);
   font-size: clamp(14px, 4.6cqi, 21px); line-height: 1.15; font-weight: 800; letter-spacing: -.01em;
 }
 .gp-fish-cta::after { content: " →"; display: inline-block; transition: transform .25s ease; }
 .gp-fish:hover .gp-fish-cta::after, .gp-fish:focus-visible .gp-fish-cta::after { transform: translateX(4px); }
 .gp-fish:focus-visible { outline: 3px solid var(--gp-dark); outline-offset: 3px; }
-.gp-fish-swim { transform-box: view-box; transform-origin: 250px 290px; animation: gp-swim 6s ease-in-out infinite; }
-.gp-fish-line { stroke-dasharray: 1; stroke-dashoffset: 0; }
-.gp-fish[data-draw]:not(.in) .gp-fish-line { stroke-dashoffset: 1; }
-.gp-fish[data-draw]:not(.in) .gp-fish-pupil, .gp-fish[data-draw]:not(.in) .gp-fish-rings { opacity: 0; }
-.gp-fish[data-draw].in .gp-fish-line { transition: stroke-dashoffset 1.8s cubic-bezier(.6, 0, .2, 1); }
-.gp-fish[data-draw].in .gp-fish-tail .gp-fish-line { transition-delay: 1.2s; transition-duration: .8s; }
-.gp-fish[data-draw].in .gp-fish-pupil, .gp-fish[data-draw].in .gp-fish-rings { transition: opacity .8s ease 1.6s; }
-.gp-fish-tail { transform-box: view-box; transform-origin: 150px 290px; animation: gp-tail 2.4s ease-in-out infinite alternate; }
-.gp-fish-ring {
-  vector-effect: non-scaling-stroke; stroke-width: 1.5; stroke-dasharray: .035 .025;
-  transform-box: view-box; transform-origin: 362px 290px; transform: scale(var(--s));
-  animation: gp-flow 9s linear infinite, gp-breathe 6s ease-in-out infinite;
-}
-.gp-fish-ring.r1 { --s: .76; opacity: .7; }
-.gp-fish-ring.r2 { --s: .52; opacity: .5; animation-delay: -3s, -.6s; }
-.gp-fish-ring.r3 { --s: .28; opacity: .35; animation-delay: -6s, -1.2s; }
-.gp-fish-pupil { transition: transform .2s ease-out; }
+.gp-u { transform-box: view-box; transform-origin: 230px 358px; animation: gp-u-bounce 9s cubic-bezier(.4, 0, .2, 1) infinite; }
+.gp-u-line { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.gp-u-dot { transform-box: fill-box; transform-origin: center bottom; }
+.gp-u-dot.d1 { animation: gp-u-hop 9s cubic-bezier(.4, 0, .2, 1) infinite; }
+.gp-u-dot.d2 { animation: gp-u-lift 9s cubic-bezier(.4, 0, .2, 1) infinite; }
+.gp-fish[data-draw]:not(.in) .gp-u-line { stroke-dashoffset: 1; }
+.gp-fish[data-draw]:not(.in) .gp-u-dot { visibility: hidden; }
+.gp-fish[data-draw].in .gp-u-dot { transition: visibility 0s 1.1s; }
+.gp-fish[data-draw]:not(.in) .gp-u-dot, .gp-fish[data-draw]:not(.in) .gp-u, .gp-fish[data-draw]:not(.in) .gp-fish-bubble { animation-play-state: paused; }
+.gp-fish[data-draw].in .gp-u-line { transition: stroke-dashoffset 1.4s cubic-bezier(.6, 0, .2, 1); }
 .gp-fish-bubble {
-  position: absolute; left: 79%; top: 69%; z-index: 1; width: 38%; aspect-ratio: 1; border-radius: 50%;
+  position: absolute; left: 58.3%; top: 40%; z-index: 1; width: 38%; aspect-ratio: 1; border-radius: 50%;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-align: center;
-  border: 1.5px solid rgba(246, 243, 236, .85); background: rgba(246, 243, 236, .08);
-  -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
-  color: var(--gp-cream); transform: translate(-50%, -50%) scale(0); animation: gp-blow 9s cubic-bezier(.4, 0, .2, 1) infinite;
+  border: 2px solid var(--gp-purple); background: rgba(255, 255, 255, .35);
+  color: var(--gp-purple); opacity: 0; transform: translate(-50%, -50%) scale(.27); animation: gp-blow 9s cubic-bezier(.4, 0, .2, 1) infinite;
 }
-.gp-fish-bubble::before {
-  content: ""; position: absolute; inset: 7%; border-radius: 50%; border: 1px solid rgba(246, 243, 236, .3);
-}
-.gp-fish-bubble span { font-size: clamp(10px, 3cqi, 13px); font-weight: 500; text-transform: uppercase; letter-spacing: .22em; }
-.gp-fish-bubble strong { font-size: clamp(22px, 7.4cqi, 34px); font-weight: 700; line-height: .95; letter-spacing: -.03em; }
+.gp-fish-bubble::before { content: ""; position: absolute; inset: 7%; border-radius: 50%; border: 1px solid rgba(155, 127, 201, .35); }
+.gp-fish-bubble span { font-size: clamp(10px, 3cqi, 13px); font-weight: 600; text-transform: uppercase; letter-spacing: .22em; }
+.gp-fish-bubble strong { font-size: clamp(22px, 7.4cqi, 34px); font-weight: 800; line-height: .95; letter-spacing: -.03em; color: var(--gp-magenta); }
 .gp-fish-mini {
-  position: absolute; left: 79%; top: 69%; width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(246, 243, 236, .8);
+  position: absolute; left: 58%; top: 36%; width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(155, 127, 201, .7);
   opacity: 0; animation: gp-rise 4s ease-in infinite; pointer-events: none;
 }
 .gp-fish-mini.m2 { width: 9px; height: 9px; animation-delay: 1.3s; margin-left: 10px; }
 .gp-fish-mini.m3 { width: 18px; height: 18px; animation-delay: 2.6s; margin-left: -6px; }
-@keyframes gp-swim {
-  0%, 100% { transform: translate(0, 0) rotate(0); }
-  33% { transform: translate(-6px, -7px) rotate(-1.2deg); }
-  66% { transform: translate(4px, -3px) rotate(.8deg); }
+@keyframes gp-u-bounce {
+  0%, 8%, 100% { transform: scale(1); }
+  11% { transform: scale(1.03, .96); }
+  15% { transform: scale(.99, 1.02); }
+  19% { transform: scale(1); }
 }
-@keyframes gp-tail { from { transform: rotate(-9deg); } to { transform: rotate(9deg); } }
-@keyframes gp-flow { to { stroke-dashoffset: -1; } }
-@keyframes gp-breathe { 0%, 100% { transform: scale(var(--s)); } 50% { transform: scale(calc(var(--s) + .06)); } }
+@keyframes gp-u-hop {
+  0%, 10%, 26%, 100% { transform: translateY(0) scale(1); }
+  14% { transform: translateY(-16px) scale(.96, 1.05); }
+  20% { transform: translateY(0) scale(1.08, .9); }
+  23% { transform: translateY(0) scale(.98, 1.02); }
+}
+@keyframes gp-u-lift {
+  0%, 12% { transform: translateY(0); opacity: 1; }
+  14% { transform: translateY(-22px); opacity: 0; }
+  86% { transform: translateY(-22px) scale(0); opacity: 0; }
+  94% { transform: translateY(0) scale(1.1, .9); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
 @keyframes gp-blow {
-  0%, 12% { left: 79%; top: 69%; transform: translate(-50%, -50%) scale(0); opacity: 0; }
-  18% { opacity: 1; }
-  40% { left: 71%; top: 30%; transform: translate(-50%, -50%) scale(1); }
-  78% { left: 71%; top: 28%; transform: translate(-50%, -50%) scale(1); opacity: 1; }
-  88%, 100% { left: 71%; top: 26%; transform: translate(-50%, -50%) scale(1.12); opacity: 0; }
+  0%, 12% { left: 58.3%; top: 40%; transform: translate(-50%, -50%) scale(.27); opacity: 0; }
+  13% { opacity: 1; }
+  38% { left: 74%; top: 27%; transform: translate(-50%, -50%) scale(1); }
+  76% { left: 74%; top: 25%; transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  86%, 100% { left: 74%; top: 23%; transform: translate(-50%, -50%) scale(1.12); opacity: 0; }
 }
 @keyframes gp-rise {
   0% { transform: translate(0, 0); opacity: 0; }
@@ -535,8 +536,8 @@ a.gp-card { cursor: pointer; }
   body.gp-wide .gp-pdp-cream-scroll { height: auto; }
   .gp-pdp-cream-img { -webkit-mask-image: none; mask-image: none; }
   .gp-pdp-cream-fig::after { display: none; }
-  .gp-fish-swim, .gp-fish-tail, .gp-fish-ring, .gp-fish-mini, .gp-coupon-bubble { animation: none; }
-  .gp-fish-bubble { animation: none; left: 71%; top: 30%; transform: translate(-50%, -50%) scale(1); }
+  .gp-u, .gp-u-dot, .gp-fish-mini, .gp-coupon-bubble { animation: none; }
+  .gp-fish-bubble { animation: none; left: 74%; top: 25%; opacity: 1; transform: translate(-50%, -50%) scale(1); }
   .gp-coupon { transition: none; }
 }
 

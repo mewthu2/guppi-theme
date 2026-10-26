@@ -289,27 +289,7 @@
     if (root.querySelector('#GpCoupon [data-gp-coupon-result]')) setCoupon(true);
   }
 
-  // Rodapé: olho do peixinho segue o mouse
-  function initFishEye(root) {
-    var pupil = root.querySelector('.gp-fish-pupil');
-    if (!pupil || reduceMotion || !window.matchMedia('(pointer: fine)').matches) return;
-    var svg = pupil.ownerSVGElement, pending = false, px = 0, py = 0;
-    window.addEventListener('pointermove', function (e) {
-      px = e.clientX; py = e.clientY;
-      if (pending) return;
-      pending = true;
-      requestAnimationFrame(function () {
-        pending = false;
-        var r = svg.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > innerHeight) return;
-        var s = r.width / 460, ex = r.left + 318 * s, ey = r.top + 272 * s;
-        var dx = px - ex, dy = py - ey, d = Math.hypot(dx, dy) || 1, m = Math.min(4, d / 60);
-        pupil.style.transform = 'translate(' + (dx / d * m) + 'px,' + (dy / d * m) + 'px)';
-      });
-    }, { passive: true });
-  }
-
-  // Rodapé: o traço do peixe se desenha quando ele entra na tela
+  // Rodapé: o Ü se desenha quando entra na tela
   function initFishDraw(root) {
     var fish = root.querySelector('.gp-fish');
     if (!fish || reduceMotion || !('IntersectionObserver' in window)) return;
@@ -320,6 +300,15 @@
       io.disconnect();
     }, { threshold: 0.35 });
     io.observe(fish);
+  }
+
+  // Onda acima do rodapé: para a animação para quem reduz movimento
+  function initWaves(root) {
+    if (!reduceMotion) return;
+    root.querySelectorAll('.gp-wave-anim').forEach(function (a) {
+      var svg = a.ownerSVGElement;
+      if (svg && svg.pauseAnimations) { svg.pauseAnimations(); svg.setCurrentTime(0); }
+    });
   }
 
   // Rodapé: colunas viram sanfona no celular
@@ -333,8 +322,8 @@
   function init(root) {
     root = root || document;
     initCoupon(root);
-    initFishEye(root);
     initFishDraw(root);
+    initWaves(root);
     syncFootCols();
     initDrag(root);
     initBeforeAfter(root);

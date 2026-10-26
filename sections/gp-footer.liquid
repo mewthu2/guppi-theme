@@ -5,18 +5,10 @@
         <span class="visually-hidden">{{ section.settings.badge_1 }} {{ section.settings.badge_2 }} {{ section.settings.fish_cta }}</span>
         {%- if section.settings.fish_cta != blank -%}<span class="gp-fish-cta" aria-hidden="true">{{ section.settings.fish_cta }}</span>{%- endif -%}
         <svg class="gp-fish-scene" viewBox="0 0 460 420" aria-hidden="true">
-          <g class="gp-fish-swim" fill="none" stroke="#F6F3EC" stroke-linecap="round" stroke-linejoin="round">
-            <g class="gp-fish-rings">
-              <path class="gp-fish-ring r3" d="M362 290 C307 205 192 205 150 290 C192 375 307 375 362 290 Z" pathLength="1"/>
-              <path class="gp-fish-ring r2" d="M362 290 C307 205 192 205 150 290 C192 375 307 375 362 290 Z" pathLength="1"/>
-              <path class="gp-fish-ring r1" d="M362 290 C307 205 192 205 150 290 C192 375 307 375 362 290 Z" pathLength="1"/>
-            </g>
-            <path class="gp-fish-line" d="M362 290 C307 205 192 205 150 290 C192 375 307 375 362 290 Z" pathLength="1" stroke-width="3"/>
-            <g class="gp-fish-tail">
-              <path class="gp-fish-line" d="M150 290 C138 264 116 244 84 232" pathLength="1" stroke-width="3"/>
-              <path class="gp-fish-line" d="M150 290 C138 316 116 336 84 348" pathLength="1" stroke-width="3"/>
-            </g>
-            <circle class="gp-fish-pupil" cx="318" cy="272" r="5.5" fill="#F6F3EC" stroke="none"/>
+          <g class="gp-u" fill="none" stroke="#9B7FC9" stroke-width="44" stroke-linecap="round" stroke-linejoin="round">
+            <path class="gp-u-line" d="M176 236 V300 C176 334 200 358 230 358 C260 358 284 334 284 300 V236 M284 300 V358" pathLength="1"/>
+            <circle class="gp-u-dot d1" cx="192" cy="168" r="24" fill="#9B7FC9" stroke="none"/>
+            <circle class="gp-u-dot d2" cx="268" cy="168" r="24" fill="#9B7FC9" stroke="none"/>
           </g>
         </svg>
         <span class="gp-fish-bubble" aria-hidden="true"><span>{{ section.settings.badge_1 }}</span><strong>{{ section.settings.badge_2 }}</strong></span>
@@ -113,8 +105,8 @@
     { "type": "text", "id": "tagline", "label": "Frase", "default": "Cuidado que dá vontade de repetir." },
     { "type": "text", "id": "legal", "label": "Texto legal", "info": "Aparece ao lado do copyright. Ex.: CNPJ 00.000.000/0001-00" },
     { "type": "checkbox", "id": "show_payment", "label": "Mostrar formas de pagamento", "default": true },
-    { "type": "header", "content": "Peixinho do cupom" },
-    { "type": "checkbox", "id": "coupon_enabled", "label": "Mostrar peixinho e cupom da newsletter", "default": true },
+    { "type": "header", "content": "Ü animado do cupom" },
+    { "type": "checkbox", "id": "coupon_enabled", "label": "Mostrar Ü animado e cupom da newsletter", "default": true },
     { "type": "text", "id": "badge_1", "label": "Bolha: primeira linha", "default": "Receba" },
     { "type": "text", "id": "badge_2", "label": "Bolha: destaque", "default": "5% OFF!" },
     { "type": "text", "id": "fish_cta", "label": "Chamada no card", "default": "Assine a newsletter e ganhe desconto" },

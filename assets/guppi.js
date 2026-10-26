@@ -302,11 +302,24 @@
         pending = false;
         var r = svg.getBoundingClientRect();
         if (r.bottom < 0 || r.top > innerHeight) return;
-        var s = r.width / 460, ex = r.left + 300 * s, ey = r.top + 262 * s;
-        var dx = px - ex, dy = py - ey, d = Math.hypot(dx, dy) || 1, m = Math.min(10, d / 30);
+        var s = r.width / 460, ex = r.left + 318 * s, ey = r.top + 272 * s;
+        var dx = px - ex, dy = py - ey, d = Math.hypot(dx, dy) || 1, m = Math.min(4, d / 60);
         pupil.style.transform = 'translate(' + (dx / d * m) + 'px,' + (dy / d * m) + 'px)';
       });
     }, { passive: true });
+  }
+
+  // Rodapé: o traço do peixe se desenha quando ele entra na tela
+  function initFishDraw(root) {
+    var fish = root.querySelector('.gp-fish');
+    if (!fish || reduceMotion || !('IntersectionObserver' in window)) return;
+    fish.setAttribute('data-draw', '');
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      requestAnimationFrame(function () { fish.classList.add('in'); });
+      io.disconnect();
+    }, { threshold: 0.35 });
+    io.observe(fish);
   }
 
   // Rodapé: colunas viram sanfona no celular
@@ -321,6 +334,7 @@
     root = root || document;
     initCoupon(root);
     initFishEye(root);
+    initFishDraw(root);
     syncFootCols();
     initDrag(root);
     initBeforeAfter(root);

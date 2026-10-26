@@ -1,0 +1,55 @@
+{
+  "sections": {
+    "intro": {
+      "type": "gp-story",
+      "settings": {
+        "style": "story",
+        "eyebrow": "O CHEIRO GÜPPI",
+        "title": "Vanilla Cashmere,\no cheiro de pele macia.",
+        "text": "Uma fragrância autoral, cremosa e envolvente, criada para acompanhar toda a linha Güppi.",
+        "link_label": "",
+        "link": ""
+      }
+    },
+    "vanilla": {
+      "type": "gp-vanilla",
+      "settings": {
+        "claim_1": "<b>Eficácia</b> de farmácia",
+        "claim_2": "Experiência de <b>Perfumaria</b>",
+        "title": "Vanilla\nCashmere",
+        "text": "<p>Aquele cheiro de pele macia,<br/>como um toque de cashmere.</p><p>Baunilha suave, quase um abraço.</p><p>Fica perto, envolve devagar e deixa a pele perfumada, com um frescor que acolhe.</p>",
+        "button_label": "Conheça a linha",
+        "button_link": "shopify://collections/all",
+        "bg": "#AA0259",
+        "anchor": "cheiro"
+      }
+    },
+    "marquee": {
+      "type": "gp-marquee",
+      "settings": {
+        "text": "Baunilha – Cashmere – Pele perfumada o dia todo –",
+        "style": "home",
+        "speed": 16,
+        "bg": "#B4D2BA",
+        "color": "#F6F3EC"
+      }
+    },
+    "closing": {
+      "type": "gp-story",
+      "settings": {
+        "style": "news",
+        "eyebrow": "DO BANHO AO FIM DO DIA",
+        "title": "Um cheiro só,\nem cada textura.",
+        "text": "Body splash, óleo, manteiga e loção com a mesma assinatura olfativa, para usar em camadas.",
+        "link_label": "Ver produtos →",
+        "link": "shopify://collections/all"
+      }
+    }
+  },
+  "order": [
+    "intro",
+    "vanilla",
+    "marquee",
+    "closing"
+  ]
+}

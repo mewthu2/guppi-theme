@@ -26,8 +26,8 @@
         "m2": {
           "type": "item",
           "settings": {
-            "label": "Vanilla",
-            "link": "/#vanilla",
+            "label": "Kits",
+            "link": "/collections/kits",
             "soon": false,
             "soon_label": "Em breve"
           }
@@ -35,8 +35,8 @@
         "m3": {
           "type": "item",
           "settings": {
-            "label": "Contato",
-            "link": "/pages/contact",
+            "label": "Cheiro Güppi",
+            "link": "/pages/cheiro-guppi",
             "soon": false,
             "soon_label": "Em breve"
           }
@@ -44,8 +44,27 @@
         "m4": {
           "type": "item",
           "settings": {
-            "label": "Dúvidas",
-            "soon": true,
+            "label": "Afiliados Güppi",
+            "link": "/pages/afiliados",
+            "soon": false,
+            "soon_label": "Em breve"
+          }
+        },
+        "m5": {
+          "type": "item",
+          "settings": {
+            "label": "Sobre nós",
+            "link": "/pages/sobre-nos",
+            "soon": false,
+            "soon_label": "Em breve"
+          }
+        },
+        "m6": {
+          "type": "item",
+          "settings": {
+            "label": "Contato",
+            "link": "/pages/contact",
+            "soon": false,
             "soon_label": "Em breve"
           }
         }
@@ -54,7 +73,9 @@
         "m1",
         "m2",
         "m3",
-        "m4"
+        "m4",
+        "m5",
+        "m6"
       ],
       "settings": {
         "menu": "main-menu",

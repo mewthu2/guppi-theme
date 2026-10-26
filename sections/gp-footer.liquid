@@ -5,23 +5,18 @@
         <span class="visually-hidden">{{ section.settings.badge_1 }} {{ section.settings.badge_2 }} {{ section.settings.fish_cta }}</span>
         {%- if section.settings.fish_cta != blank -%}<span class="gp-fish-cta" aria-hidden="true">{{ section.settings.fish_cta }}</span>{%- endif -%}
         <svg class="gp-fish-scene" viewBox="0 0 460 420" aria-hidden="true">
-          <defs><clipPath id="GpFishBody"><ellipse cx="210" cy="292" rx="140" ry="92"/></clipPath></defs>
-          <g class="gp-fish-swim">
-            <path class="gp-fish-tail" d="M92 292 C70 252 40 216 14 204 C26 254 26 330 14 380 C40 368 70 332 92 292 Z" fill="#AA0259"/>
-            <path d="M150 216 C168 160 232 142 282 192 C252 198 206 206 150 216 Z" fill="#AA0259"/>
-            <path class="gp-fish-fin" d="M196 370 C206 402 240 410 262 398 C246 386 228 376 196 370 Z" fill="#AA0259"/>
-            <ellipse cx="210" cy="292" rx="140" ry="92" fill="#CF0058"/>
-            <g clip-path="url(#GpFishBody)">
-              <ellipse cx="225" cy="352" rx="120" ry="48" fill="#E0397F"/>
-              <g fill="none" stroke="#AA0259" stroke-width="4" stroke-linecap="round" opacity=".45">
-                <path d="M140 250 q14 14 0 28"/><path d="M176 236 q14 14 0 28"/><path d="M158 284 q14 14 0 28"/><path d="M194 270 q14 14 0 28"/><path d="M212 236 q14 14 0 28"/>
-              </g>
+          <g class="gp-fish-swim" fill="none" stroke="#F6F3EC" stroke-linecap="round" stroke-linejoin="round">
+            <g class="gp-fish-rings">
+              <path class="gp-fish-ring r3" d="M362 290 C307 205 192 205 150 290 C192 375 307 375 362 290 Z" pathLength="1"/>
+              <path class="gp-fish-ring r2" d="M362 290 C307 205 192 205 150 290 C192 375 307 375 362 290 Z" pathLength="1"/>
+              <path class="gp-fish-ring r1" d="M362 290 C307 205 192 205 150 290 C192 375 307 375 362 290 Z" pathLength="1"/>
             </g>
-            <path d="M262 236 C246 264 246 318 264 346" fill="none" stroke="#AA0259" stroke-width="5" stroke-linecap="round" opacity=".55"/>
-            <circle cx="322" cy="318" r="13" fill="#FF9EC8" opacity=".7"/>
-            <circle cx="300" cy="262" r="31" fill="#fff"/>
-            <g class="gp-fish-pupil"><circle cx="304" cy="264" r="15" fill="#322C3D"/><circle cx="299" cy="258" r="5" fill="#fff"/></g>
-            <ellipse class="gp-fish-mouth" cx="346" cy="302" rx="13" ry="12" fill="#5B1235" stroke="#AA0259" stroke-width="4"/>
+            <path class="gp-fish-line" d="M362 290 C307 205 192 205 150 290 C192 375 307 375 362 290 Z" pathLength="1" stroke-width="3"/>
+            <g class="gp-fish-tail">
+              <path class="gp-fish-line" d="M150 290 C138 264 116 244 84 232" pathLength="1" stroke-width="3"/>
+              <path class="gp-fish-line" d="M150 290 C138 316 116 336 84 348" pathLength="1" stroke-width="3"/>
+            </g>
+            <circle class="gp-fish-pupil" cx="318" cy="272" r="5.5" fill="#F6F3EC" stroke="none"/>
           </g>
         </svg>
         <span class="gp-fish-bubble" aria-hidden="true"><span>{{ section.settings.badge_1 }}</span><strong>{{ section.settings.badge_2 }}</strong></span>

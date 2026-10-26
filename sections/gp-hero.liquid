@@ -6,7 +6,11 @@
   {%- else -%}
     <div class="gp-slot">{{ section.settings.placeholder }}</div>
   {%- endif -%}
-  <svg class="gp-wave" viewBox="0 0 390 58" preserveAspectRatio="none" aria-hidden="true"><path fill="{{ section.settings.wave_color }}" d="M0,40 C70,12 150,6 215,20 C290,36 340,46 390,32 L390,58 L0,58 Z"/></svg>
+  <svg class="gp-wave" viewBox="0 0 390 76" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="{{ section.settings.wave_color_3 }}" opacity=".85" d="M0,30 C80,14 160,16 230,24 C300,32 350,30 390,20 L390,76 L0,76 Z"><animate class="gp-wave-anim" attributeName="d" dur="17s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".45 0 .55 1;.45 0 .55 1;.45 0 .55 1" values="M0,30 C80,14 160,16 230,24 C300,32 350,30 390,20 L390,76 L0,76 Z;M0,22 C70,30 150,36 225,26 C300,16 345,12 390,18 L390,76 L0,76 Z;M0,28 C75,20 150,10 220,18 C295,26 345,32 390,26 L390,76 L0,76 Z;M0,30 C80,14 160,16 230,24 C300,32 350,30 390,20 L390,76 L0,76 Z"/></path>
+    <path fill="{{ section.settings.wave_color_2 }}" opacity=".9" d="M0,44 C60,22 140,16 210,28 C285,42 335,50 390,36 L390,76 L0,76 Z"><animate class="gp-wave-anim" attributeName="d" dur="13s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".45 0 .55 1;.45 0 .55 1;.45 0 .55 1" values="M0,44 C60,22 140,16 210,28 C285,42 335,50 390,36 L390,76 L0,76 Z;M0,34 C70,46 150,48 215,34 C285,20 340,20 390,30 L390,76 L0,76 Z;M0,40 C60,30 135,26 205,34 C280,44 335,44 390,32 L390,76 L0,76 Z;M0,44 C60,22 140,16 210,28 C285,42 335,50 390,36 L390,76 L0,76 Z"/></path>
+    <path fill="{{ section.settings.wave_color }}" d="M0,56 C70,30 150,24 215,38 C290,52 340,62 390,50 L390,76 L0,76 Z"><animate class="gp-wave-anim" attributeName="d" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".45 0 .55 1;.45 0 .55 1;.45 0 .55 1" values="M0,56 C70,30 150,24 215,38 C290,52 340,62 390,50 L390,76 L0,76 Z;M0,46 C75,58 150,60 220,46 C290,32 345,30 390,40 L390,76 L0,76 Z;M0,52 C65,40 140,34 210,44 C285,56 340,56 390,44 L390,76 L0,76 Z;M0,56 C70,30 150,24 215,38 C290,52 340,62 390,50 L390,76 L0,76 Z"/></path>
+  </svg>
 </section>
 
 {% schema %}
@@ -17,7 +21,9 @@
     { "type": "image_picker", "id": "image", "label": "Imagem (se não houver vídeo)" },
     { "type": "text", "id": "placeholder", "label": "Texto sem mídia", "default": "Vídeo" },
     { "type": "color", "id": "bg", "label": "Cor de fundo", "default": "#DECFF0" },
-    { "type": "color", "id": "wave_color", "label": "Cor da onda", "default": "#F6F3EC" }
+    { "type": "color", "id": "wave_color", "label": "Cor da onda", "default": "#F6F3EC" },
+    { "type": "color", "id": "wave_color_2", "label": "Cor da onda do meio", "default": "#BB9CC5" },
+    { "type": "color", "id": "wave_color_3", "label": "Cor da onda de trás", "default": "#9B7FC9" }
   ],
   "presets": [{ "name": "Güppi · Abertura" }]
 }

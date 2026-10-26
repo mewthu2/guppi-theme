@@ -314,7 +314,8 @@
         "title": "Eficácia de farmácia.\nExperiência de perfumaria.",
         "text": "Conheça o universo Güppi e acompanhe as novidades.",
         "link_label": "Visitar a loja →",
-        "link": "shopify://collections/all"
+        "link": "shopify://collections/all",
+        "show_wave": true
       }
     }
   },

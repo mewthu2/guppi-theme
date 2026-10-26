@@ -558,6 +558,8 @@ a.gp-card { cursor: pointer; }
 .gp-pdp-story a, .gp-pdp-news a { color: var(--gp-purple) !important; font-weight: 800; }
 .gp-pdp-news { padding: 30px 22px 50px; text-align: center; }
 .gp-pdp-news h2 { font-size: 24px; line-height: 1.2; font-weight: 800; letter-spacing: -.02em; margin: 0; }
+.gp-pdp.gp-has-wave { position: relative; padding-bottom: 130px; }
+.gp-pdp.gp-has-wave .gp-wave { height: 76px; }
 
 .gp-pdp-sticky {
   display: flex; position: fixed; bottom: 0; left: 0; width: 100%; z-index: 20;
@@ -797,4 +799,6 @@ a.gp-card { cursor: pointer; }
   .gp-wide .gp-pdp-story p, .gp-wide .gp-pdp-news p { max-width: 640px; font-size: 17px; line-height: 1.55; }
   .gp-wide .gp-pdp-news { padding: 48px var(--gp-gut) 104px; }
   .gp-wide .gp-pdp-news h2 { font-size: 34px; }
+  .gp-wide .gp-pdp.gp-has-wave { padding-bottom: 200px; }
+  .gp-wide .gp-pdp.gp-has-wave .gp-wave { height: 124px; }
 }

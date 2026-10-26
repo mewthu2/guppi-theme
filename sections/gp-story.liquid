@@ -1,4 +1,4 @@
-<section class="gp gp-pdp {% if section.settings.style == 'news' %}gp-pdp-news{% else %}gp-pdp-story{% endif %}">
+<section class="gp gp-pdp {% if section.settings.style == 'news' %}gp-pdp-news{% else %}gp-pdp-story{% endif %}{% if section.settings.show_wave %} gp-has-wave{% endif %}"{% if section.settings.bg != blank %} style="background: {{ section.settings.bg }};"{% endif %}>
   {%- if section.settings.eyebrow != blank -%}<span class="gp-pdp-eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
   {%- if section.settings.title != blank -%}<h2>{{ section.settings.title | newline_to_br }}</h2>{%- endif -%}
   {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
@@ -8,6 +8,9 @@
     {%- else -%}
       <a href="{{ section.settings.link }}">{{ section.settings.link_label }}</a>
     {%- endif -%}
+  {%- endif -%}
+  {%- if section.settings.show_wave -%}
+    {% render 'gp-wave', front: section.settings.wave_color, middle: section.settings.wave_color_2, back: section.settings.wave_color_3 %}
   {%- endif -%}
 </section>
 
@@ -20,7 +23,13 @@
     { "type": "textarea", "id": "title", "label": "Título", "default": "Cheiro de pele macia,\ncomo um toque de cashmere." },
     { "type": "text", "id": "text", "label": "Texto", "default": "Fragrância autoral, cremosa e envolvente." },
     { "type": "text", "id": "link_label", "label": "Texto do link", "default": "Conheça o hidratante ↑" },
-    { "type": "url", "id": "link", "label": "Link", "info": "Vazio, o link volta para o topo da página." }
+    { "type": "url", "id": "link", "label": "Link", "info": "Vazio, o link volta para o topo da página." },
+    { "type": "color", "id": "bg", "label": "Cor de fundo", "info": "Vazio, usa o creme padrão." },
+    { "type": "header", "content": "Onda no fim da seção" },
+    { "type": "checkbox", "id": "show_wave", "label": "Mostrar onda animada", "info": "Use na última seção antes do rodapé.", "default": false },
+    { "type": "color", "id": "wave_color", "label": "Cor da onda da frente", "info": "Use a cor de fundo do rodapé.", "default": "#F6F3EC" },
+    { "type": "color", "id": "wave_color_2", "label": "Cor da onda do meio", "default": "#9B7FC9" },
+    { "type": "color", "id": "wave_color_3", "label": "Cor da onda de trás", "default": "#DECFF0" }
   ],
   "presets": [{ "name": "Güppi · Texto central" }]
 }

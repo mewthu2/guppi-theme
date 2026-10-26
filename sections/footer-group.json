@@ -11,6 +11,69 @@
   "type": "footer",
   "name": "Rodapé",
   "sections": {
+    "gp_footer": {
+      "type": "gp-footer",
+      "blocks": {
+        "explore": {
+          "type": "menu",
+          "settings": {
+            "heading": "Explore",
+            "menu": "main-menu"
+          }
+        },
+        "help": {
+          "type": "menu",
+          "settings": {
+            "heading": "Ajuda",
+            "menu": "footer"
+          }
+        },
+        "contact": {
+          "type": "text",
+          "settings": {
+            "heading": "Fale com a gente",
+            "text": "<p><a href=\"/pages/contact\">Fale com a Güppi</a></p>"
+          }
+        }
+      },
+      "block_order": [
+        "explore",
+        "help",
+        "contact"
+      ],
+      "settings": {
+        "logo_width": 100,
+        "logo_width_desktop": 150,
+        "tagline": "Cuidado que dá vontade de repetir.",
+        "legal": "",
+        "show_social": true,
+        "show_payment": true,
+        "payment_heading": "Formas de pagamento",
+        "ssl_enabled": true,
+        "ssl_heading": "Segurança",
+        "ssl_title": "Compra 100% segura",
+        "ssl_text": "Site protegido com certificado SSL",
+        "show_powered": true,
+        "coupon_enabled": true,
+        "badge_1": "Receba",
+        "badge_2": "5% OFF!",
+        "fish_cta": "Assine a newsletter e ganhe desconto",
+        "eyebrow": "Boas-vindas",
+        "title": "Ganhe 5% OFF na primeira compra",
+        "text": "Cadastre seu e-mail na nossa newsletter e o cupom aparece na hora.",
+        "placeholder": "Seu melhor e-mail",
+        "button_label": "Quero meu cupom",
+        "privacy": "Você pode cancelar a inscrição quando quiser.",
+        "coupon_code": "GUPPI5",
+        "ticket_label": "Seu cupom",
+        "success_title": "Prontinho, cupom liberado!",
+        "success_text": "Use o código no checkout ou clique abaixo para aplicar o desconto automaticamente.",
+        "copy_label": "Copiar código",
+        "copied_label": "Código copiado!",
+        "apply_label": "Aplicar e ir às compras",
+        "apply_redirect": ""
+      }
+    },
     "popup": {
       "type": "promo-popup",
       "settings": {
@@ -25,20 +88,6 @@
         "button_label": "",
         "button_link": "",
         "color_scheme": ""
-      }
-    },
-    "gp_footer": {
-      "type": "gp-footer",
-      "blocks": {
-        "explore": { "type": "menu", "settings": { "heading": "Explore", "menu": "main-menu" } },
-        "help": { "type": "menu", "settings": { "heading": "Ajuda", "menu": "footer" } },
-        "contact": { "type": "text", "settings": { "heading": "Fale com a gente", "text": "<p><a href=\"/pages/contact\">Fale com a Güppi</a></p>" } }
-      },
-      "block_order": ["explore", "help", "contact"],
-      "settings": {
-        "tagline": "Cuidado que dá vontade de repetir.",
-        "coupon_enabled": true,
-        "coupon_code": "GUPPI5"
       }
     }
   },

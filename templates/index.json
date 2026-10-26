@@ -13,10 +13,10 @@
       "type": "gp-hero",
       "settings": {
         "placeholder": "Vídeo",
-        "bg": "#DECFF0",
-        "wave_color": "#FFFFFF",
-        "wave_color_2": "#9B7FC9",
-        "wave_color_3": "#DECFF0"
+        "bg": "#decff0",
+        "wave_color": "#ffffff",
+        "wave_color_2": "#9b7fc9",
+        "wave_color_3": "#decff0"
       }
     },
     "line": {
@@ -25,6 +25,8 @@
         "c1": {
           "type": "card",
           "settings": {
+            "product": "",
+            "link": "",
             "name": "Body\nSplash",
             "color": "pink"
           }
@@ -32,6 +34,8 @@
         "c2": {
           "type": "card",
           "settings": {
+            "product": "",
+            "link": "",
             "name": "Óleo\nCorporal",
             "color": "purple"
           }
@@ -39,6 +43,8 @@
         "c3": {
           "type": "card",
           "settings": {
+            "product": "",
+            "link": "",
             "name": "Manteiga\nCorporal",
             "color": "green"
           }
@@ -46,9 +52,10 @@
         "c4": {
           "type": "card",
           "settings": {
+            "product": "hidratante-corporal-guppi-vanilla-cashmere-400-ml",
+            "link": "",
             "name": "Loção\nCorporal",
-            "color": "lilac",
-            "product": "hidratante-corporal-guppi-vanilla-cashmere-400-ml"
+            "color": "lilac"
           }
         }
       },
@@ -72,7 +79,7 @@
         "text": "<p>Aquele cheiro de pele macia,<br/>como um toque de cashmere.</p><p>Baunilha suave, quase um abraço.</p><p>Fica perto, envolve devagar e deixa a pele perfumada, com um frescor que acolhe.</p>",
         "button_label": "Descubra o cheiro Güppi",
         "button_link": "/pages/cheiro-guppi",
-        "bg": "#AA0259",
+        "bg": "#aa0259",
         "anchor": "vanilla"
       }
     },
@@ -82,8 +89,8 @@
         "text": "100% Vegano – Glow Natural – Feito no Brasil –",
         "style": "home",
         "speed": 16,
-        "bg": "#B4D2BA",
-        "color": "#F6F3EC"
+        "bg": "#b4d2ba",
+        "color": "#f6f3ec"
       }
     },
     "creators": {
@@ -92,30 +99,37 @@
         "r1": {
           "type": "reel",
           "settings": {
+            "product": "",
             "title": "Vídeos\nCreators",
             "caption": "(arrastar para ver mais)",
-            "bg": "#CF0058"
+            "bg": "#cf0058"
           }
         },
         "r2": {
           "type": "reel",
           "settings": {
+            "product": "",
             "title": "Vídeo\nCreator 2",
-            "bg": "#CF0058"
+            "caption": "",
+            "bg": "#cf0058"
           }
         },
         "r3": {
           "type": "reel",
           "settings": {
+            "product": "",
             "title": "Vídeo\nCreator 3",
-            "bg": "#CF0058"
+            "caption": "",
+            "bg": "#cf0058"
           }
         },
         "r4": {
           "type": "reel",
           "settings": {
+            "product": "",
             "title": "Vídeo\nCreator 4",
-            "bg": "#CF0058"
+            "caption": "",
+            "bg": "#cf0058"
           }
         }
       },
@@ -127,7 +141,8 @@
       ],
       "settings": {
         "eyebrow": "Pele perfumada, todo dia",
-        "title": "A Güppi nas rotinas do dia a dia"
+        "title": "A Güppi nas rotinas do dia a dia",
+        "view_label": "Ver"
       }
     },
     "combo": {
@@ -136,30 +151,40 @@
         "k1": {
           "type": "card",
           "settings": {
+            "product": "",
+            "link": "",
             "color": "pink"
           }
         },
         "k2": {
           "type": "card",
           "settings": {
+            "product": "",
+            "link": "",
             "color": "purple"
           }
         },
         "k3": {
           "type": "card",
           "settings": {
+            "product": "",
+            "link": "",
             "color": "green"
           }
         },
         "k4": {
           "type": "card",
           "settings": {
+            "product": "",
+            "link": "",
             "color": "lilac"
           }
         },
         "k5": {
           "type": "card",
           "settings": {
+            "product": "",
+            "link": "",
             "color": "pink"
           }
         }
@@ -184,7 +209,7 @@
         "eyebrow": "Sinta a diferença",
         "title": "O cheiro\nmuda tudo",
         "text": "Baunilha macia, frescor e pele perfumada. A diferença está no cheiro que você deixa por onde passa.",
-        "bg": "#BB9CC5"
+        "bg": "#bb9cc5"
       }
     },
     "hotspots": {
@@ -195,9 +220,11 @@
           "settings": {
             "x": 19,
             "y": 27,
+            "product": "",
             "title": "Body Splash",
             "size": "200 ml",
-            "text": "Frescor e pele perfumada, do jeito mais leve. O cheiro Güppi para usar em qualquer momento."
+            "text": "Frescor e pele perfumada, do jeito mais leve. O cheiro Güppi para usar em qualquer momento.",
+            "link": ""
           }
         },
         "h2": {
@@ -205,9 +232,11 @@
           "settings": {
             "x": 71,
             "y": 33,
+            "product": "",
             "title": "Óleo Corporal",
             "size": "200 ml",
-            "text": "Textura em óleo, com a baunilha suave bem perto da pele. Pele perfumada, com toque macio."
+            "text": "Textura em óleo, com a baunilha suave bem perto da pele. Pele perfumada, com toque macio.",
+            "link": ""
           }
         },
         "h3": {
@@ -215,9 +244,11 @@
           "settings": {
             "x": 39,
             "y": 55,
+            "product": "",
             "title": "Manteiga Corporal",
             "size": "200 g",
-            "text": "Textura cremosa e rica, para quem quer sentir o cheiro de pele macia de pertinho."
+            "text": "Textura cremosa e rica, para quem quer sentir o cheiro de pele macia de pertinho.",
+            "link": ""
           }
         },
         "h4": {
@@ -225,10 +256,11 @@
           "settings": {
             "x": 79,
             "y": 82,
+            "product": "hidratante-corporal-guppi-vanilla-cashmere-400-ml",
             "title": "Loção Corporal",
             "size": "400 ml",
             "text": "Textura leve, feita para o dia a dia, com o mesmo cheiro de Vanilla Cashmere.",
-            "product": "hidratante-corporal-guppi-vanilla-cashmere-400-ml"
+            "link": ""
           }
         }
       },
@@ -292,8 +324,10 @@
         "eyebrow": "Quem usa, ama",
         "title": "O que nossas\nclientes dizem",
         "empty_label": "Em breve",
-        "bg": "#BB9CC5",
-        "wave_color": "#F6F3EC"
+        "bg": "#bb9cc5",
+        "wave_color": "#f6f3ec",
+        "wave_color_2": "#9b7fc9",
+        "wave_color_3": "#decff0"
       }
     }
   },

@@ -99,6 +99,11 @@ body.gp-framed { background: var(--gp-outer-bg); }
 }
 .gp-hero .gp-slot { font-size: 84px; font-weight: 800; color: var(--gp-cream); letter-spacing: -.02em; }
 .gp-hero .gp-media-fill { border-radius: 0; }
+.gp-hero .gp-only-desktop { display: none; }
+@media (min-width: 750px) {
+  .gp-hero .gp-only-desktop { display: block; }
+  .gp-hero .gp-only-mobile { display: none; }
+}
 .gp-hero .gp-wave { z-index: 1; height: 76px; }
 
 /* ---------- Linha (carrossel) ---------- */
@@ -222,7 +227,7 @@ a.gp-card { cursor: pointer; }
 .gp-quote__text { font-size: 14px; line-height: 1.45; }
 .gp-quote__author { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-top: 14px; }
 .gp-quote__stars { color: var(--gp-purple); letter-spacing: 2px; font-size: 13px; margin-bottom: 10px; }
-.gp-quotes .gp-wave { height: 52px; }
+.gp-quotes .gp-wave { height: 76px; }
 
 /* ---------- Rodapé ---------- */
 .gp-foot { background: var(--gp-cream); padding: 24px 0 calc(24px + env(safe-area-inset-bottom, 0px)); }
@@ -230,9 +235,9 @@ a.gp-card { cursor: pointer; }
 .gp-foot-top { display: flex; flex-direction: column; }
 .gp-foot-main { padding: 36px 22px 8px; }
 .gp-foot-logo { display: inline-block; text-decoration: none; }
-.gp-foot-logo img { display: block; width: 180px; height: auto; }
+.gp-foot-logo img { display: block; width: var(--gp-foot-logo-w, 180px); height: auto; }
 .gp-foot-logo-mark {
-  display: block; width: 180px; aspect-ratio: 310 / 110; background: var(--gp-purple);
+  display: block; width: var(--gp-foot-logo-w, 180px); aspect-ratio: 310 / 110; background: var(--gp-purple);
   -webkit-mask: var(--gp-logo) center / contain no-repeat; mask: var(--gp-logo) center / contain no-repeat;
 }
 .gp-foot-tagline { margin: 12px 0 0 !important; font-size: 15px; line-height: 1.4; color: #6b6068; }
@@ -255,7 +260,28 @@ a.gp-card { cursor: pointer; }
   border-top: 1px solid rgba(50, 44, 61, .12); text-align: center;
 }
 .gp-foot-copy { font-size: 12px; color: #6b6068; letter-spacing: .02em; }
-.gp-foot-pay { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.gp-foot-pay { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.gp-foot-powered { font-size: 12px; color: #6b6068; }
+.gp-foot-powered a { color: inherit; text-decoration: none; }
+.gp-foot-powered a:hover { color: var(--gp-purple); }
+
+/* Redes sociais */
+.gp-foot-social { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.gp-foot-social a {
+  width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; color: var(--gp-purple);
+  border: 1.5px solid rgba(155, 127, 201, .4); transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.gp-foot-social a:hover, .gp-foot-social a:focus-visible { background: var(--gp-purple); border-color: var(--gp-purple); color: var(--gp-cream); }
+.gp-foot-social svg { width: 20px; height: 20px; }
+
+/* Pagamento e selo de segurança */
+.gp-foot-trust { display: flex; flex-direction: column; gap: 22px; margin: 24px 22px 0; padding-top: 22px; border-top: 1px solid rgba(50, 44, 61, .12); }
+.gp-foot-trust-title { margin: 0 0 10px !important; font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--gp-purple); }
+.gp-foot-ssl { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px 8px 10px; border-radius: 12px; background: #fff; border: 1px solid rgba(50, 44, 61, .08); }
+.gp-foot-ssl svg { width: 26px; height: 26px; fill: none; stroke: #2E8B57; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.gp-foot-ssl span { display: flex; flex-direction: column; line-height: 1.2; }
+.gp-foot-ssl strong { font-size: 13px; font-weight: 800; color: var(--gp-dark); }
+.gp-foot-ssl small { font-size: 11px; color: #6b6068; }
 .gp-foot-pay svg { width: 38px; height: 24px; display: block; }
 
 /* Ü do logo: o pingo da direita sobe e vira o anel do cupom */
@@ -573,6 +599,7 @@ a.gp-card { cursor: pointer; }
   .gp-wide .gp-ba-sec, .gp-wide .gp-hot { padding-left: var(--gp-gut); padding-right: var(--gp-gut); }
   .gp-wide .gp-foot-main { padding-left: var(--gp-gut); padding-right: var(--gp-gut); }
   .gp-wide .gp-foot-bottom { margin-left: var(--gp-gut); margin-right: var(--gp-gut); flex-direction: row; justify-content: space-between; text-align: left; }
+  .gp-wide .gp-foot-trust { margin-left: var(--gp-gut); margin-right: var(--gp-gut); flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 40px; }
   .gp-wide .gp-fish { width: 260px; margin: 0 auto; border-radius: 24px; }
 
   .gp-wide .gp-track { gap: 20px; }
@@ -672,7 +699,7 @@ a.gp-card { cursor: pointer; }
   .gp-wide .gp-quotes .gp-quote { flex-basis: calc((100% - 40px) / 3); }
   .gp-wide .gp-quote--filled { min-height: 260px; padding: 32px; }
   .gp-wide .gp-quote__text { font-size: 17px; line-height: 1.5; }
-  .gp-wide .gp-quotes .gp-wave { height: 80px; }
+  .gp-wide .gp-quotes .gp-wave { height: 124px; }
 
 
   /* Rodapé: colunas abertas à esquerda, peixinho à direita */
@@ -680,13 +707,14 @@ a.gp-card { cursor: pointer; }
   .gp-wide .gp-foot-top { flex-direction: row-reverse; align-items: flex-start; gap: 72px; padding: 0 var(--gp-gut); }
   .gp-wide .gp-fish { flex: 0 0 220px; width: 220px; margin: 0; border-radius: 24px; }
   .gp-wide .gp-foot-main { flex: 1; padding: 8px 0 0; }
-  .gp-wide .gp-foot-logo img, .gp-wide .gp-foot-logo-mark { width: 300px; }
+  .gp-wide .gp-foot-logo img, .gp-wide .gp-foot-logo-mark { width: var(--gp-foot-logo-w-lg, 300px); }
   .gp-wide .gp-foot-tagline { font-size: 17px; margin-top: 18px !important; }
   .gp-wide .gp-foot-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 32px; margin-top: 56px; }
   .gp-wide .gp-foot-col { border: 0; }
   .gp-wide .gp-foot-col summary { pointer-events: none; padding: 0 0 16px; }
   .gp-wide .gp-foot-col summary svg { display: none; }
-  .gp-wide .gp-foot-bottom { margin-top: 56px; padding-top: 26px; }
+  .gp-wide .gp-foot-trust { margin-top: 56px; padding-top: 26px; }
+  .gp-wide .gp-foot-bottom { margin-top: 26px; padding-top: 22px; }
   .gp-wide.template-product .gp-foot { padding-bottom: 28px; }
 
   /* ---------- Produto: galeria à esquerda, compra à direita ---------- */

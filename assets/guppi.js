@@ -238,7 +238,7 @@
 
   // Vídeos: tocam sem som quando aparecem na tela
   function initVideos(root) {
-    var videos = [].slice.call(root.querySelectorAll('.gp video[autoplay]'));
+    var videos = [].slice.call(root.querySelectorAll('.gp video[autoplay], .gp-hero video.gp-only-mobile, .gp-hero video.gp-only-desktop'));
     if (!videos.length) return;
     videos.forEach(function (v) { v.muted = true; v.playsInline = true; v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); });
     var play = function (v) { var a = v.play(); if (a && a.catch) a.catch(function () {}); };

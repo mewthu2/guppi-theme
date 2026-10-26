@@ -1,4 +1,4 @@
-<footer class="gp gp-foot{% if section.settings.coupon_enabled %} has-fish{% endif %}">
+<footer class="gp gp-foot{% if section.settings.coupon_enabled %} has-fish{% endif %}" style="--gp-foot-logo-w: {{ section.settings.logo_width }}px; --gp-foot-logo-w-lg: {{ section.settings.logo_width_desktop }}px;">
   <div class="gp-foot-top">
     {%- if section.settings.coupon_enabled -%}
       <button class="gp-fish" type="button" data-gp-coupon-open aria-haspopup="dialog" aria-controls="GpCoupon">
@@ -25,6 +25,19 @@
       </a>
       {%- if section.settings.tagline != blank -%}<p class="gp-foot-tagline">{{ section.settings.tagline }}</p>{%- endif -%}
 
+      {%- if section.settings.show_social -%}
+        {%- assign networks = 'instagram,tiktok,facebook,youtube,pinterest,whatsapp' | split: ',' -%}
+        {%- capture social -%}
+          {%- for network in networks -%}
+            {%- assign key = 'social_' | append: network | append: '_link' -%}
+            {%- if settings[key] != blank -%}
+              <li><a href="{{ settings[key] }}" target="_blank" rel="noopener">{% render 'icon', icon: network %}<span class="visually-hidden">{{ network | capitalize }}</span></a></li>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+        {%- if social != blank -%}<ul class="gp-foot-social" role="list">{{ social }}</ul>{%- endif -%}
+      {%- endif -%}
+
       <div class="gp-foot-cols">
         {%- for block in section.blocks -%}
           {%- if block.type == 'menu' and block.settings.menu.links.size == 0 -%}{%- continue -%}{%- endif -%}
@@ -43,13 +56,31 @@
     </div>
   </div>
 
+  {%- if section.settings.show_payment or section.settings.ssl_enabled -%}
+    <div class="gp-foot-trust">
+      {%- if section.settings.show_payment and shop.enabled_payment_types.size > 0 -%}
+        <div class="gp-foot-trust-item">
+          {%- if section.settings.payment_heading != blank -%}<p class="gp-foot-trust-title">{{ section.settings.payment_heading }}</p>{%- endif -%}
+          <ul class="gp-foot-pay" role="list">
+            {%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag }}</li>{%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.ssl_enabled -%}
+        <div class="gp-foot-trust-item">
+          {%- if section.settings.ssl_heading != blank -%}<p class="gp-foot-trust-title">{{ section.settings.ssl_heading }}</p>{%- endif -%}
+          <div class="gp-foot-ssl">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/><path d="M12 14.5v2"/></svg>
+            <span><strong>{{ section.settings.ssl_title }}</strong>{%- if section.settings.ssl_text != blank -%}<small>{{ section.settings.ssl_text }}</small>{%- endif -%}</span>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
   <div class="gp-foot-bottom">
     <p class="gp-foot-copy">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}{% if section.settings.legal != blank %} · {{ section.settings.legal }}{% endif %}</p>
-    {%- if section.settings.show_payment -%}
-      <ul class="gp-foot-pay" role="list">
-        {%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag }}</li>{%- endfor -%}
-      </ul>
-    {%- endif -%}
+    {%- if section.settings.show_powered -%}<p class="gp-foot-powered">{{ powered_by_link }}</p>{%- endif -%}
   </div>
 </footer>
 
@@ -101,9 +132,19 @@
   "max_blocks": 4,
   "settings": [
     { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Use uma versão escura ou colorida do logo. Sem imagem, usa o logo Güppi em roxo." },
+    { "type": "range", "id": "logo_width", "label": "Largura do logo no celular", "min": 80, "max": 360, "step": 10, "unit": "px", "default": 180 },
+    { "type": "range", "id": "logo_width_desktop", "label": "Largura do logo no desktop", "min": 100, "max": 500, "step": 10, "unit": "px", "default": 300 },
     { "type": "text", "id": "tagline", "label": "Frase", "default": "Cuidado que dá vontade de repetir." },
     { "type": "text", "id": "legal", "label": "Texto legal", "info": "Aparece ao lado do copyright. Ex.: CNPJ 00.000.000/0001-00" },
-    { "type": "checkbox", "id": "show_payment", "label": "Mostrar formas de pagamento", "default": true },
+    { "type": "checkbox", "id": "show_social", "label": "Mostrar redes sociais", "info": "Os links vêm de Configurações do tema > Redes sociais.", "default": true },
+    { "type": "header", "content": "Pagamento e segurança" },
+    { "type": "checkbox", "id": "show_payment", "label": "Mostrar formas de pagamento", "info": "Os ícones vêm das formas de pagamento ativas na loja.", "default": true },
+    { "type": "text", "id": "payment_heading", "label": "Título das formas de pagamento", "default": "Formas de pagamento" },
+    { "type": "checkbox", "id": "ssl_enabled", "label": "Mostrar selo de site seguro", "default": true },
+    { "type": "text", "id": "ssl_heading", "label": "Título do selo", "default": "Segurança" },
+    { "type": "text", "id": "ssl_title", "label": "Texto do selo", "default": "Compra 100% segura" },
+    { "type": "text", "id": "ssl_text", "label": "Texto menor do selo", "default": "Site protegido com certificado SSL" },
+    { "type": "checkbox", "id": "show_powered", "label": "Mostrar \"Com tecnologia Shopify\"", "default": true },
     { "type": "header", "content": "Ü animado do cupom" },
     { "type": "checkbox", "id": "coupon_enabled", "label": "Mostrar Ü animado e cupom da newsletter", "default": true },
     { "type": "text", "id": "badge_1", "label": "Bolha: primeira linha", "default": "Receba" },

@@ -1,24 +1,57 @@
 <section class="gp gp-hero" style="background: {{ section.settings.bg }};">
-  {%- if section.settings.video != blank -%}
-    {{ section.settings.video | video_tag: class: 'gp-media-fill', autoplay: true, muted: true, loop: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1920x' }}
-  {%- elsif section.settings.image != blank -%}
-    {{ section.settings.image | image_url: width: 2400 | image_tag: class: 'gp-media-fill', widths: '430, 860, 1100, 1600, 2000, 2400', sizes: '100vw', loading: 'eager', fetchpriority: 'high' }}
+  {%- liquid
+    assign d_video = section.settings.video
+    assign d_image = section.settings.image
+    assign m_video = section.settings.video_mobile
+    assign m_image = section.settings.image_mobile
+    if m_video == blank and m_image == blank
+      assign m_video = d_video
+      assign m_image = d_image
+    endif
+    assign split = true
+    if m_video == d_video and m_image == d_image
+      assign split = false
+    endif
+  -%}
+  {%- if split == false -%}
+    {%- if d_video != blank -%}
+      {{ d_video | video_tag: class: 'gp-media-fill', autoplay: true, muted: true, loop: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1920x' }}
+    {%- elsif d_image != blank -%}
+      {{ d_image | image_url: width: 2400 | image_tag: class: 'gp-media-fill', widths: '430, 860, 1100, 1600, 2000, 2400', sizes: '100vw', loading: 'eager', fetchpriority: 'high' }}
+    {%- else -%}
+      <div class="gp-slot">{{ section.settings.placeholder }}</div>
+    {%- endif -%}
   {%- else -%}
-    <div class="gp-slot">{{ section.settings.placeholder }}</div>
+    {%- comment -%} Celular abaixo de 750px, desktop a partir daí. Vídeos só tocam quando visíveis (guppi.js), para não baixar os dois. {%- endcomment -%}
+    {%- if m_video != blank -%}
+      {{ m_video | video_tag: class: 'gp-media-fill gp-only-mobile', muted: true, loop: true, playsinline: true, controls: false, preload: 'none', image_size: '860x' }}
+    {%- elsif m_image != blank -%}
+      {{ m_image | image_url: width: 1300 | image_tag: class: 'gp-media-fill gp-only-mobile', widths: '430, 650, 860, 1100, 1300', sizes: '100vw', loading: 'eager', fetchpriority: 'high' }}
+    {%- else -%}
+      <div class="gp-slot gp-only-mobile">{{ section.settings.placeholder }}</div>
+    {%- endif -%}
+    {%- if d_video != blank -%}
+      {{ d_video | video_tag: class: 'gp-media-fill gp-only-desktop', muted: true, loop: true, playsinline: true, controls: false, preload: 'none', image_size: '1920x' }}
+    {%- elsif d_image != blank -%}
+      {{ d_image | image_url: width: 2400 | image_tag: class: 'gp-media-fill gp-only-desktop', widths: '1100, 1600, 2000, 2400', sizes: '100vw', loading: 'lazy' }}
+    {%- else -%}
+      <div class="gp-slot gp-only-desktop">{{ section.settings.placeholder }}</div>
+    {%- endif -%}
   {%- endif -%}
-  <svg class="gp-wave" viewBox="0 0 390 76" preserveAspectRatio="none" aria-hidden="true">
-    <path fill="{{ section.settings.wave_color_3 }}" opacity=".85" d="M0,30 C80,14 160,16 230,24 C300,32 350,30 390,20 L390,76 L0,76 Z"><animate class="gp-wave-anim" attributeName="d" dur="17s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".45 0 .55 1;.45 0 .55 1;.45 0 .55 1" values="M0,30 C80,14 160,16 230,24 C300,32 350,30 390,20 L390,76 L0,76 Z;M0,22 C70,30 150,36 225,26 C300,16 345,12 390,18 L390,76 L0,76 Z;M0,28 C75,20 150,10 220,18 C295,26 345,32 390,26 L390,76 L0,76 Z;M0,30 C80,14 160,16 230,24 C300,32 350,30 390,20 L390,76 L0,76 Z"/></path>
-    <path fill="{{ section.settings.wave_color_2 }}" opacity=".9" d="M0,44 C60,22 140,16 210,28 C285,42 335,50 390,36 L390,76 L0,76 Z"><animate class="gp-wave-anim" attributeName="d" dur="13s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".45 0 .55 1;.45 0 .55 1;.45 0 .55 1" values="M0,44 C60,22 140,16 210,28 C285,42 335,50 390,36 L390,76 L0,76 Z;M0,34 C70,46 150,48 215,34 C285,20 340,20 390,30 L390,76 L0,76 Z;M0,40 C60,30 135,26 205,34 C280,44 335,44 390,32 L390,76 L0,76 Z;M0,44 C60,22 140,16 210,28 C285,42 335,50 390,36 L390,76 L0,76 Z"/></path>
-    <path fill="{{ section.settings.wave_color }}" d="M0,56 C70,30 150,24 215,38 C290,52 340,62 390,50 L390,76 L0,76 Z"><animate class="gp-wave-anim" attributeName="d" dur="11s" repeatCount="indefinite" calcMode="spline" keyTimes="0;.33;.66;1" keySplines=".45 0 .55 1;.45 0 .55 1;.45 0 .55 1" values="M0,56 C70,30 150,24 215,38 C290,52 340,62 390,50 L390,76 L0,76 Z;M0,46 C75,58 150,60 220,46 C290,32 345,30 390,40 L390,76 L0,76 Z;M0,52 C65,40 140,34 210,44 C285,56 340,56 390,44 L390,76 L0,76 Z;M0,56 C70,30 150,24 215,38 C290,52 340,62 390,50 L390,76 L0,76 Z"/></path>
-  </svg>
+  {% render 'gp-wave', front: section.settings.wave_color, middle: section.settings.wave_color_2, back: section.settings.wave_color_3 %}
 </section>
 
 {% schema %}
 {
   "name": "Güppi · Abertura",
   "settings": [
-    { "type": "video", "id": "video", "label": "Vídeo", "info": "Toca sem som, em loop." },
+    { "type": "header", "content": "Desktop" },
+    { "type": "video", "id": "video", "label": "Vídeo", "info": "Toca sem som, em loop. Use um vídeo horizontal." },
     { "type": "image_picker", "id": "image", "label": "Imagem (se não houver vídeo)" },
+    { "type": "header", "content": "Celular" },
+    { "type": "video", "id": "video_mobile", "label": "Vídeo", "info": "Use um vídeo vertical. Sem vídeo nem imagem aqui, o celular usa os do desktop." },
+    { "type": "image_picker", "id": "image_mobile", "label": "Imagem (se não houver vídeo)" },
+    { "type": "header", "content": "Aparência" },
     { "type": "text", "id": "placeholder", "label": "Texto sem mídia", "default": "Vídeo" },
     { "type": "color", "id": "bg", "label": "Cor de fundo", "default": "#DECFF0" },
     { "type": "color", "id": "wave_color", "label": "Cor da onda", "default": "#F6F3EC" },

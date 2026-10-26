@@ -14,6 +14,25 @@
             {%- if block.settings.title != blank -%}<strong>{{ block.settings.title | newline_to_br }}</strong>{%- endif -%}
             {%- if block.settings.caption != blank -%}<em>{{ block.settings.caption }}</em>{%- endif -%}
           {%- endif -%}
+          {%- assign p = block.settings.product -%}
+          {%- if p != blank -%}
+            <a class="gp-reel-prod" href="{{ p.url }}" draggable="false">
+              <span class="gp-reel-prod-img">
+                {%- if p.featured_image != blank -%}
+                  {{ p.featured_image | image_url: width: 160 | image_tag: widths: '80, 160', sizes: '56px', loading: 'lazy', alt: p.featured_image.alt | default: p.title }}
+                {%- endif -%}
+              </span>
+              <span class="gp-reel-prod-info">
+                <span class="gp-reel-prod-name">{{ p.title }}</span>
+                <span class="gp-reel-prod-price">
+                  {%- if p.compare_at_price > p.price -%}<s>{{ p.compare_at_price | money }}</s> {% endif -%}
+                  {%- if p.price_varies %}<small>a partir de</small> {% endif -%}
+                  {{ p.price | money }}
+                </span>
+              </span>
+              <span class="gp-reel-prod-btn">{{ section.settings.view_label | default: 'Ver' }}</span>
+            </a>
+          {%- endif -%}
         </div>
       {%- endfor -%}
     </div>
@@ -26,7 +45,8 @@
   "name": "Güppi · Creators",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Sobretítulo", "default": "Pele perfumada, todo dia" },
-    { "type": "textarea", "id": "title", "label": "Título", "default": "A Güppi nas rotinas do dia a dia" }
+    { "type": "textarea", "id": "title", "label": "Título", "default": "A Güppi nas rotinas do dia a dia" },
+    { "type": "text", "id": "view_label", "label": "Botão do produto marcado", "default": "Ver" }
   ],
   "blocks": [
     {
@@ -34,6 +54,7 @@
       "name": "Vídeo",
       "settings": [
         { "type": "video", "id": "video", "label": "Vídeo" },
+        { "type": "product", "id": "product", "label": "Produto marcado", "info": "Aparece em um card na parte de baixo do vídeo, com foto, nome, preço e botão." },
         { "type": "image_picker", "id": "image", "label": "Imagem (se não houver vídeo)" },
         { "type": "textarea", "id": "title", "label": "Texto sem mídia", "default": "Vídeo\nCreator" },
         { "type": "text", "id": "caption", "label": "Legenda sem mídia" },

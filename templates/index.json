@@ -14,7 +14,9 @@
       "settings": {
         "placeholder": "Vídeo",
         "bg": "#DECFF0",
-        "wave_color": "#F6F3EC"
+        "wave_color": "#FFFFFF",
+        "wave_color_2": "#9B7FC9",
+        "wave_color_3": "#DECFF0"
       }
     },
     "line": {

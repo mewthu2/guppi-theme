@@ -1,0 +1,548 @@
+{%- liquid
+  assign s = section.settings
+-%}
+{% style %}
+  @font-face { font-family: "GPC DM Sans"; src: url("{{ 'DMSans-Regular.ttf' | asset_url }}") format("truetype"); font-weight: 100 600; font-display: swap; }
+  @font-face { font-family: "GPC DM Sans"; src: url("{{ 'DMSans-Bold.ttf' | asset_url }}") format("truetype"); font-weight: 700 750; font-display: swap; }
+  @font-face { font-family: "GPC DM Sans"; src: url("{{ 'DMSans-800.ttf' | asset_url }}") format("truetype"); font-weight: 751 850; font-display: swap; }
+  @font-face { font-family: "GPC DM Sans"; src: url("{{ 'DMSans-900.ttf' | asset_url }}") format("truetype"); font-weight: 851 1000; font-display: swap; }
+{% endstyle %}
+
+<div class="gp gpc" id="gpc-{{ section.id }}">
+
+  {%- comment -%} ABERTURA {%- endcomment -%}
+  <section class="gpc-hero">
+    <div class="gpc-wrap">
+      <h1>Vanilla<br><span>Cashmere.</span></h1>
+      <p>Uma baunilha que vai além do doce. Cremosa, envolvente e feita para despertar sensações.</p>
+      <a class="gpc-cue" href="#gpc-sensacoes-{{ section.id }}">DESLIZE PARA SENTIR ↓</a>
+    </div>
+  </section>
+
+  <div class="gpc-body">
+  {%- comment -%} SENSAÇÕES {%- endcomment -%}
+  <section class="gpc-senses" id="gpc-sensacoes-{{ section.id }}">
+    <div class="gpc-wrap">
+      <div class="gpc-micro">O QUE VOCÊ SENTE</div>
+      <h2>Não é só um cheiro.<br>É uma sensação.</h2>
+      <p class="gpc-lead">Toque para sentir os diferentes lados de Vanilla Cashmere.</p>
+
+      <div class="gpc-sense-tabs">
+        <button class="gpc-sense-tab is-active" type="button" data-sense="maciez" aria-pressed="true">MACIEZ</button>
+        <button class="gpc-sense-tab" type="button" data-sense="calor" aria-pressed="false">CALOR</button>
+        <button class="gpc-sense-tab" type="button" data-sense="presenca" aria-pressed="false">PRESENÇA</button>
+      </div>
+
+      <div class="gpc-sense-stage" data-sense="maciez">
+        <div class="gpc-sense-copy" aria-live="polite">
+          <div class="gpc-micro" data-sense-number>SENSAÇÃO 01 / 03</div>
+          <h3 data-sense-title>Maciez.</h3>
+          <p data-sense-text>Como o toque de um tecido macio sobre a pele. Uma baunilha que envolve sem pesar.</p>
+        </div>
+        <div class="gpc-sense-photo">
+          {%- render 'gpc-img', image: s.img_maciez, fallback: 'gpc-maciez.webp', alt: 'Mão tocando um tecido macio', class: 'is-visible', sizes: '(min-width: 750px) 550px, 100vw', extra: 'data-sense="maciez"' -%}
+          {%- render 'gpc-img', image: s.img_calor, fallback: 'gpc-calor.webp', alt: 'Mãos sobre uma malha macia', class: '', sizes: '(min-width: 750px) 550px, 100vw', extra: 'data-sense="calor"' -%}
+          {%- render 'gpc-img', image: s.img_presenca, fallback: 'gpc-presenca.webp', alt: 'Casal abraçado', class: '', sizes: '(min-width: 750px) 550px, 100vw', extra: 'data-sense="presenca"' -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} EVOLUÇÃO DAS NOTAS {%- endcomment -%}
+  <section class="gpc-notes">
+    <div class="gpc-wrap">
+      <div class="gpc-micro">COMO O CHEIRO SE REVELA</div>
+      <h2>Ele muda.<br>Você percebe.</h2>
+      <p class="gpc-lead">O perfume se transforma na pele. Escolha um momento para descobrir suas notas.</p>
+
+      <div class="gpc-time-tabs" aria-label="Momentos da evolução do perfume">
+        <button class="gpc-time-tab is-active" type="button" data-time="inicio" aria-pressed="true"><strong>0–15 min</strong><span>Primeiro encontro</span></button>
+        <button class="gpc-time-tab" type="button" data-time="meio" aria-pressed="false"><strong>15 min–2 h</strong><span>Novas camadas</span></button>
+        <button class="gpc-time-tab" type="button" data-time="fim" aria-pressed="false"><strong>Após 2 h</strong><span>O que permanece</span></button>
+      </div>
+
+      <div class="gpc-note-scene">
+        <div class="gpc-note-copy" aria-live="polite">
+          <div class="gpc-micro" data-note-label>O PRIMEIRO ENCONTRO</div>
+          <h3 data-note-title>Luminosa e cremosa.</h3>
+          <p data-note-text>Pêssego e maçã trazem brilho. Amêndoa e leite antecipam conforto.</p>
+        </div>
+        <div class="gpc-note-art" aria-hidden="true">
+          {%- render 'gpc-img', image: s.img_inicio, fallback: 'gpc-acrilicos-inicio.webp', alt: '', class: 'gpc-acrylic is-active', sizes: '(min-width: 750px) 620px, 100vw', extra: 'data-time="inicio"' -%}
+          {%- render 'gpc-img', image: s.img_meio, fallback: 'gpc-acrilicos-meio.webp', alt: '', class: 'gpc-acrylic', sizes: '(min-width: 750px) 620px, 100vw', extra: 'data-time="meio"' -%}
+          {%- render 'gpc-img', image: s.img_fim, fallback: 'gpc-acrilicos-fim.webp', alt: '', class: 'gpc-acrylic', sizes: '(min-width: 750px) 620px, 100vw', extra: 'data-time="fim"' -%}
+        </div>
+      </div>
+
+      <p class="gpc-note-foot">A percepção do perfume é diferente em cada pessoa.</p>
+    </div>
+  </section>
+
+  {%- comment -%} HISTÓRIA DA BAUNILHA {%- endcomment -%}
+  <section class="gpc-story-intro">
+    <div class="gpc-wrap gpc-reveal">
+      <div class="gpc-micro">UMA HISTÓRIA QUE POUCOS CONHECEM</div>
+      <h2>O que você não sabe sobre a <span>baunilha.</span></h2>
+      <p>Todo mundo conhece seu cheiro. Pouca gente imagina o que existe por trás dele.</p>
+      <span class="gpc-cue">CONHEÇA AS SEIS ETAPAS</span>
+    </div>
+  </section>
+
+  <section class="gpc-story" aria-label="A história da baunilha">
+    <div class="gpc-story-tabs" role="tablist" aria-label="Etapas da baunilha">
+      {%- assign tab_names = 'A flor|Polinização|Maturação|Colheita|Cura|O aroma' | split: '|' -%}
+      {%- for name in tab_names -%}
+        <button type="button" role="tab" id="gpc-tab-{{ section.id }}-{{ forloop.index0 }}" aria-controls="gpc-panel-{{ section.id }}-{{ forloop.index0 }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"><span>0{{ forloop.index }}</span> {{ name }}</button>
+      {%- endfor -%}
+    </div>
+
+    <div class="gpc-story-stage">
+      <div class="gpc-story-visual">
+        {%- render 'gpc-img', image: s.img_historia_1, fallback: 'gpc-historia-1.webp', alt: 'Flor da baunilha', class: 'is-active', sizes: '(min-width: 750px) 590px, 100vw' -%}
+        {%- render 'gpc-img', image: s.img_historia_2, fallback: 'gpc-historia-2.webp', alt: 'Polinização manual', class: '', sizes: '(min-width: 750px) 590px, 100vw' -%}
+        {%- render 'gpc-img', image: s.img_historia_3, fallback: 'gpc-historia-3.webp', alt: 'Vagens verdes de baunilha', class: '', sizes: '(min-width: 750px) 590px, 100vw' -%}
+        {%- render 'gpc-img', image: s.img_historia_4, fallback: 'gpc-historia-4.webp', alt: 'Vagens recém-colhidas', class: '', sizes: '(min-width: 750px) 590px, 100vw' -%}
+        {%- render 'gpc-img', image: s.img_historia_5, fallback: 'gpc-historia-5.webp', alt: 'Processo de cura da baunilha', class: '', sizes: '(min-width: 750px) 590px, 100vw' -%}
+        {%- render 'gpc-img', image: s.img_historia_6, fallback: 'gpc-historia-6.webp', alt: 'Vagens de baunilha curadas', class: '', sizes: '(min-width: 750px) 590px, 100vw' -%}
+      </div>
+
+      <div class="gpc-story-content">
+        <article class="gpc-story-panel is-active" id="gpc-panel-{{ section.id }}-0" role="tabpanel" aria-labelledby="gpc-tab-{{ section.id }}-0">
+          <div class="gpc-micro">A PRIMEIRA FLOR</div>
+          <h3>Até 4 anos de espera.</h3>
+          <p>É o tempo que uma planta de baunilha pode levar para produzir suas primeiras flores.</p>
+        </article>
+        <article class="gpc-story-panel" id="gpc-panel-{{ section.id }}-1" role="tabpanel" aria-labelledby="gpc-tab-{{ section.id }}-1" hidden>
+          <div class="gpc-micro">UMA ÚNICA CHANCE</div>
+          <h3>Uma flor.<br><strong>Um dia.</strong></h3>
+          <p>Quando finalmente aparece, a flor dura apenas um dia.</p>
+          <p>Em grande parte do cultivo comercial, cada flor precisa ser polinizada à mão. <strong>Uma por uma.</strong></p>
+        </article>
+        <article class="gpc-story-panel" id="gpc-panel-{{ section.id }}-2" role="tabpanel" aria-labelledby="gpc-tab-{{ section.id }}-2" hidden>
+          <div class="gpc-micro">A ESPERA CONTINUA</div>
+          <h3>Mais 8 a 9 meses.</h3>
+          <p>Depois da polinização, a vagem ainda precisa de meses para amadurecer.</p>
+        </article>
+        <article class="gpc-story-panel" id="gpc-panel-{{ section.id }}-3" role="tabpanel" aria-labelledby="gpc-tab-{{ section.id }}-3" hidden>
+          <div class="gpc-micro">A SURPRESA</div>
+          <h3>E sabe o mais surpreendente?</h3>
+          <p>Quando é colhida, ela ainda não tem aquele cheiro de baunilha que você conhece.</p>
+        </article>
+        <article class="gpc-story-panel" id="gpc-panel-{{ section.id }}-4" role="tabpanel" aria-labelledby="gpc-tab-{{ section.id }}-4" hidden>
+          <div class="gpc-micro">A TRANSFORMAÇÃO</div>
+          <h3>O aroma precisa ser revelado.</h3>
+          <p>As vagens passam pelo calor, são envolvidas, secas cuidadosamente e deixadas em repouso.</p>
+          <p><strong>Durante meses.</strong></p>
+        </article>
+        <article class="gpc-story-panel" id="gpc-panel-{{ section.id }}-5" role="tabpanel" aria-labelledby="gpc-tab-{{ section.id }}-5" hidden>
+          <div class="gpc-micro">A REVELAÇÃO</div>
+          <h3>A baunilha não nasce com seu perfume.</h3>
+          <p>O verde dá lugar ao marrom profundo. E aquele aroma tão familiar começa a surgir.</p>
+          <p><strong>Ela precisa de tempo para revelá-lo.</strong></p>
+        </article>
+        <div class="gpc-story-counter" data-story-counter>01 / 06</div>
+      </div>
+
+      <div class="gpc-story-progress" data-story-progress></div>
+    </div>
+  </section>
+
+  {%- comment -%} ENCERRAMENTO {%- endcomment -%}
+  <section class="gpc-final">
+    <div class="gpc-wrap gpc-final-content gpc-reveal">
+      <div class="gpc-micro">ALÉM DA BAUNILHA QUE VOCÊ CONHECE</div>
+      <h2>Nem toda baunilha<br>é <span>igual.</span></h2>
+      <p>Vanilla Cashmere revela quatro facetas: luminosidade, cremosidade, delicadeza floral e calor.</p>
+      <p class="gpc-signature">Uma baunilha que faz querer chegar mais perto.</p>
+      {%- if s.button_label != blank -%}
+        <a class="gpc-btn" href="{{ s.button_link | default: routes.all_products_collection_url }}">{{ s.button_label }}</a>
+      {%- endif -%}
+    </div>
+    <div class="gpc-wave"></div>
+    <div class="gpc-wave gpc-wave--green"></div>
+  </section>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('gpc-{{ section.id }}');
+    if (!root) return;
+
+    function press(buttons, attr, key) {
+      buttons.forEach(function (b) {
+        var on = b.getAttribute(attr) === key;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-pressed', String(on));
+      });
+    }
+
+    /* Sensações */
+    var SENSES = {
+      maciez: { n: '01', t: 'Maciez.', d: 'Como o toque de um tecido macio sobre a pele. Uma baunilha que envolve sem pesar.' },
+      calor: { n: '02', t: 'Calor.', d: 'O aconchego de um toque quente. Uma sensação que envolve e acolhe.' },
+      presenca: { n: '03', t: 'Presença.', d: 'Um cheiro que desperta a vontade de chegar mais perto.' }
+    };
+    var senseBtns = [].slice.call(root.querySelectorAll('.gpc-sense-tab'));
+    var stage = root.querySelector('.gpc-sense-stage');
+    var senseImgs = [].slice.call(root.querySelectorAll('.gpc-sense-photo img'));
+    senseBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.getAttribute('data-sense');
+        var item = SENSES[key];
+        press(senseBtns, 'data-sense', key);
+        stage.setAttribute('data-sense', key);
+        stage.querySelector('[data-sense-number]').textContent = 'SENSAÇÃO ' + item.n + ' / 03';
+        stage.querySelector('[data-sense-title]').textContent = item.t;
+        stage.querySelector('[data-sense-text]').textContent = item.d;
+        senseImgs.forEach(function (img) {
+          img.loading = 'eager';
+          img.classList.toggle('is-visible', img.getAttribute('data-sense') === key);
+        });
+      });
+    });
+
+    /* Evolução das notas */
+    var NOTES = {
+      inicio: { l: 'O PRIMEIRO ENCONTRO', t: 'Luminosa e cremosa.', d: 'Pêssego e maçã trazem brilho. Amêndoa e leite antecipam conforto.' },
+      meio: { l: 'NOVAS CAMADAS', t: 'Floral gourmand.', d: 'O acorde de baunilha em quatro facetas encontra rosa e frutas vermelhas. A tonka acrescenta profundidade.' },
+      fim: { l: 'O QUE PERMANECE', t: 'Um rastro quente.', d: 'Âmbar, caramelo e coco ficam próximos da pele. Uma sensação envolvente e íntima.' }
+    };
+    var order = ['inicio', 'meio', 'fim'];
+    var current = 'inicio';
+    var timeBtns = [].slice.call(root.querySelectorAll('.gpc-time-tab'));
+    var acr = {};
+    root.querySelectorAll('.gpc-acrylic').forEach(function (img) {
+      acr[img.getAttribute('data-time')] = img;
+      img.loading = 'eager';
+    });
+    timeBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.getAttribute('data-time');
+        if (key === current) return;
+        var forward = order.indexOf(key) > order.indexOf(current);
+        press(timeBtns, 'data-time', key);
+        root.querySelector('[data-note-label]').textContent = NOTES[key].l;
+        root.querySelector('[data-note-title]').textContent = NOTES[key].t;
+        root.querySelector('[data-note-text]').textContent = NOTES[key].d;
+
+        var prev = acr[current];
+        prev.classList.remove('is-active', 'exit-left', 'exit-right', 'from-left');
+        prev.classList.add(forward ? 'exit-left' : 'exit-right');
+
+        var next = acr[key];
+        next.classList.remove('is-active', 'exit-left', 'exit-right', 'from-left');
+        if (!forward) next.classList.add('from-left');
+        void next.offsetWidth;
+        requestAnimationFrame(function () { next.classList.add('is-active'); });
+        current = key;
+      });
+    });
+
+    /* História da baunilha */
+    var tabs = [].slice.call(root.querySelectorAll('.gpc-story-tabs button'));
+    var panels = [].slice.call(root.querySelectorAll('.gpc-story-panel'));
+    var photos = [].slice.call(root.querySelectorAll('.gpc-story-visual img'));
+    var counter = root.querySelector('[data-story-counter]');
+    var progress = root.querySelector('[data-story-progress]');
+    function story(i) {
+      panels.forEach(function (p, j) {
+        p.hidden = i !== j;
+        p.classList.toggle('is-active', i === j);
+        tabs[j].setAttribute('aria-selected', String(i === j));
+        tabs[j].tabIndex = i === j ? 0 : -1;
+      });
+      photos.forEach(function (img, j) {
+        if (j === i) img.loading = 'eager';
+        img.classList.toggle('is-active', j === i);
+      });
+      counter.textContent = '0' + (i + 1) + ' / 06';
+      progress.style.width = ((i + 1) / 6) * 100 + '%';
+    }
+    tabs.forEach(function (btn, i) {
+      btn.addEventListener('click', function () { story(i); });
+      btn.addEventListener('keydown', function (e) {
+        var n = i;
+        if (e.key === 'ArrowRight') n = (i + 1) % 6;
+        else if (e.key === 'ArrowLeft') n = (i + 5) % 6;
+        else if (e.key === 'Home') n = 0;
+        else if (e.key === 'End') n = 5;
+        else return;
+        e.preventDefault();
+        story(n);
+        tabs[n].focus();
+      });
+    });
+    story(0);
+
+    /* Entradas suaves */
+    var reveals = [].slice.call(root.querySelectorAll('.gpc-reveal'));
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); }
+        });
+      }, { threshold: 0.1 });
+      reveals.forEach(function (n) { io.observe(n); });
+    } else {
+      reveals.forEach(function (n) { n.classList.add('is-visible'); });
+    }
+  })();
+</script>
+
+{% stylesheet %}
+  .gpc {
+    --gpc-creme: #F6F3EA;
+    --gpc-grafite: #322C3D;
+    --gpc-lilas: #BA9CC5;
+    --gpc-lavanda: #85729F;
+    --gpc-lavanda-viva: #9B7FC9;
+    --gpc-rosa: #A90359;
+    --gpc-verde: #B2D2BA;
+    container-type: inline-size;
+    background: var(--gpc-creme);
+    color: var(--gpc-grafite);
+    font-family: "GPC DM Sans", "DM Sans", system-ui, sans-serif;
+    overflow-x: clip;
+  }
+  .gpc h1, .gpc h2, .gpc h3 { margin: 0; font-family: inherit; font-weight: 700; letter-spacing: -.055em; text-transform: none; color: inherit; }
+  .gpc p { margin: 0 0 1em; }
+  .gpc img { display: block; max-width: none; }
+  .gpc button {
+    font: inherit; cursor: pointer; margin: 0; appearance: none; -webkit-appearance: none;
+    box-shadow: none; text-transform: none; min-width: 0;
+  }
+  .gpc button:focus-visible { outline: 2px solid var(--gpc-rosa); outline-offset: 3px; }
+  .gpc [hidden] { display: none !important; }
+  .gpc-wrap { width: min(1100px, 88%); margin-inline: auto; }
+  .gpc-micro { font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+  .gpc-lead { font-size: 18px; line-height: 1.5; max-width: 560px; }
+
+  /* Abertura */
+  .gpc-hero { background: var(--gpc-lilas); min-height: 62svh; display: flex; align-items: center; padding: 76px 0; }
+  .gpc-hero h1 { font-size: clamp(55px, 12cqi, 116px); line-height: .94; margin: 22px 0 28px; }
+  .gpc-hero h1 span { color: var(--gpc-rosa); }
+  .gpc-hero p { font-size: clamp(18px, 3cqi, 24px); line-height: 1.48; max-width: 570px; }
+  .gpc-cue {
+    display: inline-block; margin-top: 30px; font-size: 11px; font-weight: 800; letter-spacing: .12em;
+    color: inherit; text-decoration: none; animation: gpc-cue 2s ease-in-out infinite alternate;
+  }
+  @keyframes gpc-cue { to { transform: translateY(7px); } }
+
+  /* Sensações */
+  .gpc-senses { padding: 85px 0; }
+  .gpc-senses h2, .gpc-notes h2 { font-size: clamp(41px, 8cqi, 76px); line-height: 1.04; margin: 18px 0 22px; }
+  .gpc-sense-tabs { display: flex; flex-wrap: wrap; gap: 9px; margin: 28px 0 20px; }
+  .gpc .gpc-sense-tab {
+    background: transparent; color: var(--gpc-grafite); border: 1px solid var(--gpc-grafite); border-radius: 50px;
+    padding: 13px 20px; font-size: 12px; font-weight: 800; letter-spacing: .06em; transition: background .25s, color .25s;
+  }
+  .gpc .gpc-sense-tab.is-active { background: var(--gpc-grafite); color: #fff; }
+  .gpc-sense-stage {
+    display: grid; grid-template-columns: 1fr 1fr; min-height: 440px; background: var(--gpc-lilas);
+    border-radius: 23px; overflow: hidden; transition: background .5s ease;
+  }
+  .gpc-sense-stage[data-sense="calor"] { background: var(--gpc-lavanda); }
+  .gpc-sense-stage[data-sense="presenca"] { background: var(--gpc-lavanda-viva); }
+  .gpc-sense-stage[data-sense="presenca"] .gpc-sense-copy { color: #fff; }
+  .gpc-sense-copy { padding: clamp(32px, 5cqi, 65px); display: flex; flex-direction: column; justify-content: center; }
+  .gpc-sense-copy h3 { font-size: clamp(49px, 8cqi, 85px); line-height: 1; margin: 20px 0; }
+  .gpc-sense-copy p { font-size: clamp(18px, 2.4cqi, 23px); line-height: 1.5; max-width: 420px; }
+  .gpc-sense-photo { position: relative; min-height: 420px; background: linear-gradient(140deg, #d8c8c5, #b7a5ae); overflow: hidden; }
+  .gpc-sense-photo img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    opacity: 0; transform: scale(1.055); transition: opacity .55s, transform 1.1s;
+  }
+  .gpc-sense-photo img[data-sense="presenca"] { object-position: 58% center; }
+  .gpc-sense-photo img.is-visible { opacity: 1; transform: scale(1); }
+
+  /* Evolução */
+  .gpc-notes { padding: 85px 0 95px; overflow: hidden; }
+  .gpc-time-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 30px 0 0; }
+  .gpc .gpc-time-tab {
+    min-height: 88px; padding: 17px 14px; border: 1px solid rgba(50, 44, 61, .28); border-radius: 15px;
+    background: rgba(255, 255, 255, .25); color: var(--gpc-grafite); text-align: left; letter-spacing: normal;
+    transition: background .3s ease, color .3s ease, border-color .3s ease;
+  }
+  .gpc-time-tab strong { display: block; font-size: clamp(14px, 2cqi, 20px); line-height: 1.2; font-weight: 800; }
+  .gpc-time-tab span { display: block; margin-top: 8px; font-size: 11px; line-height: 1.35; opacity: .78; }
+  .gpc .gpc-time-tab.is-active { background: var(--gpc-grafite); color: #fff; border-color: var(--gpc-grafite); }
+  .gpc .gpc-time-tab:hover:not(.is-active) { border-color: var(--gpc-grafite); }
+  .gpc-note-scene { position: relative; min-height: 620px; isolation: isolate; background: var(--gpc-creme); }
+  .gpc-note-copy { position: relative; z-index: 5; max-width: 570px; padding-top: 55px; pointer-events: none; }
+  .gpc-note-copy .gpc-micro { color: var(--gpc-lavanda); }
+  .gpc-note-copy h3 { font-size: clamp(42px, 7cqi, 72px); line-height: 1.03; margin: 17px 0; }
+  .gpc-note-copy p { font-size: clamp(18px, 2.3cqi, 22px); line-height: 1.5; max-width: 510px; }
+  .gpc-note-art { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .gpc-acrylic {
+    position: absolute; right: 0; bottom: 0; width: min(59%, 620px); height: auto; max-height: 72%; object-fit: contain;
+    opacity: 0; visibility: hidden; transform: translate3d(45%, 0, 0) scale(.96); mix-blend-mode: multiply;
+    transition: opacity .55s ease, transform .95s cubic-bezier(.16, 1, .3, 1), visibility 0s linear .95s;
+  }
+  .gpc-acrylic.from-left { transform: translate3d(-45%, 0, 0) scale(.96); }
+  .gpc-acrylic.is-active {
+    opacity: 1; visibility: visible; transform: translate3d(0, 0, 0) scale(1);
+    transition: opacity .7s ease, transform 1s cubic-bezier(.16, 1, .3, 1), visibility 0s;
+  }
+  .gpc-acrylic.exit-left { opacity: 0; visibility: hidden; transform: translate3d(-40%, 0, 0) scale(.97); }
+  .gpc-acrylic.exit-right { opacity: 0; visibility: hidden; transform: translate3d(40%, 0, 0) scale(.97); }
+  .gpc-note-foot { margin: 12px 0 0; font-size: 12px; line-height: 1.5; opacity: .7; }
+
+  /* História */
+  .gpc-story-intro { background: var(--gpc-verde); padding: 95px 0 85px; }
+  .gpc-story-intro h2 { font-size: clamp(45px, 9cqi, 90px); line-height: 1; max-width: 880px; margin: 22px 0; }
+  .gpc-story-intro h2 span { color: var(--gpc-rosa); }
+  .gpc-story-intro p { max-width: 650px; font-size: clamp(18px, 3cqi, 24px); line-height: 1.5; }
+  .gpc-story { padding: 24px 0 40px; background: var(--gpc-creme); }
+  .gpc-story-tabs {
+    display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px;
+    max-width: 1180px; margin: 0 auto 18px; padding: 0 24px;
+  }
+  .gpc .gpc-story-tabs button {
+    font-size: 14px; font-weight: 700; border: 1px solid currentColor; border-radius: 18px; padding: 12px 8px;
+    min-height: 48px; background: transparent; color: var(--gpc-grafite); letter-spacing: normal;
+  }
+  .gpc-story-tabs button span { display: block; font-size: 10px; opacity: .65; margin-bottom: 3px; }
+  .gpc .gpc-story-tabs button[aria-selected="true"] { background: var(--gpc-grafite); color: var(--gpc-creme); }
+  .gpc-story-stage {
+    position: relative; display: grid; grid-template-columns: 1fr 1fr; max-width: 1180px; margin: 0 auto;
+    border-radius: 24px; overflow: hidden; background: var(--gpc-creme);
+  }
+  .gpc-story-visual { position: relative; min-height: 440px; background: #778269; overflow: hidden; }
+  .gpc-story-visual img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    opacity: 0; transform: scale(1.12); filter: blur(5px);
+    transition: opacity .75s ease, transform 2.1s ease, filter .75s ease;
+  }
+  .gpc-story-visual img.is-active { opacity: 1; transform: scale(1); filter: blur(0); }
+  .gpc-story-content { position: relative; display: grid; align-items: center; min-width: 0; padding-bottom: 30px; }
+  .gpc-story-panel { grid-area: 1 / 1; padding: 32px; animation: gpc-panel .6s ease both; }
+  @keyframes gpc-panel { from { opacity: 0; transform: translateY(18px); } }
+  .gpc-story-panel .gpc-micro { color: var(--gpc-rosa); margin-bottom: 15px; }
+  .gpc-story-panel h3 { font-size: clamp(34px, 5cqi, 66px); line-height: 1.06; margin-bottom: 19px; }
+  .gpc-story-panel p { font-size: clamp(16px, 2cqi, 22px); line-height: 1.48; max-width: 510px; }
+  .gpc-story-panel strong { color: var(--gpc-rosa); }
+  .gpc-story-counter { position: absolute; right: 24px; bottom: 16px; font-size: 11px; font-weight: 800; color: var(--gpc-lavanda); }
+  .gpc-story-progress { position: absolute; bottom: 0; left: 0; height: 4px; width: 0; background: var(--gpc-rosa); z-index: 10; transition: width .4s ease; }
+
+  /* Encerramento */
+  .gpc-final { position: relative; background: var(--gpc-lavanda); color: #fff; overflow: hidden; isolation: isolate; }
+  .gpc-final-content { position: relative; z-index: 3; padding: 90px 0 250px; }
+  .gpc-final h2 { font-size: clamp(45px, 9cqi, 90px); line-height: 1.02; margin: 20px 0; }
+  .gpc-final h2 span { color: var(--gpc-verde); }
+  .gpc-final p { font-size: clamp(18px, 2.6cqi, 24px); line-height: 1.5; max-width: 670px; }
+  .gpc-final .gpc-signature { font-size: clamp(21px, 3cqi, 29px); font-weight: 800; margin-top: 27px; }
+  .gpc-btn {
+    display: inline-block; margin-top: 10px; padding: 14px 26px; border-radius: 50px; background: #fff; color: var(--gpc-grafite);
+    font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; text-decoration: none;
+  }
+  .gpc-wave {
+    position: absolute; left: -12%; bottom: 0; width: 125%; height: 210px; background: var(--gpc-lilas);
+    border-radius: 50% 50% 0 0 / 24% 24% 0 0; animation: gpc-wave 7s ease-in-out infinite alternate;
+  }
+  .gpc-wave--green { z-index: 2; height: 170px; background: var(--gpc-verde); animation-delay: -3s; }
+  @keyframes gpc-wave { to { transform: translateY(-15px) rotate(2deg); } }
+
+  .gpc-reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s, transform .8s; }
+  .gpc-reveal.is-visible { opacity: 1; transform: none; }
+  .shopify-design-mode .gpc-reveal { opacity: 1; transform: none; }
+
+  /* Celular (largura da área da página, funciona também com a moldura de 430px) */
+  @container (max-width: 750px) {
+    .gpc-hero { min-height: 0; padding: 36px 0 32px; }
+    .gpc-hero h1 { font-size: clamp(46px, 12cqi, 56px); line-height: .98; margin: 0 0 18px; }
+    .gpc-hero p { font-size: 16px; line-height: 1.45; margin: 0; }
+    .gpc-hero .gpc-cue { font-size: 10px; margin-top: 22px; }
+
+    .gpc-senses { padding: 24px 0; }
+    .gpc-senses > .gpc-wrap > .gpc-micro { font-size: 10px; }
+    .gpc-senses h2 { font-size: 30px; line-height: 1.06; margin: 8px 0 10px; }
+    .gpc-senses .gpc-lead { font-size: 14px; line-height: 1.4; margin: 0; }
+    .gpc-sense-tabs { gap: 7px; margin: 14px 0 12px; }
+    .gpc .gpc-sense-tab { font-size: 11px; padding: 10px 13px; min-height: 40px; }
+    .gpc-sense-stage { grid-template-columns: 1fr; min-height: 0; border-radius: 20px; }
+    .gpc-sense-copy { padding: 18px 20px; }
+    .gpc-sense-copy .gpc-micro { font-size: 10px; }
+    .gpc-sense-copy h3 { font-size: 34px; line-height: 1; margin: 8px 0 10px; }
+    .gpc-sense-copy p { font-size: 14px; line-height: 1.4; margin: 0; max-width: none; }
+    .gpc-sense-photo { min-height: 0; height: clamp(170px, 27svh, 215px); }
+
+    .gpc-notes { padding: 24px 0 22px; }
+    .gpc-notes .gpc-wrap { width: 90%; }
+    .gpc-notes > .gpc-wrap > .gpc-micro { font-size: 10px; }
+    .gpc-notes h2 { font-size: 34px; line-height: 1.03; margin: 10px 0 12px; }
+    .gpc-notes .gpc-lead { font-size: 14px; line-height: 1.4; margin: 0; max-width: none; }
+    .gpc-time-tabs { margin-top: 16px; gap: 7px; }
+    .gpc .gpc-time-tab { min-height: 62px; padding: 10px 9px; border-radius: 13px; }
+    .gpc-time-tab strong { font-size: 13px; white-space: nowrap; }
+    .gpc-time-tab span { margin-top: 5px; font-size: 10px; line-height: 1.25; }
+    .gpc-note-scene { min-height: 0; display: grid; grid-template-rows: auto auto; }
+    .gpc-note-copy { padding-top: 16px; min-height: 138px; max-width: none; }
+    .gpc-note-copy .gpc-micro { font-size: 10px; }
+    .gpc-note-copy h3 { font-size: 29px; line-height: 1.06; margin: 8px 0; }
+    .gpc-note-copy p { font-size: 14px; line-height: 1.4; max-width: none; margin: 0; }
+    .gpc-note-art { position: relative; inset: auto; height: clamp(210px, 32svh, 255px); margin-top: 2px; }
+    .gpc-acrylic { width: 100%; height: 100%; max-height: 100%; max-width: 100%; }
+    .gpc-note-foot { font-size: 10px; line-height: 1.35; margin: 8px 0 0; }
+
+    .gpc-story-intro { padding: 40px 0 28px; }
+    .gpc-story-intro .gpc-cue { margin-top: 20px; }
+    .gpc-story-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 0 20px; gap: 7px; }
+    .gpc .gpc-story-tabs button { font-size: 13px; padding: 8px 4px; }
+    .gpc-story-stage { display: flex; flex-direction: column; margin: 0 20px; border-radius: 20px; }
+    .gpc-story-visual { min-height: 0; height: 210px; flex: none; }
+    .gpc-story-content { padding-bottom: 24px; }
+    .gpc-story-panel { padding: 22px 20px 18px; }
+    .gpc-story-panel .gpc-micro { font-size: 10px; margin-bottom: 10px; }
+    .gpc-story-panel h3 { font-size: 28px; margin-bottom: 12px; }
+    .gpc-story-panel p { font-size: 16px; line-height: 1.45; margin-bottom: 8px; }
+    .gpc-story-counter { right: 20px; bottom: 14px; }
+
+    .gpc-final-content { padding: 80px 0 235px; }
+    .gpc-wave { height: 190px; }
+    .gpc-wave--green { height: 160px; }
+  }
+
+  /* Desktop: tudo abaixo da abertura fica num container com respiro lateral */
+  @container (min-width: 751px) {
+    .gpc-body { max-width: 1260px; margin: 0 auto; padding: 0 48px 48px; }
+    .gpc-body .gpc-wrap { width: 100%; }
+    .gpc-story-intro, .gpc-final { border-radius: 28px; }
+    .gpc-story-intro .gpc-wrap, .gpc-final .gpc-wrap { width: 88%; }
+    .gpc-story { padding: 32px 0 56px; }
+    .gpc-story-tabs { max-width: none; padding: 0; }
+    .gpc-story-stage { max-width: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gpc *, .gpc *::before, .gpc *::after { animation: none !important; transition: none !important; }
+    .gpc-reveal { opacity: 1; transform: none; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Güppi · Cheiro Güppi",
+  "settings": [
+    { "type": "header", "content": "Sensações" },
+    { "type": "image_picker", "id": "img_maciez", "label": "Foto · Maciez" },
+    { "type": "image_picker", "id": "img_calor", "label": "Foto · Calor" },
+    { "type": "image_picker", "id": "img_presenca", "label": "Foto · Presença" },
+    { "type": "header", "content": "Evolução (PNG com fundo transparente)" },
+    { "type": "image_picker", "id": "img_inicio", "label": "Ingredientes · 0–15 min" },
+    { "type": "image_picker", "id": "img_meio", "label": "Ingredientes · 15 min–2 h" },
+    { "type": "image_picker", "id": "img_fim", "label": "Ingredientes · Após 2 h" },
+    { "type": "header", "content": "História da baunilha" },
+    { "type": "image_picker", "id": "img_historia_1", "label": "01 · A flor" },
+    { "type": "image_picker", "id": "img_historia_2", "label": "02 · Polinização" },
+    { "type": "image_picker", "id": "img_historia_3", "label": "03 · Maturação" },
+    { "type": "image_picker", "id": "img_historia_4", "label": "04 · Colheita" },
+    { "type": "image_picker", "id": "img_historia_5", "label": "05 · Cura" },
+    { "type": "image_picker", "id": "img_historia_6", "label": "06 · O aroma" },
+    { "type": "header", "content": "Encerramento" },
+    { "type": "text", "id": "button_label", "label": "Texto do botão (vazio = sem botão)" },
+    { "type": "url", "id": "button_link", "label": "Link do botão" }
+  ],
+  "presets": [{ "name": "Güppi · Cheiro Güppi" }]
+}
+{% endschema %}

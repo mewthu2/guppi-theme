@@ -1,0 +1,21 @@
+{% doc %}
+  Imagem da página "Cheiro Güppi": usa a imagem escolhida no editor
+  ou, se não houver, o arquivo padrão dos assets do tema.
+
+  @param {image} [image] - Imagem escolhida no editor
+  @param {string} fallback - Nome do arquivo em assets (ex.: gpc-maciez.webp)
+  @param {string} alt - Texto alternativo
+  @param {string} [class] - Classes CSS
+  @param {string} [sizes] - Atributo sizes
+  @param {string} [extra] - Atributos extras (ex.: data-sense="maciez")
+
+  @example
+  {% render 'gpc-img', image: section.settings.img_maciez, fallback: 'gpc-maciez.webp', alt: 'Mão tocando um tecido macio' %}
+{% enddoc %}
+{%- if image != blank -%}
+  {{ image | image_url: width: 1600 | image_tag: class: class, alt: alt, widths: '400, 800, 1200, 1600', sizes: sizes, loading: 'lazy' | replace: '<img ', '<img EXTRA ' | replace: 'EXTRA', extra }}
+{%- else -%}
+  {%- # theme-check-disable ImgWidthAndHeight -%}
+  <img class="{{ class }}" src="{{ fallback | asset_url }}" alt="{{ alt | escape }}" loading="lazy" decoding="async" {{ extra }}>
+  {%- # theme-check-enable ImgWidthAndHeight -%}
+{%- endif -%}

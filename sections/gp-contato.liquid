@@ -1,0 +1,304 @@
+{%- liquid
+  assign s = section.settings
+  assign wa_digits = s.whatsapp | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | remove: '+' | remove: '.'
+  assign instagram = s.instagram | default: settings.social_instagram_link
+  assign has_channels = false
+  if wa_digits != blank or s.email != blank or instagram != blank
+    assign has_channels = true
+  endif
+-%}
+{% render 'gpc-base' %}
+
+<div class="gp gpc gpk" id="gpk-{{ section.id }}">
+
+  {%- comment -%} ABERTURA {%- endcomment -%}
+  <section class="gpk-hero">
+    <div class="gpc-wrap">
+      <div class="gpc-micro">{{ s.eyebrow }}</div>
+      <h1>{{ s.title_1 }}<br><span>{{ s.title_2 }}</span></h1>
+      {%- if s.lead != blank -%}<p>{{ s.lead }}</p>{%- endif -%}
+    </div>
+  </section>
+
+  <div class="gpc-body">
+    {%- comment -%} CANAIS {%- endcomment -%}
+    {%- if has_channels -%}
+      <section class="gpk-section">
+        <div class="gpc-wrap">
+          <h2 class="gpk-heading">Escolha o seu jeito de falar com a gente.</h2>
+          <div class="gpk-channels">
+            {%- if wa_digits != blank -%}
+              <a class="gpk-channel gpc-reveal" href="https://wa.me/{{ wa_digits }}" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.9L4 20Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-1.8-1.8l.8-1-1-2L9 9.5Z"/></svg>
+                <h3>WhatsApp</h3>
+                <p>{{ s.whatsapp }}</p>
+                <span class="gpk-go">Abrir conversa →</span>
+              </a>
+            {%- endif -%}
+            {%- if s.email != blank -%}
+              <a class="gpk-channel gpc-reveal" href="mailto:{{ s.email }}">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z"/><path d="m3 7 9 6 9-6"/></svg>
+                <h3>E-mail</h3>
+                <p>{{ s.email }}</p>
+                <span class="gpk-go">Escrever →</span>
+              </a>
+            {%- endif -%}
+            {%- if instagram != blank -%}
+              <a class="gpk-channel gpc-reveal" href="{{ instagram }}" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17 7h.01"/></svg>
+                <h3>Instagram</h3>
+                <p>Mande uma DM</p>
+                <span class="gpk-go">Visitar perfil →</span>
+              </a>
+            {%- endif -%}
+          </div>
+          {%- if s.hours != blank -%}<p class="gpk-note">{{ s.hours }}</p>{%- endif -%}
+        </div>
+      </section>
+    {%- endif -%}
+
+    {%- comment -%} FORMULÁRIO {%- endcomment -%}
+    <section class="gpk-section gpk-form-wrap" id="mensagem" tabindex="-1" aria-labelledby="gpk-title-{{ section.id }}">
+      <div class="gpc-wrap gpk-layout">
+        <div class="gpk-copy">
+          <div class="gpc-micro">MANDE SUA MENSAGEM</div>
+          <h2 class="gpk-heading" id="gpk-title-{{ section.id }}">{{ s.form_title }}</h2>
+          {%- if s.form_text != blank -%}<p class="gpk-intro">{{ s.form_text }}</p>{%- endif -%}
+        </div>
+
+        {%- form 'contact', id: 'GpkContact', class: 'gpk-form' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="gpk-status is-success" role="status" tabindex="-1" data-gpk-focus>Mensagem enviada! 💜 Obrigada por falar com a GÜPPI. Respondemos o mais rápido possível no e-mail informado.</p>
+          {%- elsif form.errors -%}
+            <div class="gpk-status is-error" role="alert" tabindex="-1" data-gpk-focus>{{ form.errors | default_errors }}</div>
+          {%- endif -%}
+          <p class="gpk-hint">Os campos com * são obrigatórios.</p>
+          <div class="gpk-grid">
+            <div class="gpk-field">
+              <label for="gpk-name-{{ section.id }}">Nome *</label>
+              <input id="gpk-name-{{ section.id }}" type="text" name="contact[Nome]" autocomplete="name" maxlength="120" required value="{{ form.name }}">
+            </div>
+            <div class="gpk-field">
+              <label for="gpk-phone-{{ section.id }}">Telefone <span class="gpk-optional">(opcional)</span></label>
+              <input id="gpk-phone-{{ section.id }}" type="tel" name="contact[Telefone]" autocomplete="tel" inputmode="tel" maxlength="40" placeholder="(31) 99999-9999" value="{{ form.phone }}">
+            </div>
+            <div class="gpk-field is-full">
+              <label for="gpk-email-{{ section.id }}">E-mail *</label>
+              <input id="gpk-email-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" maxlength="254" placeholder="voce@exemplo.com" required value="{{ form.email }}">
+            </div>
+            <div class="gpk-field is-full">
+              <label for="gpk-topic-{{ section.id }}">Assunto</label>
+              <select id="gpk-topic-{{ section.id }}" name="contact[Assunto]">
+                {%- assign topics = s.topics | split: ',' -%}
+                {%- for t in topics -%}<option value="{{ t | strip | escape }}">{{ t | strip }}</option>{%- endfor -%}
+              </select>
+            </div>
+            <div class="gpk-field is-full">
+              <label for="gpk-msg-{{ section.id }}">Mensagem *</label>
+              <textarea id="gpk-msg-{{ section.id }}" name="contact[body]" rows="6" maxlength="4000" required placeholder="Conte como podemos ajudar">{{ form.body }}</textarea>
+            </div>
+          </div>
+          <button class="gpk-pill" type="submit">Enviar mensagem<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg></button>
+        {%- endform -%}
+      </div>
+    </section>
+
+    {%- comment -%} DÚVIDAS FREQUENTES {%- endcomment -%}
+    {%- if section.blocks.size > 0 -%}
+      <section class="gpk-section gpk-faq">
+        <div class="gpc-wrap gpk-faq-layout">
+          <div>
+            <div class="gpc-micro">DÚVIDAS FREQUENTES</div>
+            <h2 class="gpk-heading">Talvez a resposta já esteja aqui.</h2>
+          </div>
+          <div class="gpk-faq-list">
+            {%- for block in section.blocks -%}
+              <details class="gpk-q" {% if forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
+                <summary>{{ block.settings.question }}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></summary>
+                <div class="gpk-a">{{ block.settings.answer }}</div>
+              </details>
+            {%- endfor -%}
+          </div>
+        </div>
+      </section>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} ENCERRAMENTO {%- endcomment -%}
+  <section class="gpc-final">
+    <div class="gpc-wrap gpc-final-content gpc-reveal">
+      <div class="gpc-micro">GÜPPI</div>
+      <h2>{{ s.final_title_1 }}<br><span>{{ s.final_title_2 }}</span></h2>
+      {%- if s.final_text != blank -%}<p>{{ s.final_text }}</p>{%- endif -%}
+      {%- if s.final_button != blank -%}
+        <a class="gpc-btn" href="{{ s.final_link | default: routes.all_products_collection_url }}">{{ s.final_button }}</a>
+      {%- endif -%}
+    </div>
+    <div class="gpc-wave"></div>
+    <div class="gpc-wave gpc-wave--green"></div>
+  </section>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('gpk-{{ section.id }}');
+    if (!root) return;
+    /* Depois de enviar, a página recarrega: leva a pessoa direto ao aviso */
+    var msg = root.querySelector('[data-gpk-focus]');
+    if (msg) { msg.scrollIntoView({ block: 'center' }); msg.focus({ preventScroll: true }); }
+    var reveals = [].slice.call(root.querySelectorAll('.gpc-reveal'));
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } });
+      }, { threshold: 0.1 });
+      reveals.forEach(function (n) { io.observe(n); });
+    } else {
+      reveals.forEach(function (n) { n.classList.add('is-visible'); });
+    }
+  })();
+</script>
+
+{% stylesheet %}
+  .gpc .gpk-hero { background: var(--gpc-lilas); padding: 76px 0 72px; }
+  .gpc .gpk-hero h1 { font-size: clamp(42px, 7cqi, 84px); line-height: 1.01; max-width: 1040px; margin: 22px 0; }
+  .gpc .gpk-hero h1 span { color: var(--gpc-rosa); }
+  .gpc .gpk-hero p { font-size: clamp(17px, 2cqi, 20px); line-height: 1.55; max-width: 600px; margin: 0; }
+
+  .gpc .gpk-section { padding: 64px 0; }
+  .gpc .gpk-heading { font-size: clamp(31px, 5cqi, 54px); line-height: 1.05; margin: 12px 0 16px; max-width: 700px; }
+  .gpc .gpk-intro { font-size: 17px; line-height: 1.5; max-width: 420px; }
+  .gpc .gpk-note { font-size: 13px; line-height: 1.6; color: var(--gpc-cinza); margin: 22px 0 0; }
+
+  /* Canais */
+  .gpc .gpk-channels { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 28px; }
+  .gpc .gpk-channel {
+    display: flex; flex-direction: column; border-radius: 20px; padding: 26px 22px; background: #ECE5EE;
+    color: var(--gpc-grafite); text-decoration: none; transition: transform .25s, background .25s;
+  }
+  .gpc .gpk-channel:nth-child(2) { background: #E2ECDF; transition-delay: .08s; }
+  .gpc .gpk-channel:nth-child(3) { background: #E1D8E9; transition-delay: .16s; }
+  .gpc .gpk-channel:hover { transform: translateY(-3px); }
+  .gpc .gpk-channel svg { width: 28px; height: 28px; margin-bottom: 24px; fill: none; stroke: var(--gpc-grafite); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+  .gpc .gpk-channel h3 { font-size: 21px; letter-spacing: -.045em; line-height: 1.15; margin: 0 0 8px; }
+  .gpc .gpk-channel p { font-size: 14px; line-height: 1.5; margin: 0 0 18px; overflow-wrap: anywhere; }
+  .gpc .gpk-go { margin-top: auto; font-size: 13px; font-weight: 800; color: var(--gpc-rosa); }
+
+  /* Formulário */
+  .gpc .gpk-form-wrap { background: #E9E1EE; scroll-margin-top: 90px; }
+  .gpc .gpk-form-wrap:focus { outline: none; }
+  .gpc .gpk-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; align-items: start; }
+  .gpc .gpk-copy .gpk-heading { max-width: 380px; }
+  .gpc .gpk-form { min-width: 0; }
+  .gpc .gpk-hint { font-size: 12px; line-height: 1.5; margin: 0 0 16px; color: var(--gpc-cinza); }
+  .gpc .gpk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 14px; }
+  .gpc .gpk-field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .gpc .gpk-field.is-full { grid-column: 1 / -1; }
+  .gpc .gpk-field label { font-size: 14px; font-weight: 700; }
+  .gpc .gpk-optional { font-size: 12px; font-weight: 400; color: var(--gpc-cinza); }
+  .gpc .gpk-field input, .gpc .gpk-field select, .gpc .gpk-field textarea {
+    width: 100%; min-width: 0; min-height: 48px; margin: 0; border: 1px solid rgba(50, 44, 61, .25); border-radius: 12px;
+    background: rgba(246, 243, 234, .75); color: var(--gpc-grafite); font: inherit; font-size: 16px; padding: 12px 14px;
+    outline: none; box-shadow: none; transition: border-color .2s, box-shadow .2s; appearance: none; -webkit-appearance: none;
+  }
+  .gpc .gpk-field select {
+    padding-right: 40px; cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23322C3D' stroke-width='1.6'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center; background-size: 18px;
+  }
+  .gpc .gpk-field textarea { min-height: 150px; resize: vertical; line-height: 1.5; }
+  .gpc .gpk-field input:focus, .gpc .gpk-field select:focus, .gpc .gpk-field textarea:focus { border-color: var(--gpc-lavanda); box-shadow: 0 0 0 3px rgba(133, 114, 159, .13); }
+  .gpc .gpk-field ::placeholder { color: #807585; opacity: 1; }
+  .gpc .gpk-pill {
+    display: inline-flex; align-items: center; justify-content: center; gap: 18px; width: 100%; min-height: 50px; margin-top: 22px; padding: 14px 24px;
+    border: 1px solid var(--gpc-grafite); border-radius: 50px; background: var(--gpc-grafite); color: var(--gpc-creme);
+    font-size: 15px; font-weight: 700; letter-spacing: normal; transition: background .2s, border-color .2s, transform .2s;
+  }
+  .gpc .gpk-pill:hover { background: var(--gpc-rosa); border-color: var(--gpc-rosa); transform: translateY(-2px); }
+  .gpc .gpk-pill svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; flex: none; }
+  .gpc .gpk-status { padding: 18px 20px; border-radius: 16px; font-size: 14px; line-height: 1.5; margin: 0 0 20px; }
+  .gpc .gpk-status:focus { outline: none; }
+  .gpc .gpk-status.is-success { background: var(--gpc-verde); }
+  .gpc .gpk-status.is-error { background: var(--gpc-creme); color: var(--gpc-rosa); border-left: 3px solid var(--gpc-rosa); }
+  .gpc .gpk-status ul { margin: 0; padding-left: 18px; }
+
+  /* Dúvidas */
+  .gpc .gpk-faq-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; align-items: start; }
+  .gpc .gpk-q { border-bottom: 1px solid rgba(50, 44, 61, .18); }
+  .gpc .gpk-q:first-child { border-top: 1px solid rgba(50, 44, 61, .18); }
+  .gpc .gpk-q summary {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0; cursor: pointer; list-style: none;
+    font-size: clamp(17px, 2cqi, 21px); font-weight: 700; letter-spacing: -.03em;
+  }
+  .gpc .gpk-q summary::-webkit-details-marker { display: none; }
+  .gpc .gpk-q summary svg { width: 20px; height: 20px; flex: none; fill: none; stroke: var(--gpc-rosa); stroke-width: 1.6; transition: transform .3s; }
+  .gpc .gpk-q[open] summary svg { transform: rotate(45deg); }
+  .gpc .gpk-a { padding: 0 36px 22px 0; font-size: 16px; line-height: 1.6; }
+  .gpc .gpk-a p:last-child { margin-bottom: 0; }
+
+  @container (max-width: 750px) {
+    .gpc .gpk-hero { padding: 36px 0 34px; }
+    .gpc .gpk-hero .gpc-micro { font-size: 10px; }
+    .gpc .gpk-hero h1 { font-size: clamp(34px, 9.2cqi, 42px); line-height: 1.02; margin: 14px 0 17px; }
+    .gpc .gpk-hero p { font-size: 15px; line-height: 1.5; }
+    .gpc .gpk-section { padding: 34px 0; }
+    .gpc .gpk-heading { font-size: 31px; margin: 10px 0 13px; }
+    .gpc .gpk-intro { font-size: 15px; line-height: 1.45; }
+    .gpc .gpk-channels { grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
+    .gpc .gpk-channel { padding: 18px 18px; border-radius: 17px; display: grid; grid-template-columns: auto 1fr; column-gap: 14px; align-items: center; }
+    .gpc .gpk-channel svg { grid-row: span 3; width: 26px; height: 26px; margin: 0; }
+    .gpc .gpk-channel h3 { font-size: 18px; margin: 0 0 2px; }
+    .gpc .gpk-channel p { font-size: 13px; margin: 0 0 6px; }
+    .gpc .gpk-form-wrap { scroll-margin-top: 70px; }
+    .gpc .gpk-layout, .gpc .gpk-faq-layout { grid-template-columns: 1fr; gap: 4px; }
+    .gpc .gpk-faq-layout { gap: 14px; }
+    .gpc .gpk-grid { grid-template-columns: 1fr; gap: 16px; }
+    .gpc .gpk-q summary { padding: 18px 0; }
+    .gpc .gpk-a { padding-right: 0; font-size: 15px; }
+  }
+
+  @container (min-width: 751px) {
+    .gpc .gpk-hero .gpc-wrap { width: min(1164px, calc(100% - 96px)); }
+    .gpc .gpk-form-wrap { border-radius: 28px; }
+    .gpc .gpk-form-wrap .gpc-wrap { width: 88%; }
+    .gpc .gpk-faq { padding-bottom: 72px; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Güppi · Contato",
+  "settings": [
+    { "type": "header", "content": "Abertura" },
+    { "type": "text", "id": "eyebrow", "label": "Chamada", "default": "FALE COM A GENTE" },
+    { "type": "text", "id": "title_1", "label": "Título · linha 1", "default": "Vamos conversar?" },
+    { "type": "text", "id": "title_2", "label": "Título · linha 2 (rosa)", "default": "A gente adora ouvir você." },
+    { "type": "textarea", "id": "lead", "label": "Texto", "default": "Dúvidas sobre produtos, pedidos, trocas ou só vontade de contar como foi a sua experiência. Escreva para a GÜPPI, a gente responde com carinho." },
+    { "type": "header", "content": "Canais (cada um aparece só se preenchido)" },
+    { "type": "text", "id": "whatsapp", "label": "WhatsApp com DDD", "info": "Ex.: +55 31 99999-9999" },
+    { "type": "text", "id": "email", "label": "E-mail de atendimento" },
+    { "type": "url", "id": "instagram", "label": "Instagram", "info": "Vazio, usa o link das configurações do tema." },
+    { "type": "text", "id": "hours", "label": "Horário de atendimento", "default": "Atendimento de segunda a sexta, das 9h às 18h." },
+    { "type": "header", "content": "Formulário" },
+    { "type": "text", "id": "form_title", "label": "Título", "default": "Conte pra gente como podemos ajudar." },
+    { "type": "textarea", "id": "form_text", "label": "Texto", "default": "Respondemos pelo e-mail informado, normalmente em até 2 dias úteis." },
+    { "type": "text", "id": "topics", "label": "Assuntos (separados por vírgula)", "default": "Dúvida sobre produto, Meu pedido, Trocas e devoluções, Parcerias, Outro assunto" },
+    { "type": "header", "content": "Encerramento" },
+    { "type": "text", "id": "final_title_1", "label": "Título · linha 1", "default": "Enquanto isso," },
+    { "type": "text", "id": "final_title_2", "label": "Título · linha 2 (verde)", "default": "que tal se cuidar?" },
+    { "type": "textarea", "id": "final_text", "label": "Texto", "default": "Conheça os produtos que transformam o cuidado diário em um momento seu." },
+    { "type": "text", "id": "final_button", "label": "Botão (vazio = sem botão)", "default": "Ver produtos" },
+    { "type": "url", "id": "final_link", "label": "Link do botão" }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Pergunta",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Pergunta", "default": "Qual o prazo de entrega?" },
+        { "type": "richtext", "id": "answer", "label": "Resposta", "default": "<p>Enviamos em até 2 dias úteis. O prazo varia conforme sua região.</p>" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Güppi · Contato" }]
+}
+{% endschema %}

@@ -15,17 +15,39 @@
       "type": "gp-footer",
       "blocks": {
         "explore": {
-          "type": "menu",
+          "type": "links",
           "settings": {
             "heading": "Explore",
-            "menu": "main-menu"
+            "label_1": "Produtos",
+            "link_1": "shopify://collections/all",
+            "label_2": "Kits",
+            "link_2": "/collections/kits",
+            "label_3": "Cheiro Güppi",
+            "link_3": "/pages/cheiro-guppi",
+            "label_4": "Afiliados Güppi",
+            "link_4": "/pages/afiliados",
+            "label_5": "Sobre nós",
+            "link_5": "/pages/sobre-nos"
           }
         },
         "help": {
-          "type": "menu",
+          "type": "links",
           "settings": {
             "heading": "Ajuda",
-            "menu": "footer"
+            "label_1": "Fale com a gente",
+            "link_1": "/pages/contact",
+            "label_2": "Minha conta",
+            "link_2": "/account",
+            "label_3": "Carrinho",
+            "link_3": "/cart",
+            "label_4": "Buscar",
+            "link_4": "/search"
+          }
+        },
+        "policies": {
+          "type": "policies",
+          "settings": {
+            "heading": "Políticas"
           }
         },
         "contact": {
@@ -39,6 +61,7 @@
       "block_order": [
         "explore",
         "help",
+        "policies",
         "contact"
       ],
       "settings": {
@@ -71,7 +94,12 @@
         "copy_label": "Copiar código",
         "copied_label": "Código copiado!",
         "apply_label": "Aplicar e ir às compras",
-        "apply_redirect": ""
+        "apply_redirect": "",
+        "dev_enabled": true,
+        "dev_label": "Desenvolvido por",
+        "dev_name": "mewtda",
+        "dev_logo_url": "https://www.mewtda.com.br/assets/landing/mewtda-logo-nav-f941cf8ff4d4eb65217f33fd90b754edde28505c59dec7b625bb0727fe3795b8.png",
+        "dev_url": "https://www.mewtda.com.br"
       }
     },
     "popup": {

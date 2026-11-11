@@ -59,6 +59,19 @@
             <p class="gpa-intro">Conte um pouquinho sobre seu trabalho e compartilhe seu mídia kit. Nossa equipe vai analisar seu perfil e entrar em contato caso exista uma oportunidade de colaboração.</p>
           </div>
 
+          {%- liquid
+            assign app_blocks = 0
+            for block in section.blocks
+              if block.type == '@app'
+                assign app_blocks = app_blocks | plus: 1
+              endif
+            endfor
+          -%}
+          {%- if app_blocks > 0 -%}
+            <div class="gpa-form gpa-app-form">
+              {%- for block in section.blocks -%}{% render block %}{%- endfor -%}
+            </div>
+          {%- else -%}
           <form class="gpa-form" data-gpa-form method="post" enctype="multipart/form-data" novalidate>
             {%- unless open -%}
               <p class="gpa-availability">{{ s.closed_message }}</p>
@@ -106,6 +119,7 @@
             <button class="gpa-pill gpa-submit" type="submit" data-gpa-submit{% unless open %} disabled{% endunless %}>Enviar minha inscrição</button>
             <p class="gpa-status" data-gpa-status role="status" aria-live="polite" tabindex="-1"></p>
           </form>
+          {%- endif -%}
         </div>
       </section>
     {%- endif -%}
@@ -410,6 +424,7 @@
   .gpc .gpa-status:focus { outline: none; }
   .gpc .gpa-status[data-kind="error"] { color: var(--gpc-rosa); }
   .gpc .gpa-status[data-kind="success"] { padding: 20px; border-radius: 18px; background: var(--gpc-verde); color: var(--gpc-grafite); }
+  .gpc .gpa-app-form { background: var(--gpc-creme); border-radius: 20px; padding: 8px; overflow: hidden; }
   .gpc .gpa-widget iframe { display: block; max-width: 100%; width: 100%; border: 0; border-radius: 20px; min-height: 600px; }
 
   /* Vídeos */
@@ -469,6 +484,7 @@
     { "type": "video", "id": "video_2", "label": "Vídeo vertical 02" },
     { "type": "video", "id": "video_3", "label": "Vídeo vertical 03" }
   ],
+  "blocks": [{ "type": "@app" }],
   "presets": [{ "name": "Güppi · Afiliados" }]
 }
 {% endschema %}

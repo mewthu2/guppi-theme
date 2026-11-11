@@ -110,11 +110,6 @@
 
   <div class="gp-foot-bottom">
     <p class="gp-foot-copy">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. Todos os direitos reservados.{% if section.settings.legal != blank %} · {{ section.settings.legal }}{% endif %}</p>
-    {%- if shop.policies.size > 0 -%}
-      <ul class="gp-foot-policies" role="list">
-        {%- for policy in shop.policies -%}<li><a href="{{ policy.url }}">{{ policy.title }}</a></li>{%- endfor -%}
-      </ul>
-    {%- endif -%}
     {%- if section.settings.show_powered -%}<p class="gp-foot-powered">{{ powered_by_link }}</p>{%- endif -%}
   </div>
 

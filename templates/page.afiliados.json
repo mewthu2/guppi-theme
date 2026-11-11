@@ -1,8 +1,46 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "afiliados": {
       "type": "gp-afiliados",
-      "settings": {}
+      "blocks": {
+        "forms_inline_9iJej9": {
+          "type": "shopify://apps/forms/blocks/inline/8744a304-fcb1-4347-b211-bb6b4759a76a",
+          "settings": {
+            "form_id": "1247729",
+            "text_color": "#322C3D",
+            "button_background_color": "#322C3D",
+            "button_label_color": "#F6F3EA",
+            "links_color": "#A90359",
+            "errors_color": "#A90359",
+            "text_alignment": "left",
+            "form_alignment": "center",
+            "padding_top": 16,
+            "padding_bottom": 24,
+            "padding_right": 16,
+            "padding_left": 16
+          }
+        }
+      },
+      "block_order": [
+        "forms_inline_9iJej9"
+      ],
+      "settings": {
+        "submission_enabled": false,
+        "endpoint": "",
+        "privacy_version": "",
+        "privacy_url": "",
+        "closed_message": "As inscrições serão abertas em breve. Por enquanto, o envio está indisponível e seus dados não serão enviados.",
+        "widget_code": ""
+      }
     }
   },
   "order": [

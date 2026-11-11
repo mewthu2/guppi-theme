@@ -1,0 +1,474 @@
+{%- liquid
+  assign s = section.settings
+  assign endpoint = s.endpoint | strip
+  assign privacy_url = s.privacy_url | default: shop.privacy_policy.url | default: '/policies/privacy-policy'
+  assign open = false
+  if s.submission_enabled and endpoint contains 'https://' and s.privacy_version != blank
+    assign open = true
+  endif
+  assign use_widget = false
+  if s.widget_code != blank
+    assign use_widget = true
+  endif
+  assign apply_target = 'inscricao'
+  if use_widget
+    assign apply_target = 'inscricao-widget'
+  endif
+-%}
+{% render 'gpc-base' %}
+
+<div class="gp gpc gpa" id="gpa-{{ section.id }}" data-endpoint="{% if open %}{{ endpoint | escape }}{% endif %}" data-policy-version="{{ s.privacy_version | escape }}">
+
+  {%- comment -%} ABERTURA {%- endcomment -%}
+  <section class="gpa-hero">
+    <div class="gpc-wrap">
+      <div class="gpc-micro">AFILIADOS GÜPPI</div>
+      <h1>Seu jeito de criar.<br><span>Nosso jeito de cuidar.</span></h1>
+      <p>Acreditamos que as melhores descobertas merecem ser compartilhadas. Se você ama criar conteúdo, dividir experiências e apresentar coisas novas para sua comunidade, queremos conhecer você.</p>
+      <a class="gpa-pill" href="#{{ apply_target }}" data-apply-link>Quero fazer parte<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg></a>
+    </div>
+  </section>
+
+  <div class="gpc-body">
+    {%- comment -%} VANTAGENS {%- endcomment -%}
+    <section class="gpa-section">
+      <div class="gpc-wrap">
+        <h2 class="gpa-heading">Criar junto tem suas vantagens.</h2>
+        <p class="gpa-intro">Descubra o que preparamos para quem faz parte da nossa comunidade de criadores.</p>
+        <div class="gpa-benefits">
+          <article class="gpa-benefit gpc-reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h16v11H4zM3 6h18v4H3zM12 6v15M12 6C6 6 5 5 5 3s5-2 7 3ZM12 6c6 0 7-1 7-3s-5-2-7 3Z"/></svg><h3>Recebidos GÜPPI</h3><p>Produtos selecionados da marca, com envio por nossa conta.</p></article>
+          <article class="gpa-benefit gpc-reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v5a2 2 0 0 0 0 4v5H3v-5a2 2 0 0 0 0-4V5ZM15 5v3m0 3v2m0 3v3"/></svg><h3>Cupom exclusivo</h3><p>Um benefício especial para compartilhar com sua comunidade.</p></article>
+          <article class="gpa-benefit gpc-reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4L12 2Z"/></svg><h3>Acesso antecipado</h3><p>Conheça nossas novidades antes de todo mundo.</p></article>
+          <article class="gpa-benefit gpc-reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4H4v4m12-4h4v4M4 16v4h4m12-4v4h-4M8 12c0-4 4-4 4-1 0-3 4-3 4 0 0 2-4 5-4 5s-4-3-4-4Z"/></svg><h3>Campanhas especiais</h3><p>Possibilidade de participar de ações e projetos com a marca.</p></article>
+        </div>
+        <p class="gpa-note">Cada parceria começa com uma conexão. As inscrições são analisadas com carinho pela nossa equipe, e os benefícios e oportunidades são disponibilizados conforme o perfil selecionado e as ações da marca.</p>
+      </div>
+    </section>
+
+    {%- comment -%} INSCRIÇÃO {%- endcomment -%}
+    {%- if use_widget -%}
+      <section class="gpa-section gpa-apply" id="inscricao-widget" tabindex="-1" aria-label="Inscrição no programa de afiliados">
+        <div class="gpc-wrap gpa-widget">{{ s.widget_code }}</div>
+      </section>
+    {%- else -%}
+      <section class="gpa-section gpa-apply" id="inscricao" tabindex="-1" aria-labelledby="gpa-title-{{ section.id }}">
+        <div class="gpc-wrap gpa-apply-layout">
+          <div class="gpa-apply-copy">
+            <div class="gpc-micro">VAMOS NOS CONHECER</div>
+            <h2 class="gpa-heading" id="gpa-title-{{ section.id }}">Agora queremos conhecer você.</h2>
+            <p class="gpa-intro">Conte um pouquinho sobre seu trabalho e compartilhe seu mídia kit. Nossa equipe vai analisar seu perfil e entrar em contato caso exista uma oportunidade de colaboração.</p>
+          </div>
+
+          <form class="gpa-form" data-gpa-form method="post" enctype="multipart/form-data" novalidate>
+            {%- unless open -%}
+              <p class="gpa-availability">{{ s.closed_message }}</p>
+            {%- endunless -%}
+            <p class="gpa-hint">Os campos com * são obrigatórios.</p>
+            <div class="gpa-grid">
+              {%- liquid
+                assign f_ids = 'firstName|lastName|email|whatsapp|instagram|tiktok|cityState' | split: '|'
+                assign f_labels = 'Nome *|Sobrenome *|E-mail *|WhatsApp com DDD *|Instagram (@) *|TikTok (@)|Cidade e estado *' | split: '|'
+                assign f_types = 'text|text|email|tel|text|text|text' | split: '|'
+                assign f_auto = 'given-name|family-name|email|tel|off|off|address-level2' | split: '|'
+                assign f_ph = ' | |voce@exemplo.com|(31) 99999-9999|@seuperfil|@seuperfil|Belo Horizonte, MG' | split: '|'
+              -%}
+              {%- for fid in f_ids -%}
+                {%- assign i = forloop.index0 -%}
+                {%- assign uid = fid | append: '-' | append: section.id -%}
+                <div class="gpa-field{% if i > 1 %} is-full{% endif %}">
+                  <label for="{{ uid }}">{{ f_labels[i] }}{% if fid == 'tiktok' %} <span class="gpa-optional">(opcional)</span>{% endif %}</label>
+                  <input id="{{ uid }}" name="{{ fid }}" type="{{ f_types[i] }}" autocomplete="{{ f_auto[i] }}" placeholder="{{ f_ph[i] | strip }}" maxlength="{% if fid == 'email' %}254{% else %}120{% endif %}"{% unless fid == 'tiktok' %} required{% endunless %}{% if fid == 'email' %} inputmode="email"{% elsif fid == 'whatsapp' %} inputmode="tel"{% endif %}{% if fid == 'email' or fid == 'instagram' or fid == 'tiktok' %} autocapitalize="none" spellcheck="false"{% endif %} aria-describedby="{{ uid }}-error">
+                  <p class="gpa-error" id="{{ uid }}-error"></p>
+                </div>
+              {%- endfor -%}
+            </div>
+
+            <fieldset class="gpa-upload">
+              <legend>Mídia kit *</legend>
+              <p class="gpa-upload-text" id="gpa-upload-text-{{ section.id }}">Queremos conhecer melhor seu trabalho! Anexe seu mídia kit para que possamos avaliar seu perfil.</p>
+              <div class="gpa-drop" data-gpa-drop>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 12 6-6a3 3 0 0 1 4 4l-8 8a5 5 0 0 1-7-7l9-9M6 14l8-8"/></svg>
+                <input class="gpc-sr" id="mediaKit-{{ section.id }}" name="mediaKit" type="file" required accept=".pdf,.ppt,.pptx,application/pdf,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation" aria-describedby="gpa-upload-text-{{ section.id }} gpa-upload-types-{{ section.id }} mediaKit-{{ section.id }}-error">
+                <label class="gpa-upload-btn" for="mediaKit-{{ section.id }}"><span data-gpa-file-label>Selecionar mídia kit</span></label>
+                <p class="gpa-upload-types" id="gpa-upload-types-{{ section.id }}">PDF, PPT ou PPTX · até 20 MB</p>
+                <p class="gpa-file" data-gpa-file role="status" hidden></p>
+                <button class="gpa-remove" type="button" data-gpa-remove hidden>Remover arquivo</button>
+              </div>
+              <p class="gpa-error" id="mediaKit-{{ section.id }}-error" role="alert"></p>
+            </fieldset>
+
+            <label class="gpa-consent" for="consent-{{ section.id }}">
+              <input type="checkbox" id="consent-{{ section.id }}" name="consent" required aria-describedby="consent-{{ section.id }}-error">
+              <span>Concordo com o tratamento dos meus dados pessoais e do mídia kit para análise da inscrição e contato sobre possíveis colaborações, conforme a <a href="{{ privacy_url }}" target="_blank" rel="noopener">política de privacidade</a>. *</span>
+            </label>
+            <p class="gpa-error" id="consent-{{ section.id }}-error" role="alert"></p>
+
+            <button class="gpa-pill gpa-submit" type="submit" data-gpa-submit{% unless open %} disabled{% endunless %}>Enviar minha inscrição</button>
+            <p class="gpa-status" data-gpa-status role="status" aria-live="polite" tabindex="-1"></p>
+          </form>
+        </div>
+      </section>
+    {%- endif -%}
+
+    {%- comment -%} VÍDEOS DA COMUNIDADE (aparece só com vídeo cadastrado) {%- endcomment -%}
+    {%- if s.video_1 != blank or s.video_2 != blank or s.video_3 != blank -%}
+      <section class="gpa-section">
+        <div class="gpc-wrap">
+          <h2 class="gpa-heading">A GÜPPI pelo seu olhar.</h2>
+          <p class="gpa-intro">Diferentes formas de criar, sentir e compartilhar. Um pouquinho do nosso universo, contado por quem vive essas experiências.</p>
+          <div class="gpa-videos" role="region" aria-label="Vídeos da comunidade GÜPPI" tabindex="0">
+            {%- assign vids = 'video_1,video_2,video_3' | split: ',' -%}
+            {%- for key in vids -%}
+              {%- if s[key] != blank -%}
+                <figure class="gpa-video">{{ s[key] | video_tag: controls: true, muted: true, playsinline: true, preload: 'none', image_size: '600x' }}</figure>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          <p class="gpa-hint gpa-swipe">Deslize para ver mais.</p>
+        </div>
+      </section>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} ENCERRAMENTO {%- endcomment -%}
+  <section class="gpc-final">
+    <div class="gpc-wrap gpc-final-content gpc-reveal">
+      <div class="gpc-micro">AFILIADOS GÜPPI</div>
+      <h2>Boas conexões<br>começam <span>por aqui.</span></h2>
+      <p>Estamos sempre descobrindo novas formas de criar e compartilhar. Quem sabe a próxima história não começa com você?</p>
+      <a class="gpc-btn" href="#{{ apply_target }}" data-apply-link>Quero fazer parte</a>
+    </div>
+    <div class="gpc-wave"></div>
+    <div class="gpc-wave gpc-wave--green"></div>
+  </section>
+</div>
+
+<script>
+  (function () {
+    'use strict';
+    var root = document.getElementById('gpa-{{ section.id }}');
+    if (!root) return;
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* Rolagem suave até a inscrição, com foco no destino */
+    root.querySelectorAll('[data-apply-link]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        var target = root.querySelector(link.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        target.focus({ preventScroll: true });
+        target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+        history.replaceState(null, '', link.getAttribute('href'));
+      });
+    });
+
+    /* Entradas suaves */
+    var reveals = [].slice.call(root.querySelectorAll('.gpc-reveal'));
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } });
+      }, { threshold: 0.1 });
+      reveals.forEach(function (n) { io.observe(n); });
+    } else {
+      reveals.forEach(function (n) { n.classList.add('is-visible'); });
+    }
+
+    /* Só um vídeo tocando por vez; pausa ao sair da tela */
+    var players = [].slice.call(root.querySelectorAll('.gpa-video video'));
+    players.forEach(function (v) {
+      v.addEventListener('play', function () { players.forEach(function (o) { if (o !== v) o.pause(); }); });
+    });
+    if (players.length && 'IntersectionObserver' in window) {
+      var vo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (!en.isIntersecting) en.target.pause(); });
+      }, { threshold: 0.15 });
+      players.forEach(function (v) { vo.observe(v); });
+    }
+
+    /* Formulário */
+    var form = root.querySelector('[data-gpa-form]');
+    if (!form) return;
+    var endpoint = root.getAttribute('data-endpoint');
+    var policyVersion = root.getAttribute('data-policy-version');
+    var ready = !!endpoint;
+    var fields = [].slice.call(form.querySelectorAll('.gpa-field input'));
+    var fileInput = form.querySelector('input[type="file"]');
+    var drop = form.querySelector('[data-gpa-drop]');
+    var fileLabel = form.querySelector('[data-gpa-file-label]');
+    var fileSummary = form.querySelector('[data-gpa-file]');
+    var removeBtn = form.querySelector('[data-gpa-remove]');
+    var fileError = document.getElementById(fileInput.id + '-error');
+    var consent = form.querySelector('input[name="consent"]');
+    var consentError = document.getElementById(consent.id + '-error');
+    var submit = form.querySelector('[data-gpa-submit]');
+    var status = form.querySelector('[data-gpa-status]');
+    var selected = null, inFlight = false, requestKey = '';
+    var MAX = 20 * 1024 * 1024;
+    var TYPES = {
+      pdf: ['application/pdf'],
+      ppt: ['application/vnd.ms-powerpoint', 'application/mspowerpoint'],
+      pptx: ['application/vnd.openxmlformats-officedocument.presentationml.presentation']
+    };
+
+    function validateFile(file) {
+      if (!file) return 'Anexe seu mídia kit para continuar.';
+      var ext = String(file.name || '').split('.').pop().toLowerCase();
+      if (!Object.prototype.hasOwnProperty.call(TYPES, ext)) return 'Escolha um arquivo PDF, PPT ou PPTX.';
+      if (!file.size) return 'O arquivo está vazio. Escolha outro mídia kit.';
+      if (file.size > MAX) return 'Seu mídia kit deve ter no máximo 20 MB.';
+      /* iOS e alguns provedores enviam o tipo vazio ou genérico */
+      if (file.type && file.type !== 'application/octet-stream' && TYPES[ext].indexOf(file.type.toLowerCase()) === -1) return 'O formato do arquivo não corresponde a PDF, PPT ou PPTX.';
+      return '';
+    }
+    function validateField(name, value) {
+      var text = String(value || '').trim();
+      if (name !== 'tiktok' && !text) return 'Preencha este campo.';
+      if (name === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)) return 'Informe um e-mail válido.';
+      if (name === 'whatsapp') {
+        var d = text.replace(/\D/g, '');
+        if ((d.length === 12 || d.length === 13) && d.indexOf('55') === 0) d = d.slice(2);
+        if (!/^[1-9]{2}\d{8,9}$/.test(d)) return 'Informe o WhatsApp com DDD (10 ou 11 dígitos).';
+      }
+      if ((name === 'instagram' || name === 'tiktok') && text && !/^@?[a-zA-Z0-9._]{1,30}$/.test(text)) return 'Informe apenas o @ do perfil, sem o link.';
+      if (text.length > (name === 'email' ? 254 : 120)) return 'Revise o tamanho deste campo.';
+      return '';
+    }
+    function checkField(input) {
+      var err = validateField(input.name, input.value);
+      input.setAttribute('aria-invalid', String(!!err));
+      document.getElementById(input.id + '-error').textContent = err;
+      return !err;
+    }
+    function setFile(file) {
+      var err = validateFile(file);
+      fileError.textContent = file ? err : '';
+      fileInput.setAttribute('aria-invalid', String(!!file && !!err));
+      selected = err ? null : file;
+      requestKey = '';
+      if (!selected) fileInput.value = '';
+      fileSummary.hidden = !selected;
+      fileSummary.textContent = selected ? selected.name + ' · ' + (selected.size / 1048576).toFixed(1) + ' MB' : '';
+      fileLabel.textContent = selected ? 'Substituir arquivo' : 'Selecionar mídia kit';
+      removeBtn.hidden = !selected;
+    }
+    function showStatus(msg, kind) { status.textContent = msg; status.setAttribute('data-kind', kind); }
+
+    fileInput.addEventListener('change', function () { setFile(fileInput.files[0]); });
+    removeBtn.addEventListener('click', function () { setFile(null); fileInput.focus(); });
+    ['dragenter', 'dragover'].forEach(function (t) {
+      drop.addEventListener(t, function (e) { e.preventDefault(); if (!inFlight) drop.classList.add('is-dragging'); });
+    });
+    ['dragleave', 'drop'].forEach(function (t) {
+      drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.remove('is-dragging'); });
+    });
+    drop.addEventListener('drop', function (e) {
+      if (inFlight) return;
+      var files = e.dataTransfer.files;
+      if (files.length !== 1) { fileError.textContent = 'Selecione um único mídia kit.'; return; }
+      setFile(files[0]);
+    });
+    fields.forEach(function (input) {
+      input.addEventListener('blur', function () { checkField(input); });
+      input.addEventListener('input', function () {
+        requestKey = '';
+        if (input.getAttribute('aria-invalid') === 'true') checkField(input);
+      });
+    });
+    consent.addEventListener('change', function () { requestKey = ''; if (consent.checked) consentError.textContent = ''; });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (inFlight) return;
+      if (!ready) { showStatus('As inscrições ainda não estão abertas. Nenhum dado ou arquivo foi enviado.', 'error'); return; }
+      var invalid = fields.filter(function (input) { return !checkField(input); });
+      var upErr = validateFile(selected);
+      fileError.textContent = upErr;
+      fileInput.setAttribute('aria-invalid', String(!!upErr));
+      var cErr = consent.checked ? '' : 'Precisamos do seu consentimento para receber a inscrição.';
+      consentError.textContent = cErr;
+      if (invalid.length || upErr || cErr) {
+        showStatus('Confira os campos destacados para continuar.', 'error');
+        (invalid[0] || (upErr ? fileInput : consent)).focus();
+        return;
+      }
+      var body = new FormData();
+      fields.forEach(function (input) { body.set(input.name, input.value.trim()); });
+      body.set('mediaKit', selected, selected.name);
+      body.set('consent', 'true');
+      body.set('privacyPolicyVersion', policyVersion);
+      requestKey = requestKey || (window.crypto && crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random());
+      body.set('requestId', requestKey);
+      var controller = new AbortController();
+      var timer = setTimeout(function () { controller.abort(); }, 90000);
+      var controls = [].slice.call(form.querySelectorAll('input,button'));
+      inFlight = true;
+      controls.forEach(function (c) { c.disabled = true; });
+      form.setAttribute('aria-busy', 'true');
+      submit.textContent = 'Enviando sua inscrição…';
+      showStatus('Enviando seus dados e mídia kit. Aguarde a confirmação.', 'progress');
+      /* Sem Content-Type manual: o navegador inclui o boundary do multipart. Sem cookies. */
+      fetch(endpoint, {
+        method: 'POST', body: body, credentials: 'omit', redirect: 'error',
+        headers: { 'Accept': 'application/json', 'Idempotency-Key': requestKey }, signal: controller.signal
+      }).then(function (res) {
+        return res.json().catch(function () { return null; }).then(function (data) {
+          var ok = res.status === 201 && data && data.status === 'received' && data.mediaKitStored === true && typeof data.applicationId === 'string' && data.applicationId.trim();
+          if (!ok) throw new Error(res.status === 413 ? 'SIZE' : res.status === 429 ? 'RATE' : 'UNCONFIRMED');
+        });
+      }).then(function () {
+        form.reset();
+        setFile(null);
+        fields.forEach(function (input) { input.removeAttribute('aria-invalid'); document.getElementById(input.id + '-error').textContent = ''; });
+        showStatus('Inscrição recebida! 💜 Obrigada por querer fazer parte da GÜPPI. Nossa equipe vai conhecer seu trabalho e, caso surja uma oportunidade de colaboração, entraremos em contato.', 'success');
+        status.focus({ preventScroll: true });
+      }).catch(function (err) {
+        showStatus(err.message === 'SIZE' ? 'O serviço recusou o tamanho do arquivo. Escolha um mídia kit de até 20 MB.'
+          : err.message === 'RATE' ? 'Recebemos muitas tentativas. Aguarde um pouco antes de tentar novamente.'
+          : 'Não conseguimos confirmar o recebimento. Seus campos foram mantidos; verifique a conexão e tente novamente.', 'error');
+      }).then(function () {
+        clearTimeout(timer);
+        inFlight = false;
+        controls.forEach(function (c) { c.disabled = false; });
+        form.removeAttribute('aria-busy');
+        submit.textContent = 'Enviar minha inscrição';
+      });
+    });
+  })();
+</script>
+
+{% stylesheet %}
+
+  /* Abertura */
+  .gpc .gpa-hero { background: var(--gpc-lilas); padding: 76px 0 72px; }
+  .gpc .gpa-hero h1 { font-size: clamp(42px, 7cqi, 84px); line-height: 1.01; max-width: 860px; margin: 22px 0; }
+  .gpc .gpa-hero h1 span { color: var(--gpc-rosa); }
+  .gpc .gpa-hero p { font-size: clamp(17px, 2cqi, 20px); line-height: 1.55; max-width: 600px; margin: 0 0 28px; }
+
+  .gpc .gpa-pill {
+    display: inline-flex; align-items: center; justify-content: center; gap: 18px; min-height: 48px; padding: 14px 24px;
+    border: 1px solid var(--gpc-grafite); border-radius: 50px; background: var(--gpc-grafite); color: var(--gpc-creme);
+    font-size: 14px; font-weight: 700; letter-spacing: normal; text-decoration: none; transition: background .2s, border-color .2s, transform .2s;
+  }
+  .gpc .gpa-pill:hover { background: var(--gpc-rosa); border-color: var(--gpc-rosa); transform: translateY(-2px); }
+  .gpc .gpa-pill:disabled { opacity: .48; cursor: not-allowed; transform: none; background: var(--gpc-grafite); border-color: var(--gpc-grafite); }
+  .gpc .gpa-pill svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; flex: none; }
+
+  /* Blocos */
+  .gpc .gpa-section { padding: 64px 0; }
+  .gpc .gpa-heading { font-size: clamp(31px, 5cqi, 54px); line-height: 1.05; margin: 12px 0 16px; max-width: 700px; }
+  .gpc .gpa-intro { font-size: 17px; line-height: 1.5; max-width: 620px; margin-bottom: 25px; }
+  .gpc .gpa-benefits { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 28px; }
+  .gpc .gpa-benefit { border-radius: 20px; padding: 26px 22px; background: #ECE5EE; }
+  .gpc .gpa-benefit:nth-child(2) { background: #E2ECDF; transition-delay: .08s; }
+  .gpc .gpa-benefit:nth-child(3) { background: #E1D8E9; transition-delay: .16s; }
+  .gpc .gpa-benefit:nth-child(4) { background: #EBE4D8; transition-delay: .24s; }
+  .gpc .gpa-benefit svg { display: block; width: 28px; height: 28px; margin-bottom: 24px; fill: none; stroke: var(--gpc-grafite); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+  .gpc .gpa-benefit h3 { font-size: 21px; letter-spacing: -.045em; line-height: 1.15; margin: 0 0 11px; }
+  .gpc .gpa-benefit p { font-size: 14px; line-height: 1.5; margin: 0; }
+  .gpc .gpa-note { max-width: 780px; font-size: 13px; line-height: 1.6; color: var(--gpc-cinza); margin: 22px 0 0; }
+
+  /* Inscrição */
+  .gpc .gpa-apply { background: #E9E1EE; scroll-margin-top: 90px; }
+  .gpc .gpa-apply:focus { outline: none; }
+  .gpc .gpa-apply-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; align-items: start; }
+  .gpc .gpa-apply-copy .gpa-heading { max-width: 380px; }
+  .gpc .gpa-form { min-width: 0; }
+  .gpc .gpa-availability { padding: 15px 17px; border-radius: 14px; background: var(--gpc-creme); font-size: 14px; line-height: 1.45; margin: 0 0 22px; border-left: 3px solid var(--gpc-lavanda); }
+  .gpc .gpa-hint { font-size: 12px; line-height: 1.5; margin: 0 0 16px; color: var(--gpc-cinza); }
+  .gpc .gpa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 14px; }
+  .gpc .gpa-field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .gpc .gpa-field.is-full { grid-column: 1 / -1; }
+  .gpc .gpa-field label, .gpc .gpa-upload legend { font-size: 14px; font-weight: 700; }
+  .gpc .gpa-optional { font-size: 12px; font-weight: 400; color: var(--gpc-cinza); }
+  .gpc .gpa-field input {
+    width: 100%; min-width: 0; min-height: 48px; margin: 0; border: 1px solid rgba(50, 44, 61, .25); border-radius: 12px;
+    background: rgba(246, 243, 234, .75); color: var(--gpc-grafite); font: inherit; font-size: 16px; padding: 12px 14px;
+    outline: none; box-shadow: none; transition: border-color .2s, box-shadow .2s;
+  }
+  .gpc .gpa-field input:focus { border-color: var(--gpc-lavanda); box-shadow: 0 0 0 3px rgba(133, 114, 159, .13); }
+  .gpc .gpa-field input[aria-invalid="true"] { border-color: var(--gpc-rosa); }
+  .gpc .gpa-field input::placeholder { color: #807585; opacity: 1; }
+  .gpc .gpa-error { font-size: 12px; line-height: 1.4; color: var(--gpc-rosa); margin: 0; }
+  .gpc .gpa-error:empty { display: none; }
+  .gpc .gpa-upload { margin: 24px 0 0; padding: 0; border: 0; min-width: 0; }
+  .gpc .gpa-upload legend { padding: 0; margin-bottom: 8px; }
+  .gpc .gpa-upload-text { font-size: 14px; line-height: 1.5; margin: 0 0 12px; }
+  .gpc .gpa-drop { position: relative; border: 1px dashed var(--gpc-lavanda); border-radius: 18px; padding: 23px 18px; background: rgba(246, 243, 234, .6); text-align: center; transition: background .2s, box-shadow .2s; }
+  .gpc .gpa-drop.is-dragging, .gpc .gpa-drop:focus-within { background: var(--gpc-creme); box-shadow: 0 0 0 3px rgba(133, 114, 159, .13); }
+  .gpc .gpa-drop svg { width: 27px; height: 27px; fill: none; stroke: var(--gpc-lavanda); stroke-width: 1.5; display: block; margin: 0 auto 10px; }
+  .gpc .gpa-upload-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 9px 16px; border: 1px solid var(--gpc-grafite); border-radius: 30px; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .gpc .gpa-upload-types { font-size: 12px; color: var(--gpc-cinza); line-height: 1.5; margin: 11px 0 0; }
+  .gpc .gpa-file { font-size: 14px; line-height: 1.4; margin: 14px 0 4px; font-weight: 600; overflow-wrap: anywhere; }
+  .gpc .gpa-remove { font-size: 12px; min-height: 36px; border: 0; background: transparent; text-decoration: underline; text-underline-offset: 3px; color: var(--gpc-rosa); padding: 5px 10px; letter-spacing: normal; }
+  .gpc .gpa-upload .gpa-error { margin-top: 9px; }
+  .gpc .gpa-consent { display: flex; align-items: flex-start; gap: 11px; margin: 22px 0; font-size: 13px; line-height: 1.5; cursor: pointer; }
+  .gpc .gpa-consent input { width: 19px; height: 19px; margin: 2px 0 0; accent-color: var(--gpc-grafite); flex: none; }
+  .gpc .gpa-consent a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+  .gpc .gpa-submit { width: 100%; font-size: 15px; min-height: 50px; margin-top: 4px; }
+  .gpc .gpa-status { font-size: 14px; line-height: 1.5; margin: 15px 0 0; overflow-wrap: anywhere; }
+  .gpc .gpa-status:empty { display: none; }
+  .gpc .gpa-status:focus { outline: none; }
+  .gpc .gpa-status[data-kind="error"] { color: var(--gpc-rosa); }
+  .gpc .gpa-status[data-kind="success"] { padding: 20px; border-radius: 18px; background: var(--gpc-verde); color: var(--gpc-grafite); }
+  .gpc .gpa-widget iframe { display: block; max-width: 100%; width: 100%; border: 0; border-radius: 20px; min-height: 600px; }
+
+  /* Vídeos */
+  .gpc .gpa-videos {
+    display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+    padding: 0 0 16px; scrollbar-width: thin; scrollbar-color: var(--gpc-lavanda) transparent;
+  }
+  .gpc .gpa-video { margin: 0; flex: 0 0 min(29%, 280px); scroll-snap-align: start; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 20px; background: var(--gpc-grafite); }
+  .gpc .gpa-video video { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .gpc .gpa-swipe { margin-top: 10px; }
+
+  @container (max-width: 750px) {
+    .gpc .gpa-hero { padding: 36px 0 34px; }
+    .gpc .gpa-hero .gpc-micro { font-size: 10px; }
+    .gpc .gpa-hero h1 { font-size: clamp(34px, 9.2cqi, 42px); line-height: 1.02; margin: 14px 0 17px; }
+    .gpc .gpa-hero p { font-size: 15px; line-height: 1.5; margin-bottom: 20px; }
+    .gpc .gpa-pill { min-height: 46px; padding: 12px 19px; }
+    .gpc .gpa-section { padding: 34px 0; }
+    .gpc .gpa-heading { font-size: 31px; margin: 10px 0 13px; }
+    .gpc .gpa-intro { font-size: 15px; line-height: 1.45; margin-bottom: 19px; }
+    .gpc .gpa-benefits { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 20px; }
+    .gpc .gpa-benefit { padding: 18px 15px; border-radius: 17px; }
+    .gpc .gpa-benefit svg { width: 25px; height: 25px; margin-bottom: 16px; }
+    .gpc .gpa-benefit h3 { font-size: 18px; margin-bottom: 8px; }
+    .gpc .gpa-benefit p { font-size: 13px; line-height: 1.45; }
+    .gpc .gpa-note { font-size: 12px; line-height: 1.55; margin-top: 18px; }
+    .gpc .gpa-apply { scroll-margin-top: 70px; }
+    .gpc .gpa-apply-layout { grid-template-columns: 1fr; gap: 4px; }
+    .gpc .gpa-apply-copy .gpa-heading { max-width: 300px; }
+    .gpc .gpa-grid { gap: 16px 12px; }
+    .gpc .gpa-drop { padding: 19px 14px; }
+    .gpc .gpa-videos { gap: 12px; }
+    .gpc .gpa-video { flex-basis: 76%; max-width: 280px; }
+  }
+
+  @container (min-width: 751px) {
+    .gpc .gpa-hero .gpc-wrap { width: min(1164px, calc(100% - 96px)); }
+    .gpc .gpa-apply { border-radius: 28px; margin-bottom: 56px; }
+    .gpc .gpa-apply .gpc-wrap { width: 88%; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Güppi · Afiliados",
+  "settings": [
+    { "type": "header", "content": "Inscrições" },
+    { "type": "checkbox", "id": "submission_enabled", "label": "Inscrições abertas", "default": false, "info": "Só funciona com o endereço de recebimento e a versão da política preenchidos." },
+    { "type": "text", "id": "endpoint", "label": "Endereço de recebimento (HTTPS)", "info": "Serviço que recebe os dados e o mídia kit (multipart/form-data) e responde 201 com { status: 'received', mediaKitStored: true, applicationId }." },
+    { "type": "text", "id": "privacy_version", "label": "Versão da política de privacidade aprovada" },
+    { "type": "url", "id": "privacy_url", "label": "Link da política de privacidade", "info": "Vazio, usa a política da loja." },
+    { "type": "textarea", "id": "closed_message", "label": "Aviso com inscrições fechadas", "default": "As inscrições serão abertas em breve. Por enquanto, o envio está indisponível e seus dados não serão enviados." },
+    { "type": "header", "content": "Widget de afiliados (opcional)" },
+    { "type": "html", "id": "widget_code", "label": "Código oficial do fornecedor", "info": "Preenchido, substitui o formulário da página." },
+    { "type": "header", "content": "Vídeos da comunidade (opcional)" },
+    { "type": "video", "id": "video_1", "label": "Vídeo vertical 01" },
+    { "type": "video", "id": "video_2", "label": "Vídeo vertical 02" },
+    { "type": "video", "id": "video_3", "label": "Vídeo vertical 03" }
+  ],
+  "presets": [{ "name": "Güppi · Afiliados" }]
+}
+{% endschema %}

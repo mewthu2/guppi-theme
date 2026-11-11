@@ -1,12 +1,7 @@
 {%- liquid
   assign s = section.settings
 -%}
-{% style %}
-  @font-face { font-family: "GPC DM Sans"; src: url("{{ 'DMSans-Regular.ttf' | asset_url }}") format("truetype"); font-weight: 100 600; font-display: swap; }
-  @font-face { font-family: "GPC DM Sans"; src: url("{{ 'DMSans-Bold.ttf' | asset_url }}") format("truetype"); font-weight: 700 750; font-display: swap; }
-  @font-face { font-family: "GPC DM Sans"; src: url("{{ 'DMSans-800.ttf' | asset_url }}") format("truetype"); font-weight: 751 850; font-display: swap; }
-  @font-face { font-family: "GPC DM Sans"; src: url("{{ 'DMSans-900.ttf' | asset_url }}") format("truetype"); font-weight: 851 1000; font-display: swap; }
-{% endstyle %}
+{% render 'gpc-base' %}
 
 <div class="gp gpc" id="gpc-{{ section.id }}">
 
@@ -147,6 +142,8 @@
     </div>
   </section>
 
+  </div>
+
   {%- comment -%} ENCERRAMENTO {%- endcomment -%}
   <section class="gpc-final">
     <div class="gpc-wrap gpc-final-content gpc-reveal">
@@ -161,7 +158,6 @@
     <div class="gpc-wave"></div>
     <div class="gpc-wave gpc-wave--green"></div>
   </section>
-  </div>
 </div>
 
 <script>
@@ -291,33 +287,6 @@
 </script>
 
 {% stylesheet %}
-  .gpc {
-    --gpc-creme: #F6F3EA;
-    --gpc-grafite: #322C3D;
-    --gpc-lilas: #BA9CC5;
-    --gpc-lavanda: #85729F;
-    --gpc-lavanda-viva: #9B7FC9;
-    --gpc-rosa: #A90359;
-    --gpc-verde: #B2D2BA;
-    container-type: inline-size;
-    background: var(--gpc-creme);
-    color: var(--gpc-grafite);
-    font-family: "GPC DM Sans", "DM Sans", system-ui, sans-serif;
-    overflow-x: clip;
-  }
-  .gpc h1, .gpc h2, .gpc h3 { margin: 0; font-family: inherit; font-weight: 700; letter-spacing: -.055em; text-transform: none; color: inherit; }
-  .gpc p { margin: 0 0 1em; }
-  .gpc img { display: block; max-width: none; }
-  .gpc button {
-    font: inherit; cursor: pointer; margin: 0; appearance: none; -webkit-appearance: none;
-    box-shadow: none; text-transform: none; min-width: 0;
-  }
-  .gpc button:focus-visible { outline: 2px solid var(--gpc-rosa); outline-offset: 3px; }
-  .gpc [hidden] { display: none !important; }
-  .gpc-wrap { width: min(1100px, 88%); margin-inline: auto; }
-  .gpc-micro { font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
-  .gpc-lead { font-size: 18px; line-height: 1.5; max-width: 560px; }
-
   /* Abertura */
   .gpc-hero { background: var(--gpc-lilas); min-height: 62svh; display: flex; align-items: center; padding: 76px 0; }
   .gpc-hero h1 { font-size: clamp(55px, 12cqi, 116px); line-height: .94; margin: 22px 0 28px; }
@@ -425,28 +394,6 @@
   .gpc-story-counter { position: absolute; right: 24px; bottom: 16px; font-size: 11px; font-weight: 800; color: var(--gpc-lavanda); }
   .gpc-story-progress { position: absolute; bottom: 0; left: 0; height: 4px; width: 0; background: var(--gpc-rosa); z-index: 10; transition: width .4s ease; }
 
-  /* Encerramento */
-  .gpc-final { position: relative; background: var(--gpc-lavanda); color: #fff; overflow: hidden; isolation: isolate; }
-  .gpc-final-content { position: relative; z-index: 3; padding: 90px 0 250px; }
-  .gpc-final h2 { font-size: clamp(45px, 9cqi, 90px); line-height: 1.02; margin: 20px 0; }
-  .gpc-final h2 span { color: var(--gpc-verde); }
-  .gpc-final p { font-size: clamp(18px, 2.6cqi, 24px); line-height: 1.5; max-width: 670px; }
-  .gpc-final .gpc-signature { font-size: clamp(21px, 3cqi, 29px); font-weight: 800; margin-top: 27px; }
-  .gpc-btn {
-    display: inline-block; margin-top: 10px; padding: 14px 26px; border-radius: 50px; background: #fff; color: var(--gpc-grafite);
-    font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; text-decoration: none;
-  }
-  .gpc-wave {
-    position: absolute; left: -12%; bottom: 0; width: 125%; height: 210px; background: var(--gpc-lilas);
-    border-radius: 50% 50% 0 0 / 24% 24% 0 0; animation: gpc-wave 7s ease-in-out infinite alternate;
-  }
-  .gpc-wave--green { z-index: 2; height: 170px; background: var(--gpc-verde); animation-delay: -3s; }
-  @keyframes gpc-wave { to { transform: translateY(-15px) rotate(2deg); } }
-
-  .gpc-reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s, transform .8s; }
-  .gpc-reveal.is-visible { opacity: 1; transform: none; }
-  .shopify-design-mode .gpc-reveal { opacity: 1; transform: none; }
-
   /* Celular (largura da área da página, funciona também com a moldura de 430px) */
   @container (max-width: 750px) {
     .gpc-hero { min-height: 0; padding: 36px 0 32px; }
@@ -498,26 +445,17 @@
     .gpc-story-panel p { font-size: 16px; line-height: 1.45; margin-bottom: 8px; }
     .gpc-story-counter { right: 20px; bottom: 14px; }
 
-    .gpc-final-content { padding: 80px 0 235px; }
-    .gpc-wave { height: 190px; }
-    .gpc-wave--green { height: 160px; }
   }
 
-  /* Desktop: tudo abaixo da abertura fica num container com respiro lateral */
+  /* Desktop: o miolo fica no container de gpc-base; o encerramento vai de ponta a ponta até o rodapé */
   @container (min-width: 751px) {
-    .gpc-body { max-width: 1260px; margin: 0 auto; padding: 0 48px 48px; }
-    .gpc-body .gpc-wrap { width: 100%; }
-    .gpc-story-intro, .gpc-final { border-radius: 28px; }
-    .gpc-story-intro .gpc-wrap, .gpc-final .gpc-wrap { width: 88%; }
+    .gpc-story-intro { border-radius: 28px; }
+    .gpc-story-intro .gpc-wrap { width: 88%; }
     .gpc-story { padding: 32px 0 56px; }
     .gpc-story-tabs { max-width: none; padding: 0; }
     .gpc-story-stage { max-width: none; }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .gpc *, .gpc *::before, .gpc *::after { animation: none !important; transition: none !important; }
-    .gpc-reveal { opacity: 1; transform: none; }
-  }
 {% endstylesheet %}
 
 {% schema %}

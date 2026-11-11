@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "afiliados": {
+      "type": "gp-afiliados",
+      "settings": {}
+    }
+  },
+  "order": [
+    "afiliados"
+  ]
+}

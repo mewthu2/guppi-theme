@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "sobre": {
+      "type": "gp-sobre",
+      "settings": {}
+    }
+  },
+  "order": [
+    "sobre"
+  ]
+}

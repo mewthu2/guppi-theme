@@ -1,0 +1,89 @@
+{%- comment -%}
+  Base visual das páginas editoriais (Cheiro Güppi, Afiliados, Sobre nós):
+  fontes DM Sans, cores, tipografia, botão e o encerramento com ondas que emenda no rodapé.
+  Uso: {% render 'gpc-base' %} no topo da seção, com o wrapper <div class="gp gpc">.
+{%- endcomment -%}
+{% style %}
+  @font-face { font-family: "GPC DM Sans"; src: url("{{ 'DMSans-Regular.ttf' | asset_url }}") format("truetype"); font-weight: 100 600; font-display: swap; }
+  @font-face { font-family: "GPC DM Sans"; src: url("{{ 'DMSans-Bold.ttf' | asset_url }}") format("truetype"); font-weight: 700 750; font-display: swap; }
+  @font-face { font-family: "GPC DM Sans"; src: url("{{ 'DMSans-800.ttf' | asset_url }}") format("truetype"); font-weight: 751 850; font-display: swap; }
+  @font-face { font-family: "GPC DM Sans"; src: url("{{ 'DMSans-900.ttf' | asset_url }}") format("truetype"); font-weight: 851 1000; font-display: swap; }
+{% endstyle %}
+
+{% stylesheet %}
+  .gpc {
+    --gpc-creme: #F6F3EA;
+    --gpc-grafite: #322C3D;
+    --gpc-lilas: #BA9CC5;
+    --gpc-lavanda: #85729F;
+    --gpc-lavanda-viva: #9B7FC9;
+    --gpc-rosa: #A90359;
+    --gpc-verde: #B2D2BA;
+    --gpc-cinza: #5F5765;
+    container-type: inline-size;
+    background: var(--gpc-creme);
+    color: var(--gpc-grafite);
+    font-family: "GPC DM Sans", "DM Sans", system-ui, sans-serif;
+    overflow-x: clip;
+  }
+  .gpc *, .gpc *::before, .gpc *::after { box-sizing: border-box; }
+  .gpc h1, .gpc h2, .gpc h3 { margin: 0; font-family: inherit; font-weight: 700; letter-spacing: -.055em; text-transform: none; color: inherit; }
+  .gpc p { margin: 0 0 1em; }
+  .gpc img { display: block; max-width: none; }
+  .gpc button {
+    font: inherit; cursor: pointer; margin: 0; appearance: none; -webkit-appearance: none;
+    box-shadow: none; text-transform: none; min-width: 0;
+  }
+  .gpc button:focus-visible, .gpc a:focus-visible { outline: 2px solid var(--gpc-rosa); outline-offset: 3px; }
+  .gpc [hidden] { display: none !important; }
+  .gpc-wrap { width: min(1100px, 88%); margin-inline: auto; }
+  .gpc-micro { font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+  .gpc-lead { font-size: 18px; line-height: 1.5; max-width: 560px; }
+  .gpc-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+  .gpc .gpc-btn {
+    display: inline-block; margin-top: 10px; padding: 14px 26px; border-radius: 50px; background: #fff; color: var(--gpc-grafite);
+    font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; transition: transform .2s, background .2s;
+  }
+  .gpc .gpc-btn:hover { transform: translateY(-2px); background: var(--gpc-creme); color: var(--gpc-grafite); }
+
+  /* Encerramento com ondas: termina em verde e encosta no rodapé, na largura toda */
+  .gpc-final { position: relative; background: var(--gpc-lavanda); color: #fff; overflow: hidden; isolation: isolate; }
+  .gpc-final-content { position: relative; z-index: 3; padding: 90px 0 250px; }
+  .gpc-final h2 { font-size: clamp(45px, 9cqi, 90px); line-height: 1.02; margin: 20px 0; }
+  .gpc-final h2 span { color: var(--gpc-verde); }
+  .gpc-final p { font-size: clamp(18px, 2.6cqi, 24px); line-height: 1.5; max-width: 670px; }
+  .gpc-final .gpc-signature { font-size: clamp(21px, 3cqi, 29px); font-weight: 800; margin-top: 27px; }
+  .gpc-wave {
+    position: absolute; left: -12%; bottom: 0; width: 125%; height: 210px; background: var(--gpc-lilas);
+    border-radius: 50% 50% 0 0 / 24% 24% 0 0; animation: gpc-wave 7s ease-in-out infinite alternate;
+    box-shadow: 0 120px 0 0 var(--gpc-lilas); /* cobre o fundo quando a onda gira */
+  }
+  .gpc-wave--green { z-index: 2; height: 170px; background: var(--gpc-verde); box-shadow: 0 120px 0 0 var(--gpc-verde); animation-delay: -3s; }
+  @keyframes gpc-wave { to { transform: translateY(-15px) rotate(2deg); } }
+
+  .gpc-reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s, transform .8s; }
+  .gpc-reveal.is-visible { opacity: 1; transform: none; }
+  .shopify-design-mode .gpc-reveal { opacity: 1; transform: none; }
+
+  @container (max-width: 750px) {
+    .gpc-final-content { padding: 80px 0 235px; }
+    .gpc-wave { height: 190px; }
+    .gpc-wave--green { height: 160px; }
+  }
+
+  /* Desktop: o miolo fica num container com respiro lateral; abertura e encerramento ocupam a largura toda */
+  @container (min-width: 751px) {
+    .gpc-body { max-width: 1260px; margin: 0 auto; padding: 0 48px; }
+    .gpc-body .gpc-wrap { width: 100%; }
+    .gpc-final .gpc-wrap { width: min(1164px, calc(100% - 96px)); }
+    .gpc-final-content { padding: 110px 0 300px; }
+    .gpc-wave { left: -8%; width: 116%; height: 250px; border-radius: 50% 50% 0 0 / 30% 30% 0 0; }
+    .gpc-wave--green { height: 200px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gpc *, .gpc *::before, .gpc *::after { animation: none !important; transition: none !important; }
+    .gpc-reveal { opacity: 1; transform: none; }
+  }
+{% endstylesheet %}

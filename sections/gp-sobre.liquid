@@ -1,0 +1,173 @@
+{%- liquid
+  assign s = section.settings
+-%}
+{% render 'gpc-base' %}
+
+<div class="gp gpc gps" id="gps-{{ section.id }}">
+
+  {%- comment -%} ABERTURA {%- endcomment -%}
+  <section class="gps-hero">
+    <div class="gpc-wrap">
+      <p class="gpc-micro">SOBRE NÓS</p>
+      <h1>Cuidar de você pode ser <span>a melhor parte do&nbsp;dia.</span></h1>
+      <p class="gps-lead">A GÜPPI nasceu do desejo de <strong>unir dois mundos:</strong> a eficácia do cuidado com a pele e o prazer da perfumaria.</p>
+    </div>
+  </section>
+
+  <div class="gpc-body">
+    {%- comment -%} ORIGEM {%- endcomment -%}
+    <section class="gps-origin">
+      <div class="gpc-wrap gps-grid">
+        <figure class="gps-founder gpc-reveal">
+          {%- if s.founder_photo != blank -%}
+            {{ s.founder_photo | image_url: width: 1000 | image_tag: class: 'gps-founder-photo', widths: '400, 600, 800, 1000', sizes: '(min-width: 750px) 360px, 90vw', loading: 'lazy', alt: 'Camila Dias, fundadora da GÜPPI' }}
+          {%- else -%}
+            <div class="gps-founder-photo gps-placeholder" role="img" aria-label="Espaço reservado para a foto de Camila Dias"><span>FOTO DA FUNDADORA</span></div>
+          {%- endif -%}
+        </figure>
+        <figure class="gps-quote">
+          <blockquote>
+            <p><span class="gps-mark" aria-hidden="true">“</span><strong>Cansei de ter que escolher entre um produto que realmente cuidasse da minha pele e um que fosse gostoso de usar.</strong> Eu queria hidratação de verdade, uma textura deliciosa e uma fragrância que despertasse sensações de prazer, conforto e acolhimento. Foi dessa vontade de reunir tudo isso em um só produto que nasceu a <span class="gps-nowrap">GÜPPI.<span class="gps-mark gps-mark--close" aria-hidden="true">”</span></span></p>
+          </blockquote>
+          <figcaption><strong>Camila Dias</strong><span>Fundadora da GÜPPI</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    {%- comment -%} DETALHES {%- endcomment -%}
+    <section class="gps-details">
+      <div class="gpc-wrap gps-details-grid">
+        <h2>Cada detalhe tem <span>uma intenção.</span></h2>
+        <p>Ao longo de <strong>mais de um ano de desenvolvimento</strong>, pensamos em cada fórmula por inteiro: na escolha e na combinação dos ingredientes, na absorção e no toque que fica na pele, com a intenção de cuidar de suas diferentes camadas. Com o mesmo cuidado, desenvolvemos fragrâncias para a marca, feitas para despertar sensações e tornar a experiência ainda mais prazerosa.</p>
+        <p class="gps-statement gpc-reveal">Para nós, cuidar da pele e gostar desse momento precisam andar juntos.</p>
+      </div>
+    </section>
+  </div>
+
+  {%- comment -%} ENCERRAMENTO {%- endcomment -%}
+  <section class="gpc-final">
+    <div class="gpc-wrap gpc-final-content gps-ending">
+      <div class="gps-ending-copy gpc-reveal">
+        <div class="gpc-micro">GÜPPI</div>
+        <h2>Nosso jeito de <span>cuidar.</span></h2>
+        <p>A GÜPPI é um convite para transformar o cuidado diário em um momento seu. Depois do banho, antes de sair ou ao terminar um dia cheio.</p>
+        <p class="gpc-signature">Queremos que você se cuide porque gosta de como se sente. <span>E que tenha vontade de repetir.</span></p>
+        {%- if s.button_label != blank -%}
+          <a class="gpc-btn" href="{{ s.button_link | default: routes.all_products_collection_url }}">{{ s.button_label }}</a>
+        {%- endif -%}
+      </div>
+      <figure class="gps-ending-photo gpc-reveal">
+        {%- if s.ending_photo != blank -%}
+          {{ s.ending_photo | image_url: width: 1000 | image_tag: class: 'gps-ending-img', widths: '400, 600, 800, 1000', sizes: '(min-width: 750px) 440px, 90vw', loading: 'lazy', alt: s.ending_photo.alt | default: '' }}
+        {%- else -%}
+          <div class="gps-ending-img gps-placeholder" role="img" aria-label="Espaço reservado para foto"><span>FOTO</span></div>
+        {%- endif -%}
+      </figure>
+    </div>
+    <div class="gpc-wave"></div>
+    <div class="gpc-wave gpc-wave--green"></div>
+  </section>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('gps-{{ section.id }}');
+    if (!root) return;
+    var reveals = [].slice.call(root.querySelectorAll('.gpc-reveal'));
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-visible'); io.unobserve(en.target); } });
+      }, { threshold: 0.1 });
+      reveals.forEach(function (n) { io.observe(n); });
+    } else {
+      reveals.forEach(function (n) { n.classList.add('is-visible'); });
+    }
+  })();
+</script>
+
+{% stylesheet %}
+  .gpc .gps-hero { background: var(--gpc-lilas); padding: 76px 0 70px; }
+  .gpc .gps-hero h1 { font-size: clamp(38px, 6.6cqi, 78px); line-height: 1.04; max-width: 900px; margin: 22px 0 28px; font-weight: 800; text-wrap: balance; }
+  .gpc .gps-hero h1 span { color: var(--gpc-rosa); }
+  .gpc .gps-lead { font-size: clamp(19px, 2.3cqi, 26px); line-height: 1.5; max-width: 760px; margin: 0; }
+  .gpc .gps strong, .gps strong { font-weight: 700; }
+
+  .gpc .gps-placeholder { display: grid; place-items: center; place-content: center; background: linear-gradient(145deg, #E5D9E8, #C4ADD1); color: var(--gpc-grafite); }
+  .gpc .gps-placeholder span { font-size: 10px; font-weight: 600; letter-spacing: .17em; opacity: .6; }
+
+  /* Origem */
+  .gpc .gps-origin { padding: 72px 0; }
+  .gpc .gps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6cqi, 80px); align-items: center; }
+  .gpc .gps-founder { margin: 0 auto; width: 100%; max-width: 360px; }
+  .gpc .gps-founder-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 28px; }
+  .gpc .gps-quote { margin: 0; }
+  .gpc .gps-quote blockquote { margin: 0; padding: 0; border: 0; }
+  .gpc .gps-quote blockquote p { font-size: clamp(20px, 2.1cqi, 25px); line-height: 1.55; letter-spacing: -.015em; margin: 0; font-style: normal; }
+  .gpc .gps-mark { display: inline; color: var(--gpc-rosa); font-family: Georgia, "Times New Roman", serif; font-size: 1.8em; font-weight: 400; line-height: 0; vertical-align: -.16em; }
+  .gpc .gps-mark--close { margin-left: .04em; }
+  .gpc .gps-nowrap { white-space: nowrap; }
+  .gpc .gps-quote figcaption { text-align: right; margin-top: 22px; font-size: 15px; line-height: 1.5; }
+  .gpc .gps-quote figcaption strong, .gpc .gps-quote figcaption span { display: block; }
+  .gpc .gps-quote figcaption span { font-size: 13px; }
+
+  /* Detalhes */
+  .gpc .gps-details { background: #E6DDEB; padding: 64px 0; }
+  .gpc .gps-details-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 32px 60px; }
+  .gpc .gps-details h2 { font-size: clamp(32px, 4.4cqi, 52px); line-height: 1.08; }
+  .gpc .gps-details h2 span { color: var(--gpc-rosa); }
+  .gpc .gps-details p { font-size: 18px; line-height: 1.65; margin: 0; }
+  .gpc .gps-details .gps-statement {
+    grid-column: 1 / -1; max-width: 850px; width: 100%; margin: 0 auto; text-align: center;
+    font-size: clamp(28px, 3.4cqi, 40px); font-weight: 700; line-height: 1.2; letter-spacing: -.035em; color: var(--gpc-rosa);
+  }
+
+  /* Encerramento (dentro do bloco com ondas) */
+  .gpc .gps-ending { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: clamp(32px, 6cqi, 76px); }
+  .gpc .gps-ending-copy p { max-width: 520px; }
+  .gpc .gps-ending .gpc-signature span { color: var(--gpc-verde); }
+  .gpc .gps-ending-photo { margin: 0; position: relative; padding: 0 12px 12px 0; width: 100%; max-width: 440px; justify-self: center; }
+  .gpc .gps-ending-photo::after { content: ""; position: absolute; inset: 16px 0 0 16px; border-radius: 110px 24px 24px 24px; background: var(--gpc-lilas); z-index: 0; }
+  .gpc .gps-ending-img { position: relative; z-index: 1; display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 110px 24px 24px 24px; }
+  .gpc .gps-ending-photo .gps-placeholder { display: grid; place-content: center; background: #E6DDEB; }
+  .gpc .gps-ending-photo .gps-placeholder span { font-size: 14px; letter-spacing: .12em; }
+
+  @container (max-width: 750px) {
+    .gpc .gps-hero { padding: 36px 0 38px; }
+    .gpc .gps-hero .gpc-micro { font-size: 10px; }
+    .gpc .gps-hero h1 { font-size: clamp(28px, 8cqi, 34px); margin: 16px 0 20px; }
+    .gpc .gps-hero h1 span { display: block; }
+    .gpc .gps-lead { font-size: 17px; }
+    .gpc .gps-origin { padding: 36px 0; }
+    .gpc .gps-grid, .gpc .gps-details-grid { grid-template-columns: 1fr; gap: 28px; }
+    .gpc .gps-founder { max-width: 300px; }
+    .gpc .gps-founder-photo { border-radius: 22px; }
+    .gpc .gps-quote blockquote p { font-size: 19px; line-height: 1.5; }
+    .gpc .gps-details { padding: 36px 0; }
+    .gpc .gps-details-grid { gap: 18px; }
+    .gpc .gps-details h2 { font-size: 32px; }
+    .gpc .gps-details p { font-size: 16px; line-height: 1.6; }
+    .gpc .gps-details .gps-statement { font-size: 26px; line-height: 1.25; margin-top: 8px; }
+    .gpc .gps-ending { grid-template-columns: 1fr; gap: 30px; }
+    .gpc .gps-ending-photo { max-width: 320px; }
+    .gpc .gps-ending-img, .gpc .gps-ending-photo::after { border-radius: 60px 20px 20px 20px; }
+  }
+
+  @container (min-width: 751px) {
+    .gpc .gps-hero .gpc-wrap { width: min(1164px, calc(100% - 96px)); }
+    .gpc .gps-details { border-radius: 28px; margin-bottom: 56px; }
+    .gpc .gps-details .gpc-wrap { width: 88%; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Güppi · Sobre nós",
+  "settings": [
+    { "type": "image_picker", "id": "founder_photo", "label": "Foto da fundadora", "info": "Vertical, proporção 4:5." },
+    { "type": "image_picker", "id": "ending_photo", "label": "Foto do encerramento", "info": "Vertical, proporção 4:5." },
+    { "type": "text", "id": "button_label", "label": "Texto do botão (vazio = sem botão)" },
+    { "type": "url", "id": "button_link", "label": "Link do botão" }
+  ],
+  "presets": [{ "name": "Güppi · Sobre nós" }]
+}
+{% endschema %}

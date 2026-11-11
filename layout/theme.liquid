@@ -9,6 +9,12 @@
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
     <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
 
+    <script>
+      (function(s,e,n,t,i){s[n]=s[n]||function(){(s[n].q=s[n].q||[]).push(arguments)};
+      var js=e.createElement('script');js.async=1;js.src=t+'?tid='+i;
+      e.head.appendChild(js)})(window,document,'guppi','https://guppi-track.vercel.app/api/t/tracker.js','f8eed967-029e-4f48-9f7a-893c844e5e08');
+    </script>
+
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
     {%- endif -%}

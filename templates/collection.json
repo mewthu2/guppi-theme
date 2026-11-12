@@ -2,7 +2,9 @@
   "sections": {
     "banner": {
       "type": "collection-banner",
-      "settings": {}
+      "settings": {
+        "color_scheme": "scheme-6"
+      }
     },
     "main": {
       "type": "main-collection",

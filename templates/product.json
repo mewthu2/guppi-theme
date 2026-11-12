@@ -152,7 +152,7 @@
         "style": "band",
         "speed": 16,
         "bg": "#b4d2ba",
-        "color": "#f6f3ec"
+        "color": "#f6f3ea"
       }
     },
     "actives": {
@@ -307,7 +307,7 @@
         "link": "",
         "bg": "",
         "show_wave": false,
-        "wave_color": "#f6f3ec",
+        "wave_color": "#f6f3ea",
         "wave_color_2": "#9b7fc9",
         "wave_color_3": "#decff0"
       }
@@ -323,7 +323,7 @@
         "link": "shopify://collections/all",
         "bg": "",
         "show_wave": true,
-        "wave_color": "#f6f3ec",
+        "wave_color": "#f6f3ea",
         "wave_color_2": "#9b7fc9",
         "wave_color_3": "#decff0"
       }

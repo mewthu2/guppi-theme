@@ -90,7 +90,7 @@
         "style": "home",
         "speed": 16,
         "bg": "#b4d2ba",
-        "color": "#f6f3ec"
+        "color": "#f6f3ea"
       }
     },
     "creators": {
@@ -220,7 +220,7 @@
           "settings": {
             "x": 19,
             "y": 27,
-            "product": "",
+            "product": "body-splash-guppi-vanilla-cashmere-200-ml",
             "title": "Body Splash",
             "size": "200 ml",
             "text": "Frescor e pele perfumada, do jeito mais leve. O cheiro Güppi para usar em qualquer momento.",
@@ -232,7 +232,7 @@
           "settings": {
             "x": 71,
             "y": 33,
-            "product": "",
+            "product": "oleo-corporal-guppi-vanilla-cashmere-200-ml",
             "title": "Óleo Corporal",
             "size": "200 ml",
             "text": "Textura em óleo, com a baunilha suave bem perto da pele. Pele perfumada, com toque macio.",
@@ -244,7 +244,7 @@
           "settings": {
             "x": 39,
             "y": 55,
-            "product": "",
+            "product": "manteiga-corporal-guppi-vanilla-cashmere-200-g",
             "title": "Manteiga Corporal",
             "size": "200 g",
             "text": "Textura cremosa e rica, para quem quer sentir o cheiro de pele macia de pertinho.",
@@ -325,7 +325,7 @@
         "title": "O que nossas\nclientes dizem",
         "empty_label": "Em breve",
         "bg": "#bb9cc5",
-        "wave_color": "#f6f3ec",
+        "wave_color": "#f6f3ea",
         "wave_color_2": "#9b7fc9",
         "wave_color_3": "#decff0"
       }

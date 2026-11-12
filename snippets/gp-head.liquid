@@ -6,6 +6,10 @@
 {% enddoc %}
 {{ 'DMSans-Regular.ttf' | asset_url | preload_tag: as: 'font', type: 'font/ttf', crossorigin: true }}
 {{ 'DMSans-Bold.ttf' | asset_url | preload_tag: as: 'font', type: 'font/ttf', crossorigin: true }}
+{%- comment -%} Fonte arredondada parecida com a do logo, usada nos itens de menu marcados com "Usar a fonte do logo". Troque pelo arquivo da fonte do logo quando houver. {%- endcomment -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap">
 {% style %}
   @font-face {
     font-family: "DM Sans";

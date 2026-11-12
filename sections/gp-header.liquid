@@ -14,9 +14,9 @@
       {%- if section.blocks.size > 0 -%}
         {%- for block in section.blocks -%}
           {%- if block.settings.soon or block.settings.link == blank -%}
-            <span class="gp-nav-item off" aria-disabled="true">{{ block.settings.label }}{% if block.settings.soon %}<small>{{ block.settings.soon_label }}</small>{% endif %}</span>
+            <span class="gp-nav-item off{% if block.settings.logo_font %} gp-logo-font{% endif %}" aria-disabled="true">{{ block.settings.label }}{% if block.settings.soon %}<small>{{ block.settings.soon_label }}</small>{% endif %}</span>
           {%- else -%}
-            <a class="gp-nav-item" href="{{ block.settings.link }}">{{ block.settings.label }}</a>
+            <a class="gp-nav-item{% if block.settings.logo_font %} gp-logo-font{% endif %}" href="{{ block.settings.link }}">{{ block.settings.label }}</a>
           {%- endif -%}
         {%- endfor -%}
       {%- else -%}
@@ -43,9 +43,9 @@
     {%- if section.blocks.size > 0 -%}
       {%- for block in section.blocks -%}
         {%- if block.settings.soon or block.settings.link == blank -%}
-          <span class="gp-m-item off" aria-disabled="true" {{ block.shopify_attributes }}>{{ block.settings.label }}{% if block.settings.soon %}<small>{{ block.settings.soon_label }}</small>{% endif %}</span>
+          <span class="gp-m-item off{% if block.settings.logo_font %} gp-logo-font{% endif %}" aria-disabled="true" {{ block.shopify_attributes }}>{{ block.settings.label }}{% if block.settings.soon %}<small>{{ block.settings.soon_label }}</small>{% endif %}</span>
         {%- else -%}
-          <a class="gp-m-item" href="{{ block.settings.link }}" data-gp-menu-close {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+          <a class="gp-m-item{% if block.settings.logo_font %} gp-logo-font{% endif %}" href="{{ block.settings.link }}" data-gp-menu-close {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
         {%- endif -%}
       {%- endfor -%}
     {%- else -%}
@@ -99,7 +99,8 @@
         { "type": "text", "id": "label", "label": "Texto", "default": "Produtos" },
         { "type": "url", "id": "link", "label": "Link" },
         { "type": "checkbox", "id": "soon", "label": "Marcar como em breve", "default": false },
-        { "type": "text", "id": "soon_label", "label": "Texto de em breve", "default": "Em breve" }
+        { "type": "text", "id": "soon_label", "label": "Texto de em breve", "default": "Em breve" },
+        { "type": "checkbox", "id": "logo_font", "label": "Usar a fonte do logo", "default": false }
       ]
     }
   ],

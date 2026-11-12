@@ -23,7 +23,7 @@
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#ffffff",
+          "background": "#f6f3ea",
           "background_alt": "#f7f1f2",
           "text": "#31242e",
           "accent": "#ed356d",
@@ -93,16 +93,16 @@
       },
       "scheme-6": {
         "settings": {
-          "background": "#ed356d",
-          "background_alt": "#d92a5f",
-          "text": "#ffffff",
-          "accent": "#fdf759",
-          "border": "#f26791",
-          "button": "#ffffff",
-          "button_label": "#ed356d",
-          "secondary_button_label": "#ffffff",
+          "background": "#9b7fc9",
+          "background_alt": "#8a6db9",
+          "text": "#f6f3ea",
+          "accent": "#f6f3ea",
+          "border": "#b39ad6",
+          "button": "#f6f3ea",
+          "button_label": "#9b7fc9",
+          "secondary_button_label": "#f6f3ea",
           "card": "#ffffff",
-          "card_text": "#31242e"
+          "card_text": "#322c3d"
         }
       }
     }

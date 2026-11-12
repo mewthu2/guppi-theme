@@ -5,10 +5,18 @@
         <span class="visually-hidden">{{ section.settings.badge_1 }} {{ section.settings.badge_2 }} {{ section.settings.fish_cta }}</span>
         {%- if section.settings.fish_cta != blank -%}<span class="gp-fish-cta" aria-hidden="true">{{ section.settings.fish_cta }}</span>{%- endif -%}
         <svg class="gp-fish-scene" viewBox="0 0 460 420" aria-hidden="true">
-          <g class="gp-u" fill="none" stroke="#9B7FC9" stroke-width="44" stroke-linecap="round" stroke-linejoin="round">
-            <path class="gp-u-line" d="M176 236 V300 C176 334 200 358 230 358 C260 358 284 334 284 300 V236 M284 300 V358" pathLength="1"/>
-            <circle class="gp-u-dot d1" cx="192" cy="168" r="24" fill="#9B7FC9" stroke="none"/>
-            <circle class="gp-u-dot d2" cx="268" cy="168" r="24" fill="#9B7FC9" stroke="none"/>
+          {%- comment -%} Monograma Ü da Güppi. A máscara desenha a letra ao entrar na tela. {%- endcomment -%}
+          <defs>
+            <mask id="GpUMask-{{ section.id }}" maskUnits="userSpaceOnUse" x="0" y="0" width="760" height="800">
+              <path class="gp-u-line" d="M232 210 V530 C232 625 300 690 395 690 C490 690 528 620 528 530 V210" fill="none" stroke="#fff" stroke-width="200" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/>
+            </mask>
+          </defs>
+          <g class="gp-u" fill="#9B7FC9">
+            <g transform="translate(93 112) scale(.36)">
+              <path mask="url(#GpUMask-{{ section.id }})" d="M152 270 C152 228 186 200 232 200 C278 200 312 228 312 270 V500 C312 560 350 598 395 598 C448 598 478 560 476 512 C474 470 456 420 442 370 C434 340 430 315 432 290 C436 236 476 200 520 200 C568 200 607 236 607 290 V545 C607 665 520 745 395 745 C255 745 152 660 152 545 Z"/>
+              <rect class="gp-u-dot d1" x="228" y="48" width="140" height="130" rx="64"/>
+              <rect class="gp-u-dot d2" x="392" y="48" width="140" height="130" rx="64"/>
+            </g>
           </g>
         </svg>
         <span class="gp-fish-bubble" aria-hidden="true"><span>{{ section.settings.badge_1 }}</span><strong>{{ section.settings.badge_2 }}</strong></span>

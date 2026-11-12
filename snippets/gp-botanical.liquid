@@ -1,7 +1,7 @@
 {% doc %}
   Ilustrações botânicas dos cards de ativos.
 
-  @param {string} icon - karite, hialuronico, macadamia, coco, girassol, argan, linhaca, oliva, abacate, uva
+  @param {string} icon - karite, hialuronico, macadamia, coco, girassol, argan, linhaca, oliva, abacate, uva, amendoas, vitamina_e, rosa_mosqueta
 
   @example
   {% render 'gp-botanical', icon: 'karite' %}
@@ -28,5 +28,11 @@
       <path d="M59 12C46 12 47 30 34 46 11 74 30 92 59 92s48-18 25-46C71 30 72 12 59 12Z"/><path d="M60 21c-8 0-9 17-21 30-16 21-6 33 20 33s36-12 20-33C67 38 68 21 60 21Z"/><ellipse cx="60" cy="65" rx="14" ry="17"/><path d="M98 20q-12 9-5 24c16 26 20 50 32 42 9-8 0-26-12-42-8-13-5-21-15-24Z"/>
     {%- when 'uva' -%}
       <path d="M70 20V6m0 14q25-29 37-13-11 21-37 13Zm-1 0q-15-19-29-9 6 16 29 9Z"/><circle cx="48" cy="36" r="13"/><circle cx="75" cy="36" r="13"/><circle cx="101" cy="36" r="13"/><circle cx="61" cy="58" r="13"/><circle cx="88" cy="58" r="13"/><circle cx="74" cy="80" r="13"/>
+    {%- when 'amendoas' -%}
+      <path d="M58 14C38 32 33 60 42 80c6 12 27 12 33 0 9-20 3-48-17-66Z"/><path d="M58 24c-7 18-8 38-3 55"/><path d="M96 30c-15 13-19 34-12 49 4 9 20 9 25 0 7-15 2-36-13-49Z"/><path d="M96 38c-5 14-6 28-2 40"/>
+    {%- when 'vitamina_e' -%}
+      <g transform="rotate(-32 70 52)"><rect x="34" y="36" width="72" height="32" rx="16"/><path d="M70 36v32"/><path d="M80 44q8 0 10 6"/></g><path d="M26 22v8m-4-4h8M114 70v8m-4-4h8M110 16v6m-3-3h6"/><path d="M30 80c0-6 5-11 5-11s5 5 5 11a5 5 0 0 1-10 0Z"/>
+    {%- when 'rosa_mosqueta' -%}
+      <ellipse cx="62" cy="66" rx="19" ry="23"/><path d="M62 43l-9-10m9 10 9-10m-9 10-15-4m15 4 15-4"/><path d="M62 43V20q16-8 34 2M76 18q15-14 28-6-10 15-28 6Z"/><ellipse cx="99" cy="70" rx="12" ry="15"/><path d="M99 55l-6-7m6 7 6-7M99 55V40"/><path d="M56 56q-5 8-3 18"/>
   {%- endcase -%}
 </svg>

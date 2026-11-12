@@ -38,6 +38,7 @@
             "label": "Cheiro Güppi",
             "link": "/pages/cheiro-guppi",
             "soon": false,
+            "logo_font": true,
             "soon_label": "Em breve"
           }
         },

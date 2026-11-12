@@ -16,6 +16,7 @@
           {% render 'gp-botanical', icon: block.settings.icon %}
         {%- endif -%}
         <h3>{{ block.settings.title }}</h3>
+        {%- if block.settings.subtitle != blank -%}<p class="gp-pdp-active-sub">{{ block.settings.subtitle }}</p>{%- endif -%}
         <div class="gp-acc-text">{{ block.settings.text }}</div>
       </article>
     {%- endfor -%}
@@ -36,9 +37,10 @@
       "type": "active",
       "name": "Ativo",
       "settings": [
-        { "type": "select", "id": "icon", "label": "Ilustração", "options": [ { "value": "karite", "label": "Karité" }, { "value": "hialuronico", "label": "Ácido hialurônico" }, { "value": "macadamia", "label": "Macadâmia" }, { "value": "coco", "label": "Coco" }, { "value": "girassol", "label": "Girassol" }, { "value": "argan", "label": "Argan" }, { "value": "linhaca", "label": "Linhaça" }, { "value": "oliva", "label": "Oliva" }, { "value": "abacate", "label": "Abacate" }, { "value": "uva", "label": "Semente de uva" } ], "default": "karite" },
+        { "type": "select", "id": "icon", "label": "Ilustração", "options": [ { "value": "karite", "label": "Karité" }, { "value": "hialuronico", "label": "Ácido hialurônico" }, { "value": "macadamia", "label": "Macadâmia" }, { "value": "coco", "label": "Coco" }, { "value": "girassol", "label": "Girassol" }, { "value": "argan", "label": "Argan" }, { "value": "linhaca", "label": "Linhaça" }, { "value": "oliva", "label": "Oliva" }, { "value": "abacate", "label": "Abacate" }, { "value": "uva", "label": "Semente de uva" }, { "value": "amendoas", "label": "Amêndoas doces" }, { "value": "vitamina_e", "label": "Vitamina E" }, { "value": "rosa_mosqueta", "label": "Rosa-mosqueta" } ], "default": "karite" },
         { "type": "image_picker", "id": "image", "label": "Imagem própria", "info": "Substitui a ilustração." },
         { "type": "text", "id": "title", "label": "Título", "default": "Manteiga de karité" },
+        { "type": "text", "id": "subtitle", "label": "Subtítulo", "info": "Benefício em destaque, abaixo do título." },
         { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Descreva o ativo.</p>" }
       ]
     }

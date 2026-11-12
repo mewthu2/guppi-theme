@@ -1,0 +1,155 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+
+{
+  "sections": {
+    "main": {
+      "type": "gp-main-product",
+      "blocks": {
+        "desc": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Descrição",
+            "show_description": true,
+            "content": "",
+            "open": true
+          }
+        },
+        "how": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Como usar",
+            "show_description": false,
+            "content": "<p>Borrife o Body Splash no pescoço, nos pulsos ou nas regiões do corpo que preferir. Não esfregue após a aplicação.</p><p>Reaplique quando desejar renovar a fragrância ao longo do dia.</p>",
+            "open": false
+          }
+        },
+        "ing": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Ingredientes",
+            "show_description": false,
+            "content": "<p>Álcool etílico, água, butil-hidroxitolueno, perfume, álcool benzílico, citronelol, cumarina, geraniol, hexil cinamal, dextrolimoneno, linalol.</p>",
+            "open": false
+          }
+        },
+        "ship": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Entrega e trocas",
+            "show_description": false,
+            "content": "<p>O frete e o prazo de entrega são calculados no momento da compra. Consulte a política de trocas antes de concluir seu pedido.</p>",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "desc",
+        "how",
+        "ing",
+        "ship"
+      ],
+      "settings": {
+        "home_label": "Início",
+        "eyebrow": "",
+        "intro": "O conforto de um abraço, em forma de fragrância.",
+        "pix_discount": 3,
+        "pix_label": "no Pix",
+        "buy_label": "Comprar",
+        "sticky": true
+      }
+    },
+    "band": {
+      "type": "gp-marquee",
+      "settings": {
+        "text": "100% Vegano – Glow Natural – Feito no Brasil –",
+        "style": "band",
+        "speed": 16,
+        "bg": "#b4d2ba",
+        "color": "#f6f3ea"
+      }
+    },
+    "campaign": {
+      "type": "gp-campaign",
+      "settings": {
+        "ph_label": "FOTO DO ENSAIO",
+        "ph_caption": "Aplicação do Body Splash",
+        "title": "Dá vontade de sentir de novo.",
+        "text": "Uma baunilha cremosa e envolvente, para usar depois do banho, antes de sair e sempre que quiser trazer essa sensação para perto.",
+        "box_title": "Como é sentir Vanilla Cashmere?",
+        "box_text": "Explore as notas e sensações da nossa fragrância.",
+        "button_label": "Sinta o cheiro GÜPPI",
+        "button_link": "/pages/cheiro-guppi"
+      }
+    },
+    "videos": {
+      "type": "gp-videos",
+      "blocks": {
+        "v1": {
+          "type": "video",
+          "settings": {
+            "label": "Vídeos"
+          }
+        },
+        "v2": {
+          "type": "video",
+          "settings": {
+            "label": "Vídeos"
+          }
+        },
+        "v3": {
+          "type": "video",
+          "settings": {
+            "label": "Vídeos"
+          }
+        },
+        "v4": {
+          "type": "video",
+          "settings": {
+            "label": "Vídeos"
+          }
+        }
+      },
+      "block_order": [
+        "v1",
+        "v2",
+        "v3",
+        "v4"
+      ],
+      "settings": {
+        "title": "Güppi na rotina",
+        "intro": "O cuidado em movimento."
+      }
+    },
+    "news": {
+      "type": "gp-story",
+      "settings": {
+        "style": "news",
+        "eyebrow": "",
+        "title": "Eficácia de farmácia.\nExperiência de perfumaria.",
+        "text": "Conheça o universo Güppi e acompanhe as novidades.",
+        "link_label": "Visitar a loja →",
+        "link": "shopify://collections/all",
+        "bg": "",
+        "show_wave": true,
+        "wave_color": "#f6f3ea",
+        "wave_color_2": "#9b7fc9",
+        "wave_color_3": "#decff0"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "band",
+    "campaign",
+    "videos",
+    "news"
+  ]
+}

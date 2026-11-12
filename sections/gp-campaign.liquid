@@ -1,0 +1,41 @@
+<section class="gp gp-campaign" aria-labelledby="Campaign-{{ section.id }}">
+  <figure class="gp-campaign-photo">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 1100 | image_tag: widths: '400, 600, 800, 1100', sizes: '(min-width: 750px) 520px, 90vw', loading: 'lazy', alt: section.settings.image.alt | default: section.settings.title }}
+    {%- else -%}
+      <div class="gp-campaign-ph"><span>{{ section.settings.ph_label }}</span><small>{{ section.settings.ph_caption }}</small></div>
+    {%- endif -%}
+  </figure>
+  <div class="gp-campaign-copy">
+    <h2 id="Campaign-{{ section.id }}">{{ section.settings.title }}</h2>
+    {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+    {%- if section.settings.box_title != blank or section.settings.button_label != blank -%}
+      <div class="gp-campaign-box">
+        {%- if section.settings.box_title != blank -%}<h3>{{ section.settings.box_title }}</h3>{%- endif -%}
+        {%- if section.settings.box_text != blank -%}<p>{{ section.settings.box_text }}</p>{%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          <a class="gp-campaign-cta" href="{{ section.settings.button_link | default: '/pages/cheiro-guppi' }}">{{ section.settings.button_label }} <span aria-hidden="true">→</span></a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Güppi · Campanha",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Foto do ensaio", "info": "Vertical (4:5)." },
+    { "type": "text", "id": "ph_label", "label": "Texto do espaço sem foto", "default": "FOTO DO ENSAIO" },
+    { "type": "text", "id": "ph_caption", "label": "Legenda do espaço sem foto", "default": "Aplicação do produto" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Dá vontade de sentir de novo." },
+    { "type": "textarea", "id": "text", "label": "Texto" },
+    { "type": "header", "content": "Caixa de destaque" },
+    { "type": "text", "id": "box_title", "label": "Título", "default": "Como é sentir Vanilla Cashmere?" },
+    { "type": "text", "id": "box_text", "label": "Texto", "default": "Explore as notas e sensações da nossa fragrância." },
+    { "type": "text", "id": "button_label", "label": "Texto do botão", "default": "Sinta o cheiro GÜPPI" },
+    { "type": "url", "id": "button_link", "label": "Link do botão", "info": "Vazio, leva para a página Cheiro Güppi." }
+  ],
+  "presets": [{ "name": "Güppi · Campanha" }]
+}
+{% endschema %}

@@ -450,7 +450,8 @@
   /* Desktop: o miolo fica no container de gpc-base; o encerramento vai de ponta a ponta até o rodapé */
   @container (min-width: 751px) {
     .gpc-story-intro { border-radius: 28px; }
-    .gpc-story-intro .gpc-wrap { width: 88%; }
+    .gpc .gpc-body .gpc-story-intro { padding: 95px clamp(32px, 6cqi, 80px) 85px; }
+    .gpc .gpc-body .gpc-story-intro .gpc-wrap { width: 100%; }
     .gpc-story { padding: 32px 0 56px; }
     .gpc-story-tabs { max-width: none; padding: 0; }
     .gpc-story-stage { max-width: none; }

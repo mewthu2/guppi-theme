@@ -26,7 +26,7 @@
           "settings": {
             "heading": "Como usar",
             "show_description": false,
-            "content": "<p>Consulte as orientações de uso na embalagem do produto.</p>",
+            "content": "<p>Aplique o Hidratante Corporal GÜPPI sobre a pele limpa e seca, espalhando suavemente com movimentos circulares até a completa absorção.</p><p>Use diariamente, especialmente após o banho, para transformar a hidratação em um momento de cuidado e prazer.</p><p>Para uma experiência ainda mais perfumada, finalize com o Body Splash GÜPPI da sua fragrância favorita.</p>",
             "open": false
           }
         },
@@ -35,7 +35,7 @@
           "settings": {
             "heading": "Ingredientes",
             "show_description": false,
-            "content": "<p>Consulte a lista completa de ingredientes na embalagem.</p>",
+            "content": "<p>Água, Dimeticona, Álcool Cetearílico, Cetearil Glicosídeo, Glicose, Cetearete-20, Caprilato de Propilheptila, Glicerol, Carbonato de Dicaprilila, Manteiga de Karité, Fenoxietanol, Caprililglicol, Óleo da Semente de Uva, Óleo de Semente de Girassol, Óleo de Coco, Óleo da Semente de Linhaça, Óleo de Abacate, Óleo da Castanha de Argan, Óleo da Semente de Macadamia Ternifolia, Éster Etílico do Óleo do Fruto de Oliveira, Tocoferol, Parafina Líquida, Lactato de Sódio, Gliconato de Sódio, Ácido Benzoico, Poliacrilato de Sódio, Álcool Cetílico, Crospolímero de Acrilatos/Acrilato de Alquila C10-30, Edetato Dissódico, Trietanolamina, Butil-Hidroxitolueno, Ácido Hialurônico, Perfume, Hexil Cinamal, Cumarina.</p>",
             "open": false
           }
         },
@@ -151,8 +151,8 @@
         "text": "100% Vegano – Glow Natural – Feito no Brasil –",
         "style": "band",
         "speed": 16,
-        "bg": "#B4D2BA",
-        "color": "#F6F3EC"
+        "bg": "#b4d2ba",
+        "color": "#f6f3ec"
       }
     },
     "actives": {
@@ -303,7 +303,13 @@
         "eyebrow": "VANILLA CASHMERE",
         "title": "Cheiro de pele macia,\ncomo um toque de cashmere.",
         "text": "Fragrância autoral, cremosa e envolvente.",
-        "link_label": "Conheça o hidratante ↑"
+        "link_label": "Conheça o hidratante ↑",
+        "link": "",
+        "bg": "",
+        "show_wave": false,
+        "wave_color": "#f6f3ec",
+        "wave_color_2": "#9b7fc9",
+        "wave_color_3": "#decff0"
       }
     },
     "news": {
@@ -315,7 +321,11 @@
         "text": "Conheça o universo Güppi e acompanhe as novidades.",
         "link_label": "Visitar a loja →",
         "link": "shopify://collections/all",
-        "show_wave": true
+        "bg": "",
+        "show_wave": true,
+        "wave_color": "#f6f3ec",
+        "wave_color_2": "#9b7fc9",
+        "wave_color_3": "#decff0"
       }
     }
   },

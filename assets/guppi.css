@@ -542,6 +542,8 @@ a.gp-card { cursor: pointer; }
 .gp-pdp-cream-layout { display: grid; grid-template-columns: 44% 1fr; gap: 7px; height: calc(100% - 115px); max-height: 490px; }
 .gp-pdp-cream-photo-wrap { position: relative; height: 100%; display: grid; place-items: center; }
 .gp-pdp-cream-fig { position: relative; width: 88%; }
+/* Óleo é horizontal: no celular ganha um pouco mais de largura */
+.gp-pdp-cream-fig--oleo { width: 122%; margin-left: -14%; }
 .gp-pdp-cream-img {
   display: block; width: 100%; height: auto; transform: translateY(var(--cream-y)); will-change: mask-image;
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 max(0%, calc(var(--cream-reveal) - 6%)), transparent var(--cream-reveal));
@@ -838,6 +840,7 @@ a.gp-card { cursor: pointer; }
   .gp-wide .gp-pdp-cream-fig { width: auto; }
   .gp-wide .gp-pdp-cream-img { width: auto; height: min(620px, calc(100svh - var(--gp-hdr-h) - 120px)) !important; max-width: none; }
   /* Óleo é horizontal: mede pela largura */
+  .gp-wide .gp-pdp-cream-fig--oleo { width: auto; margin-left: 0; }
   .gp-wide .gp-pdp-cream-fig--oleo .gp-pdp-cream-img { width: min(460px, 34vw); height: auto !important; }
 
   /* Ativos e vídeos */

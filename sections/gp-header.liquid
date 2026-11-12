@@ -1,4 +1,4 @@
-<div class="gp">
+<div class="gp gp-hdr-wrap{% if template.name == 'index' %} gp-hdr-wrap--home{% endif %}" data-gp-hdr>
   <header class="gp-hdr">
     <button class="gp-ico" id="GpMenuBtn" type="button" aria-label="{{ 'sections.header.menu' | t }}" aria-expanded="false" aria-controls="GpMenu">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path class="gp-p-bars" d="M4 7h16M4 12h16M4 17h16"/><path class="gp-p-x" d="M6 6l12 12M18 6L6 18"/></svg>
@@ -35,6 +35,9 @@
       </a>
     </div>
   </header>
+  {%- if section.settings.wave -%}
+    {% render 'gp-wave', class: 'gp-wave--hdr', front: section.settings.wave_color, middle: section.settings.wave_color_2, back: section.settings.wave_color_3 %}
+  {%- endif -%}
 </div>
 
 <div class="gp gp-menu-wrap" id="GpMenu" aria-hidden="true">
@@ -82,6 +85,17 @@
   </div>
 </dialog>
 
+<script>
+  (function () {
+    var wrap = document.querySelector('[data-gp-hdr]');
+    if (!wrap || !wrap.classList.contains('gp-hdr-wrap--home')) return;
+    var ticking = false;
+    function sync() { wrap.classList.toggle('is-scrolled', window.scrollY > 24); ticking = false; }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(sync); } }, { passive: true });
+    sync();
+  })();
+</script>
+
 {% schema %}
 {
   "name": "Cabeçalho Güppi",
@@ -89,7 +103,12 @@
   "settings": [
     { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Use a versão clara do logo. Sem imagem, usa o logo Güppi padrão." },
     { "type": "link_list", "id": "menu", "label": "Menu", "info": "Usado quando não há itens adicionados como blocos.", "default": "main-menu" },
-    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores da busca", "default": "scheme-1" }
+    { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores da busca", "default": "scheme-1" },
+    { "type": "header", "content": "Ondas do cabeçalho" },
+    { "type": "checkbox", "id": "wave", "label": "Mostrar ondas abaixo do cabeçalho", "info": "Na home as ondas começam grandes sobre o vídeo e diminuem ao rolar. Nas outras páginas ficam sempre pequenas.", "default": true },
+    { "type": "color", "id": "wave_color", "label": "Cor da onda da frente", "info": "Use a cor do cabeçalho para a onda emendar nele.", "default": "#9B7FC9" },
+    { "type": "color", "id": "wave_color_2", "label": "Cor da onda do meio", "default": "#BB9CC5" },
+    { "type": "color", "id": "wave_color_3", "label": "Cor da onda de trás", "default": "#DECFF0" }
   ],
   "blocks": [
     {

@@ -27,7 +27,9 @@
             "label_4": "Afiliados Güppi",
             "link_4": "/pages/afiliados",
             "label_5": "Sobre nós",
-            "link_5": "/pages/sobre-nos"
+            "link_5": "/pages/sobre-nos",
+            "label_6": "Blog",
+            "link_6": "/blogs/blog"
           }
         },
         "help": {

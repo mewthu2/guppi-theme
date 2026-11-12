@@ -14,7 +14,7 @@
   --gp-pink: #CF0058;
   --gp-magenta: #AA0259;
   --gp-green: #B4D2BA;
-  --gp-hdr-h: 56px;
+  --gp-hdr-h: 48px;
 }
 
 html { scroll-padding-top: calc(var(--gp-hdr-h) + env(safe-area-inset-top, 0px)); }
@@ -49,13 +49,18 @@ body.gp-wide { background: var(--gp-cream); }
 
 /* ---------- Cabeçalho ---------- */
 .section-gp-header { position: sticky; top: 0; z-index: 30; }
+/* Ondas presas ao cabeçalho: grandes no topo da home, pequenas ao rolar e nas outras páginas */
+.gp-hdr-wrap { position: relative; }
+.gp-wave--hdr { top: calc(100% - 1px); bottom: auto; height: 24px; transform: scaleY(-1); pointer-events: none; transition: height .45s ease; }
+.gp-hdr-wrap--home:not(.is-scrolled) .gp-wave--hdr { height: 64px; }
+@media (prefers-reduced-motion: reduce) { .gp-wave--hdr { transition: none; } }
 .gp-hdr {
   height: var(--gp-hdr-h); padding-top: env(safe-area-inset-top, 0px); box-sizing: content-box;
   background: var(--gp-purple); display: flex; align-items: center; justify-content: space-between; padding-left: 16px; padding-right: 16px;
 }
 .gp-hdr .gp-ico { width: 36px; height: 36px; display: grid; place-items: center; background: none; border: 0; padding: 0; cursor: pointer; position: relative; color: var(--gp-cream); text-decoration: none; }
 .gp-hdr .gp-ico svg { width: 24px; height: 24px; stroke: var(--gp-cream); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-.gp-hdr .gp-logo { height: 30px; width: auto; display: block; }
+.gp-hdr .gp-logo { height: 26px; width: auto; display: block; }
 .gp-hdr .gp-logo-link { display: flex; align-items: center; justify-content: center; }
 .gp-hdr .gp-logo-text { color: var(--gp-cream); font-weight: 800; font-size: 24px; text-decoration: none; }
 .gp-hdr .gp-right { display: flex; gap: 6px; }
@@ -708,6 +713,8 @@ a.gp-card { cursor: pointer; }
   .gp-wide .gp-hero { min-height: 560px; padding-bottom: 96px; }
   .gp-wide .gp-hero .gp-slot { font-size: 140px; }
   .gp-wide .gp-hero .gp-wave { height: 124px; }
+  .gp-wide .gp-wave--hdr { height: 40px; }
+  .gp-wide .gp-hdr-wrap--home:not(.is-scrolled) .gp-wave--hdr { height: 120px; }
 
   /* Títulos de seção */
   .gp-wide .gp-eyebrow { font-size: 14px; }

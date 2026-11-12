@@ -1,0 +1,209 @@
+{%- liquid
+  assign s = section.settings
+-%}
+{% render 'gpc-base' %}
+
+<div class="gp gpc gpb" id="gpb-{{ section.id }}">
+
+  {%- comment -%} ABERTURA {%- endcomment -%}
+  <section class="gpb-hero">
+    <div class="gpc-wrap">
+      <p class="gpc-micro">{{ s.eyebrow | default: blog.title }}</p>
+      <h1>{{ s.title }}{% if s.title_highlight != blank %} <span>{{ s.title_highlight }}</span>{% endif %}</h1>
+      {%- if s.lead != blank -%}<p class="gpb-lead">{{ s.lead }}</p>{%- endif -%}
+
+      {%- if blog.all_tags.size > 0 -%}
+        <nav class="gpb-tags" aria-label="Filtrar por assunto">
+          <a class="gpb-tag{% unless current_tags %} is-active{% endunless %}" href="{{ blog.url }}"{% unless current_tags %} aria-current="page"{% endunless %}>Tudo</a>
+          {%- for tag in blog.all_tags -%}
+            {%- assign active = false -%}
+            {%- if current_tags contains tag -%}{%- assign active = true -%}{%- endif -%}
+            <a class="gpb-tag{% if active %} is-active{% endif %}" href="{{ blog.url }}/tagged/{{ tag | handle }}"{% if active %} aria-current="page"{% endif %}>{{ tag }}</a>
+          {%- endfor -%}
+        </nav>
+      {%- endif -%}
+    </div>
+  </section>
+
+  <div class="gpc-body">
+    <section class="gpb-list">
+      <div class="gpc-wrap">
+        {%- paginate blog.articles by s.per_page -%}
+          {%- if blog.articles.size == 0 -%}
+            <div class="gpb-empty">
+              <h2>Em breve, <span>novas histórias.</span></h2>
+              <p>Estamos preparando conteúdos sobre cuidado, fragrância e rotina. Volte logo por aqui.</p>
+            </div>
+          {%- else -%}
+            {%- assign show_featured = false -%}
+            {%- if s.featured_first and paginate.current_page == 1 and current_tags == blank -%}
+              {%- assign show_featured = true -%}
+            {%- endif -%}
+
+            {%- if show_featured -%}
+              {%- assign article = blog.articles.first -%}
+              <article class="gpb-featured gpc-reveal">
+                <a class="gpb-featured-media" href="{{ article.url }}" tabindex="-1" aria-hidden="true">
+                  {%- if article.image -%}
+                    {{ article.image | image_url: width: 1400 | image_tag: class: 'gpb-img', widths: '500, 800, 1100, 1400', sizes: '(min-width: 750px) 600px, 90vw', loading: 'eager', alt: article.image.alt | default: article.title }}
+                  {%- else -%}
+                    <div class="gpb-img gpb-ph" role="img" aria-label="Sem imagem"><span>GÜPPI</span></div>
+                  {%- endif -%}
+                </a>
+                <div class="gpb-featured-copy">
+                  {% render 'gp-article-meta', article: article %}
+                  <h2><a href="{{ article.url }}">{{ article.title | escape }}</a></h2>
+                  <p>{%- if article.excerpt != blank -%}{{ article.excerpt | strip_html | truncatewords: 34 }}{%- else -%}{{ article.content | strip_html | truncatewords: 34 }}{%- endif -%}</p>
+                  <a class="gpb-more" href="{{ article.url }}" aria-label="Ler {{ article.title | escape }}">Ler artigo<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg></a>
+                </div>
+              </article>
+            {%- endif -%}
+
+            {%- assign skip = 0 -%}
+            {%- if show_featured -%}{%- assign skip = 1 -%}{%- endif -%}
+            {%- if blog.articles.size > skip -%}
+              <ul class="gpb-grid" role="list">
+                {%- for article in blog.articles offset: skip -%}
+                  <li class="gpc-reveal">{% render 'gp-article-card', article: article %}</li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+
+            {%- if paginate.pages > 1 -%}
+              <nav class="gpb-pages" aria-label="Páginas do blog">
+                {%- if paginate.previous -%}<a class="gpb-page gpb-page--arrow" href="{{ paginate.previous.url }}" aria-label="Página anterior">←</a>{%- endif -%}
+                {%- for part in paginate.parts -%}
+                  {%- if part.is_link -%}
+                    <a class="gpb-page" href="{{ part.url }}">{{ part.title }}</a>
+                  {%- elsif part.title == paginate.current_page -%}
+                    <span class="gpb-page is-active" aria-current="page">{{ part.title }}</span>
+                  {%- else -%}
+                    <span class="gpb-page gpb-page--gap">{{ part.title }}</span>
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- if paginate.next -%}<a class="gpb-page gpb-page--arrow" href="{{ paginate.next.url }}" aria-label="Próxima página">→</a>{%- endif -%}
+              </nav>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endpaginate -%}
+      </div>
+    </section>
+  </div>
+
+  {%- comment -%} ENCERRAMENTO {%- endcomment -%}
+  <section class="gpc-final">
+    <div class="gpc-wrap gpc-final-content gpc-reveal">
+      <div class="gpc-micro">GÜPPI</div>
+      <h2>{{ s.final_title }} <span>{{ s.final_highlight }}</span></h2>
+      {%- if s.final_text != blank -%}<p>{{ s.final_text }}</p>{%- endif -%}
+      {%- if s.button_label != blank -%}
+        <a class="gpc-btn" href="{{ s.button_link | default: routes.all_products_collection_url }}">{{ s.button_label }}</a>
+      {%- endif -%}
+    </div>
+    <div class="gpc-wave"></div>
+    <div class="gpc-wave gpc-wave--green"></div>
+  </section>
+</div>
+
+{%- assign root_id = 'gpb-' | append: section.id -%}
+{% render 'gp-reveal', root_id: root_id %}
+
+{% stylesheet %}
+  .gpc .gpb-hero { background: var(--gpc-lilas); padding: 76px 0 64px; }
+  .gpc .gpb-hero h1 { font-size: clamp(38px, 6.6cqi, 78px); line-height: 1.04; max-width: 900px; margin: 22px 0 24px; font-weight: 800; text-wrap: balance; }
+  .gpc .gpb-hero h1 span { color: var(--gpc-rosa); }
+  .gpc .gpb-lead { font-size: clamp(18px, 2.1cqi, 24px); line-height: 1.5; max-width: 720px; margin: 0; }
+
+  .gpc .gpb-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 34px; }
+  .gpc .gpb-tag {
+    display: inline-block; padding: 10px 18px; border-radius: 50px; border: 1.5px solid var(--gpc-grafite);
+    color: var(--gpc-grafite); text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: .02em; transition: background .2s, color .2s;
+  }
+  .gpc .gpb-tag:hover { background: rgba(255,255,255,.35); }
+  .gpc .gpb-tag.is-active { background: var(--gpc-grafite); color: #fff; }
+
+  .gpc .gpb-list { padding: 72px 0 88px; }
+
+  .gpc .gpb-ph { display: grid; place-items: center; background: linear-gradient(145deg, #E5D9E8, #C4ADD1); color: var(--gpc-grafite); }
+  .gpc .gpb-ph span { font-size: 12px; font-weight: 800; letter-spacing: .2em; opacity: .55; }
+
+  /* Destaque */
+  .gpc .gpb-featured { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(28px, 5cqi, 64px); align-items: center; margin-bottom: 72px; }
+  .gpc .gpb-featured-media { position: relative; display: block; padding: 0 14px 14px 0; }
+  .gpc .gpb-featured-media::after { content: ""; position: absolute; inset: 18px 0 0 18px; border-radius: 110px 24px 24px 24px; background: var(--gpc-lilas); z-index: 0; }
+  .gpc .gpb-featured .gpb-img { position: relative; z-index: 1; width: 100%; height: auto; aspect-ratio: 5 / 4; object-fit: cover; border-radius: 110px 24px 24px 24px; }
+  .gpc .gpb-featured h2 { font-size: clamp(30px, 4cqi, 48px); line-height: 1.08; margin: 14px 0 18px; text-wrap: balance; }
+  .gpc .gpb-featured h2 a, .gpc .gpb-card h3 a { color: inherit; text-decoration: none; }
+  .gpc .gpb-featured h2 a:hover, .gpc .gpb-card h3 a:hover { color: var(--gpc-rosa); }
+  .gpc .gpb-featured p { font-size: 17px; line-height: 1.65; color: var(--gpc-cinza); }
+
+  .gpc .gpb-more {
+    display: inline-flex; align-items: center; gap: 10px; margin-top: 6px; padding: 13px 22px; border-radius: 50px;
+    background: var(--gpc-rosa); color: #fff; text-decoration: none; font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; transition: transform .2s;
+  }
+  .gpc .gpb-more:hover { transform: translateY(-2px); color: #fff; }
+  .gpc .gpb-more svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Grade */
+  .gpc .gpb-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 44px 32px; }
+
+  /* Paginação */
+  .gpc .gpb-pages { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 64px; }
+  .gpc .gpb-page {
+    min-width: 44px; height: 44px; padding: 0 14px; display: inline-grid; place-items: center; border-radius: 50px;
+    border: 1.5px solid #DCD2E2; color: var(--gpc-grafite); text-decoration: none; font-weight: 700; font-size: 15px;
+  }
+  .gpc a.gpb-page:hover { border-color: var(--gpc-lavanda); }
+  .gpc .gpb-page.is-active { background: var(--gpc-grafite); border-color: var(--gpc-grafite); color: #fff; }
+  .gpc .gpb-page--gap { border-color: transparent; }
+
+  .gpc .gpb-empty { text-align: center; padding: 40px 0; }
+  .gpc .gpb-empty h2 { font-size: clamp(30px, 4cqi, 46px); line-height: 1.1; margin-bottom: 16px; }
+  .gpc .gpb-empty h2 span { color: var(--gpc-rosa); }
+  .gpc .gpb-empty p { font-size: 18px; color: var(--gpc-cinza); max-width: 520px; margin-inline: auto; }
+
+  @container (max-width: 990px) {
+    .gpc .gpb-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @container (max-width: 750px) {
+    .gpc .gpb-hero { padding: 36px 0 34px; }
+    .gpc .gpb-hero .gpc-micro { font-size: 10px; }
+    .gpc .gpb-hero h1 { font-size: clamp(28px, 8cqi, 34px); margin: 16px 0 18px; }
+    .gpc .gpb-hero h1 span { display: block; }
+    .gpc .gpb-lead { font-size: 17px; }
+    .gpc .gpb-tags { flex-wrap: nowrap; overflow-x: auto; margin: 24px -6vw 0; padding: 0 6vw 4px; scrollbar-width: none; }
+    .gpc .gpb-tags::-webkit-scrollbar { display: none; }
+    .gpc .gpb-tag { flex: none; padding: 9px 16px; }
+    .gpc .gpb-list { padding: 36px 0 56px; }
+    .gpc .gpb-featured { grid-template-columns: 1fr; gap: 22px; margin-bottom: 48px; }
+    .gpc .gpb-featured-media::after, .gpc .gpb-featured .gpb-img { border-radius: 70px 20px 20px 20px; }
+    .gpc .gpb-featured h2 { font-size: 28px; }
+    .gpc .gpb-featured p { font-size: 16px; }
+    .gpc .gpb-grid { grid-template-columns: 1fr; gap: 36px; }
+    .gpc .gpb-pages { margin-top: 44px; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Güppi · Blog",
+  "class": "section-gp-blog",
+  "settings": [
+    { "type": "header", "content": "Abertura" },
+    { "type": "text", "id": "eyebrow", "label": "Sobretítulo", "info": "Vazio, usa o nome do blog.", "default": "BLOG GÜPPI" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Cuidado, cheiro" },
+    { "type": "text", "id": "title_highlight", "label": "Título · destaque em rosa", "default": "e boas sensações." },
+    { "type": "textarea", "id": "lead", "label": "Texto", "default": "Dicas de rotina, ingredientes explicados sem complicação e tudo o que faz o seu momento de cuidado ficar ainda melhor." },
+    { "type": "header", "content": "Lista de artigos" },
+    { "type": "range", "id": "per_page", "min": 4, "max": 25, "step": 3, "label": "Artigos por página", "default": 10 },
+    { "type": "checkbox", "id": "featured_first", "label": "Destacar o artigo mais recente", "default": true },
+    { "type": "header", "content": "Encerramento" },
+    { "type": "text", "id": "final_title", "label": "Título", "default": "Leu, gostou," },
+    { "type": "text", "id": "final_highlight", "label": "Título · destaque em verde", "default": "agora sinta." },
+    { "type": "textarea", "id": "final_text", "label": "Texto", "default": "Conheça a linha Vanilla Cashmere e transforme o pós-banho no melhor momento do dia." },
+    { "type": "text", "id": "button_label", "label": "Texto do botão", "default": "Ver produtos" },
+    { "type": "url", "id": "button_link", "label": "Link do botão", "info": "Vazio, leva para todos os produtos." }
+  ],
+  "enabled_on": { "templates": ["blog"] }
+}
+{% endschema %}

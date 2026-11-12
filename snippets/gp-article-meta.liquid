@@ -1,0 +1,22 @@
+{% doc %}
+  Linha de assunto, data e tempo de leitura de um artigo do blog Güppi.
+
+  @param {article} article - Artigo
+{% enddoc %}
+{%- liquid
+  assign words = article.content | strip_html | split: ' ' | size
+  assign minutes = words | divided_by: 200.0 | ceil
+  if minutes < 1
+    assign minutes = 1
+  endif
+-%}
+<p class="gpb-meta">
+  {%- if article.tags.size > 0 -%}<span class="gpb-meta-tag">{{ article.tags.first }}</span>{%- endif -%}
+  <span>{{ article.published_at | date: '%d/%m/%Y' }}</span>
+  <span>{{ minutes }} min de leitura</span>
+</p>
+{% stylesheet %}
+  .gpc .gpb-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gpc-lavanda); }
+  .gpc .gpb-meta span + span::before { content: "·"; margin-right: 14px; color: #C4B5CE; }
+  .gpc .gpb-meta .gpb-meta-tag { color: var(--gpc-rosa); }
+{% endstylesheet %}

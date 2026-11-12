@@ -1,0 +1,297 @@
+{%- liquid
+  assign s = section.settings
+  assign share_url = request.origin | append: article.url
+-%}
+{% render 'gpc-base' %}
+
+<div class="gp gpc gpb gpar" id="gpar-{{ section.id }}">
+
+  {%- comment -%} ABERTURA {%- endcomment -%}
+  <section class="gpar-hero">
+    <div class="gpc-wrap gpar-narrow">
+      <a class="gpar-back" href="{{ blog.url }}"><span aria-hidden="true">←</span> {{ s.back_label | default: blog.title }}</a>
+      {% render 'gp-article-meta', article: article %}
+      <h1>{{ article.title | escape }}</h1>
+      {%- if article.excerpt != blank -%}<p class="gpar-lead">{{ article.excerpt | strip_html }}</p>{%- endif -%}
+      {%- if s.show_author and article.author != blank -%}<p class="gpar-author">Por <strong>{{ article.author }}</strong></p>{%- endif -%}
+    </div>
+  </section>
+
+  <div class="gpc-body">
+    {%- if article.image -%}
+      <figure class="gpar-cover">
+        {{ article.image | image_url: width: 2000 | image_tag: class: 'gpar-cover-img', widths: '600, 900, 1200, 1600, 2000', sizes: '(min-width: 1260px) 1164px, 92vw', loading: 'eager', fetchpriority: 'high', alt: article.image.alt | default: article.title }}
+      </figure>
+    {%- endif -%}
+
+    <article class="gpar-main">
+      <div class="gpc-wrap gpar-narrow">
+        <div class="gpar-content">{{ article.content }}</div>
+
+        <footer class="gpar-foot">
+          {%- if article.tags.size > 0 -%}
+            <ul class="gpar-tags" role="list">
+              {%- for tag in article.tags -%}<li><a class="gpb-tag" href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a></li>{%- endfor -%}
+            </ul>
+          {%- endif -%}
+          <div class="gpar-share">
+            <span class="gpc-micro">Compartilhe</span>
+            <a class="gpar-share-btn" href="https://wa.me/?text={{ article.title | append: ' ' | append: share_url | url_encode }}" target="_blank" rel="noopener" aria-label="Compartilhar no WhatsApp">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8z"/><path d="M9.2 8.6c.2 2.6 3.4 5.9 6.2 6.2l1.1-1.4-1.9-.9-.8.8c-1-.4-2.3-1.7-2.7-2.7l.8-.8-.9-1.9z"/></svg>
+            </a>
+            <a class="gpar-share-btn" href="https://www.facebook.com/sharer/sharer.php?u={{ share_url | url_encode }}" target="_blank" rel="noopener" aria-label="Compartilhar no Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h2.5V4.5H14A3.5 3.5 0 0 0 10.5 8v2.5H8V14h2.5v6.5H14V14h2.5l.5-3.5h-3V8.5c0-.3.2-.5.5-.5z"/></svg>
+            </a>
+            <button class="gpar-share-btn" type="button" data-copy-link="{{ share_url }}" aria-label="Copiar link">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>
+            </button>
+            <span class="gpar-copied" role="status" aria-live="polite" hidden>Link copiado!</span>
+          </div>
+        </footer>
+      </div>
+    </article>
+
+    {%- comment -%} PRODUTO EM DESTAQUE {%- endcomment -%}
+    {%- assign product = s.product -%}
+    {%- if product != blank -%}
+      <section class="gpar-product gpc-reveal">
+        <div class="gpc-wrap gpar-product-box">
+          <a class="gpar-product-media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+            {%- if product.featured_image -%}
+              {{ product.featured_image | image_url: width: 700 | image_tag: widths: '300, 500, 700', sizes: '260px', loading: 'lazy', alt: product.title }}
+            {%- endif -%}
+          </a>
+          <div>
+            <p class="gpc-micro">{{ s.product_eyebrow }}</p>
+            <h2>{{ product.title }}</h2>
+            <p class="gpar-product-price">{{ product.price | money }}</p>
+            <a class="gpb-more" href="{{ product.url }}">{{ s.product_button }}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg></a>
+          </div>
+        </div>
+      </section>
+    {%- endif -%}
+
+    {%- comment -%} CONTINUE LENDO {%- endcomment -%}
+    {%- if s.show_related and blog.articles_count > 1 -%}
+      <section class="gpar-related">
+        <div class="gpc-wrap">
+          <h2 class="gpar-related-title">{{ s.related_title }}</h2>
+          <ul class="gpb-grid" role="list">
+            {%- assign shown = 0 -%}
+            {%- for item in blog.articles -%}
+              {%- if item.id == article.id -%}{%- continue -%}{%- endif -%}
+              <li class="gpc-reveal">{% render 'gp-article-card', article: item %}</li>
+              {%- assign shown = shown | plus: 1 -%}
+              {%- if shown == 3 -%}{%- break -%}{%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      </section>
+    {%- endif -%}
+
+    {%- comment -%} COMENTÁRIOS {%- endcomment -%}
+    {%- if blog.comments_enabled? -%}
+      <section class="gpar-comments" id="comentarios">
+        <div class="gpc-wrap gpar-narrow">
+          <h2>{{ article.comments_count }} {% if article.comments_count == 1 %}comentário{% else %}comentários{% endif %}</h2>
+          {%- paginate article.comments by 10 -%}
+            {%- for comment in article.comments -%}
+              <div class="gpar-comment">
+                <div>{{ comment.content }}</div>
+                <p class="gpar-comment-meta"><strong>{{ comment.author }}</strong> · {{ comment.created_at | date: '%d/%m/%Y' }}</p>
+              </div>
+            {%- endfor -%}
+          {%- endpaginate -%}
+          {%- form 'new_comment', article, class: 'gpar-form' -%}
+            <h3>Deixe seu comentário</h3>
+            {%- if form.posted_successfully? -%}
+              <p class="gpar-form-msg">{% if blog.moderated? %}Obrigada! Seu comentário vai aparecer assim que for aprovado.{% else %}Obrigada pelo comentário!{% endif %}</p>
+            {%- endif -%}
+            {%- if form.errors -%}<div class="gpar-form-msg gpar-form-msg--error">{{ form.errors | default_errors }}</div>{%- endif -%}
+            <div class="gpar-form-row">
+              <label><span>Nome</span><input type="text" name="comment[author]" value="{{ form.author }}" autocomplete="name" required></label>
+              <label><span>E-mail</span><input type="email" name="comment[email]" value="{{ form.email }}" autocomplete="email" required></label>
+            </div>
+            <label><span>Comentário</span><textarea name="comment[body]" rows="5" required>{{ form.body }}</textarea></label>
+            <button class="gpb-more" type="submit">Enviar</button>
+          {%- endform -%}
+        </div>
+      </section>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} ENCERRAMENTO {%- endcomment -%}
+  <section class="gpc-final">
+    <div class="gpc-wrap gpc-final-content gpc-reveal">
+      <div class="gpc-micro">GÜPPI</div>
+      <h2>{{ s.final_title }} <span>{{ s.final_highlight }}</span></h2>
+      {%- if s.final_text != blank -%}<p>{{ s.final_text }}</p>{%- endif -%}
+      {%- if s.button_label != blank -%}
+        <a class="gpc-btn" href="{{ s.button_link | default: routes.all_products_collection_url }}">{{ s.button_label }}</a>
+      {%- endif -%}
+    </div>
+    <div class="gpc-wave"></div>
+    <div class="gpc-wave gpc-wave--green"></div>
+  </section>
+</div>
+
+{%- assign root_id = 'gpar-' | append: section.id -%}
+{% render 'gp-reveal', root_id: root_id %}
+<script>
+  (function () {
+    var root = document.getElementById('{{ root_id }}');
+    if (!root) return;
+    var btn = root.querySelector('[data-copy-link]');
+    var msg = root.querySelector('.gpar-copied');
+    if (!btn || !navigator.clipboard) return;
+    btn.addEventListener('click', function () {
+      navigator.clipboard.writeText(btn.getAttribute('data-copy-link')).then(function () {
+        msg.hidden = false;
+        setTimeout(function () { msg.hidden = true; }, 2200);
+      });
+    });
+  })();
+</script>
+
+{% stylesheet %}
+  .gpc .gpar-narrow { max-width: 760px; }
+  .gpc .gpar-hero { background: var(--gpc-lilas); padding: 56px 0 64px; }
+  .gpc .gpar-back { display: inline-flex; gap: 8px; margin-bottom: 30px; color: var(--gpc-grafite); text-decoration: none; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .gpc .gpar-back:hover span { transform: translateX(-3px); }
+  .gpc .gpar-back span { transition: transform .2s; }
+  .gpc .gpar-hero .gpb-meta { color: var(--gpc-grafite); }
+  .gpc .gpar-hero .gpb-meta span + span::before { color: rgba(50,44,61,.45); }
+  .gpc .gpar-hero h1 { font-size: clamp(34px, 5.4cqi, 62px); line-height: 1.06; margin: 18px 0 22px; font-weight: 800; text-wrap: balance; }
+  .gpc .gpar-lead { font-size: clamp(18px, 2cqi, 22px); line-height: 1.5; margin: 0; }
+  .gpc .gpar-author { margin: 22px 0 0; font-size: 15px; }
+
+  .gpc .gpar-cover { margin: 56px 0 0; }
+  .gpc .gpar-cover-img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 140px 28px 28px 28px; }
+
+  .gpc .gpar-main { padding: 56px 0 40px; }
+  .gpc .gpar-content { font-size: 18px; line-height: 1.75; }
+  .gpc .gpar-content > *:first-child { margin-top: 0; }
+  .gpc .gpar-content p { margin: 0 0 1.3em; }
+  .gpc .gpar-content h2 { font-size: clamp(27px, 3.2cqi, 36px); line-height: 1.15; margin: 1.8em 0 .6em; }
+  .gpc .gpar-content h3 { font-size: 23px; line-height: 1.25; letter-spacing: -.03em; margin: 1.6em 0 .5em; }
+  .gpc .gpar-content h2 + h3 { margin-top: .4em; }
+  .gpc .gpar-content strong { font-weight: 700; }
+  .gpc .gpar-content a { color: var(--gpc-rosa); text-decoration: underline; text-underline-offset: 3px; }
+  .gpc .gpar-content ul, .gpc .gpar-content ol { margin: 0 0 1.4em; padding-left: 1.3em; }
+  .gpc .gpar-content li { margin-bottom: .45em; }
+  .gpc .gpar-content li::marker { color: var(--gpc-rosa); font-weight: 700; }
+  .gpc .gpar-content blockquote {
+    margin: 2em 0; padding: 4px 0 4px 26px; border-left: 4px solid var(--gpc-rosa);
+    font-size: clamp(21px, 2.4cqi, 26px); line-height: 1.45; font-weight: 700; letter-spacing: -.02em; color: var(--gpc-rosa);
+  }
+  .gpc .gpar-content blockquote p:last-child { margin: 0; }
+  .gpc .gpar-content img { max-width: 100%; height: auto; border-radius: 24px; margin: 1.6em 0; }
+  .gpc .gpar-content iframe { max-width: 100%; border-radius: 24px; }
+  .gpc .gpar-content hr { border: 0; border-top: 1.5px solid #DCD2E2; margin: 2.4em 0; }
+  .gpc .gpar-content table { width: 100%; border-collapse: collapse; margin: 0 0 1.4em; font-size: 16px; }
+  .gpc .gpar-content th, .gpc .gpar-content td { padding: 10px 12px; border-bottom: 1px solid #DCD2E2; text-align: left; }
+
+  .gpc .gpar-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; margin-top: 48px; padding-top: 28px; border-top: 1.5px solid #DCD2E2; }
+  .gpc .gpar-tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .gpc .gpb-tag {
+    display: inline-block; padding: 9px 16px; border-radius: 50px; border: 1.5px solid var(--gpc-grafite);
+    color: var(--gpc-grafite); text-decoration: none; font-size: 13px; font-weight: 700;
+  }
+  .gpc .gpar-foot .gpb-tag:hover { background: var(--gpc-grafite); color: #fff; }
+  .gpc .gpar-share { position: relative; display: flex; align-items: center; gap: 10px; }
+  .gpc .gpar-share .gpc-micro { margin-right: 4px; color: var(--gpc-lavanda); }
+  .gpc .gpar-share-btn {
+    width: 42px; height: 42px; display: inline-grid; place-items: center; padding: 0; border-radius: 50%;
+    border: 0; background: var(--gpc-lilas); color: var(--gpc-grafite); transition: background .2s, color .2s;
+  }
+  .gpc .gpar-share-btn:hover { background: var(--gpc-rosa); color: #fff; }
+  .gpc .gpar-share-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .gpc .gpar-copied { position: absolute; right: 0; top: calc(100% + 8px); font-size: 13px; font-weight: 700; color: var(--gpc-rosa); white-space: nowrap; }
+
+  .gpc .gpb-more {
+    display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; border: 0; border-radius: 50px;
+    background: var(--gpc-rosa); color: #fff; text-decoration: none; font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; transition: transform .2s;
+  }
+  .gpc .gpb-more:hover { transform: translateY(-2px); color: #fff; }
+  .gpc .gpb-more svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Produto em destaque */
+  .gpc .gpar-product { padding: 24px 0 40px; }
+  .gpc .gpar-product-box { max-width: 760px; display: grid; grid-template-columns: 200px 1fr; gap: 32px; align-items: center; padding: 28px; border-radius: 32px; background: #E6DDEB; }
+  .gpc .gpar-product-media img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 22px; background: #fff; }
+  .gpc .gpar-product h2 { font-size: 26px; line-height: 1.15; margin: 10px 0 8px; letter-spacing: -.035em; }
+  .gpc .gpar-product .gpc-micro { color: var(--gpc-rosa); margin: 0; }
+  .gpc .gpar-product-price { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+
+  /* Continue lendo */
+  .gpc .gpar-related { padding: 56px 0 88px; }
+  .gpc .gpar-related-title { font-size: clamp(30px, 4cqi, 46px); line-height: 1.1; margin-bottom: 36px; }
+  .gpc .gpb-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 44px 32px; }
+
+  /* Comentários */
+  .gpc .gpar-comments { padding: 0 0 88px; }
+  .gpc .gpar-comments h2 { font-size: 30px; margin-bottom: 24px; }
+  .gpc .gpar-comment { padding: 20px 0; border-bottom: 1px solid #DCD2E2; font-size: 16px; line-height: 1.6; }
+  .gpc .gpar-comment-meta { margin: 8px 0 0; font-size: 13px; color: var(--gpc-cinza); }
+  .gpc .gpar-form { margin-top: 36px; display: grid; gap: 16px; }
+  .gpc .gpar-form h3 { font-size: 22px; letter-spacing: -.03em; }
+  .gpc .gpar-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .gpc .gpar-form label { display: grid; gap: 6px; font-size: 13px; font-weight: 700; }
+  .gpc .gpar-form input, .gpc .gpar-form textarea {
+    width: 100%; padding: 14px 16px; border: 1.5px solid #DCD2E2; border-radius: 16px; background: #fff;
+    font: inherit; font-size: 16px; font-weight: 400; color: var(--gpc-grafite);
+  }
+  .gpc .gpar-form input:focus, .gpc .gpar-form textarea:focus { outline: none; border-color: var(--gpc-lavanda); }
+  .gpc .gpar-form .gpb-more { justify-self: start; }
+  .gpc .gpar-form-msg { margin: 0; padding: 12px 16px; border-radius: 14px; background: var(--gpc-verde); font-size: 15px; }
+  .gpc .gpar-form-msg--error { background: #F4D6E3; color: var(--gpc-rosa); }
+
+  @container (max-width: 990px) {
+    .gpc .gpb-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @container (max-width: 750px) {
+    .gpc .gpar-hero { padding: 28px 0 38px; }
+    .gpc .gpar-back { margin-bottom: 22px; font-size: 12px; }
+    .gpc .gpar-hero h1 { font-size: clamp(28px, 8cqi, 34px); margin: 14px 0 16px; }
+    .gpc .gpar-lead { font-size: 17px; }
+    .gpc .gpar-cover { margin: 28px auto 0; width: 92%; }
+    .gpc .gpar-cover-img { aspect-ratio: 4 / 3; border-radius: 70px 20px 20px 20px; }
+    .gpc .gpar-main { padding: 36px 0 24px; }
+    .gpc .gpar-content { font-size: 17px; line-height: 1.7; }
+    .gpc .gpar-content h2 { font-size: 26px; }
+    .gpc .gpar-content h3 { font-size: 21px; }
+    .gpc .gpar-content blockquote { padding-left: 18px; font-size: 20px; }
+    .gpc .gpar-foot { flex-direction: column; align-items: flex-start; margin-top: 36px; }
+    .gpc .gpar-product-box { grid-template-columns: 1fr; gap: 20px; padding: 20px; border-radius: 26px; }
+    .gpc .gpar-product-media { max-width: 220px; }
+    .gpc .gpar-related { padding: 40px 0 56px; }
+    .gpc .gpb-grid { grid-template-columns: 1fr; gap: 36px; }
+    .gpc .gpar-form-row { grid-template-columns: 1fr; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Güppi · Artigo",
+  "class": "section-gp-article",
+  "settings": [
+    { "type": "text", "id": "back_label", "label": "Texto do link de voltar", "info": "Vazio, usa o nome do blog.", "default": "Blog Güppi" },
+    { "type": "checkbox", "id": "show_author", "label": "Mostrar autor", "default": true },
+    { "type": "header", "content": "Produto em destaque" },
+    { "type": "paragraph", "content": "Aparece depois do texto. Deixe vazio para esconder." },
+    { "type": "product", "id": "product", "label": "Produto" },
+    { "type": "text", "id": "product_eyebrow", "label": "Sobretítulo", "default": "Para a sua rotina" },
+    { "type": "text", "id": "product_button", "label": "Texto do botão", "default": "Conhecer" },
+    { "type": "header", "content": "Continue lendo" },
+    { "type": "checkbox", "id": "show_related", "label": "Mostrar outros artigos", "default": true },
+    { "type": "text", "id": "related_title", "label": "Título", "default": "Continue lendo" },
+    { "type": "header", "content": "Encerramento" },
+    { "type": "text", "id": "final_title", "label": "Título", "default": "Cuidar de você pode ser" },
+    { "type": "text", "id": "final_highlight", "label": "Título · destaque em verde", "default": "a melhor parte do dia." },
+    { "type": "textarea", "id": "final_text", "label": "Texto", "default": "Hidratação de verdade, textura deliciosa e um cheiro que dá vontade de repetir." },
+    { "type": "text", "id": "button_label", "label": "Texto do botão", "default": "Ver produtos" },
+    { "type": "url", "id": "button_link", "label": "Link do botão", "info": "Vazio, leva para todos os produtos." }
+  ],
+  "enabled_on": { "templates": ["article"] }
+}
+{% endschema %}

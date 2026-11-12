@@ -1,0 +1,35 @@
+{% doc %}
+  Card de artigo no visual Güppi (blog e "Continue lendo").
+
+  @param {article} article - Artigo
+  @param {string} [heading_tag] - Tag do título, padrão h3
+{% enddoc %}
+{%- assign h = heading_tag | default: 'h3' -%}
+<article class="gpb-card">
+  <a class="gpb-card-media" href="{{ article.url }}" tabindex="-1" aria-hidden="true">
+    {%- if article.image -%}
+      {{ article.image | image_url: width: 900 | image_tag: class: 'gpb-img', widths: '400, 600, 900', sizes: '(min-width: 990px) 340px, (min-width: 750px) 45vw, 90vw', loading: 'lazy', alt: article.image.alt | default: article.title }}
+    {%- else -%}
+      <div class="gpb-img gpb-ph" role="img" aria-label="Sem imagem"><span>GÜPPI</span></div>
+    {%- endif -%}
+  </a>
+  {% render 'gp-article-meta', article: article %}
+  <{{ h }}><a href="{{ article.url }}">{{ article.title | escape }}</a></{{ h }}>
+  <p>{%- if article.excerpt != blank -%}{{ article.excerpt | strip_html | truncatewords: 22 }}{%- else -%}{{ article.content | strip_html | truncatewords: 22 }}{%- endif -%}</p>
+  <a class="gpb-link" href="{{ article.url }}" aria-label="Ler {{ article.title | escape }}">Ler mais <span aria-hidden="true">→</span></a>
+</article>
+{% stylesheet %}
+  .gpc .gpb-card { display: flex; flex-direction: column; height: 100%; }
+  .gpc .gpb-card-media { display: block; margin-bottom: 18px; overflow: hidden; border-radius: 28px; }
+  .gpc .gpb-card .gpb-img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .6s ease; }
+  .gpc .gpb-card:hover .gpb-img { transform: scale(1.04); }
+  .gpc .gpb-card h2, .gpc .gpb-card h3 { font-size: 23px; line-height: 1.18; letter-spacing: -.035em; margin: 10px 0 10px; text-wrap: balance; }
+  .gpc .gpb-card h2 a, .gpc .gpb-card h3 a { color: inherit; text-decoration: none; }
+  .gpc .gpb-card h2 a:hover, .gpc .gpb-card h3 a:hover { color: var(--gpc-rosa); }
+  .gpc .gpb-card p { font-size: 15px; line-height: 1.6; color: var(--gpc-cinza); margin-bottom: 14px; }
+  .gpc .gpb-link { margin-top: auto; align-self: flex-start; color: var(--gpc-rosa); font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; }
+  .gpc .gpb-link span { display: inline-block; transition: transform .2s; }
+  .gpc .gpb-link:hover span { transform: translateX(4px); }
+  .gpc .gpb-ph { display: grid; place-items: center; background: linear-gradient(145deg, #E5D9E8, #C4ADD1); color: var(--gpc-grafite); }
+  .gpc .gpb-ph span { font-size: 12px; font-weight: 800; letter-spacing: .2em; opacity: .55; }
+{% endstylesheet %}

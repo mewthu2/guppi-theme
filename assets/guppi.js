@@ -217,6 +217,8 @@
       var r = c.chapter.getBoundingClientRect();
       var distance = Math.max(1, c.chapter.offsetHeight - c.scene.offsetHeight);
       var progress = Math.max(0, Math.min(1, (innerHeight * .65 - r.top) / (distance + innerHeight * .65)));
+      // O que já foi revelado fica: ao subir a página o creme e os ingredientes não somem
+      progress = c.max = Math.max(c.max || 0, progress);
       c.scene.style.setProperty('--cream-reveal', (16 + progress * 84) + '%');
       c.scene.style.setProperty('--cream-y', (progress * 8) + 'px');
       c.scene.style.setProperty('--apply-opacity', progress > .02 && progress < .99 ? 1 : 0);

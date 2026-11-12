@@ -837,6 +837,8 @@ a.gp-card { cursor: pointer; }
   }
   .gp-wide .gp-pdp-cream-fig { width: auto; }
   .gp-wide .gp-pdp-cream-img { width: auto; height: min(620px, calc(100svh - var(--gp-hdr-h) - 120px)) !important; max-width: none; }
+  /* Óleo é horizontal: mede pela largura */
+  .gp-wide .gp-pdp-cream-fig--oleo .gp-pdp-cream-img { width: min(460px, 34vw); height: auto !important; }
 
   /* Ativos e vídeos */
   .gp-wide .gp-pdp-actives { padding-top: 72px; }

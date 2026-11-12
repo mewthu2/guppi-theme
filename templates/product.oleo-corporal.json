@@ -143,7 +143,8 @@
         "f10"
       ],
       "settings": {
-        "intro": "O cuidado começa\nna fórmula."
+        "intro": "O cuidado começa\nna fórmula.",
+        "texture": "oleo"
       }
     },
     "band": {

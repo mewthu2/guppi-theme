@@ -150,7 +150,8 @@
         "f11"
       ],
       "settings": {
-        "intro": "O cuidado começa\nna fórmula."
+        "intro": "O cuidado começa\nna fórmula.",
+        "texture": "manteiga"
       }
     },
     "band": {

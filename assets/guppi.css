@@ -709,15 +709,15 @@ a.gp-card { cursor: pointer; }
 }
 
 @media (min-width: 990px) {
-  .gp-wide { --gp-gut: max(48px, calc((100vw - 1240px) / 2)); --gp-hdr-h: 72px; }
+  .gp-wide { --gp-gut: max(48px, calc((100vw - 1240px) / 2)); --gp-hdr-h: 36px; }
 
   /* Cabeçalho com menu horizontal */
   .gp-wide .gp-hdr { padding-left: var(--gp-gut); padding-right: var(--gp-gut); gap: 40px; }
   .gp-wide #GpMenuBtn, .gp-wide .gp-menu-wrap { display: none; }
-  .gp-wide .gp-hdr .gp-logo { height: 38px; }
+  .gp-wide .gp-hdr .gp-logo { height: 24px; }
   .gp-wide .gp-nav { display: flex; flex: 1; justify-content: center; align-items: center; gap: clamp(20px, 2.4vw, 36px); }
   .gp-hdr .gp-nav-item {
-    position: relative; padding: 6px 0; color: var(--gp-cream); font-size: 15px; letter-spacing: .02em; text-decoration: none; white-space: nowrap;
+    position: relative; padding: 4px 0; color: var(--gp-cream); font-size: 14px; letter-spacing: .02em; text-decoration: none; white-space: nowrap;
   }
   a.gp-nav-item::after {
     content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; border-radius: 2px; background: var(--gp-cream);
@@ -732,7 +732,7 @@ a.gp-card { cursor: pointer; }
   .gp-wide .gp-hero { min-height: 560px; padding-bottom: 96px; }
   .gp-wide .gp-hero .gp-slot { font-size: 140px; }
   .gp-wide .gp-hero .gp-wave { height: 124px; }
-  .gp-wide .gp-wave--hdr { height: 40px; }
+  .gp-wide .gp-wave--hdr { height: 20px; }
   .gp-wide .gp-hdr-wrap--home:not(.is-scrolled) .gp-wave--hdr { height: 120px; }
 
   /* Títulos de seção */

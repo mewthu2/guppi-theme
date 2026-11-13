@@ -49,6 +49,9 @@ body.gp-wide { background: var(--gp-cream); }
 
 /* Título das coleções com o mesmo fundo lilás do topo da página de afiliados */
 .section.collection-banner { --color-background: #BA9CC5; --color-foreground: #322C3D; --color-foreground-muted: rgba(50, 44, 61, .7); }
+/* Faixa do título compacta (metade da altura original) */
+.collection-banner .breadcrumbs { margin-bottom: 4px; }
+.collection-banner h1 { font-size: clamp(30px, 4vw, 40px); line-height: 1.1; margin: 0 0 4px; }
 .gp-media-fill { position: absolute; inset: 0; width: 100%; height: 100% !important; object-fit: cover; border-radius: inherit; max-width: none; }
 .gp-ph-label { position: relative; z-index: 0; }
 

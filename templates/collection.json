@@ -3,7 +3,9 @@
     "banner": {
       "type": "collection-banner",
       "settings": {
-        "color_scheme": "scheme-6"
+        "color_scheme": "scheme-6",
+        "padding_top": 16,
+        "padding_bottom": 16
       }
     },
     "main": {

@@ -43,7 +43,11 @@ body.gp-wide { background: var(--gp-cream); }
 .gp a { color: inherit; }
 
 .gp-eyebrow { font-size: 13px; letter-spacing: .28em; text-transform: uppercase; font-weight: 400; margin: 0; }
-.gp-wave { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 58px; display: block; max-width: none; }
+/* overflow visível: quando a onda cresce com o mouse/celular, as cristas passam do viewBox e não podem ser cortadas retas */
+.gp-wave { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 58px; display: block; max-width: none; overflow: visible; }
+
+/* Título das coleções com o mesmo fundo lilás do topo da página de afiliados */
+.section.collection-banner { --color-background: #BA9CC5; --color-foreground: #322C3D; --color-foreground-muted: rgba(50, 44, 61, .7); }
 .gp-media-fill { position: absolute; inset: 0; width: 100%; height: 100% !important; object-fit: cover; border-radius: inherit; max-width: none; }
 .gp-ph-label { position: relative; z-index: 0; }
 
@@ -62,6 +66,19 @@ body.gp-wide { background: var(--gp-cream); }
 .gp-hdr .gp-ico svg { width: 24px; height: 24px; stroke: var(--gp-cream); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .gp-hdr .gp-logo { height: 26px; width: auto; display: block; }
 .gp-hdr .gp-logo-link { display: flex; align-items: center; justify-content: center; }
+/* Logo do cabeçalho pisca o pingo direito do Ü (recorte calculado para assets/guppi-logo.png, 310x110) */
+.gp-logo-wink { position: relative; display: block; width: max-content; }
+.gp-logo-wink .gp-logo-base { clip-path: polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, 35.5% 0, 35.5% 19.5%, 42.3% 19.5%, 42.3% 0, 35.5% 0); }
+.gp-logo-wink .gp-logo-lid {
+  position: absolute; top: 0; left: 0; width: auto; height: 100%;
+  clip-path: inset(0 57.7% 80.5% 35.5%); transform-origin: 38.9% 9.8%;
+  animation: gp-logo-wink 6s ease-in-out 1.5s infinite;
+}
+@keyframes gp-logo-wink {
+  0%, 88%, 100% { transform: scaleY(1); }
+  92% { transform: scaleY(.1) scaleX(1.12); }
+}
+@media (prefers-reduced-motion: reduce) { .gp-logo-wink .gp-logo-lid { animation: none; } }
 .gp-hdr .gp-logo-text { color: var(--gp-cream); font-weight: 800; font-size: 24px; text-decoration: none; }
 .gp-hdr .gp-right { display: flex; gap: 6px; }
 .gp-hdr .gp-p-x { display: none; }

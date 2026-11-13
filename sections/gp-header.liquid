@@ -7,7 +7,11 @@
       {%- if section.settings.logo != blank -%}
         {{ section.settings.logo | image_url: width: 400 | image_tag: class: 'gp-logo', alt: shop.name, widths: '200, 300, 400' }}
       {%- else -%}
-        <img class="gp-logo" src="{{ 'guppi-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="310" height="110">
+        {%- comment -%} Segunda cópia mostra só o pingo direito do Ü, que pisca como no peixe do rodapé {%- endcomment -%}
+        <span class="gp-logo-wink">
+          <img class="gp-logo gp-logo-base" src="{{ 'guppi-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="310" height="110">
+          <img class="gp-logo gp-logo-lid" src="{{ 'guppi-logo.png' | asset_url }}" alt="" aria-hidden="true" width="310" height="110">
+        </span>
       {%- endif -%}
     </a>
     <nav class="gp-nav" aria-label="{{ 'sections.header.menu' | t }}">

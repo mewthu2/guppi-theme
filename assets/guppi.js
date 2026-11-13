@@ -360,16 +360,7 @@
       wsv += Math.min(mag / 25, 1) * 0.12;
       waveKick();
     });
-    // iPhone só libera os sensores com permissão, pedida no primeiro toque
-    var DOE = window.DeviceOrientationEvent, DME = window.DeviceMotionEvent;
-    if (DOE && typeof DOE.requestPermission === 'function') {
-      var ask = function () {
-        document.removeEventListener('touchend', ask);
-        DOE.requestPermission().catch(function () {});
-        if (DME && typeof DME.requestPermission === 'function') DME.requestPermission().catch(function () {});
-      };
-      document.addEventListener('touchend', ask, { passive: true });
-    }
+    // Sem pedir permissão de sensores: no iPhone (que exige permissão) a onda só segue o ritmo normal
 
     // Desktop: posição do mouse inclina, movimento rápido faz a onda crescer
     if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {

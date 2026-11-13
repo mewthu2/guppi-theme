@@ -1,4 +1,32 @@
+{%- liquid
+  assign gp_top_msgs = ''
+  if section.settings.top_on
+    for i in (1..3)
+      assign key = 'top_text_' | append: i
+      if section.settings[key] != blank
+        assign gp_top_msgs = gp_top_msgs | append: i | append: ','
+      endif
+    endfor
+  endif
+-%}
+{%- if gp_top_msgs != blank -%}
+  <style>body { --gp-top-h: 28px; } @media (min-width: 990px) { body.gp-wide { --gp-top-h: 32px; } }</style>
+{%- endif -%}
 <div class="gp gp-hdr-wrap{% if template.name == 'index' %} gp-hdr-wrap--home{% endif %}" data-gp-hdr>
+  {%- if gp_top_msgs != blank -%}
+    {%- assign gp_top_list = gp_top_msgs | split: ',' -%}
+    <div class="gp-top" style="--gp-top-bg: {{ section.settings.top_bg }}; --gp-top-fg: {{ section.settings.top_fg }};" data-gp-top>
+      {%- for i in gp_top_list -%}
+        {%- assign tkey = 'top_text_' | append: i -%}
+        {%- assign lkey = 'top_link_' | append: i -%}
+        {%- if section.settings[lkey] != blank -%}
+          <a class="gp-top-msg{% if forloop.first %} is-on{% endif %}" href="{{ section.settings[lkey] }}">{{ section.settings[tkey] }}</a>
+        {%- else -%}
+          <p class="gp-top-msg{% if forloop.first %} is-on{% endif %}">{{ section.settings[tkey] }}</p>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
   <header class="gp-hdr">
     <button class="gp-ico" id="GpMenuBtn" type="button" aria-label="{{ 'sections.header.menu' | t }}" aria-expanded="false" aria-controls="GpMenu">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path class="gp-p-bars" d="M4 7h16M4 12h16M4 17h16"/><path class="gp-p-x" d="M6 6l12 12M18 6L6 18"/></svg>
@@ -91,6 +119,21 @@
 
 <script>
   (function () {
+    var top = document.querySelector('[data-gp-top]');
+    if (!top) return;
+    var msgs = top.querySelectorAll('.gp-top-msg');
+    if (msgs.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var i = 0;
+    setInterval(function () {
+      msgs[i].classList.remove('is-on');
+      i = (i + 1) % msgs.length;
+      msgs[i].classList.add('is-on');
+    }, 4500);
+  })();
+</script>
+
+<script>
+  (function () {
     var wrap = document.querySelector('[data-gp-hdr]');
     if (!wrap || !wrap.classList.contains('gp-hdr-wrap--home')) return;
     var ticking = false;
@@ -108,6 +151,16 @@
     { "type": "image_picker", "id": "logo", "label": "Logo", "info": "Use a versão clara do logo. Sem imagem, usa o logo Güppi padrão." },
     { "type": "link_list", "id": "menu", "label": "Menu", "info": "Usado quando não há itens adicionados como blocos.", "default": "main-menu" },
     { "type": "color_scheme", "id": "color_scheme", "label": "Esquema de cores da busca", "default": "scheme-1" },
+    { "type": "header", "content": "Barra do topo" },
+    { "type": "checkbox", "id": "top_on", "label": "Mostrar barra acima do cabeçalho", "default": true },
+    { "type": "text", "id": "top_text_1", "label": "Mensagem 1", "default": "Bem-vindo à Güppi" },
+    { "type": "url", "id": "top_link_1", "label": "Link da mensagem 1" },
+    { "type": "text", "id": "top_text_2", "label": "Mensagem 2", "info": "Com mais de uma mensagem, elas se alternam a cada poucos segundos." },
+    { "type": "url", "id": "top_link_2", "label": "Link da mensagem 2" },
+    { "type": "text", "id": "top_text_3", "label": "Mensagem 3" },
+    { "type": "url", "id": "top_link_3", "label": "Link da mensagem 3" },
+    { "type": "color", "id": "top_bg", "label": "Cor de fundo da barra", "default": "#322C3D" },
+    { "type": "color", "id": "top_fg", "label": "Cor do texto da barra", "default": "#F6F3EA" },
     { "type": "header", "content": "Ondas do cabeçalho" },
     { "type": "checkbox", "id": "wave", "label": "Mostrar ondas abaixo do cabeçalho", "info": "Na home as ondas começam grandes sobre o vídeo e diminuem ao rolar. Nas outras páginas ficam sempre pequenas.", "default": true },
     { "type": "color", "id": "wave_color", "label": "Cor da onda da frente", "info": "Use a cor do cabeçalho para a onda emendar nele.", "default": "#9B7FC9" },

@@ -313,72 +313,6 @@
     });
   }
 
-  // Ondas que respondem ao movimento: inclinar/balançar o celular ou mexer o mouse no desktop.
-  // Cada camada (data-depth 1 frente … 3 trás) desliza e incha um pouco, com mola, e volta ao repouso.
-  var waveLayers = [];
-  function collectWaveLayers() {
-    waveLayers = [].slice.call(document.querySelectorAll('[data-gp-wave] .gp-wave-l')).map(function (g) {
-      return { el: g, d: parseInt(g.getAttribute('data-depth'), 10) || 1 };
-    });
-  }
-  var WAVE_SHIFT = [0, 12, 20, 30];   // deslocamento máximo, em unidades do viewBox (390 de largura)
-  var WAVE_SWELL = [0, .22, .34, .48]; // quanto a altura da camada pode crescer
-  var wx = 0, wv = 0, ws = 0, wsv = 0, wTarget = 0, wRunning = false;
-  function waveFrame() {
-    wv += (wTarget - wx) * 0.06 - wv * 0.12;
-    wsv += -ws * 0.08 - wsv * 0.1;
-    wx += wv; ws += wsv;
-    if (ws > 1) ws = 1; if (ws < -0.5) ws = -0.5;
-    for (var i = 0; i < waveLayers.length; i++) {
-      var l = waveLayers[i];
-      var sy = 1 + ws * WAVE_SWELL[l.d];
-      l.el.setAttribute('transform', 'translate(' + (wx * WAVE_SHIFT[l.d]).toFixed(2) + ' ' + (76 - 76 * sy).toFixed(2) + ') scale(1 ' + sy.toFixed(4) + ')');
-    }
-    var busy = Math.abs(wTarget - wx) > 0.002 || Math.abs(wv) > 0.002 || Math.abs(ws) > 0.002 || Math.abs(wsv) > 0.002;
-    if (busy) requestAnimationFrame(waveFrame); else wRunning = false;
-  }
-  function waveKick() { if (!wRunning && waveLayers.length) { wRunning = true; requestAnimationFrame(waveFrame); } }
-  function clamp1(n) { return n > 1 ? 1 : n < -1 ? -1 : n; }
-
-  function initWaveMotion() {
-    if (reduceMotion || initWaveMotion.done) return;
-    initWaveMotion.done = true;
-    collectWaveLayers();
-
-    // Celular: inclinação define para onde a água pende; chacoalhar dá um empurrão
-    window.addEventListener('deviceorientation', function (e) {
-      if (e.gamma == null) return;
-      wTarget = clamp1(e.gamma / 35);
-      waveKick();
-    });
-    window.addEventListener('devicemotion', function (e) {
-      var a = e.acceleration;
-      if (!a || a.x == null) return;
-      var mag = Math.sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
-      if (mag < 2.5) return;
-      wv += clamp1(a.x / 12) * 0.25;
-      wsv += Math.min(mag / 25, 1) * 0.12;
-      waveKick();
-    });
-    // Sem pedir permissão de sensores: no iPhone (que exige permissão) a onda só segue o ritmo normal
-
-    // Desktop: posição do mouse inclina, movimento rápido faz a onda crescer
-    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-      var lastX = null, lastT = 0;
-      window.addEventListener('mousemove', function (e) {
-        wTarget = clamp1((e.clientX / window.innerWidth) * 2 - 1) * 0.6;
-        var now = performance.now();
-        if (lastX != null && now > lastT) {
-          var speed = Math.abs(e.clientX - lastX) / (now - lastT); // px por ms
-          if (speed > 1.2) wsv += Math.min(speed / 12, 0.08);
-        }
-        lastX = e.clientX; lastT = now;
-        waveKick();
-      }, { passive: true });
-      document.documentElement.addEventListener('mouseleave', function () { wTarget = 0; lastX = null; waveKick(); });
-    }
-  }
-
   // Rodapé: colunas viram sanfona no celular
   var footWide = window.matchMedia('(min-width: 990px)');
   function syncFootCols() {
@@ -392,7 +326,6 @@
     initCoupon(root);
     initFishDraw(root);
     initWaves(root);
-    initWaveMotion();
     collectWaveLayers();
     syncFootCols();
     initDrag(root);

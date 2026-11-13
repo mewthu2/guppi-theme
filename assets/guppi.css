@@ -56,7 +56,7 @@ body.gp-wide { background: var(--gp-cream); }
 .section-gp-header { position: sticky; top: 0; z-index: 30; }
 /* Ondas presas ao cabeçalho: grandes no topo da home, pequenas ao rolar e nas outras páginas */
 .gp-hdr-wrap { position: relative; }
-.gp-wave--hdr { top: calc(100% - 1px); bottom: auto; height: 12px; transform: scaleY(-1); pointer-events: none; transition: height .45s ease; }
+.gp-wave--hdr { top: calc(100% - 1px); bottom: auto; height: 24px; transform: scaleY(-1); pointer-events: none; transition: height .45s ease; }
 .gp-hdr-wrap--home:not(.is-scrolled) .gp-wave--hdr { height: 32px; }
 @media (prefers-reduced-motion: reduce) { .gp-wave--hdr { transition: none; } }
 /* Barra do topo, acima do cabeçalho (altura em --gp-top-h, definida pela seção) */
@@ -747,7 +747,7 @@ a.gp-card { cursor: pointer; }
   .gp-wide .gp-hero { min-height: 560px; padding-bottom: 96px; }
   .gp-wide .gp-hero .gp-slot { font-size: 140px; }
   .gp-wide .gp-hero .gp-wave { height: 124px; }
-  .gp-wide .gp-wave--hdr { height: 10px; }
+  .gp-wide .gp-wave--hdr { height: 20px; }
   .gp-wide .gp-hdr-wrap--home:not(.is-scrolled) .gp-wave--hdr { height: 60px; }
 
   /* Títulos de seção */

@@ -15,9 +15,10 @@
   --gp-magenta: #AA0259;
   --gp-green: #B4D2BA;
   --gp-hdr-h: 38px;
+  --gp-hdr-pad: 4px;
 }
 
-html { scroll-padding-top: calc(var(--gp-hdr-h) + var(--gp-top-h, 0px) + env(safe-area-inset-top, 0px)); }
+html { scroll-padding-top: calc(var(--gp-hdr-h) + var(--gp-top-h, 0px) + var(--gp-hdr-pad) + env(safe-area-inset-top, 0px)); }
 body.gp-theme { -webkit-tap-highlight-color: transparent; }
 body.gp-framed { background: var(--gp-outer-bg); }
 body.gp-wide { background: var(--gp-cream); }
@@ -63,7 +64,7 @@ body.gp-wide { background: var(--gp-cream); }
   height: var(--gp-top-h, 0px); background: var(--gp-top-bg, var(--gp-dark)); color: var(--gp-top-fg, var(--gp-cream));
   position: relative; overflow: hidden; display: grid; padding: env(safe-area-inset-top, 0px) 16px 0; box-sizing: content-box;
 }
-.gp-top ~ .gp-hdr { padding-top: 0; }
+.gp-top ~ .gp-hdr { padding-top: var(--gp-hdr-pad); }
 .gp-top-msg {
   grid-area: 1 / 1; align-self: center; justify-self: center; max-width: 100%; margin: 0;
   font-size: 12px; letter-spacing: .04em; line-height: 1.2; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -73,7 +74,7 @@ body.gp-wide { background: var(--gp-cream); }
 a.gp-top-msg:hover { text-decoration: underline; }
 @media (min-width: 990px) { .gp-wide .gp-top-msg { font-size: 13px; } }
 .gp-hdr {
-  height: var(--gp-hdr-h); padding-top: env(safe-area-inset-top, 0px); box-sizing: content-box;
+  height: var(--gp-hdr-h); padding-top: calc(var(--gp-hdr-pad) + env(safe-area-inset-top, 0px)); box-sizing: content-box;
   background: var(--gp-purple); display: flex; align-items: center; justify-content: space-between; padding-left: 16px; padding-right: 16px;
 }
 .gp-hdr .gp-ico { width: 36px; height: 36px; display: grid; place-items: center; background: none; border: 0; padding: 0; cursor: pointer; position: relative; color: var(--gp-cream); text-decoration: none; }
@@ -104,7 +105,7 @@ a.gp-top-msg:hover { text-decoration: underline; }
 }
 
 .gp-menu-wrap {
-  position: fixed; z-index: 40; top: calc(var(--gp-hdr-h) + var(--gp-top-h, 0px) + env(safe-area-inset-top, 0px)); bottom: 0; left: 0; width: 100%; overflow: hidden;
+  position: fixed; z-index: 40; top: calc(var(--gp-hdr-h) + var(--gp-top-h, 0px) + var(--gp-hdr-pad) + env(safe-area-inset-top, 0px)); bottom: 0; left: 0; width: 100%; overflow: hidden;
   visibility: hidden; pointer-events: none; transition: visibility 0s linear .3s;
 }
 .gp-framed .gp-menu-wrap { left: 50%; width: min(100%, 430px); transform: translateX(-50%); }
@@ -130,8 +131,8 @@ a.gp-top-msg:hover { text-decoration: underline; }
 /* ---------- Hero (vídeo) ---------- */
 .gp-hero {
   /* Cabeçalho + vídeo fecham exatamente a primeira tela */
-  height: calc(100vh - (var(--gp-hdr-h) + var(--gp-top-h, 0px)) - env(safe-area-inset-top, 0px));
-  height: calc(100svh - (var(--gp-hdr-h) + var(--gp-top-h, 0px)) - env(safe-area-inset-top, 0px));
+  height: calc(100vh - (var(--gp-hdr-h) + var(--gp-top-h, 0px) + var(--gp-hdr-pad)) - env(safe-area-inset-top, 0px));
+  height: calc(100svh - (var(--gp-hdr-h) + var(--gp-top-h, 0px) + var(--gp-hdr-pad)) - env(safe-area-inset-top, 0px));
   position: relative; background: var(--gp-lilac); min-height: 420px;
   display: grid; place-items: center; padding-bottom: 58px; overflow: hidden;
 }
@@ -566,7 +567,7 @@ a.gp-card { cursor: pointer; }
 
 .gp-pdp-cream-scroll { height: calc(100svh + 400px); position: relative; margin-top: 16px; }
 .gp-pdp-cream {
-  position: sticky; top: calc(var(--gp-hdr-h) + var(--gp-top-h, 0px) + env(safe-area-inset-top, 0px)); height: min(700px, calc(100svh - (var(--gp-hdr-h) + var(--gp-top-h, 0px)) - env(safe-area-inset-top, 0px)));
+  position: sticky; top: calc(var(--gp-hdr-h) + var(--gp-top-h, 0px) + var(--gp-hdr-pad) + env(safe-area-inset-top, 0px)); height: min(700px, calc(100svh - (var(--gp-hdr-h) + var(--gp-top-h, 0px) + var(--gp-hdr-pad)) - env(safe-area-inset-top, 0px)));
   padding: 28px 22px 22px; background: var(--gp-cream); overflow: hidden; --cream-reveal: 16%; --cream-y: 0px; --apply-opacity: 0;
 }
 .gp-pdp-cream-intro { margin: 0 0 22px !important; color: #705b85; font-size: 27px; line-height: 1.22; letter-spacing: -.02em; font-weight: 800; }
@@ -832,7 +833,7 @@ a.gp-card { cursor: pointer; }
     padding: 0 var(--gp-gut) 88px;
   }
   .gp-wide .gp-pdp-crumb { grid-column: 1 / -1; padding: 24px 0; font-size: 13px; }
-  .gp-wide .gp-pdp-gallery { position: sticky; top: calc(var(--gp-hdr-h) + var(--gp-top-h, 0px) + 24px); }
+  .gp-wide .gp-pdp-gallery { position: sticky; top: calc(var(--gp-hdr-h) + var(--gp-top-h, 0px) + var(--gp-hdr-pad) + 24px); }
   .gp-wide .gp-pdp-stage { border-radius: 28px; }
   .gp-wide .gp-pdp-arrow { opacity: 0; transition: opacity .2s ease; }
   .gp-wide .gp-pdp-stage:hover .gp-pdp-arrow, .gp-wide .gp-pdp-arrow:focus-visible { opacity: 1; }
@@ -855,7 +856,7 @@ a.gp-card { cursor: pointer; }
   .gp-wide .gp-pdp-cream-scroll { height: calc(100svh + 600px); }
   .gp-wide .gp-pdp-cream {
     display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: 1fr auto auto 1fr; column-gap: 64px;
-    height: calc(100svh - (var(--gp-hdr-h) + var(--gp-top-h, 0px))); max-height: none; padding: 40px var(--gp-gut);
+    height: calc(100svh - (var(--gp-hdr-h) + var(--gp-top-h, 0px) + var(--gp-hdr-pad))); max-height: none; padding: 40px var(--gp-gut);
   }
   .gp-wide .gp-pdp-cream-layout { display: contents; }
   .gp-wide .gp-pdp-cream-intro { grid-column: 1; grid-row: 2; font-size: clamp(44px, 4.4vw, 64px); line-height: 1.04; margin: 0 0 40px !important; }
@@ -869,7 +870,7 @@ a.gp-card { cursor: pointer; }
     background: radial-gradient(circle, rgba(155, 127, 202, .22) 0%, rgba(155, 127, 202, .08) 55%, transparent 70%); transform: translate(-50%, -50%);
   }
   .gp-wide .gp-pdp-cream-fig { width: auto; }
-  .gp-wide .gp-pdp-cream-img { width: auto; height: min(620px, calc(100svh - (var(--gp-hdr-h) + var(--gp-top-h, 0px)) - 120px)) !important; max-width: none; }
+  .gp-wide .gp-pdp-cream-img { width: auto; height: min(620px, calc(100svh - (var(--gp-hdr-h) + var(--gp-top-h, 0px) + var(--gp-hdr-pad)) - 120px)) !important; max-width: none; }
   /* Óleo é horizontal: mede pela largura */
   .gp-wide .gp-pdp-cream-fig--oleo { width: auto; margin-left: 0; }
   .gp-wide .gp-pdp-cream-fig--oleo .gp-pdp-cream-img { width: min(460px, 34vw); height: auto !important; }

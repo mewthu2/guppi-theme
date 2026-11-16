@@ -12,6 +12,7 @@
     "hero": {
       "type": "gp-hero",
       "settings": {
+        "image": "shopify://shop_images/JFR_1019.jpg",
         "placeholder": "Vídeo",
         "bg": "#decff0",
         "wave_color": "#f6f3ea",
@@ -207,7 +208,7 @@
     "before_after": {
       "type": "gp-before-after",
       "settings": {
-        "before": "shopify://shop_images/JFR_1474.jpg",
+        "before": "shopify://shop_images/JFR_1474_e5cea102-227b-406f-b37b-dd592b7ae5e5.jpg",
         "after": "shopify://shop_images/JFR_1499.jpg",
         "label_before": "Antes",
         "label_after": "Depois",

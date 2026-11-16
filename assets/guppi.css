@@ -690,6 +690,9 @@ a.gp-card { cursor: pointer; }
 
   .gp-wide .gp-rail, .gp-wide .gp-reels { gap: 20px; padding: 0 var(--gp-gut); scroll-padding: 0 var(--gp-gut); }
   .gp-wide .gp-line .gp-card { flex-basis: calc((100% - 40px) / 3); }
+  /* Linha: com menos cards do que cabem, o grupo fica centralizado (margens auto zeram quando há rolagem) */
+  .gp-wide .gp-line .gp-rail > :first-child { margin-left: auto; }
+  .gp-wide .gp-line .gp-rail > :last-child { margin-right: auto; }
   .gp-wide .gp-combo .gp-head { padding: 0 var(--gp-gut); }
   .gp-wide .gp-combo .gp-card { flex-basis: calc((100% - 60px) / 4); }
   .gp-wide .gp-reel { flex-basis: calc((100% - 40px) / 3); scroll-snap-align: start; border-radius: 32px; }

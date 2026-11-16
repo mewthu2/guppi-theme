@@ -326,7 +326,6 @@
     initCoupon(root);
     initFishDraw(root);
     initWaves(root);
-    collectWaveLayers();
     syncFootCols();
     initDrag(root);
     initBeforeAfter(root);

@@ -1,8 +1,30 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "gp-article",
-      "settings": {}
+      "settings": {
+        "back_label": "Blog Güppi",
+        "show_author": false,
+        "product": "",
+        "product_eyebrow": "Para a sua rotina",
+        "product_button": "Conhecer",
+        "show_related": true,
+        "related_title": "Continue lendo",
+        "final_title": "Cuidar de você pode ser",
+        "final_highlight": "a melhor parte do dia.",
+        "final_text": "Hidratação de verdade, textura deliciosa e um cheiro que dá vontade de repetir.",
+        "button_label": "Ver produtos",
+        "button_link": ""
+      }
     }
   },
   "order": [

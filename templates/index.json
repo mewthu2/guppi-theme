@@ -75,8 +75,9 @@
     "vanilla": {
       "type": "gp-vanilla",
       "settings": {
-        "claim_1": "<b>Eficácia</b> de farmácia",
-        "claim_2": "Experiência de <b>Perfumaria</b>",
+        "claim_1": "<strong>Eficácia</strong> de farmácia",
+        "claim_2": "Experiência de <strong>Perfumaria</strong>",
+        "photo": "shopify://shop_images/JFR_1019.jpg",
         "title": "Vanilla\nCashmere",
         "text": "<p>Aquele cheiro de pele macia,<br/>como um toque de cashmere.</p><p>Baunilha suave, quase um abraço.</p><p>Fica perto, envolve devagar e deixa a pele perfumada, com um frescor que acolhe.</p>",
         "button_label": "Descubra o cheiro Güppi",

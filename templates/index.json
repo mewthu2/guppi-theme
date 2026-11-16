@@ -204,6 +204,8 @@
     "before_after": {
       "type": "gp-before-after",
       "settings": {
+        "before": "shopify://shop_images/JFR_1474.jpg",
+        "after": "shopify://shop_images/JFR_1499.jpg",
         "label_before": "Antes",
         "label_after": "Depois",
         "eyebrow": "Sinta a diferença",

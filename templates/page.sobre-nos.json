@@ -11,7 +11,12 @@
   "sections": {
     "sobre": {
       "type": "gp-sobre",
-      "settings": {}
+      "settings": {
+        "founder_photo": "shopify://shop_images/JFR_2359.jpg",
+        "ending_photo": "shopify://shop_images/JFR_1763.jpg",
+        "button_label": "",
+        "button_link": ""
+      }
     }
   },
   "order": [

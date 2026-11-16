@@ -7,7 +7,6 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-
 {
   "sections": {
     "main": {
@@ -79,6 +78,7 @@
     "campaign": {
       "type": "gp-campaign",
       "settings": {
+        "image": "shopify://shop_images/JFR_2023.jpg",
         "ph_label": "FOTO DO ENSAIO",
         "ph_caption": "Aplicação do Body Splash",
         "title": "Dá vontade de sentir de novo.",

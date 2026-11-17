@@ -38,11 +38,11 @@
       "scheme-2": {
         "settings": {
           "background": "#A90359",
-          "background_alt": "#B4D2BA",
+          "background_alt": "#85729F",
           "text": "#F6F3EA",
           "accent": "#ed356d",
           "border": "#B4D2BA",
-          "button": "#B4D2BA",
+          "button": "#85729F",
           "button_label": "#ffffff",
           "secondary_button_label": "#31242e",
           "card": "#ffffff",

@@ -9,10 +9,11 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/logo_preto.png",
+    "logo": "shopify://shop_images/Guppi_logo_-_1.png",
     "logo_light": "shopify://shop_images/logo_branco.png",
     "type_heading_font": "lora_n4",
     "type_body_font": "figtree_n4",
+    "social_instagram_link": "https://www.instagram.com/guppibrasil?knvt=eTFqMjUwNnplbzB3",
     "sections": {
       "cart-drawer": {
         "type": "cart-drawer",
@@ -37,12 +38,12 @@
       },
       "scheme-2": {
         "settings": {
-          "background": "#A90359",
-          "background_alt": "#85729F",
-          "text": "#F6F3EA",
+          "background": "#a90359",
+          "background_alt": "#85729f",
+          "text": "#f6f3ea",
           "accent": "#ed356d",
-          "border": "#B4D2BA",
-          "button": "#85729F",
+          "border": "#b4d2ba",
+          "button": "#85729f",
           "button_label": "#ffffff",
           "secondary_button_label": "#31242e",
           "card": "#ffffff",
@@ -93,7 +94,7 @@
       },
       "scheme-6": {
         "settings": {
-          "background": "#8A6DB9",
+          "background": "#8a6db9",
           "background_alt": "#8a6db9",
           "text": "#f6f3ea",
           "accent": "#f6f3ea",

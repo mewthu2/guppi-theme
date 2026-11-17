@@ -9,6 +9,17 @@
  */
 {
   "sections": {
+    "gp_marquee_cmQnFz": {
+      "type": "gp-marquee",
+      "name": "Güppi · Faixa animada",
+      "settings": {
+        "text": "PRÉ-VENDA –  PRÉ-VENDA  –  PRÉ-VENDA  –",
+        "style": "home",
+        "speed": 16,
+        "bg": "#B4D2BA",
+        "color": "#F6F3EA"
+      }
+    },
     "main": {
       "type": "gp-main-product",
       "blocks": {
@@ -53,17 +64,6 @@
         "pix_label": "no Pix",
         "buy_label": "Comprar",
         "sticky": true
-      }
-    },
-    "gp_marquee_cmQnFz": {
-      "type": "gp-marquee",
-      "name": "Güppi · Faixa animada",
-      "settings": {
-        "text": "PRÉ-VENDA –  PRÉ-VENDA  –  PRÉ-VENDA  –",
-        "style": "home",
-        "speed": 16,
-        "bg": "#B4D2BA",
-        "color": "#F6F3EA"
       }
     },
     "multicolumn_6QyTNL": {
@@ -139,8 +139,8 @@
     }
   },
   "order": [
-    "main",
     "gp_marquee_cmQnFz",
+    "main",
     "multicolumn_6QyTNL"
   ]
 }

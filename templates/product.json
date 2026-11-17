@@ -55,6 +55,17 @@
         "sticky": true
       }
     },
+    "gp_marquee_cmQnFz": {
+      "type": "gp-marquee",
+      "name": "Güppi · Faixa animada",
+      "settings": {
+        "text": "PRÉ-VENDA –  PRÉ-VENDA  –  PRÉ-VENDA  –",
+        "style": "home",
+        "speed": 16,
+        "bg": "#B4D2BA",
+        "color": "#F6F3EA"
+      }
+    },
     "multicolumn_6QyTNL": {
       "type": "multicolumn",
       "blocks": {
@@ -129,6 +140,7 @@
   },
   "order": [
     "main",
+    "gp_marquee_cmQnFz",
     "multicolumn_6QyTNL"
   ]
 }

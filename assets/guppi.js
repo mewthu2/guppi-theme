@@ -42,8 +42,24 @@
       if (ba.dataset.gpReady) return;
       ba.dataset.gpReady = '1';
       var baDown = false;
+      // Ondas: só sobem quando o "depois" ganha espaço (alça indo para a esquerda); voltar para o "antes" não mexe nelas
+      var wave = reduceMotion ? null : ba.querySelector('.gp-wave--ba');
+      var lastP = 50, wTarget = 0, wLevel = 0, wVel = 0, wRun = false;
+      function waveFrame() {
+        wTarget = Math.max(0, wTarget - 0.008);           // a água escorre devagar
+        wVel += (wTarget - wLevel) * 0.08 - wVel * 0.2;   // e a onda segue com mola
+        wLevel = Math.max(0, Math.min(1.05, wLevel + wVel));
+        wave.style.transform = 'translateY(' + ((1 - wLevel) * 110).toFixed(2) + '%)';
+        if (wTarget > 0 || wLevel > 0.002 || Math.abs(wVel) > 0.002) requestAnimationFrame(waveFrame);
+        else { wRun = false; wLevel = 0; wVel = 0; wave.style.transform = ''; }
+      }
       function set(p) {
         p = Math.max(4, Math.min(96, p));
+        if (wave && p < lastP) {
+          wTarget = Math.min(1, wTarget + (lastP - p) * 0.03);
+          if (!wRun) { wRun = true; requestAnimationFrame(waveFrame); }
+        }
+        lastP = p;
         ba.style.setProperty('--pos', p + '%');
         ba.setAttribute('aria-valuenow', Math.round(p));
       }

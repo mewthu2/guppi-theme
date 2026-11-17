@@ -54,9 +54,81 @@
         "buy_label": "Comprar",
         "sticky": true
       }
+    },
+    "multicolumn_6QyTNL": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_E96Hp6": {
+          "type": "column",
+          "settings": {
+            "icon": "drop",
+            "heading": "1.   Saia do banho",
+            "text": "<p></p><p></p><p>Seque com a toalha apenas o excesso de água, deixando a pele levemente úmida para receber o óleo.<br/><br/></p>",
+            "product": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_CXbdLG": {
+          "type": "column",
+          "settings": {
+            "icon": "sparkle",
+            "heading": "2.  Aplique o óleo",
+            "text": "<p></p><p>Espalhe o Óleo Corporal pelo corpo com movimentos suaves, deixando a pele macia e com toque sedoso.</p>",
+            "product": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_TemWbd": {
+          "type": "column",
+          "settings": {
+            "icon": "heart",
+            "heading": "3. Complete com  Body Splash",
+            "text": "<p>Depois que a pele estiver seca, borrife o Body Splash pelo corpo e envolva-se em Vanilla Cashmere.<br/><br/></p>",
+            "product": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_bfcMbH": {
+          "type": "column",
+          "settings": {
+            "icon": "gift",
+            "heading": "4.  Leve com você",
+            "text": "<p><br/>Pendure o Mini Body Splash na bolsa e reaplique a fragrância quando quiser ao longo do dia.<br/><br/></p>",
+            "product": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_E96Hp6",
+        "column_CXbdLG",
+        "column_TemWbd",
+        "column_bfcMbH"
+      ],
+      "name": "Multicoluna",
+      "settings": {
+        "subheading": "Monte sua rotina",
+        "heading": "Passos básicos de skincare",
+        "heading_alignment": "center",
+        "columns": 4,
+        "style": "card",
+        "ratio": "1",
+        "text_alignment": "left",
+        "mobile_carousel": true,
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "scheme-6",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "multicolumn_6QyTNL"
   ]
 }

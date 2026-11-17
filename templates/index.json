@@ -13,7 +13,7 @@
       "type": "gp-hero",
       "settings": {
         "image": "shopify://shop_images/Pre_Venda_1.svg",
-        "image_mobile": "shopify://shop_images/Pre_Venda_900_x_1200_px_1.png",
+        "image_mobile": "shopify://shop_images/Pre_Venda_900_x_1200_px_900_x_1000_px.png",
         "placeholder": "Vídeo",
         "bg": "#decff0",
         "wave_color": "#f6f3ea",

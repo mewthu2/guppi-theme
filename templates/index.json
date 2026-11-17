@@ -12,7 +12,7 @@
     "hero": {
       "type": "gp-hero",
       "settings": {
-        "video_mobile": "shopify://files/videos/Body splash 01.mp4",
+        "video_mobile": "shopify://files/videos/Body splash 01 (1).mp4",
         "placeholder": "Vídeo",
         "bg": "#decff0",
         "wave_color": "#f6f3ea",

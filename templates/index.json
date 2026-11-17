@@ -68,6 +68,7 @@
         "c3",
         "c4"
       ],
+      "disabled": true,
       "settings": {
         "eyebrow": "A linha Güppi",
         "title": "Texturas que acolhem,\npara cada momento"
@@ -200,6 +201,7 @@
         "k4",
         "k5"
       ],
+      "disabled": true,
       "settings": {
         "eyebrow": "Combine",
         "title": "Kits e Combo"
@@ -344,13 +346,13 @@
   },
   "order": [
     "hero",
+    "hotspots",
     "line",
     "vanilla",
     "marquee",
     "creators",
     "combo",
     "before_after",
-    "hotspots",
     "quotes"
   ]
 }

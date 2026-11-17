@@ -136,11 +136,50 @@
         "padding_top": 64,
         "padding_bottom": 64
       }
+    },
+    "gp_story_3jQTFb": {
+      "type": "gp-story",
+      "name": "Güppi · Texto central",
+      "settings": {
+        "style": "story",
+        "eyebrow": "VANILLA CASHMERE",
+        "title": "Cheiro de pele macia,\ncomo um toque de cashmere.",
+        "text": "Fragrância autoral, cremosa e envolvente.",
+        "link_label": "Conheça o kit de pré-venda ↑",
+        "link": "",
+        "bg": "",
+        "show_wave": false,
+        "wave_color": "#F6F3EA",
+        "wave_color_2": "#9B7FC9",
+        "wave_color_3": "#DECFF0"
+      }
+    },
+    "countdown_hwtzge": {
+      "type": "countdown",
+      "name": "Contagem regressiva",
+      "settings": {
+        "end_date": "2026-11-27",
+        "end_time": "23:59",
+        "timezone_offset": "-03:00",
+        "overlay_opacity": 20,
+        "subheading": "Oferta por tempo limitado",
+        "heading": "Compre enquanto ainda da tempo!",
+        "text": "",
+        "button_label": "Ver kits",
+        "button_link": "https://guppi.com.br/products/kit-pre-venda?utm_term=stl_bcb001c0-7701-4e8b-b006-23bc9b240a44",
+        "expired_heading": "A pré-venda acabou!",
+        "expired_text": "<p>Fique de olho nas próximas ofertas.</p>",
+        "color_scheme": "scheme-2",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
     "gp_marquee_cmQnFz",
     "main",
-    "multicolumn_6QyTNL"
+    "multicolumn_6QyTNL",
+    "countdown_hwtzge",
+    "gp_story_3jQTFb"
   ]
 }

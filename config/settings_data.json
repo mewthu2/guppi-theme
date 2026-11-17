@@ -37,12 +37,12 @@
       },
       "scheme-2": {
         "settings": {
-          "background": "#fce6ea",
-          "background_alt": "#f9cbd3",
-          "text": "#31242e",
+          "background": "#A90359",
+          "background_alt": "#B4D2BA",
+          "text": "#F6F3EA",
           "accent": "#ed356d",
-          "border": "#e6cdd2",
-          "button": "#ed356d",
+          "border": "#B4D2BA",
+          "button": "#B4D2BA",
           "button_label": "#ffffff",
           "secondary_button_label": "#31242e",
           "card": "#ffffff",
@@ -93,7 +93,7 @@
       },
       "scheme-6": {
         "settings": {
-          "background": "#9b7fc9",
+          "background": "#8A6DB9",
           "background_alt": "#8a6db9",
           "text": "#f6f3ea",
           "accent": "#f6f3ea",

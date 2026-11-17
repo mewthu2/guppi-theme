@@ -38,6 +38,9 @@
       <div class="gp-slot gp-only-desktop">{{ section.settings.placeholder }}</div>
     {%- endif -%}
   {%- endif -%}
+  {%- if section.settings.link != blank -%}
+    <a class="gp-hero-link" href="{{ section.settings.link }}" aria-label="{{ section.settings.link_label | default: 'Ver mais' | escape }}"></a>
+  {%- endif -%}
   {% render 'gp-wave', front: section.settings.wave_color, middle: section.settings.wave_color_2, back: section.settings.wave_color_3 %}
 </section>
 
@@ -51,6 +54,9 @@
     { "type": "header", "content": "Celular" },
     { "type": "video", "id": "video_mobile", "label": "Vídeo", "info": "Use um vídeo vertical. Sem vídeo nem imagem aqui, o celular usa os do desktop." },
     { "type": "image_picker", "id": "image_mobile", "label": "Imagem (se não houver vídeo)" },
+    { "type": "header", "content": "Link" },
+    { "type": "url", "id": "link", "label": "Link do banner", "info": "Coleção, produto, página ou qualquer endereço. O banner inteiro fica clicável." },
+    { "type": "text", "id": "link_label", "label": "Descrição do link", "info": "Lida por leitores de tela. Ex.: Ver a coleção de body splash.", "default": "Ver mais" },
     { "type": "header", "content": "Aparência" },
     { "type": "text", "id": "placeholder", "label": "Texto sem mídia", "default": "Vídeo" },
     { "type": "color", "id": "bg", "label": "Cor de fundo", "default": "#DECFF0" },

@@ -147,6 +147,8 @@ a.gp-top-msg:hover { text-decoration: underline; }
   .gp-hero .gp-only-mobile { display: none; }
 }
 .gp-hero .gp-wave { z-index: 1; height: 76px; }
+.gp-hero-link { position: absolute; inset: 0; z-index: 2; }
+.gp-hero-link:focus-visible { outline: 3px solid var(--gp-cream); outline-offset: -6px; }
 
 /* ---------- Linha (carrossel) ---------- */
 .gp-line { padding: 52px 0 56px; text-align: center; }

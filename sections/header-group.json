@@ -18,7 +18,7 @@
           "type": "item",
           "settings": {
             "label": "Produtos",
-            "link": "shopify://collections/all",
+            "link": "shopify://collections/products",
             "soon": false,
             "soon_label": "Em breve"
           }
@@ -27,7 +27,7 @@
           "type": "item",
           "settings": {
             "label": "Kits",
-            "link": "/collections/kits",
+            "link": "shopify://collections/kits",
             "soon": false,
             "soon_label": "Em breve"
           }

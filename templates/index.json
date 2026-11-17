@@ -12,7 +12,7 @@
     "hero": {
       "type": "gp-hero",
       "settings": {
-        "image": "shopify://shop_images/Pre_Venda_2.png",
+        "image": "shopify://shop_images/Pre_Venda.svg",
         "image_mobile": "shopify://shop_images/Pre_Venda_2.png",
         "placeholder": "Vídeo",
         "bg": "#decff0",

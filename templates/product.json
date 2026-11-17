@@ -20,10 +20,30 @@
             "content": "",
             "open": true
           }
+        },
+        "collapsible_7YBcYh": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Como usar",
+            "show_description": false,
+            "content": "<p><strong>Óleo Corporal</strong><br/>Aplique sobre a pele, nas regiões desejadas, e espalhe suavemente com movimentos circulares. Use após o banho ou sempre que quiser proporcionar mais maciez e conforto à pele. Para complementar seu ritual, finalize com o Body Splash Vanilla Cashmere.</p><p><strong>Body Splash</strong><br/>Borrife no pescoço, nos pulsos ou nas regiões do corpo que preferir. Não esfregue após a aplicação. Reaplique quando desejar renovar a fragrância ao longo do dia.</p>",
+            "open": false
+          }
+        },
+        "collapsible_PnXCPR": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Ingredientes",
+            "show_description": false,
+            "content": "<p><strong>Óleo Corporal</strong><br/>Triglicerídio caprílico/cáprico, decametilciclopentasiloxano, óleo de amêndoas doces, perfume, acetato de tocoferila, óleo de semente de girassol, fenoxietanol, caprilil glicol, óleo de coco, óleo de linhaça, benzotriazolil dodecil p-cresol, óleo de abacate, óleo de argan, óleo de macadâmia, óleo de oliva, vitamina E, óleo da semente de uva, hexil cinnamal, cumarina, álcool benzílico, geraniol, citronellol, dextrolimoneno, linalool.</p><p><strong>Body Splash</strong><br/>Álcool etílico, água, butil-hidroxitolueno, perfume, álcool benzílico, citronelol, cumarina, geraniol, hexil cinamal, dextrolimoneno, linalol.</p>",
+            "open": false
+          }
         }
       },
       "block_order": [
-        "desc"
+        "desc",
+        "collapsible_7YBcYh",
+        "collapsible_PnXCPR"
       ],
       "settings": {
         "home_label": "Início",

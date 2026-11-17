@@ -336,6 +336,7 @@
         "q3",
         "q4"
       ],
+      "disabled": true,
       "settings": {
         "eyebrow": "Quem usa, ama",
         "title": "O que nossas\nclientes dizem",

@@ -253,14 +253,11 @@ a.gp-card { cursor: pointer; }
 }
 .gp-ba .gp-media-fill { pointer-events: none; -webkit-user-drag: none; border-radius: 0; }
 .gp-ba .gp-after { position: absolute; inset: 0; background: var(--gp-purple); clip-path: inset(0 0 0 var(--pos)); }
-.gp-ba .gp-lbl { position: absolute; top: 16px; font-size: 13px; font-weight: 800; color: var(--gp-dark); pointer-events: none; z-index: 2; }
-/* Ondas que sobem pela foto ao arrastar para o "depois" e baixam sozinhas (posição controlada no guppi.js) */
-.gp-ba .gp-wave--ba { bottom: -1px; height: 55%; z-index: 1; pointer-events: none; transform: translateY(110%); will-change: transform; }
-@media (prefers-reduced-motion: reduce) { .gp-ba .gp-wave--ba { display: none; } }
+.gp-ba .gp-lbl { position: absolute; top: 16px; font-size: 13px; font-weight: 800; color: var(--gp-dark); pointer-events: none; z-index: 1; }
 .gp-ba .gp-lbl.l { left: 14%; } .gp-ba .gp-lbl.r { right: 12%; }
 .gp-ba .gp-handle {
-  position: absolute; top: 50%; left: var(--pos); transform: translate(-50%, -50%); width: 38px; height: 38px; border-radius: 50%;
-  background: var(--gp-cream); display: grid; place-items: center; pointer-events: none; box-shadow: 0 2px 8px rgba(0,0,0,.14); z-index: 2;
+  position: absolute; top: 50%; left: var(--pos); transform: translate(-50%, -50%); width: 38px; height: 38px; border-radius: 50%; z-index: 1;
+  background: var(--gp-cream); display: grid; place-items: center; pointer-events: none; box-shadow: 0 2px 8px rgba(0,0,0,.14);
 }
 .gp-ba .gp-handle svg { width: 20px; height: 20px; stroke: var(--gp-dark); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 .gp-ba-sec .gp-eyebrow { margin-top: 28px; font-size: 15px; }

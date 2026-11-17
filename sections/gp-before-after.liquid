@@ -8,7 +8,6 @@
         {{ section.settings.after | image_url: width: 1400 | image_tag: class: 'gp-media-fill', widths: '400, 800, 1000, 1400', sizes: '(min-width: 990px) 680px, 100vw', loading: 'lazy', alt: section.settings.label_after }}
       {%- endif -%}
     </div>
-    {% render 'gp-wave', class: 'gp-wave--ba', front: section.settings.wave_color, middle: section.settings.wave_color_2, back: section.settings.wave_color_3 %}
     <span class="gp-lbl l">{{ section.settings.label_before }}</span><span class="gp-lbl r">{{ section.settings.label_after }}</span>
     <div class="gp-handle"><svg viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6" transform="translate(0 0) scale(.82) translate(2.6 2.6)"/></svg></div>
   </div>
@@ -28,11 +27,7 @@
     { "type": "text", "id": "eyebrow", "label": "Sobretítulo", "default": "Sinta a diferença" },
     { "type": "textarea", "id": "title", "label": "Título", "default": "O cheiro\nmuda tudo" },
     { "type": "textarea", "id": "text", "label": "Texto", "default": "Baunilha macia, frescor e pele perfumada. A diferença está no cheiro que você deixa por onde passa." },
-    { "type": "color", "id": "bg", "label": "Cor de fundo", "default": "#BB9CC5" },
-    { "type": "header", "content": "Ondas ao arrastar para o depois" },
-    { "type": "color", "id": "wave_color", "label": "Cor da onda da frente", "default": "#BB9CC5" },
-    { "type": "color", "id": "wave_color_2", "label": "Cor da onda do meio", "default": "#9B7FC9" },
-    { "type": "color", "id": "wave_color_3", "label": "Cor da onda de trás", "default": "#DECFF0" }
+    { "type": "color", "id": "bg", "label": "Cor de fundo", "default": "#BB9CC5" }
   ],
   "presets": [{ "name": "Güppi · Antes e depois" }]
 }

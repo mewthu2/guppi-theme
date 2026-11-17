@@ -7,7 +7,6 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-
 {
   "sections": {
     "main": {
@@ -27,7 +26,7 @@
           "settings": {
             "heading": "Como usar",
             "show_description": false,
-            "content": "<p>Aplique o óleo corporal sobre a pele, nas regiões desejadas, e espalhe suavemente com movimentos circulares.</p><p>Use após o banho ou sempre que quiser proporcionar mais maciez e conforto à pele. Para complementar seu ritual, finalize com o Body Splash Vanilla Cashmere.</p>",
+            "content": "<p><strong>Óleo Corporal</strong><br/>Espalhe sobre a pele com movimentos circulares suaves, nas regiões que desejar. Use depois do banho ou quando quiser um toque extra de maciez. Para completar, aplique o Body Splash Vanilla Cashmere.</p><p><strong>Body Splash</strong><br/>Borrife no pescoço, nos pulsos ou nas regiões do corpo que preferir, sem esfregar depois. Reaplique ao longo do dia sempre que quiser sentir Vanilla Cashmere de novo.</p>",
             "open": false
           }
         },
@@ -36,12 +35,13 @@
           "settings": {
             "heading": "Ingredientes",
             "show_description": false,
-            "content": "<p>Triglicerídio caprílico/cáprico, decametilciclopentasiloxano, óleo de amêndoas doces, perfume, acetato de tocoferila, óleo de semente de girassol, fenoxietanol, caprilil glicol, óleo de coco, óleo de linhaça, benzotriazolil dodecil p-cresol, óleo de abacate, óleo de argan, óleo de macadâmia, óleo de oliva, vitamina E, óleo da semente de uva, hexil cinnamal, cumarina, álcool benzílico, geraniol, citronellol, dextrolimoneno, linalool.</p>",
+            "content": "<p>Triglicerídio caprílico/cáprico, decametilciclopentasiloxano, óleo de amêndoas doces, perfume, acetato de tocoferila, óleo de semente de girassol, fenoxietanol, caprilil glicol, óleo de coco, óleo de linhaça, benzotriazolil dodecil p-cresol, óleo de abacate, óleo de argan, óleo de macadâmia, óleo de oliva, vitamina E, óleo da semente de uva, hexil cinnamal, cumarina, álcool benzílico, geraniol, citronellol, dextrolimoneno, linalool.</p><p><strong>Body Splash</strong><br/>Álcool etílico, água, butil-hidroxitolueno, perfume, álcool benzílico, citronelol, cumarina, geraniol, hexil cinamal, dextrolimoneno, linalol.</p><p></p>",
             "open": false
           }
         },
         "ship": {
           "type": "collapsible",
+          "disabled": true,
           "settings": {
             "heading": "Entrega e trocas",
             "show_description": false,

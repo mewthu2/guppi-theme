@@ -12,12 +12,84 @@
     "hero": {
       "type": "gp-hero",
       "settings": {
-        "video_mobile": "shopify://files/videos/Body splash 01 (1).mp4",
+        "image": "shopify://shop_images/Pre_Venda_2.png",
+        "image_mobile": "shopify://shop_images/Pre_Venda_2.png",
         "placeholder": "Vídeo",
         "bg": "#decff0",
         "wave_color": "#f6f3ea",
         "wave_color_2": "#9b7fc9",
         "wave_color_3": "#decff0"
+      }
+    },
+    "hotspots": {
+      "type": "gp-hotspots",
+      "blocks": {
+        "h1": {
+          "type": "hotspot",
+          "settings": {
+            "x": 82,
+            "y": 44,
+            "product": "body-splash-guppi-vanilla-cashmere-200-ml",
+            "title": "Body Splash",
+            "size": "200 ml",
+            "text": "Frescor e pele perfumada, do jeito mais leve. O cheiro Güppi para usar em qualquer momento.",
+            "image": "shopify://shop_images/JFR_0971.jpg",
+            "link": "https://guppi.com.br/products/body-splash?sck=stl_540aaef6-2d4e-42cc-9417-da37d8a313d3"
+          }
+        },
+        "h2": {
+          "type": "hotspot",
+          "settings": {
+            "x": 21,
+            "y": 26,
+            "product": "oleo-corporal-guppi-vanilla-cashmere-200-ml",
+            "title": "Óleo Corporal",
+            "size": "200 ml",
+            "text": "Um toque aveludado que envolve a pele, proporciona maciez e deixa o cheiro de Vanilla Cashmere ainda mais perto de você.",
+            "image": "shopify://shop_images/JFR_0970.jpg",
+            "link": "https://guppi.com.br/products/oleo-corporal?sck=stl_4cc1e117-19ae-4bdf-a912-d984b8e79758"
+          }
+        },
+        "h3": {
+          "type": "hotspot",
+          "disabled": true,
+          "settings": {
+            "x": 39,
+            "y": 55,
+            "product": "manteiga-corporal-guppi-vanilla-cashmere-200-g",
+            "title": "Manteiga Corporal",
+            "size": "200 g",
+            "text": "Textura cremosa e rica, para quem quer sentir o cheiro de pele macia de pertinho.",
+            "link": ""
+          }
+        },
+        "h4": {
+          "type": "hotspot",
+          "disabled": true,
+          "settings": {
+            "x": 79,
+            "y": 82,
+            "product": "hidratante-corporal-guppi-vanilla-cashmere-400-ml",
+            "title": "Loção Corporal",
+            "size": "400 ml",
+            "text": "Textura leve, feita para o dia a dia, com o mesmo cheiro de Vanilla Cashmere.",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "h1",
+        "h2",
+        "h3",
+        "h4"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/JFR_2269.jpg",
+        "eyebrow": "A linha Güppi",
+        "title": "Um cheiro, diferentes formas  de sentir",
+        "text": "Vanilla Cashmere em experiências que se complementam. Descubra a leveza do Body Splash e o toque envolvente do Óleo Corporal.",
+        "cta_label": "Ver produto",
+        "soon_label": "Em breve"
       }
     },
     "line": {
@@ -218,77 +290,6 @@
         "title": "O cheiro\nmuda tudo",
         "text": "Baunilha macia, frescor e pele perfumada. A diferença está no cheiro que você deixa por onde passa.",
         "bg": "#bb9cc5"
-      }
-    },
-    "hotspots": {
-      "type": "gp-hotspots",
-      "blocks": {
-        "h1": {
-          "type": "hotspot",
-          "settings": {
-            "x": 82,
-            "y": 44,
-            "product": "body-splash-guppi-vanilla-cashmere-200-ml",
-            "title": "Body Splash",
-            "size": "200 ml",
-            "text": "Frescor e pele perfumada, do jeito mais leve. O cheiro Güppi para usar em qualquer momento.",
-            "image": "shopify://shop_images/JFR_0971.jpg",
-            "link": "https://guppi.com.br/products/body-splash?sck=stl_540aaef6-2d4e-42cc-9417-da37d8a313d3"
-          }
-        },
-        "h2": {
-          "type": "hotspot",
-          "settings": {
-            "x": 21,
-            "y": 26,
-            "product": "oleo-corporal-guppi-vanilla-cashmere-200-ml",
-            "title": "Óleo Corporal",
-            "size": "200 ml",
-            "text": "Um toque aveludado que envolve a pele, proporciona maciez e deixa o cheiro de Vanilla Cashmere ainda mais perto de você.",
-            "image": "shopify://shop_images/JFR_0970.jpg",
-            "link": "https://guppi.com.br/products/oleo-corporal?sck=stl_4cc1e117-19ae-4bdf-a912-d984b8e79758"
-          }
-        },
-        "h3": {
-          "type": "hotspot",
-          "disabled": true,
-          "settings": {
-            "x": 39,
-            "y": 55,
-            "product": "manteiga-corporal-guppi-vanilla-cashmere-200-g",
-            "title": "Manteiga Corporal",
-            "size": "200 g",
-            "text": "Textura cremosa e rica, para quem quer sentir o cheiro de pele macia de pertinho.",
-            "link": ""
-          }
-        },
-        "h4": {
-          "type": "hotspot",
-          "disabled": true,
-          "settings": {
-            "x": 79,
-            "y": 82,
-            "product": "hidratante-corporal-guppi-vanilla-cashmere-400-ml",
-            "title": "Loção Corporal",
-            "size": "400 ml",
-            "text": "Textura leve, feita para o dia a dia, com o mesmo cheiro de Vanilla Cashmere.",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "h1",
-        "h2",
-        "h3",
-        "h4"
-      ],
-      "settings": {
-        "image": "shopify://shop_images/JFR_2269.jpg",
-        "eyebrow": "A linha Güppi",
-        "title": "Um cheiro, diferentes formas  de sentir",
-        "text": "Vanilla Cashmere em experiências que se complementam. Descubra a leveza do Body Splash e o toque envolvente do Óleo Corporal.",
-        "cta_label": "Ver produto",
-        "soon_label": "Em breve"
       }
     },
     "quotes": {

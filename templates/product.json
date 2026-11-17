@@ -66,6 +66,55 @@
         "sticky": true
       }
     },
+    "image_with_text_9ar76m": {
+      "type": "image-with-text",
+      "blocks": {
+        "subheading_Kb4mzB": {
+          "type": "subheading",
+          "settings": {
+            "text": "Glow diário"
+          }
+        },
+        "heading_zLLnQ7": {
+          "type": "heading",
+          "settings": {
+            "heading": "Skincare na sua rotina",
+            "size": "h1"
+          }
+        },
+        "text_QARcW9": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Use à noite para hidratação profunda, como tratamento durante o dia ou como primer para a maquiagem.</p>"
+          }
+        },
+        "button_3MKU9t": {
+          "type": "button",
+          "settings": {
+            "label": "Comprar agora",
+            "link": "",
+            "secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "subheading_Kb4mzB",
+        "heading_zLLnQ7",
+        "text_QARcW9",
+        "button_3MKU9t"
+      ],
+      "disabled": true,
+      "name": "Imagem com texto",
+      "settings": {
+        "layout": "left",
+        "ratio": "1",
+        "full_bleed": false,
+        "alignment": "left",
+        "color_scheme": "",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
     "multicolumn_6QyTNL": {
       "type": "multicolumn",
       "blocks": {
@@ -137,23 +186,6 @@
         "padding_bottom": 64
       }
     },
-    "gp_story_3jQTFb": {
-      "type": "gp-story",
-      "name": "Güppi · Texto central",
-      "settings": {
-        "style": "story",
-        "eyebrow": "VANILLA CASHMERE",
-        "title": "Cheiro de pele macia,\ncomo um toque de cashmere.",
-        "text": "Fragrância autoral, cremosa e envolvente.",
-        "link_label": "Conheça o kit de pré-venda ↑",
-        "link": "",
-        "bg": "",
-        "show_wave": false,
-        "wave_color": "#F6F3EA",
-        "wave_color_2": "#9B7FC9",
-        "wave_color_3": "#DECFF0"
-      }
-    },
     "countdown_hwtzge": {
       "type": "countdown",
       "name": "Contagem regressiva",
@@ -173,11 +205,29 @@
         "padding_top": 80,
         "padding_bottom": 80
       }
+    },
+    "gp_story_3jQTFb": {
+      "type": "gp-story",
+      "name": "Güppi · Texto central",
+      "settings": {
+        "style": "story",
+        "eyebrow": "VANILLA CASHMERE",
+        "title": "Cheiro de pele macia,\ncomo um toque de cashmere.",
+        "text": "Fragrância autoral, cremosa e envolvente.",
+        "link_label": "Conheça o kit de pré-venda ↑",
+        "link": "",
+        "bg": "",
+        "show_wave": false,
+        "wave_color": "#F6F3EA",
+        "wave_color_2": "#9B7FC9",
+        "wave_color_3": "#DECFF0"
+      }
     }
   },
   "order": [
     "gp_marquee_cmQnFz",
     "main",
+    "image_with_text_9ar76m",
     "multicolumn_6QyTNL",
     "countdown_hwtzge",
     "gp_story_3jQTFb"

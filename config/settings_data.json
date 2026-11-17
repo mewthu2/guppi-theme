@@ -9,9 +9,9 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/Guppi_logo_-_1.png",
+    "logo": "shopify://shop_images/Guppi_logo.png",
     "logo_light": "shopify://shop_images/logo_branco.png",
-    "type_heading_font": "lora_n4",
+    "type_heading_font": "dm_sans_n4",
     "type_body_font": "figtree_n4",
     "social_instagram_link": "https://www.instagram.com/guppibrasil?knvt=eTFqMjUwNnplbzB3",
     "sections": {

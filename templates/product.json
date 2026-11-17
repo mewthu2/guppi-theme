@@ -141,8 +141,10 @@
         "f9",
         "f10"
       ],
+      "disabled": true,
       "settings": {
-        "intro": "O cuidado começa\nna fórmula."
+        "intro": "O cuidado começa\nna fórmula.",
+        "texture": "creme"
       }
     },
     "band": {
@@ -163,6 +165,7 @@
           "settings": {
             "icon": "karite",
             "title": "Manteiga de karité",
+            "subtitle": "",
             "text": "<p>Manteiga vegetal rica em lipídios, com textura nutritiva. Repõe a emoliência e forma um filme que reduz a perda de água, deixando a pele macia e confortável.</p>"
           }
         },
@@ -171,6 +174,7 @@
           "settings": {
             "icon": "hialuronico",
             "title": "Ácido hialurônico",
+            "subtitle": "",
             "text": "<p>Umectante que atrai e retém água. A combinação de 7 pesos moleculares reúne diferentes tamanhos de moléculas para hidratação e formação de um filme hidratante na superfície da pele.</p>"
           }
         },
@@ -179,6 +183,7 @@
           "settings": {
             "icon": "macadamia",
             "title": "Óleo de macadâmia",
+            "subtitle": "",
             "text": "<p>Óleo vegetal com ácidos graxos oleico e palmitoleico. Sua ação emoliente suaviza a superfície da pele e proporciona um toque sedoso.</p>"
           }
         },
@@ -187,6 +192,7 @@
           "settings": {
             "icon": "coco",
             "title": "Óleo de coco",
+            "subtitle": "",
             "text": "<p>Óleo rico em ácidos graxos, especialmente ácido láurico. Forma um filme emoliente que reduz a perda de água e preserva a maciez da pele.</p>"
           }
         },
@@ -195,6 +201,7 @@
           "settings": {
             "icon": "girassol",
             "title": "Óleo de girassol",
+            "subtitle": "",
             "text": "<p>Fonte de ácidos graxos, incluindo ácido linoleico. Complementa os lipídios da barreira cutânea e proporciona emoliência com toque suave.</p>"
           }
         },
@@ -203,6 +210,7 @@
           "settings": {
             "icon": "argan",
             "title": "Óleo de argan",
+            "subtitle": "",
             "text": "<p>Óleo vegetal com ácidos graxos e tocoferóis naturalmente presentes. Oferece emoliência e deixa a pele com uma sensação mais suave e flexível.</p>"
           }
         },
@@ -211,6 +219,7 @@
           "settings": {
             "icon": "linhaca",
             "title": "Óleo de linhaça",
+            "subtitle": "",
             "text": "<p>Óleo vegetal com ácido alfa-linolênico, um ômega 3. Sua composição lipídica oferece emoliência e complementa o cuidado da barreira cutânea.</p>"
           }
         },
@@ -219,6 +228,7 @@
           "settings": {
             "icon": "oliva",
             "title": "Óleo de oliva",
+            "subtitle": "",
             "text": "<p>Rico em ácido oleico, é um emoliente de toque envolvente. Suaviza áreas ressecadas e forma um filme que preserva a hidratação da pele.</p>"
           }
         },
@@ -227,6 +237,7 @@
           "settings": {
             "icon": "abacate",
             "title": "Óleo de abacate",
+            "subtitle": "",
             "text": "<p>Óleo de textura nutritiva, com ácidos graxos como o oleico. Proporciona emoliência e conforto, deixando a superfície da pele mais macia.</p>"
           }
         },
@@ -235,6 +246,7 @@
           "settings": {
             "icon": "uva",
             "title": "Óleo de semente de uva",
+            "subtitle": "",
             "text": "<p>Óleo vegetal com ácido linoleico. Sua ação emoliente suaviza a pele e complementa a hidratação com um toque delicado.</p>"
           }
         }

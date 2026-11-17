@@ -41,6 +41,7 @@
         },
         "ship": {
           "type": "collapsible",
+          "disabled": true,
           "settings": {
             "heading": "Entrega e trocas",
             "show_description": false,

@@ -189,6 +189,7 @@
         "r2": {
           "type": "reel",
           "settings": {
+            "video": "shopify://files/videos/GRWM Ingrid .mp4",
             "product": "",
             "title": "Vídeo\nCreator 2",
             "caption": "",
@@ -198,6 +199,7 @@
         "r3": {
           "type": "reel",
           "settings": {
+            "video": "shopify://files/videos/Unboxing ANA (1).mp4",
             "product": "",
             "title": "Vídeo\nCreator 3",
             "caption": "",

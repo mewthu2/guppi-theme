@@ -124,6 +124,7 @@
         "v3",
         "v4"
       ],
+      "disabled": true,
       "settings": {
         "title": "Güppi na rotina",
         "intro": "O cuidado em movimento."

@@ -289,9 +289,20 @@
     if (e.key === 'Escape' && wrap && wrap.classList.contains('open')) setCoupon(false);
   });
 
-  // Depois do envio a página recarrega: reabre a janela com o cupom ou com o erro
+  // A janela só abre pelo clique no rodapé. A única exceção é logo depois de a
+  // pessoa enviar o formulário: a página recarrega e mostra a confirmação ou o erro.
+  var COUPON_SENT_KEY = 'gp-newsletter-sent';
+  document.addEventListener('submit', function (e) {
+    if (!e.target.closest('#GpCoupon')) return;
+    try { sessionStorage.setItem(COUPON_SENT_KEY, '1'); } catch (err) {}
+  });
   function initCoupon(root) {
-    if (root.querySelector('#GpCoupon [data-gp-coupon-result]')) setCoupon(true);
+    if (!root.querySelector('#GpCoupon [data-gp-coupon-result]')) return;
+    try {
+      if (!sessionStorage.getItem(COUPON_SENT_KEY)) return;
+      sessionStorage.removeItem(COUPON_SENT_KEY);
+    } catch (err) { return; }
+    setCoupon(true);
   }
 
   // Rodapé: o Ü se desenha quando entra na tela

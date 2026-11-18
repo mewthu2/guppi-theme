@@ -1,6 +1,193 @@
+{% doc %}
+  @prompt
+    Crie um bloco de vídeo com texto para a página do Kit Pré-Venda da Güppi. No computador, vídeo vertical em proporção 9:16 à esquerda, sem esticar nem cortar a mídia, com largura máxima moderada, e título e texto editáveis à direita. No celular, empilhe vídeo e texto. Permita selecionar o vídeo, editar título, descrição e alinhamento e mantenha o estilo, cores e tipografia do tema. Não inclua textos promocionais fictícios: deixe os campos de texto vazios para preenchimento. Disponibilize controles de reprodução e não reproduza áudio automaticamente. O bloco deve permitir selecionar o mesmo vídeo já usado na seção Vídeo atual; não remova a seção existente automaticamente.,  ta muito na lateral, deixa o video 4:3 e na direia um texto. o video nao pode ficar colado n esqueda, deve ter margem
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-video-text-{{ ai_gen_id }} {
+    display: block;
+    box-sizing: border-box;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 72px);
+    color: rgb(var(--color-foreground, 49 36 46));
+  }
+
+  .ai-video-text__inner-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: minmax(0, {{ block.settings.video_width }}px) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(24px, 5vw, 64px);
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+
+  .ai-video-text__media-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: {{ block.settings.video_width }}px;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--media-radius, 20px);
+    background: rgba(49, 36, 46, 0.06);
+  }
+
+  .ai-video-text__media-{{ ai_gen_id }} video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+  }
+
+  .ai-video-text__placeholder-{{ ai_gen_id }} {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .ai-video-text__placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    color: rgba(49, 36, 46, 0.45);
+  }
+
+  .ai-video-text__empty-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 16px;
+    left: 12px;
+    right: 12px;
+    margin: 0;
+    color: #31242e;
+    font: inherit;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .ai-video-text__content-{{ ai_gen_id }} {
+    min-width: 0;
+    text-align: {{ block.settings.text_alignment }};
+  }
+
+  .ai-video-text__heading-{{ ai_gen_id }} {
+    margin: 0 0 16px;
+    color: inherit;
+    font-family: var(--font-heading-family, inherit);
+    font-style: var(--font-heading-style, normal);
+    font-weight: var(--font-heading-weight, 600);
+    text-transform: var(--heading-case, none);
+  }
+
+  .ai-video-text__description-{{ ai_gen_id }} {
+    color: inherit;
+    font-family: var(--font-body-family, inherit);
+    font-size: inherit;
+  }
+
+  .ai-video-text__description-{{ ai_gen_id }} > :first-child { margin-top: 0; }
+  .ai-video-text__description-{{ ai_gen_id }} > :last-child { margin-bottom: 0; }
+
+  @media screen and (max-width: 749px) {
+    .ai-video-text-{{ ai_gen_id }} {
+      width: 100%;
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+    .ai-video-text__inner-{{ ai_gen_id }} {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 24px;
+    }
+    .ai-video-text__media-{{ ai_gen_id }} {
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-video-text-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-video-text__inner-{{ ai_gen_id }}">
+    <div class="ai-video-text__media-{{ ai_gen_id }}">
+      {% if block.settings.video != blank %}
+        {{ block.settings.video | video_tag: controls: true, autoplay: false, loop: false, muted: false, playsinline: true, preload: 'metadata' }}
+      {% else %}
+        <div class="ai-video-text__placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+          <p class="ai-video-text__empty-{{ ai_gen_id }}">Selecione um vídeo nas configurações do bloco.</p>
+        </div>
+      {% endif %}
+    </div>
+    <div class="ai-video-text__content-{{ ai_gen_id }}">
+      {% if block.settings.title != blank %}
+        <h2 class="ai-video-text__heading-{{ ai_gen_id }}">{{ block.settings.title | escape }}</h2>
+      {% endif %}
+      {% if block.settings.description != blank %}
+        <div class="ai-video-text__description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Vídeo com texto",
+  "settings": [
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Vídeo"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descrição"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Alinhamento do texto",
+      "options": [
+        { "value": "left", "label": "À esquerda" },
+        { "value": "center", "label": "Centralizado" },
+        { "value": "right", "label": "À direita" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "video_width",
+      "label": "Largura máxima do vídeo",
+      "min": 220,
+      "max": 480,
+      "step": 20,
+      "unit": "px",
+      "default": 320
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Largura no computador",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vídeo com texto"
+    }
+  ],
+  "tag": null,
+  "class": "video-text-block"
+}
 {% endschema %}

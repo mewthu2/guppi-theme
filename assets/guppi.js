@@ -98,6 +98,8 @@
       cta.classList.add('off'); cta.setAttribute('aria-disabled', 'true');
     }
     lastFocus = document.activeElement;
+    // Garante a posição inicial no primeiro clique, quando a ficha acabou de ser criada
+    void s.querySelector('.gp-sheet').offsetHeight;
     s.classList.add('open'); s.setAttribute('aria-hidden', 'false');
     s.querySelector('.gp-close').focus();
   }
@@ -180,7 +182,8 @@
     if (!sel) return;
     var opt = sel.options[sel.selectedIndex], d = opt.dataset, sec = sel.closest('[data-gp-product]');
     if (!sec) return;
-    sec.querySelectorAll('[data-gp-price]').forEach(function (el) { el.textContent = d.price; });
+    sec.querySelectorAll('[data-gp-price]').forEach(function (el) { el.textContent = d.price || ''; el.hidden = !d.price; });
+    sec.querySelectorAll('[data-gp-off]').forEach(function (el) { el.textContent = d.off || ''; el.hidden = !d.off; });
     sec.querySelectorAll('[data-gp-pix]').forEach(function (el) { el.textContent = d.pix; });
     sec.querySelectorAll('[data-gp-compare]').forEach(function (el) { el.textContent = d.compare || ''; el.hidden = !d.compare; });
     var available = d.available === 'true';

@@ -6,12 +6,17 @@
   assign crumb_collection = collection | default: product.collections.first
 
   assign pix_price = current_variant.price | times: pix_factor | divided_by: 100
-  if pix_pct > 0
-    assign struck = current_variant.price
-  elsif current_variant.compare_at_price > current_variant.price
+  assign struck = nil
+  assign now_price = nil
+  assign off_pct = 0
+  if current_variant.compare_at_price > current_variant.price
     assign struck = current_variant.compare_at_price
-  else
-    assign struck = nil
+    assign off_pct = current_variant.compare_at_price | minus: current_variant.price | times: 100 | divided_by: current_variant.compare_at_price
+    if pix_pct > 0
+      assign now_price = current_variant.price
+    endif
+  elsif pix_pct > 0
+    assign struck = current_variant.price
   endif
 
   assign featured_id = current_variant.featured_media.id | default: product.featured_media.id
@@ -66,7 +71,11 @@
     {%- if eyebrow != blank -%}<span class="gp-pdp-eyebrow">{{ eyebrow }}</span>{%- endif -%}
     <h1>{{ product.title | escape }}</h1>
     <div class="gp-pdp-price">
-      <s data-gp-compare{% if struck == blank %} hidden{% endif %}>{{ struck | money }}</s>
+      <div class="gp-pdp-was">
+        <s data-gp-compare{% unless struck %} hidden{% endunless %}>{% if struck %}{{ struck | money }}{% endif %}</s>
+        <span class="gp-pdp-now" data-gp-price{% unless now_price %} hidden{% endunless %}>{% if now_price %}{{ now_price | money }}{% endif %}</span>
+        <span class="gp-pdp-off" data-gp-off{% if off_pct < 1 %} hidden{% endif %}>{{ off_pct }}% off</span>
+      </div>
       <div class="gp-pdp-pix">
         <strong data-gp-pix>{% if pix_pct > 0 %}{{ pix_price | money }}{% else %}{{ current_variant.price | money }}{% endif %}</strong>
         {%- if pix_pct > 0 and section.settings.pix_label != blank -%}<span>{{ section.settings.pix_label }}</span>{%- endif -%}
@@ -85,16 +94,24 @@
           {%- for variant in product.variants -%}
             {%- liquid
               assign v_pix = variant.price | times: pix_factor | divided_by: 100
+              assign v_main = variant.price | money
               if pix_pct > 0
                 assign v_main = v_pix | money
-                assign v_struck = variant.price | money
-              else
-                assign v_main = variant.price | money
-                if variant.compare_at_price > variant.price
-                  assign v_struck = variant.compare_at_price | money
-                else
-                  assign v_struck = ''
+              endif
+              assign v_struck = ''
+              assign v_now = ''
+              assign v_off = ''
+              if variant.compare_at_price > variant.price
+                assign v_struck = variant.compare_at_price | money
+                assign v_off_pct = variant.compare_at_price | minus: variant.price | times: 100 | divided_by: variant.compare_at_price
+                if v_off_pct > 0
+                  assign v_off = v_off_pct | append: '% off'
                 endif
+                if pix_pct > 0
+                  assign v_now = variant.price | money
+                endif
+              elsif pix_pct > 0
+                assign v_struck = variant.price | money
               endif
             -%}
             <option
@@ -102,6 +119,8 @@
               {% if variant.id == current_variant.id %}selected{% endif %}
               data-pix="{{ v_main | escape }}"
               data-compare="{{ v_struck | escape }}"
+              data-price="{{ v_now | escape }}"
+              data-off="{{ v_off | escape }}"
               data-available="{{ variant.available }}"
               {%- if variant.featured_media -%}
                 {%- for media in product.media -%}

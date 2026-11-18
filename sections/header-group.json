@@ -20,7 +20,8 @@
             "label": "Produtos",
             "link": "shopify://collections/products",
             "soon": false,
-            "soon_label": "Em breve"
+            "soon_label": "Em breve",
+            "logo_font": false
           }
         },
         "m2": {
@@ -29,7 +30,8 @@
             "label": "Kits",
             "link": "shopify://collections/kits",
             "soon": false,
-            "soon_label": "Em breve"
+            "soon_label": "Em breve",
+            "logo_font": false
           }
         },
         "m3": {
@@ -38,8 +40,8 @@
             "label": "Cheiro Güppi",
             "link": "/pages/cheiro-guppi",
             "soon": false,
-            "logo_font": true,
-            "soon_label": "Em breve"
+            "soon_label": "Em breve",
+            "logo_font": true
           }
         },
         "m4": {
@@ -48,7 +50,8 @@
             "label": "Afiliados Güppi",
             "link": "/pages/afiliados",
             "soon": false,
-            "soon_label": "Em breve"
+            "soon_label": "Em breve",
+            "logo_font": false
           }
         },
         "m5": {
@@ -57,16 +60,8 @@
             "label": "Sobre nós",
             "link": "/pages/sobre-nos",
             "soon": false,
-            "soon_label": "Em breve"
-          }
-        },
-        "m6": {
-          "type": "item",
-          "settings": {
-            "label": "Contato",
-            "link": "/pages/contact",
-            "soon": false,
-            "soon_label": "Em breve"
+            "soon_label": "Em breve",
+            "logo_font": false
           }
         },
         "m7": {
@@ -75,7 +70,18 @@
             "label": "Blog",
             "link": "/blogs/blog",
             "soon": false,
-            "soon_label": "Em breve"
+            "soon_label": "Em breve",
+            "logo_font": false
+          }
+        },
+        "m6": {
+          "type": "item",
+          "settings": {
+            "label": "Contato",
+            "link": "/pages/contact",
+            "soon": false,
+            "soon_label": "Em breve",
+            "logo_font": false
           }
         }
       },
@@ -90,7 +96,20 @@
       ],
       "settings": {
         "menu": "main-menu",
-        "color_scheme": "scheme-1"
+        "color_scheme": "scheme-1",
+        "top_on": true,
+        "top_text_1": "",
+        "top_link_1": "",
+        "top_text_2": "",
+        "top_link_2": "",
+        "top_text_3": "",
+        "top_link_3": "",
+        "top_bg": "#322c3d",
+        "top_fg": "#f6f3ea",
+        "wave": true,
+        "wave_color": "#9b7fc9",
+        "wave_color_2": "#bb9cc5",
+        "wave_color_3": "#decff0"
       }
     }
   },

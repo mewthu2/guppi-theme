@@ -206,6 +206,31 @@
         "padding_bottom": 80
       }
     },
+    "blocks_nymBph": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_1ccfd08_yYchiw": {
+          "type": "ai_gen_block_1ccfd08",
+          "settings": {
+            "desktop_width_percent": 100,
+            "video": "shopify://files/videos/copy_0B6422B2-A295-42DB-9A96-2979423E6C46.mov",
+            "video_fit": "cover",
+            "heading": "Dá vontade de sentir de novo.",
+            "intro": "",
+            "card_heading": "Como é sentir Vanilla Cashmere?",
+            "card_text": "Explore as notas e sensações da nossa fragrância.",
+            "button_label": "Sinta o cheiro GÜPPI",
+            "button_link": "https://w2hkoy81528krabq-100954865969.shopifypreview.com/pages/cheiro-guppi"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_1ccfd08_yYchiw"
+      ],
+      "name": "Güppi campanha vídeo",
+      "settings": {}
+    },
     "gp_story_3jQTFb": {
       "type": "gp-story",
       "name": "Güppi · Texto central",
@@ -230,6 +255,7 @@
     "image_with_text_9ar76m",
     "multicolumn_6QyTNL",
     "countdown_hwtzge",
+    "blocks_nymBph",
     "gp_story_3jQTFb"
   ]
 }

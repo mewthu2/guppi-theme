@@ -11,22 +11,7 @@
   "sections": {
     "hero": {
       "type": "gp-hero",
-      "blocks": {
-        "banner_1": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/guppi-banner-figma-alta-4096x1494.png",
-            "image_mobile": "shopify://shop_images/banner_guppi_mobile_1080x768_cac6786e-187b-4d2f-92de-db30a076b9e4.png",
-            "link": "https://guppi.com.br/products/kit-pre-venda?utm_term=stl_1aa4e5ac-db43-4f82-ac18-4f476ad2da4a",
-            "link_label": "Ver mais"
-          }
-        }
-      },
-      "block_order": [
-        "banner_1"
-      ],
       "settings": {
-        "interval": 5,
         "placeholder": "Vídeo",
         "bg": "#decff0",
         "wave_color": "#f6f3ea",
@@ -37,19 +22,6 @@
     "hotspots": {
       "type": "gp-hotspots",
       "blocks": {
-        "h1": {
-          "type": "hotspot",
-          "settings": {
-            "x": 82,
-            "y": 44,
-            "product": "body-splash-guppi-vanilla-cashmere-200-ml",
-            "title": "Body Splash",
-            "size": "200 ml",
-            "text": "Frescor e pele perfumada, do jeito mais leve. O cheiro Güppi para usar em qualquer momento.",
-            "image": "shopify://shop_images/Texto_do_seu_paragrafo_6.png",
-            "link": "https://guppi.com.br/products/body-splash?sck=stl_540aaef6-2d4e-42cc-9417-da37d8a313d3"
-          }
-        },
         "h2": {
           "type": "hotspot",
           "settings": {
@@ -61,6 +33,19 @@
             "text": "Um toque aveludado que envolve a pele, proporciona maciez e deixa o cheiro de Vanilla Cashmere ainda mais perto de você.",
             "image": "shopify://shop_images/Texto_do_seu_paragrafo_5.png",
             "link": "https://guppi.com.br/products/oleo-corporal?sck=stl_4cc1e117-19ae-4bdf-a912-d984b8e79758"
+          }
+        },
+        "h1": {
+          "type": "hotspot",
+          "settings": {
+            "x": 82,
+            "y": 44,
+            "product": "body-splash-guppi-vanilla-cashmere-200-ml",
+            "title": "Body Splash",
+            "size": "200 ml",
+            "text": "Frescor e pele perfumada, do jeito mais leve. O cheiro Güppi para usar em qualquer momento.",
+            "image": "shopify://shop_images/Texto_do_seu_paragrafo_6.png",
+            "link": "https://guppi.com.br/products/body-splash?sck=stl_540aaef6-2d4e-42cc-9417-da37d8a313d3"
           }
         },
         "h3": {
@@ -91,8 +76,8 @@
         }
       },
       "block_order": [
-        "h1",
         "h2",
+        "h1",
         "h3",
         "h4"
       ],

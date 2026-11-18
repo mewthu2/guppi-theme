@@ -1,7 +1,10 @@
 {%- liquid
   assign collection = section.settings.collection
   assign limit = section.settings.limit
-  if section.settings.products != blank
+  if section.settings.show_all_products
+    assign collection = collections.all
+    assign products = collection.products
+  elsif section.settings.products != blank
     assign products = section.settings.products
   else
     assign products = collection.products
@@ -56,6 +59,7 @@
   "settings": [
     { "type": "text", "id": "subheading", "label": "Subtítulo" },
     { "type": "inline_richtext", "id": "heading", "label": "Título", "default": "Os mais vendidos" },
+    { "type": "checkbox", "id": "show_all_products", "label": "Mostrar todos os produtos da loja", "info": "Ignora a coleção e os produtos escolhidos abaixo.", "default": false },
     { "type": "collection", "id": "collection", "label": "Coleção" },
     { "type": "product_list", "id": "products", "label": "Ou escolha produtos", "limit": 24 },
     { "type": "range", "id": "limit", "min": 2, "max": 24, "step": 1, "label": "Máximo de produtos", "default": 8 },

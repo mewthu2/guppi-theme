@@ -29,7 +29,11 @@
             "label_5": "Sobre nós",
             "link_5": "/pages/sobre-nos",
             "label_6": "Blog",
-            "link_6": "/blogs/blog"
+            "link_6": "/blogs/blog",
+            "label_7": "",
+            "link_7": "",
+            "label_8": "",
+            "link_8": ""
           }
         },
         "help": {
@@ -43,13 +47,27 @@
             "label_3": "Carrinho",
             "link_3": "/cart",
             "label_4": "Buscar",
-            "link_4": "/search"
+            "link_4": "/search",
+            "label_5": "",
+            "link_5": "",
+            "label_6": "",
+            "link_6": "",
+            "label_7": "",
+            "link_7": "",
+            "label_8": "",
+            "link_8": ""
           }
         },
         "policies": {
           "type": "policies",
           "settings": {
-            "heading": "Políticas"
+            "heading": "Políticas",
+            "label_1": "",
+            "link_1": "",
+            "label_2": "",
+            "link_2": "",
+            "label_3": "",
+            "link_3": ""
           }
         },
         "contact": {
@@ -79,6 +97,11 @@
         "ssl_title": "Compra 100% segura",
         "ssl_text": "Site protegido com certificado SSL",
         "show_powered": true,
+        "dev_enabled": true,
+        "dev_label": "Desenvolvido por",
+        "dev_name": "mewtda",
+        "dev_logo_url": "https://www.mewtda.com.br/assets/landing/mewtda-logo-nav-f941cf8ff4d4eb65217f33fd90b754edde28505c59dec7b625bb0727fe3795b8.png",
+        "dev_url": "https://www.mewtda.com.br",
         "coupon_enabled": true,
         "badge_1": "Receba",
         "badge_2": "5% OFF!",
@@ -96,12 +119,7 @@
         "copy_label": "Copiar código",
         "copied_label": "Código copiado!",
         "apply_label": "Aplicar e ir às compras",
-        "apply_redirect": "",
-        "dev_enabled": true,
-        "dev_label": "Desenvolvido por",
-        "dev_name": "mewtda",
-        "dev_logo_url": "https://www.mewtda.com.br/assets/landing/mewtda-logo-nav-f941cf8ff4d4eb65217f33fd90b754edde28505c59dec7b625bb0727fe3795b8.png",
-        "dev_url": "https://www.mewtda.com.br"
+        "apply_redirect": ""
       }
     },
     "popup": {
@@ -111,7 +129,7 @@
         "delay": 6,
         "frequency": 7,
         "subheading": "Boas-vindas",
-        "heading": "Ganhe 20% off na primeira compra",
+        "heading": "Ganhe 5% off na primeira compra",
         "text": "<p>Assine nossa newsletter e receba seu cupom.</p>",
         "show_newsletter": true,
         "discount_code": "",

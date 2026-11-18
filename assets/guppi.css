@@ -572,6 +572,9 @@ a.gp-card { cursor: pointer; }
 .gp-pdp-pix span { font-size: 14px; }
 .gp-pdp-intro { color: #6b6068; line-height: 1.55; margin: 16px 0 20px !important; font-size: 15px; }
 .gp-pdp-variant { display: block; width: 100%; margin: 0 0 12px; padding: 13px 16px; border-radius: 30px; border: 1.5px solid #ddd5da; background: #fff; font-size: 14px; color: var(--gp-dark); }
+.gp-pdp-notice { margin: 0 0 12px; padding: 13px 16px; border-radius: 16px; background: var(--gp-lilac); color: var(--gp-dark); font-size: 13px; line-height: 1.45; }
+.gp-pdp-notice strong { display: block; margin-bottom: 3px; font-size: 14px; font-weight: 800; }
+.gp-pdp-notice span { display: block; }
 .gp-pdp-buy { display: block; width: 100%; text-align: center; background: var(--gp-purple); color: #fff !important; border-radius: 30px; padding: 15px 19px; font-weight: 800; font-size: 15px; margin-bottom: 8px; border: 0; cursor: pointer; font-family: inherit; }
 .gp-pdp-buy[disabled] { opacity: .55; cursor: not-allowed; }
 .gp-pdp-buy.is-loading { opacity: .7; pointer-events: none; }

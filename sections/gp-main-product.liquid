@@ -131,6 +131,12 @@
           {%- endfor -%}
         </select>
       {%- endif -%}
+      {%- if section.settings.notice_title != blank or section.settings.notice_text != blank -%}
+        <div class="gp-pdp-notice">
+          {%- if section.settings.notice_title != blank -%}<strong>{{ section.settings.notice_title | escape }}</strong>{%- endif -%}
+          {%- if section.settings.notice_text != blank -%}<span>{{ section.settings.notice_text | escape }}</span>{%- endif -%}
+        </div>
+      {%- endif -%}
       <button
         type="submit"
         name="add"
@@ -194,6 +200,8 @@
     { "type": "text", "id": "intro", "label": "Frase de introdução", "info": "Usada quando o produto não tem o metafield custom.intro.", "default": "Um convite para transformar a hidratação em um momento de cuidado." },
     { "type": "range", "id": "pix_discount", "label": "Desconto no Pix", "min": 0, "max": 30, "step": 1, "unit": "%", "default": 5, "info": "0 mostra só o preço normal." },
     { "type": "text", "id": "pix_label", "label": "Texto do Pix", "default": "no Pix" },
+    { "type": "text", "id": "notice_title", "label": "Título do aviso acima do botão", "default": "Atenção: produto em pré-venda", "info": "Deixe título e texto vazios para esconder o aviso." },
+    { "type": "textarea", "id": "notice_text", "label": "Texto do aviso acima do botão", "default": "Os pedidos realizados durante a pré-venda serão enviados a partir de 30/11. O prazo de entrega informado no checkout começa a contar após a postagem" },
     { "type": "text", "id": "buy_label", "label": "Texto do botão de compra", "default": "Comprar" },
     { "type": "checkbox", "id": "sticky", "label": "Barra de compra fixa no rodapé", "default": true }
   ],

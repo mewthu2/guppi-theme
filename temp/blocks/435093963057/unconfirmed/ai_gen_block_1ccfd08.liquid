@@ -1,6 +1,155 @@
+{% doc %}
+  @prompt
+    Reproduza fielmente a seção original Güppi · Campanha deste tema, mudando SOMENTE a mídia de foto para vídeo selecionável. Não faça um redesign. Conteúdo inicial obrigatório e editável: título 'Dá vontade de sentir de novo.'; parágrafo principal vazio; título da caixa 'Como é sentir Vanilla Cashmere?'; texto da caixa 'Explore as notas e sensações da nossa fragrância.'; botão 'Sinta o cheiro GÜPPI', link https://w2hkoy81528krabq-100954865969.shopifypreview.com/pages/cheiro-guppi . Estrutura exata: mídia à esquerda, à direita título e abaixo caixa lilás com título, texto e botão magenta com seta →. Desktop >=750px: largura máxima 1160px centralizada, padding 64px 32px, duas colunas iguais, gap 64px, alinhamento vertical central e textos à esquerda. Moldura da mídia proporção 4:5, largura 100%, bordas 100px 28px 28px 28px. Título principal cor #a01964, peso 800, tamanho clamp(32px,4.4vw,56px), entrelinha 1.06, espaçamento de letras -.045em, margem inferior 24px. Caixa fundo #e6ddec, raio 24px, margem superior 28px, padding 24px 20px; título da caixa 24px peso 800 entrelinha 1.15, texto 16px entrelinha 1.5. Botão fundo var(--gp-magenta), texto branco, padding 17px 20px, raio 40px, fonte 15px peso 700 e seta 22px. Mobile: coluna única, gap 26px, padding 36px 22px 32px, texto centralizado; mídia largura máxima 344px proporção 4:5 e bordas 70px 24px 24px 24px; título 38px, caixa padding 22px 16px e margem superior 24px. Use fontes e variáveis de cores do tema original. Vídeo hospedado na Shopify com seletor e controles, sem áudio automático; permita escolher preencher moldura ou mostrar vídeo inteiro. Não omita os textos nem a caixa nem o botão. Preserve a seção original sem removê-la. Este é um novo bloco que tenta copiar exatamente o original, não uma alteração no original.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .gp-campaign-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 64px 32px;
+    box-sizing: border-box;
+  }
+  .gp-campaign__grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 64px;
+    align-items: center;
+  }
+  .gp-campaign__media-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 100px 28px 28px 28px;
+    background: #e6ddec;
+  }
+  .gp-campaign__media-{{ ai_gen_id }} img,
+  .gp-campaign__media-{{ ai_gen_id }} video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: {{ block.settings.video_fit }};
+  }
+  .gp-campaign__placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+    color: #514853;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  .gp-campaign__placeholder-{{ ai_gen_id }} svg { width: 70%; height: 70%; }
+  .gp-campaign__content-{{ ai_gen_id }} { text-align: left; }
+  .gp-campaign__title-{{ ai_gen_id }} {
+    color: #a01964;
+    font-family: var(--font-heading-family, inherit);
+    font-weight: 800;
+    font-size: clamp(32px, 4.4vw, 56px);
+    line-height: 1.06;
+    letter-spacing: -.045em;
+    margin: 0 0 24px;
+  }
+  .gp-campaign__intro-{{ ai_gen_id }} { color: var(--color-foreground, #31242e); font-family: var(--font-body-family, inherit); }
+  .gp-campaign__intro-{{ ai_gen_id }}:empty { display: none; }
+  .gp-campaign__card-{{ ai_gen_id }} {
+    background: #e6ddec;
+    border-radius: 24px;
+    margin-top: 28px;
+    padding: 24px 20px;
+    color: #31242e;
+  }
+  .gp-campaign__card-title-{{ ai_gen_id }} {
+    font-family: var(--font-heading-family, inherit);
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 10px;
+  }
+  .gp-campaign__card-text-{{ ai_gen_id }} { font-family: var(--font-body-family, inherit); font-size: 16px; line-height: 1.5; margin: 0; }
+  .gp-campaign__button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+    padding: 17px 20px;
+    border-radius: 40px;
+    background: var(--gp-magenta, #ed356d);
+    color: #fff;
+    font-family: var(--font-body-family, inherit);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+  }
+  .gp-campaign__button-{{ ai_gen_id }}:focus-visible { outline: 3px solid #31242e; outline-offset: 3px; }
+  .gp-campaign__arrow-{{ ai_gen_id }} { font-size: 22px; line-height: 1; }
+  @media screen and (max-width: 749px) {
+    .gp-campaign-{{ ai_gen_id }} { padding: 36px 22px 32px; }
+    .gp-campaign__grid-{{ ai_gen_id }} { grid-template-columns: 1fr; gap: 26px; }
+    .gp-campaign__media-{{ ai_gen_id }} { width: 100%; max-width: 344px; margin: 0 auto; border-radius: 70px 24px 24px 24px; }
+    .gp-campaign__content-{{ ai_gen_id }} { text-align: center; }
+    .gp-campaign__title-{{ ai_gen_id }} { font-size: 38px; }
+    .gp-campaign__card-{{ ai_gen_id }} { margin-top: 24px; padding: 22px 16px; }
+  }
+{% endstyle %}
+
+<div class="gp-campaign-{{ ai_gen_id }}" style="width: {{ block.settings.desktop_width_percent }}%;" {{ block.shopify_attributes }}>
+  <div class="gp-campaign__grid-{{ ai_gen_id }}">
+    <div class="gp-campaign__media-{{ ai_gen_id }}">
+      {% if block.settings.video != blank %}
+        {{ block.settings.video | video_tag: controls: true, autoplay: false, muted: false, loop: false, playsinline: true }}
+      {% elsif block.settings.image != blank %}
+        <img src="{{ block.settings.image | image_url: width: 1400 }}" alt="{{ block.settings.image.alt | escape }}" loading="lazy" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}">
+      {% else %}
+        <div class="gp-campaign__placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+          <span>Selecione um vídeo ou uma imagem para esta campanha.</span>
+        </div>
+      {% endif %}
+    </div>
+    <div class="gp-campaign__content-{{ ai_gen_id }}">
+      <h2 class="gp-campaign__title-{{ ai_gen_id }}">{{ block.settings.heading | escape }}</h2>
+      <div class="gp-campaign__intro-{{ ai_gen_id }}">{{ block.settings.intro }}</div>
+      <div class="gp-campaign__card-{{ ai_gen_id }}">
+        <h3 class="gp-campaign__card-title-{{ ai_gen_id }}">{{ block.settings.card_heading | escape }}</h3>
+        <p class="gp-campaign__card-text-{{ ai_gen_id }}">{{ block.settings.card_text | escape }}</p>
+        <a class="gp-campaign__button-{{ ai_gen_id }}" href="{{ block.settings.button_link }}">
+          <span>{{ block.settings.button_label | escape }}</span><span class="gp-campaign__arrow-{{ ai_gen_id }}" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Güppi campanha vídeo",
+  "settings": [
+    { "type": "range", "id": "desktop_width_percent", "label": "Largura no desktop", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "header", "content": "Mídia" },
+    { "type": "video", "id": "video", "label": "Vídeo hospedado na Shopify" },
+    { "type": "image_picker", "id": "image", "label": "Imagem alternativa" },
+    { "type": "select", "id": "video_fit", "label": "Enquadramento do vídeo", "options": [{ "value": "cover", "label": "Preencher moldura" }, { "value": "contain", "label": "Mostrar vídeo inteiro" }], "default": "cover" },
+    { "type": "header", "content": "Conteúdo" },
+    { "type": "text", "id": "heading", "label": "Título principal", "default": "Dá vontade de sentir de novo." },
+    { "type": "richtext", "id": "intro", "label": "Parágrafo principal" },
+    { "type": "text", "id": "card_heading", "label": "Título da caixa", "default": "Como é sentir Vanilla Cashmere?" },
+    { "type": "textarea", "id": "card_text", "label": "Texto da caixa", "default": "Explore as notas e sensações da nossa fragrância." },
+    { "type": "text", "id": "button_label", "label": "Texto do botão", "default": "Sinta o cheiro GÜPPI" },
+    { "type": "url", "id": "button_link", "label": "Link do botão" }
+  ],
+  "presets": [{ "name": "Güppi campanha vídeo" }],
+  "tag": null,
+  "class": "gp-campaign-block"
+}
 {% endschema %}

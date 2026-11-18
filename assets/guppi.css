@@ -486,7 +486,10 @@ a.gp-card { cursor: pointer; }
   border: 1.5px solid rgba(246, 243, 236, .85); background: rgba(246, 243, 236, .08); animation: gp-float 3s ease-in-out infinite;
 }
 .gp-coupon-bubble::before { content: ""; position: absolute; inset: 7%; border-radius: 50%; border: 1px solid rgba(246, 243, 236, .3); }
-.gp-coupon-bubble strong { font-size: 30px; font-weight: 700; letter-spacing: -.03em; line-height: .95; text-align: center; max-width: 90px; }
+.gp-coupon-u { position: relative; display: block; width: auto; height: 76px; overflow: visible; }
+/* A piscadinha começa quando a janela abre */
+.gp-coupon-u .gp-u-dot.d2 { animation: none; }
+.gp-coupon-wrap.open .gp-coupon-u .gp-u-dot.d2 { animation: gp-wink 3.5s ease-in-out infinite; }
 .gp-coupon-hero .gp-fish-mini { left: 50%; top: 82%; }
 .gp-coupon-body { padding: 26px 26px 28px; }
 .gp-coupon-body .gp-eyebrow { font-size: 12px; color: var(--gp-purple); font-weight: 800; }
@@ -713,7 +716,7 @@ a.gp-card { cursor: pointer; }
   body.gp-wide .gp-pdp-cream-scroll { height: auto; }
   .gp-pdp-cream-img { -webkit-mask-image: none; mask-image: none; }
   .gp-pdp-cream-fig::after { display: none; }
-  .gp-u, .gp-u-dot, .gp-fish-mini, .gp-coupon-bubble { animation: none; }
+  .gp-u, .gp-u-dot, .gp-u-dot.d2, .gp-coupon-wrap.open .gp-coupon-u .gp-u-dot.d2, .gp-fish-mini, .gp-coupon-bubble { animation: none; }
   .gp-fish-bubble { animation: none; opacity: 1; transform: none; }
   .gp-coupon { transition: none; }
 }

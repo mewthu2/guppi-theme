@@ -209,6 +209,7 @@
         "r4": {
           "type": "reel",
           "settings": {
+            "video": "shopify://files/videos/Canva Video Export (1).mp4",
             "product": "",
             "title": "Vídeo\nCreator 4",
             "caption": "",

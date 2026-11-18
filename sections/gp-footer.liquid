@@ -132,18 +132,19 @@
 </footer>
 
 {%- if section.settings.coupon_enabled -%}
+  {%- assign coupon_code = section.settings.coupon_code | strip -%}
   <div class="gp gp-coupon-wrap" id="GpCoupon" aria-hidden="true">
     <div class="gp-backdrop" data-gp-coupon-close></div>
     <div class="gp-coupon" role="dialog" aria-modal="true" aria-labelledby="GpCouponTitle">
       <button class="gp-close" type="button" data-gp-coupon-close aria-label="{{ 'accessibility.close' | t }}">×</button>
       {%- form 'customer', id: 'GpCouponForm', class: 'gp-coupon-form' -%}
-        <input type="hidden" name="contact[tags]" value="newsletter,cupom-boas-vindas">
-        <div class="gp-coupon-hero" aria-hidden="true">
+        <input type="hidden" name="contact[tags]" value="newsletter{% if coupon_code != blank %},cupom-boas-vindas{% endif %}">
+        <div class="gp-coupon-hero{% if form.posted_successfully? and coupon_code != blank %} has-ticket{% endif %}" aria-hidden="true">
           <span class="gp-coupon-bubble"><strong>{{ section.settings.badge_2 }}</strong></span>
           <span class="gp-fish-mini m1"></span><span class="gp-fish-mini m2"></span><span class="gp-fish-mini m3"></span>
-          {%- if form.posted_successfully? -%}
+          {%- if form.posted_successfully? and coupon_code != blank -%}
             {%- for i in (1..8) -%}<span class="gp-drop" style="--a: {{ i | times: 45 }}deg;"></span>{%- endfor -%}
-            <span class="gp-ticket"><small>{{ section.settings.ticket_label }}</small><code>{{ section.settings.coupon_code }}</code></span>
+            <span class="gp-ticket"><small>{{ section.settings.ticket_label }}</small><code>{{ coupon_code }}</code></span>
           {%- endif -%}
         </div>
         <div class="gp-coupon-body">
@@ -151,8 +152,10 @@
             <div data-gp-coupon-result="success">
               <h2 id="GpCouponTitle">{{ section.settings.success_title }}</h2>
               <p>{{ section.settings.success_text }}</p>
-              <button class="gp-cta" type="button" data-gp-copy="{{ section.settings.coupon_code | escape }}" data-done="{{ section.settings.copied_label | escape }}">{{ section.settings.copy_label }}</button>
-              <a class="gp-cta gp-cta--ghost" href="/discount/{{ section.settings.coupon_code | url_encode }}?redirect={{ section.settings.apply_redirect | default: routes.all_products_collection_url | url_encode }}">{{ section.settings.apply_label }}</a>
+              {%- if coupon_code != blank -%}
+                <button class="gp-cta" type="button" data-gp-copy="{{ coupon_code | escape }}" data-done="{{ section.settings.copied_label | escape }}">{{ section.settings.copy_label }}</button>
+                <a class="gp-cta gp-cta--ghost" href="/discount/{{ coupon_code | url_encode }}?redirect={{ section.settings.apply_redirect | default: routes.all_products_collection_url | url_encode }}">{{ section.settings.apply_label }}</a>
+              {%- endif -%}
             </div>
           {%- else -%}
             {%- if form.errors -%}<span data-gp-coupon-result="error" hidden></span>{%- endif -%}
@@ -211,7 +214,7 @@
     { "type": "text", "id": "button_label", "label": "Botão", "default": "Quero meu cupom" },
     { "type": "text", "id": "privacy", "label": "Aviso", "default": "Você pode cancelar a inscrição quando quiser." },
     { "type": "header", "content": "Cupom revelado" },
-    { "type": "text", "id": "coupon_code", "label": "Código do cupom", "info": "Crie o desconto com este código em Descontos, no admin da Shopify.", "default": "GUPPI5" },
+    { "type": "text", "id": "coupon_code", "label": "Código do cupom", "info": "Vazio: a newsletter não oferece cupom. Para oferecer, crie o desconto com este código em Descontos, no admin da Shopify, e ajuste os textos acima." },
     { "type": "text", "id": "ticket_label", "label": "Texto acima do código", "default": "Seu cupom" },
     { "type": "text", "id": "success_title", "label": "Título", "default": "Prontinho, cupom liberado!" },
     { "type": "text", "id": "success_text", "label": "Texto", "default": "Use o código no checkout ou clique abaixo para aplicar o desconto automaticamente." },

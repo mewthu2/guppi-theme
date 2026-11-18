@@ -499,7 +499,7 @@ a.gp-card { cursor: pointer; }
 .gp-ticket small { font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--gp-purple); }
 .gp-ticket code { font-family: inherit; font-size: 32px; font-weight: 800; letter-spacing: .06em; }
 .gp-drop { position: absolute; left: 50%; top: 50%; width: 12px; height: 12px; margin: -6px; border-radius: 50%; background: var(--gp-cream); opacity: 0; }
-.gp-coupon-wrap.is-revealed .gp-coupon-bubble { animation: gp-pop .7s ease-in forwards; }
+.gp-coupon-wrap.is-revealed .gp-coupon-hero.has-ticket .gp-coupon-bubble { animation: gp-pop .7s ease-in forwards; }
 .gp-coupon-wrap.is-revealed .gp-drop { animation: gp-burst .7s cubic-bezier(.2,.8,.2,1) .55s forwards; }
 .gp-coupon-wrap.is-revealed .gp-ticket { animation: gp-ticket .8s cubic-bezier(.34,1.56,.64,1) .6s forwards; }
 .gp-coupon-wrap.is-revealed [data-gp-coupon-result] { animation: gp-fade-up .5s ease .9s both; }

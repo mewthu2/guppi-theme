@@ -11,7 +11,22 @@
   "sections": {
     "hero": {
       "type": "gp-hero",
+      "blocks": {
+        "slide_xeTFKn": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/guppi-banner-figma-alta-4096x1494.png",
+            "image_mobile": "shopify://shop_images/banner_guppi_mobile_1080x768_cac6786e-187b-4d2f-92de-db30a076b9e4.png",
+            "link": "shopify://collections/kits",
+            "link_label": "Ver mais"
+          }
+        }
+      },
+      "block_order": [
+        "slide_xeTFKn"
+      ],
       "settings": {
+        "interval": 5,
         "placeholder": "Vídeo",
         "bg": "#decff0",
         "wave_color": "#f6f3ea",

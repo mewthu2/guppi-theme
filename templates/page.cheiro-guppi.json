@@ -13,6 +13,8 @@
       "type": "gp-cheiro",
       "settings": {
         "img_maciez": "shopify://shop_images/JFR_1763.jpg",
+        "img_calor": "shopify://shop_images/Abraco_de_cashmere_ao_entardecer.png",
+        "img_presenca": "shopify://shop_images/Abraco_perfumado_entre_amigas.png",
         "button_label": "",
         "button_link": ""
       }

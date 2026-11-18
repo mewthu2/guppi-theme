@@ -23,8 +23,10 @@
     <span class="badge badge--soldout">{{ 'products.product.sold_out' | t }}</span>
   {%- elsif compare > price -%}
     {%- if settings.sale_badge_style == 'percent' -%}
-      {%- assign saving = compare | minus: price | times: 100.0 | divided_by: compare | round -%}
-      <span class="badge badge--sale">{{ 'products.product.badge_percent' | t: percent: saving }}</span>
+      {%- assign saving = compare | minus: price | times: 100 | divided_by: compare -%}
+      {%- if saving > 0 -%}
+        <span class="badge badge--sale">{{ 'products.product.badge_percent' | t: percent: saving }}</span>
+      {%- endif -%}
     {%- else -%}
       <span class="badge badge--sale">{{ 'products.product.on_sale' | t }}</span>
     {%- endif -%}

@@ -103,7 +103,7 @@
     "name": "Selos",
     "settings": [
       { "type": "select", "id": "sale_badge_style", "label": "Selo de promoção", "options": [ { "value": "percent", "label": "Porcentagem (ex.: 20% off)" }, { "value": "text", "label": "Texto (Promoção)" } ], "default": "percent" },
-      { "type": "color", "id": "badge_sale_bg", "label": "Fundo do selo de promoção", "default": "#F04518" },
+      { "type": "color", "id": "badge_sale_bg", "label": "Fundo do selo de promoção", "default": "#C8A5C7" },
       { "type": "color", "id": "badge_soldout_bg", "label": "Fundo do selo esgotado", "default": "#777777" },
       { "type": "color", "id": "badge_new_bg", "label": "Fundo do selo novo", "default": "#69B3A6" },
       { "type": "header", "content": "Selos personalizados por tag" },

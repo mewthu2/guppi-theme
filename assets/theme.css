@@ -671,6 +671,9 @@ textarea.field__input {
 
 .badge--sale {
   background: var(--badge-sale);
+  color: #322C3D;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .badge--soldout {
@@ -687,10 +690,6 @@ textarea.field__input {
   align-items: baseline;
   gap: 0.25rem 0.5rem;
   font-weight: 600;
-}
-
-.price--on-sale .price__current {
-  color: var(--badge-sale);
 }
 
 .price__compare {

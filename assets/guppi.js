@@ -243,10 +243,14 @@
 
   // Vídeos: tocam sem som quando aparecem na tela
   function initVideos(root) {
-    var videos = [].slice.call(root.querySelectorAll('.gp video[autoplay], .gp-hero video.gp-only-mobile, .gp-hero video.gp-only-desktop'));
+    var videos = [].slice.call(root.querySelectorAll('.gp video[autoplay], .gp-hero video'));
     if (!videos.length) return;
     videos.forEach(function (v) { v.muted = true; v.playsInline = true; v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); });
-    var play = function (v) { var a = v.play(); if (a && a.catch) a.catch(function () {}); };
+    var play = function (v) {
+      var slide = v.closest('[data-gp-hero-slide]');
+      if (slide && !slide.classList.contains('is-on')) return;
+      var a = v.play(); if (a && a.catch) a.catch(function () {});
+    };
     if (!('IntersectionObserver' in window)) { videos.forEach(play); return; }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
@@ -254,6 +258,76 @@
       });
     }, { threshold: 0.25 });
     videos.forEach(function (v) { io.observe(v); });
+  }
+
+  // Abertura: banners rotativos
+  function initHero(root) {
+    root.querySelectorAll('[data-gp-hero]').forEach(function (hero) {
+      if (hero.dataset.gpHeroReady) return;
+      hero.dataset.gpHeroReady = '1';
+      var slides = [].slice.call(hero.querySelectorAll('[data-gp-hero-slide]'));
+      if (slides.length < 2) return;
+      var dots = [].slice.call(hero.querySelectorAll('[data-gp-hero-dot]'));
+      var delay = parseInt(hero.dataset.interval, 10) || 5000;
+      var current = 0, timer = null, hovering = false, focused = false, pinned = false, visible = true;
+
+      function show(next) {
+        next = (next + slides.length) % slides.length;
+        if (next === current) return;
+        slides[current].classList.remove('is-on');
+        slides[current].querySelectorAll('video').forEach(function (v) { v.pause(); });
+        slides[next].classList.add('is-on');
+        slides[next].querySelectorAll('video').forEach(function (v) {
+          if (!v.getClientRects().length) return;
+          var a = v.play(); if (a && a.catch) a.catch(function () {});
+        });
+        dots.forEach(function (d, i) {
+          if (i === next) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current');
+        });
+        current = next;
+      }
+      function stop() { clearInterval(timer); timer = null; }
+      function start() {
+        stop();
+        if (reduceMotion) return;
+        timer = setInterval(function () {
+          if (!hero.isConnected) { stop(); return; }
+          if (hovering || focused || pinned || !visible || document.hidden) return;
+          show(current + 1);
+        }, delay);
+      }
+      function go(next) { show(next); start(); }
+
+      hero.addEventListener('click', function (e) {
+        var dot = e.target.closest('[data-gp-hero-dot]');
+        if (dot) go(parseInt(dot.dataset.gpHeroDot, 10));
+        else if (e.target.closest('[data-gp-hero-prev]')) go(current - 1);
+        else if (e.target.closest('[data-gp-hero-next]')) go(current + 1);
+      });
+      hero.addEventListener('mouseenter', function () { hovering = true; });
+      hero.addEventListener('mouseleave', function () { hovering = false; });
+      hero.addEventListener('focusin', function () { focused = true; });
+      hero.addEventListener('focusout', function () { focused = false; });
+
+      var startX = 0, startY = 0;
+      hero.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: true });
+      hero.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - startX, dy = e.changedTouches[0].clientY - startY;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(current + (dx < 0 ? 1 : -1));
+      }, { passive: true });
+
+      // Editor de temas: mostra o banner selecionado e segura a rotação
+      hero.addEventListener('shopify:block:select', function (e) {
+        var i = slides.indexOf(e.target);
+        if (i > -1) { pinned = true; show(i); }
+      });
+      hero.addEventListener('shopify:block:deselect', function () { pinned = false; });
+
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; }, { threshold: 0.25 }).observe(hero);
+      }
+      start();
+    });
   }
 
   // Rodapé: janela do cupom da newsletter
@@ -346,6 +420,7 @@
     initGallery(root);
     initCream(root);
     initVideos(root);
+    initHero(root);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { init(); });

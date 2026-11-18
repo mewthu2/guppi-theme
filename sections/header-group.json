@@ -44,16 +44,6 @@
             "logo_font": true
           }
         },
-        "m4": {
-          "type": "item",
-          "settings": {
-            "label": "Afiliados Güppi",
-            "link": "/pages/afiliados",
-            "soon": false,
-            "soon_label": "Em breve",
-            "logo_font": false
-          }
-        },
         "m5": {
           "type": "item",
           "settings": {
@@ -89,7 +79,6 @@
         "m1",
         "m2",
         "m3",
-        "m4",
         "m5",
         "m7",
         "m6"
@@ -97,7 +86,7 @@
       "settings": {
         "menu": "main-menu",
         "color_scheme": "scheme-1",
-        "top_on": true,
+        "top_on": false,
         "top_text_1": "",
         "top_link_1": "",
         "top_text_2": "",

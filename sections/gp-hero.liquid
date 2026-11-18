@@ -1,59 +1,98 @@
 {%- liquid
-  assign d_video = section.settings.video
-  assign d_image = section.settings.image
-  assign m_video = section.settings.video_mobile
-  assign m_image = section.settings.image_mobile
-  if m_video == blank and m_image == blank
-    assign m_video = d_video
-    assign m_image = d_image
-  endif
-  assign split = true
-  if m_video == d_video and m_image == d_image
-    assign split = false
-  endif
-
   comment
-    Com imagem, a altura do banner segue a proporção da arte. Com vídeo, continua preenchendo a primeira tela.
+    A altura do banner segue a arte do primeiro banner. Os demais ocupam o mesmo espaço.
   endcomment
   assign fit_class = ''
   assign fit_style = ''
-  if d_video == blank and d_image != blank
-    assign fit_class = fit_class | append: ' gp-hero--fit-d'
-    assign fit_style = fit_style | append: ' --gp-hero-ar-d: ' | append: d_image.aspect_ratio | append: ';'
+  assign first = section.blocks.first
+  if first
+    assign d_video = first.settings.video
+    assign d_image = first.settings.image
+    assign m_video = first.settings.video_mobile
+    assign m_image = first.settings.image_mobile
+    if m_video == blank and m_image == blank
+      assign m_video = d_video
+      assign m_image = d_image
+    endif
+    if d_video == blank and d_image != blank
+      assign fit_class = fit_class | append: ' gp-hero--fit-d'
+      assign fit_style = fit_style | append: ' --gp-hero-ar-d: ' | append: d_image.aspect_ratio | append: ';'
+    endif
+    if m_video == blank and m_image != blank
+      assign fit_class = fit_class | append: ' gp-hero--fit-m'
+      assign fit_style = fit_style | append: ' --gp-hero-ar-m: ' | append: m_image.aspect_ratio | append: ';'
+    endif
   endif
-  if m_video == blank and m_image != blank
-    assign fit_class = fit_class | append: ' gp-hero--fit-m'
-    assign fit_style = fit_style | append: ' --gp-hero-ar-m: ' | append: m_image.aspect_ratio | append: ';'
-  endif
+  assign interval = section.settings.interval | times: 1000
 -%}
-<section class="gp gp-hero{{ fit_class }}" style="background: {{ section.settings.bg }};{{ fit_style }}">
-  {%- if split == false -%}
-    {%- if d_video != blank -%}
-      {{ d_video | video_tag: class: 'gp-media-fill', autoplay: true, muted: true, loop: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1920x' }}
-    {%- elsif d_image != blank -%}
-      {{ d_image | image_url: width: 2400 | image_tag: class: 'gp-media-fill', widths: '430, 860, 1100, 1600, 2000, 2400', sizes: '100vw', loading: 'eager', fetchpriority: 'high' }}
+<section class="gp gp-hero{{ fit_class }}" style="background: {{ section.settings.bg }};{{ fit_style }}" data-gp-hero data-interval="{{ interval }}" aria-label="Banners">
+  <div class="gp-hero-slides">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign d_video = block.settings.video
+        assign d_image = block.settings.image
+        assign m_video = block.settings.video_mobile
+        assign m_image = block.settings.image_mobile
+        if m_video == blank and m_image == blank
+          assign m_video = d_video
+          assign m_image = d_image
+        endif
+        assign split = true
+        if m_video == d_video and m_image == d_image
+          assign split = false
+        endif
+
+        assign loading = 'lazy'
+        assign priority = 'auto'
+        assign preload = 'none'
+        if forloop.first
+          assign loading = 'eager'
+          assign priority = 'high'
+          assign preload = 'metadata'
+        endif
+      -%}
+      <div class="gp-hero-slide{% if forloop.first %} is-on{% endif %}" data-gp-hero-slide {{ block.shopify_attributes }}>
+        {%- if split == false -%}
+          {%- if d_video != blank -%}
+            {{ d_video | video_tag: class: 'gp-media-fill', muted: true, loop: true, playsinline: true, controls: false, preload: preload, image_size: '1920x' }}
+          {%- elsif d_image != blank -%}
+            {{ d_image | image_url: width: 2400 | image_tag: class: 'gp-media-fill', widths: '430, 860, 1100, 1600, 2000, 2400', sizes: '100vw', loading: loading, fetchpriority: priority }}
+          {%- else -%}
+            <div class="gp-slot">{{ section.settings.placeholder }}</div>
+          {%- endif -%}
+        {%- else -%}
+          {%- comment -%} Celular abaixo de 750px, desktop a partir daí. Vídeos só tocam quando visíveis (guppi.js), para não baixar os dois. {%- endcomment -%}
+          {%- if m_video != blank -%}
+            {{ m_video | video_tag: class: 'gp-media-fill gp-only-mobile', muted: true, loop: true, playsinline: true, controls: false, preload: 'none', image_size: '860x' }}
+          {%- elsif m_image != blank -%}
+            {{ m_image | image_url: width: 1300 | image_tag: class: 'gp-media-fill gp-only-mobile', widths: '430, 650, 860, 1100, 1300', sizes: '100vw', loading: loading, fetchpriority: priority }}
+          {%- else -%}
+            <div class="gp-slot gp-only-mobile">{{ section.settings.placeholder }}</div>
+          {%- endif -%}
+          {%- if d_video != blank -%}
+            {{ d_video | video_tag: class: 'gp-media-fill gp-only-desktop', muted: true, loop: true, playsinline: true, controls: false, preload: 'none', image_size: '1920x' }}
+          {%- elsif d_image != blank -%}
+            {{ d_image | image_url: width: 2400 | image_tag: class: 'gp-media-fill gp-only-desktop', widths: '1100, 1600, 2000, 2400', sizes: '100vw', loading: 'lazy' }}
+          {%- else -%}
+            <div class="gp-slot gp-only-desktop">{{ section.settings.placeholder }}</div>
+          {%- endif -%}
+        {%- endif -%}
+        {%- if block.settings.link != blank -%}
+          <a class="gp-hero-link" href="{{ block.settings.link }}" aria-label="{{ block.settings.link_label | default: 'Ver mais' | escape }}"></a>
+        {%- endif -%}
+      </div>
     {%- else -%}
-      <div class="gp-slot">{{ section.settings.placeholder }}</div>
-    {%- endif -%}
-  {%- else -%}
-    {%- comment -%} Celular abaixo de 750px, desktop a partir daí. Vídeos só tocam quando visíveis (guppi.js), para não baixar os dois. {%- endcomment -%}
-    {%- if m_video != blank -%}
-      {{ m_video | video_tag: class: 'gp-media-fill gp-only-mobile', muted: true, loop: true, playsinline: true, controls: false, preload: 'none', image_size: '860x' }}
-    {%- elsif m_image != blank -%}
-      {{ m_image | image_url: width: 1300 | image_tag: class: 'gp-media-fill gp-only-mobile', widths: '430, 650, 860, 1100, 1300', sizes: '100vw', loading: 'eager', fetchpriority: 'high' }}
-    {%- else -%}
-      <div class="gp-slot gp-only-mobile">{{ section.settings.placeholder }}</div>
-    {%- endif -%}
-    {%- if d_video != blank -%}
-      {{ d_video | video_tag: class: 'gp-media-fill gp-only-desktop', muted: true, loop: true, playsinline: true, controls: false, preload: 'none', image_size: '1920x' }}
-    {%- elsif d_image != blank -%}
-      {{ d_image | image_url: width: 2400 | image_tag: class: 'gp-media-fill gp-only-desktop', widths: '1100, 1600, 2000, 2400', sizes: '100vw', loading: 'lazy' }}
-    {%- else -%}
-      <div class="gp-slot gp-only-desktop">{{ section.settings.placeholder }}</div>
-    {%- endif -%}
-  {%- endif -%}
-  {%- if section.settings.link != blank -%}
-    <a class="gp-hero-link" href="{{ section.settings.link }}" aria-label="{{ section.settings.link_label | default: 'Ver mais' | escape }}"></a>
+      <div class="gp-hero-slide is-on" data-gp-hero-slide><div class="gp-slot">{{ section.settings.placeholder }}</div></div>
+    {%- endfor -%}
+  </div>
+  {%- if section.blocks.size > 1 -%}
+    <button class="gp-hero-arrow gp-hero-prev" type="button" data-gp-hero-prev aria-label="Banner anterior">‹</button>
+    <button class="gp-hero-arrow gp-hero-next" type="button" data-gp-hero-next aria-label="Próximo banner">›</button>
+    <div class="gp-hero-dots">
+      {%- for block in section.blocks -%}
+        <button class="gp-hero-dot" type="button" data-gp-hero-dot="{{ forloop.index0 }}" aria-label="Ver banner {{ forloop.index }}"{% if forloop.first %} aria-current="true"{% endif %}></button>
+      {%- endfor -%}
+    </div>
   {%- endif -%}
   {% render 'gp-wave', front: section.settings.wave_color, middle: section.settings.wave_color_2, back: section.settings.wave_color_3 %}
 </section>
@@ -61,16 +100,9 @@
 {% schema %}
 {
   "name": "Güppi · Abertura",
+  "max_blocks": 5,
   "settings": [
-    { "type": "header", "content": "Desktop" },
-    { "type": "video", "id": "video", "label": "Vídeo", "info": "Toca sem som, em loop. Use um vídeo horizontal." },
-    { "type": "image_picker", "id": "image", "label": "Imagem (se não houver vídeo)" },
-    { "type": "header", "content": "Celular" },
-    { "type": "video", "id": "video_mobile", "label": "Vídeo", "info": "Use um vídeo vertical. Sem vídeo nem imagem aqui, o celular usa os do desktop." },
-    { "type": "image_picker", "id": "image_mobile", "label": "Imagem (se não houver vídeo)" },
-    { "type": "header", "content": "Link" },
-    { "type": "url", "id": "link", "label": "Link do banner", "info": "Coleção, produto, página ou qualquer endereço. O banner inteiro fica clicável." },
-    { "type": "text", "id": "link_label", "label": "Descrição do link", "info": "Lida por leitores de tela. Ex.: Ver a coleção de body splash.", "default": "Ver mais" },
+    { "type": "range", "id": "interval", "label": "Tempo de cada banner", "min": 3, "max": 10, "step": 1, "unit": "s", "default": 5, "info": "Com mais de um banner, eles se alternam sozinhos." },
     { "type": "header", "content": "Aparência" },
     { "type": "text", "id": "placeholder", "label": "Texto sem mídia", "default": "Vídeo" },
     { "type": "color", "id": "bg", "label": "Cor de fundo", "default": "#DECFF0" },
@@ -78,6 +110,23 @@
     { "type": "color", "id": "wave_color_2", "label": "Cor da onda do meio", "default": "#BB9CC5" },
     { "type": "color", "id": "wave_color_3", "label": "Cor da onda de trás", "default": "#9B7FC9" }
   ],
-  "presets": [{ "name": "Güppi · Abertura" }]
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Banner",
+      "settings": [
+        { "type": "header", "content": "Desktop" },
+        { "type": "video", "id": "video", "label": "Vídeo", "info": "Toca sem som, em loop. Use um vídeo horizontal." },
+        { "type": "image_picker", "id": "image", "label": "Imagem (se não houver vídeo)", "info": "Use a mesma proporção do primeiro banner para a arte não ser cortada." },
+        { "type": "header", "content": "Celular" },
+        { "type": "video", "id": "video_mobile", "label": "Vídeo", "info": "Use um vídeo vertical. Sem vídeo nem imagem aqui, o celular usa os do desktop." },
+        { "type": "image_picker", "id": "image_mobile", "label": "Imagem (se não houver vídeo)", "info": "Use a mesma proporção do primeiro banner para a arte não ser cortada." },
+        { "type": "header", "content": "Link" },
+        { "type": "url", "id": "link", "label": "Link do banner", "info": "Coleção, produto, página ou qualquer endereço. O banner inteiro fica clicável." },
+        { "type": "text", "id": "link_label", "label": "Descrição do link", "info": "Lida por leitores de tela. Ex.: Ver a coleção de body splash.", "default": "Ver mais" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Güppi · Abertura", "blocks": [{ "type": "slide" }] }]
 }
 {% endschema %}

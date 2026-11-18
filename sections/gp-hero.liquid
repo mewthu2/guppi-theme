@@ -1,18 +1,32 @@
-<section class="gp gp-hero" style="background: {{ section.settings.bg }};">
-  {%- liquid
-    assign d_video = section.settings.video
-    assign d_image = section.settings.image
-    assign m_video = section.settings.video_mobile
-    assign m_image = section.settings.image_mobile
-    if m_video == blank and m_image == blank
-      assign m_video = d_video
-      assign m_image = d_image
-    endif
-    assign split = true
-    if m_video == d_video and m_image == d_image
-      assign split = false
-    endif
-  -%}
+{%- liquid
+  assign d_video = section.settings.video
+  assign d_image = section.settings.image
+  assign m_video = section.settings.video_mobile
+  assign m_image = section.settings.image_mobile
+  if m_video == blank and m_image == blank
+    assign m_video = d_video
+    assign m_image = d_image
+  endif
+  assign split = true
+  if m_video == d_video and m_image == d_image
+    assign split = false
+  endif
+
+  comment
+    Com imagem, a altura do banner segue a proporção da arte. Com vídeo, continua preenchendo a primeira tela.
+  endcomment
+  assign fit_class = ''
+  assign fit_style = ''
+  if d_video == blank and d_image != blank
+    assign fit_class = fit_class | append: ' gp-hero--fit-d'
+    assign fit_style = fit_style | append: ' --gp-hero-ar-d: ' | append: d_image.aspect_ratio | append: ';'
+  endif
+  if m_video == blank and m_image != blank
+    assign fit_class = fit_class | append: ' gp-hero--fit-m'
+    assign fit_style = fit_style | append: ' --gp-hero-ar-m: ' | append: m_image.aspect_ratio | append: ';'
+  endif
+-%}
+<section class="gp gp-hero{{ fit_class }}" style="background: {{ section.settings.bg }};{{ fit_style }}">
   {%- if split == false -%}
     {%- if d_video != blank -%}
       {{ d_video | video_tag: class: 'gp-media-fill', autoplay: true, muted: true, loop: true, playsinline: true, controls: false, preload: 'metadata', image_size: '1920x' }}

@@ -147,6 +147,17 @@ a.gp-top-msg:hover { text-decoration: underline; }
   .gp-hero .gp-only-mobile { display: none; }
 }
 .gp-hero .gp-wave { z-index: 1; height: 76px; }
+/* Com imagem, a altura acompanha a largura: a arte aparece inteira e a onda fica numa faixa abaixo dela */
+@media (max-width: 749.98px) {
+  section.gp-hero.gp-hero--fit-m { --gp-hero-wave: 76px; height: auto; min-height: 0; padding-bottom: var(--gp-hero-wave); }
+  section.gp-hero.gp-hero--fit-m img.gp-media-fill { position: static; width: 100%; height: auto !important; aspect-ratio: var(--gp-hero-ar-m); object-fit: contain; }
+  section.gp-hero.gp-hero--fit-m .gp-wave { height: var(--gp-hero-wave); }
+}
+@media (min-width: 750px) {
+  section.gp-hero.gp-hero--fit-d { --gp-hero-wave: clamp(36px, 6.5vw, 124px); height: auto; min-height: 0; padding-bottom: var(--gp-hero-wave); }
+  section.gp-hero.gp-hero--fit-d img.gp-media-fill { position: static; width: 100%; height: auto !important; aspect-ratio: var(--gp-hero-ar-d); object-fit: contain; }
+  section.gp-hero.gp-hero--fit-d .gp-wave { height: var(--gp-hero-wave); }
+}
 .gp-hero-link { position: absolute; inset: 0; z-index: 2; }
 .gp-hero-link:focus-visible { outline: 3px solid var(--gp-cream); outline-offset: -6px; }
 

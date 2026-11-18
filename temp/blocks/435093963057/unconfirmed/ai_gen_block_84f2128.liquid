@@ -1,6 +1,168 @@
+{% doc %}
+  @prompt
+    Crie uma seção de campanha para a Güppi com vídeo no lugar da foto, baseada visualmente na seção existente Güppi · Campanha. Preserve a composição com mídia e textos lado a lado no computador e empilhados no celular, seguindo cores e tipografia do tema. Ofereça seletor de vídeo hospedado na Shopify, controles de reprodução e campos editáveis para título, texto e botão. Use enquadramento que preserve a proporção original do vídeo sem cortar. Não escolha uma mídia arbitrária, não invente conteúdo promocional e não remova a seção de campanha atual: a lojista selecionará o vídeo e copiará os textos antes de substituí-la.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-campaign-video-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin-inline: auto;
+    background: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+    border-radius: {{ block.settings.corner_radius }}px;
+    overflow: hidden;
+  }
+  .ai-campaign-video-{{ ai_gen_id }}__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+  }
+  .ai-campaign-video-{{ ai_gen_id }}__media {
+    min-width: 0;
+    padding: {{ block.settings.media_padding }}px;
+  }
+  .ai-campaign-video-{{ ai_gen_id }}__media video {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: {{ block.settings.max_video_height }}px;
+    object-fit: contain;
+    border-radius: {{ block.settings.media_radius }}px;
+    background: #211b20;
+  }
+  .ai-campaign-video-{{ ai_gen_id }}__placeholder {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    display: grid;
+    place-items: center;
+    background: #f0ece7;
+    border-radius: {{ block.settings.media_radius }}px;
+    overflow: hidden;
+  }
+  .ai-campaign-video-{{ ai_gen_id }}__placeholder svg { width: 100%; height: 100%; }
+  .ai-campaign-video-{{ ai_gen_id }}__empty {
+    position: absolute;
+    bottom: 14px;
+    left: 12px;
+    right: 12px;
+    margin: 0;
+    padding: 8px 12px;
+    color: #31242e;
+    background: #ffffff;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 13px;
+  }
+  .ai-campaign-video-{{ ai_gen_id }}__content {
+    padding: clamp(24px, 5vw, 72px);
+  }
+  .ai-campaign-video-{{ ai_gen_id }}__title {
+    margin: 0 0 18px;
+    color: inherit;
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-style: {{ block.settings.heading_font.style }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: clamp(28px, 3.4vw, {{ block.settings.title_size }}px);
+    line-height: 1.12;
+    text-transform: {{ block.settings.heading_case }};
+  }
+  .ai-campaign-video-{{ ai_gen_id }}__body {
+    color: inherit;
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-style: {{ block.settings.body_font.style }};
+    font-weight: {{ block.settings.body_font.weight }};
+    font-size: {{ block.settings.body_size }}px;
+    line-height: 1.6;
+  }
+  .ai-campaign-video-{{ ai_gen_id }}__body > *:first-child { margin-top: 0; }
+  .ai-campaign-video-{{ ai_gen_id }}__body > *:last-child { margin-bottom: 0; }
+  .ai-campaign-video-{{ ai_gen_id }}__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    margin-top: 24px;
+    padding: 12px 26px;
+    border: 2px solid {{ block.settings.button_color }};
+    border-radius: {{ block.settings.button_radius }}px;
+    background: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    font-family: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+  }
+  .ai-campaign-video-{{ ai_gen_id }}__button:hover { filter: brightness(.92); }
+  .ai-campaign-video-{{ ai_gen_id }}__button:focus-visible,
+  .ai-campaign-video-{{ ai_gen_id }}__media video:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
+  @media screen and (max-width: 749px) {
+    .ai-campaign-video-{{ ai_gen_id }} { width: 100%; }
+    .ai-campaign-video-{{ ai_gen_id }}__inner { grid-template-columns: 1fr; }
+    .ai-campaign-video-{{ ai_gen_id }}__media { padding: {{ block.settings.media_padding | divided_by: 2 }}px; }
+    .ai-campaign-video-{{ ai_gen_id }}__content { padding: 24px; }
+    .ai-campaign-video-{{ ai_gen_id }}__title { font-size: clamp(26px, 8vw, {{ block.settings.title_size }}px); }
+  }
+{% endstyle %}
+
+<div class="ai-campaign-video-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-campaign-video-{{ ai_gen_id }}__inner">
+    <div class="ai-campaign-video-{{ ai_gen_id }}__media">
+      {% if block.settings.video != blank %}
+        {{ block.settings.video | video_tag: autoplay: block.settings.autoplay, loop: block.settings.loop, muted: block.settings.muted, controls: block.settings.controls, preload: 'metadata' }}
+      {% else %}
+        <div class="ai-campaign-video-{{ ai_gen_id }}__placeholder">
+          {{ 'image' | placeholder_svg_tag }}
+          <p class="ai-campaign-video-{{ ai_gen_id }}__empty">Selecione um vídeo hospedado na Shopify para configurar esta campanha.</p>
+        </div>
+      {% endif %}
+    </div>
+    <div class="ai-campaign-video-{{ ai_gen_id }}__content">
+      {% if block.settings.title != blank %}<h2 class="ai-campaign-video-{{ ai_gen_id }}__title">{{ block.settings.title | escape }}</h2>{% endif %}
+      {% if block.settings.text != blank %}<div class="ai-campaign-video-{{ ai_gen_id }}__body">{{ block.settings.text }}</div>{% endif %}
+      {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+        <a class="ai-campaign-video-{{ ai_gen_id }}__button" href="{{ block.settings.button_link }}">{{ block.settings.button_label | escape }}</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Campanha com vídeo",
+  "settings": [
+    { "type": "header", "content": "Conteúdo" },
+    { "type": "video", "id": "video", "label": "Vídeo hospedado na Shopify" },
+    { "type": "checkbox", "id": "controls", "label": "Mostrar controles", "default": true },
+    { "type": "checkbox", "id": "autoplay", "label": "Reprodução automática", "default": false },
+    { "type": "checkbox", "id": "loop", "label": "Repetir vídeo", "default": false },
+    { "type": "checkbox", "id": "muted", "label": "Sem áudio", "default": false },
+    { "type": "text", "id": "title", "label": "Título" },
+    { "type": "richtext", "id": "text", "label": "Texto" },
+    { "type": "text", "id": "button_label", "label": "Texto do botão" },
+    { "type": "url", "id": "button_link", "label": "Link do botão" },
+    { "type": "header", "content": "Aparência" },
+    { "type": "range", "id": "desktop_width_percent", "label": "Largura no desktop", "min": 50, "max": 100, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "max_video_height", "label": "Altura máxima do vídeo", "min": 240, "max": 900, "step": 30, "unit": "px", "default": 600 },
+    { "type": "range", "id": "title_size", "label": "Tamanho do título", "min": 24, "max": 64, "step": 2, "unit": "px", "default": 42 },
+    { "type": "range", "id": "body_size", "label": "Tamanho do texto", "min": 14, "max": 24, "step": 1, "unit": "px", "default": 16 },
+    { "type": "font_picker", "id": "heading_font", "label": "Fonte do título", "default": "dm_sans_n4" },
+    { "type": "font_picker", "id": "body_font", "label": "Fonte do texto", "default": "figtree_n4" },
+    { "type": "select", "id": "heading_case", "label": "Caixa do título", "options": [{ "value": "none", "label": "Normal" }, { "value": "uppercase", "label": "Maiúsculas" }], "default": "none" },
+    { "type": "color", "id": "background_color", "label": "Fundo", "default": "#F6F3EA" },
+    { "type": "color", "id": "text_color", "label": "Texto", "default": "#31242E" },
+    { "type": "color", "id": "button_color", "label": "Fundo do botão", "default": "#ED356D" },
+    { "type": "color", "id": "button_text_color", "label": "Texto do botão", "default": "#FFFFFF" },
+    { "type": "range", "id": "media_padding", "label": "Espaço ao redor da mídia", "min": 0, "max": 40, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "corner_radius", "label": "Arredondamento do bloco", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+    { "type": "range", "id": "media_radius", "label": "Arredondamento do vídeo", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 20 },
+    { "type": "range", "id": "button_radius", "label": "Arredondamento do botão", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 40 }
+  ],
+  "presets": [{ "name": "Campanha com vídeo" }],
+  "tag": null,
+  "class": "campaign-video-block"
+}
 {% endschema %}

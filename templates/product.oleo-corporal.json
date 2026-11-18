@@ -26,7 +26,7 @@
           "settings": {
             "heading": "Como usar",
             "show_description": false,
-            "content": "<p><strong>Óleo Corporal</strong><br/>Espalhe sobre a pele com movimentos circulares suaves, nas regiões que desejar. Use depois do banho ou quando quiser um toque extra de maciez. Para completar, aplique o Body Splash Vanilla Cashmere.</p><p><strong>Body Splash</strong><br/>Borrife no pescoço, nos pulsos ou nas regiões do corpo que preferir, sem esfregar depois. Reaplique ao longo do dia sempre que quiser sentir Vanilla Cashmere de novo.</p>",
+            "content": "<p>Espalhe sobre a pele com movimentos circulares suaves, nas regiões que desejar. Use depois do banho ou quando quiser um toque extra de maciez. Para completar, aplique o Body Splash Vanilla Cashmere.</p><p></p>",
             "open": false
           }
         },
@@ -35,7 +35,7 @@
           "settings": {
             "heading": "Ingredientes",
             "show_description": false,
-            "content": "<p>Triglicerídio caprílico/cáprico, decametilciclopentasiloxano, óleo de amêndoas doces, perfume, acetato de tocoferila, óleo de semente de girassol, fenoxietanol, caprilil glicol, óleo de coco, óleo de linhaça, benzotriazolil dodecil p-cresol, óleo de abacate, óleo de argan, óleo de macadâmia, óleo de oliva, vitamina E, óleo da semente de uva, hexil cinnamal, cumarina, álcool benzílico, geraniol, citronellol, dextrolimoneno, linalool.</p><p><strong>Body Splash</strong><br/>Álcool etílico, água, butil-hidroxitolueno, perfume, álcool benzílico, citronelol, cumarina, geraniol, hexil cinamal, dextrolimoneno, linalol.</p><p></p>",
+            "content": "<p>Triglicerídio caprílico/cáprico, decametilciclopentasiloxano, óleo de amêndoas doces, perfume, acetato de tocoferila, óleo de semente de girassol, fenoxietanol, caprilil glicol, óleo de coco, óleo de linhaça, benzotriazolil dodecil p-cresol, óleo de abacate, óleo de argan, óleo de macadâmia, óleo de oliva, vitamina E, óleo da semente de uva, hexil cinnamal, cumarina, álcool benzílico, geraniol, citronellol, dextrolimoneno, linalool.</p><p></p>",
             "open": false
           }
         },
@@ -62,6 +62,8 @@
         "intro": "Nutrição intensa, toque sedoso e nada de sensação pegajosa.",
         "pix_discount": 0,
         "pix_label": "no Pix",
+        "notice_title": "Atenção: produto em pré-venda",
+        "notice_text": "Os pedidos realizados durante a pré-venda serão enviados a partir de 30/11. O prazo de entrega informado no checkout começa a contar após a postagem",
         "buy_label": "Comprar",
         "sticky": true
       }

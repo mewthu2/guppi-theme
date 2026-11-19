@@ -15,6 +15,27 @@ var js=e.createElement('script');js.async=1;js.src=t+'?tid='+i;
 e.head.appendChild(js)})(window,document,'guppi','https://track.guppi.com.br/api/t/tracker.js','f8eed967-029e-4f48-9f7a-893c844e5e08');
 </script>
 
+<script>
+(function(){
+  if(typeof guppi!=='function')return;
+  document.addEventListener('click',function(e){
+    var btn=e.target.closest('button[name="add"], button.product-form__submit, [data-add-to-cart], form[action*="/cart/add"] button[type="submit"]');
+    if(!btn)return;
+    var form=btn.closest('form');
+    if(!form)return;
+    var nameEl=document.querySelector('.product__title, .product-single__title, h1.title, [data-product-title]');
+    var priceEl=document.querySelector('.price__regular .price-item, .product__price, [data-product-price], .price .money');
+    var variantSelect=form.querySelector('select[name="id"], input[name="id"]');
+    var name=(nameEl?nameEl.textContent:'').trim();
+    var priceText=(priceEl?priceEl.textContent:'').replace(/[^\d.,]/g,'').replace(',','.');
+    var price=parseFloat(priceText)||0;
+    var variant=(variantSelect&&variantSelect.options)?variantSelect.options[variantSelect.selectedIndex].text:null;
+    if(name)guppi('addToCart',{name:name,variant:variant,price:price});
+  },true);
+})();
+</script>
+
+
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
     {%- else -%}

@@ -18,17 +18,30 @@ e.head.appendChild(js)})(window,document,'guppi','https://track.guppi.com.br/api
 <script>
 (function(){
   if(typeof guppi!=='function')return;
+  function getPrice(){
+    try{
+      var scripts=document.querySelectorAll('script[type="application/ld+json"]');
+      for(var i=0;i<scripts.length;i++){
+        var j=JSON.parse(scripts[i].textContent);
+        if(j['@type']==='Product'&&j.offers){
+          var o=Array.isArray(j.offers)?j.offers[0]:j.offers;
+          return parseFloat(o.price||o.lowPrice)||0;
+        }
+      }
+    }catch(e){}
+    var el=document.querySelector('[data-product-price], .price .money, .price-item--sale, .price-item--regular, .product__price, .price__regular .price-item');
+    if(el){var t=el.textContent.replace(/[^\d.,]/g,'').replace(',','.');return parseFloat(t)||0;}
+    return 0;
+  }
   document.addEventListener('submit',function(e){
     var f=e.target;
     if(!f||f.nodeName!=='FORM')return;
     var act=(f.getAttribute('action')||'');
     if(!/\/cart\/add/i.test(act)&&!/\/cart/i.test(act))return;
     var nameEl=document.querySelector('.product__title, .product-single__title, h1.title, [data-product-title], h1');
-    var priceEl=document.querySelector('.price__regular .price-item, .product__price, [data-product-price], .price .money, .price-item--regular, .price-item--sale');
     var variantSelect=f.querySelector('select[name="id"], input[name="id"]');
     var name=(nameEl?nameEl.textContent:'').trim();
-    var priceText=(priceEl?priceEl.textContent:'').replace(/[^\d.,]/g,'').replace(',','.');
-    var price=parseFloat(priceText)||0;
+    var price=getPrice();
     var variant=(variantSelect&&variantSelect.options)?variantSelect.options[variantSelect.selectedIndex].text:null;
     if(name)guppi('addToCart',{name:name,variant:variant,price:price});
   },true);

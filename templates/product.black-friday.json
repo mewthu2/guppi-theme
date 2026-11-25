@@ -9,6 +9,17 @@
  */
 {
   "sections": {
+    "gp_marquee_cmQnFz": {
+      "type": "gp-marquee",
+      "name": "Güppi · Faixa animada",
+      "settings": {
+        "text": "BLACK FRIDAY – BLACK FRIDAY – BLACK FRIDAY –",
+        "style": "home",
+        "speed": 16,
+        "bg": "#A90359",
+        "color": "#f6f3ea"
+      }
+    },
     "main": {
       "type": "gp-main-product",
       "blocks": {
@@ -189,7 +200,7 @@
         "heading": "Compre enquanto ainda da tempo!",
         "text": "",
         "button_label": "Ver kits",
-        "button_link": "/products/kit-black-friday",
+        "button_link": "https://guppi.com.br/products/kit-pre-venda?utm_term=stl_bcb001c0-7701-4e8b-b006-23bc9b240a44",
         "expired_heading": "A pré-venda acabou!",
         "expired_text": "<p>Fique de olho nas próximas ofertas.</p>",
         "color_scheme": "scheme-2",
@@ -241,6 +252,7 @@
     }
   },
   "order": [
+    "gp_marquee_cmQnFz",
     "main",
     "image_with_text_9ar76m",
     "multicolumn_6QyTNL",

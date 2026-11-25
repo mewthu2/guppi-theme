@@ -9,17 +9,6 @@
  */
 {
   "sections": {
-    "gp_marquee_cmQnFz": {
-      "type": "gp-marquee",
-      "name": "Güppi · Faixa animada",
-      "settings": {
-        "text": "BLACK FRIDAY – BLACK FRIDAY – BLACK FRIDAY –",
-        "style": "home",
-        "speed": 16,
-        "bg": "#b4d2ba",
-        "color": "#f6f3ea"
-      }
-    },
     "main": {
       "type": "gp-main-product",
       "blocks": {
@@ -252,7 +241,6 @@
     }
   },
   "order": [
-    "gp_marquee_cmQnFz",
     "main",
     "image_with_text_9ar76m",
     "multicolumn_6QyTNL",

@@ -13,7 +13,7 @@
       "type": "gp-marquee",
       "name": "Güppi · Faixa animada",
       "settings": {
-        "text": "PRÉ-VENDA –  PRÉ-VENDA  –  PRÉ-VENDA  –",
+        "text": "BLACK FRIDAY – BLACK FRIDAY – BLACK FRIDAY –",
         "style": "home",
         "speed": 16,
         "bg": "#b4d2ba",
@@ -192,7 +192,7 @@
       "type": "countdown",
       "name": "Contagem regressiva",
       "settings": {
-        "end_date": "2026-12-05",
+        "end_date": "2026-11-29",
         "end_time": "23:59",
         "timezone_offset": "-03:00",
         "overlay_opacity": 20,

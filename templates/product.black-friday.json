@@ -62,8 +62,8 @@
         "intro": "",
         "pix_discount": 0,
         "pix_label": "no Pix",
-        "notice_title": "Atenção: produto em pré-venda",
-        "notice_text": "Os pedidos realizados durante a pré-venda serão enviados a partir de 30/11. O prazo de entrega informado no checkout começa a contar após a postagem",
+        "notice_title": "Oferta de Black Friday, válida até 29/11.",
+        "notice_text": "Os pedidos serão enviados a partir de 30/11.",
         "buy_label": "Comprar",
         "sticky": true
       }

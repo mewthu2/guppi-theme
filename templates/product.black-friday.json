@@ -1,0 +1,263 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_marquee_cmQnFz": {
+      "type": "gp-marquee",
+      "name": "Güppi · Faixa animada",
+      "settings": {
+        "text": "PRÉ-VENDA –  PRÉ-VENDA  –  PRÉ-VENDA  –",
+        "style": "home",
+        "speed": 16,
+        "bg": "#b4d2ba",
+        "color": "#f6f3ea"
+      }
+    },
+    "main": {
+      "type": "gp-main-product",
+      "blocks": {
+        "desc": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Descrição",
+            "show_description": true,
+            "content": "",
+            "open": true
+          }
+        },
+        "collapsible_7YBcYh": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Como usar",
+            "show_description": false,
+            "content": "<p><strong>Óleo Corporal</strong><br/>Aplique sobre a pele, nas regiões desejadas, e espalhe suavemente com movimentos circulares. Use após o banho ou sempre que quiser proporcionar mais maciez e conforto à pele. Para complementar seu ritual, finalize com o Body Splash Vanilla Cashmere.</p><p><strong>Body Splash</strong><br/>Borrife no pescoço, nos pulsos ou nas regiões do corpo que preferir. Não esfregue após a aplicação. Reaplique quando desejar renovar a fragrância ao longo do dia.</p>",
+            "open": false
+          }
+        },
+        "collapsible_PnXCPR": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Ingredientes",
+            "show_description": false,
+            "content": "<p><strong>Óleo Corporal</strong><br/>Triglicerídio caprílico/cáprico, decametilciclopentasiloxano, óleo de amêndoas doces, perfume, acetato de tocoferila, óleo de semente de girassol, fenoxietanol, caprilil glicol, óleo de coco, óleo de linhaça, benzotriazolil dodecil p-cresol, óleo de abacate, óleo de argan, óleo de macadâmia, óleo de oliva, vitamina E, óleo da semente de uva, hexil cinnamal, cumarina, álcool benzílico, geraniol, citronellol, dextrolimoneno, linalool.</p><p><strong>Body Splash</strong><br/>Álcool etílico, água, butil-hidroxitolueno, perfume, álcool benzílico, citronelol, cumarina, geraniol, hexil cinamal, dextrolimoneno, linalol.</p>",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "desc",
+        "collapsible_7YBcYh",
+        "collapsible_PnXCPR"
+      ],
+      "settings": {
+        "home_label": "Início",
+        "eyebrow": "",
+        "intro": "",
+        "pix_discount": 0,
+        "pix_label": "no Pix",
+        "notice_title": "Atenção: produto em pré-venda",
+        "notice_text": "Os pedidos realizados durante a pré-venda serão enviados a partir de 30/11. O prazo de entrega informado no checkout começa a contar após a postagem",
+        "buy_label": "Comprar",
+        "sticky": true
+      }
+    },
+    "image_with_text_9ar76m": {
+      "type": "image-with-text",
+      "blocks": {
+        "subheading_Kb4mzB": {
+          "type": "subheading",
+          "settings": {
+            "text": "Glow diário"
+          }
+        },
+        "heading_zLLnQ7": {
+          "type": "heading",
+          "settings": {
+            "heading": "Skincare na sua rotina",
+            "size": "h1"
+          }
+        },
+        "text_QARcW9": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Use à noite para hidratação profunda, como tratamento durante o dia ou como primer para a maquiagem.</p>"
+          }
+        },
+        "button_3MKU9t": {
+          "type": "button",
+          "settings": {
+            "label": "Comprar agora",
+            "link": "",
+            "secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "subheading_Kb4mzB",
+        "heading_zLLnQ7",
+        "text_QARcW9",
+        "button_3MKU9t"
+      ],
+      "disabled": true,
+      "name": "Imagem com texto",
+      "settings": {
+        "layout": "left",
+        "ratio": "1",
+        "full_bleed": false,
+        "alignment": "left",
+        "color_scheme": "",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "multicolumn_6QyTNL": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_E96Hp6": {
+          "type": "column",
+          "settings": {
+            "icon": "drop",
+            "heading": "1.   Saia do banho",
+            "text": "<p></p><p></p><p>Seque com a toalha apenas o excesso de água, deixando a pele levemente úmida para receber o óleo.<br/><br/></p>",
+            "product": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_CXbdLG": {
+          "type": "column",
+          "settings": {
+            "icon": "sparkle",
+            "heading": "2.  Aplique o óleo",
+            "text": "<p></p><p>Espalhe o Óleo Corporal pelo corpo com movimentos suaves, deixando a pele macia e com toque sedoso.</p>",
+            "product": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_TemWbd": {
+          "type": "column",
+          "settings": {
+            "icon": "heart",
+            "heading": "3. Complete com  Body Splash",
+            "text": "<p>Depois que a pele estiver seca, borrife o Body Splash pelo corpo e envolva-se em Vanilla Cashmere.<br/><br/></p>",
+            "product": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_bfcMbH": {
+          "type": "column",
+          "settings": {
+            "icon": "gift",
+            "heading": "4.  Leve com você",
+            "text": "<p><br/>Pendure o Mini Body Splash na bolsa e reaplique a fragrância quando quiser ao longo do dia.<br/><br/></p>",
+            "product": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_E96Hp6",
+        "column_CXbdLG",
+        "column_TemWbd",
+        "column_bfcMbH"
+      ],
+      "name": "Multicoluna",
+      "settings": {
+        "subheading": "Monte sua rotina",
+        "heading": "&nbsp;<strong>Seu ritual com Vanilla Cashmere</strong>",
+        "heading_alignment": "center",
+        "columns": 4,
+        "style": "card",
+        "ratio": "1",
+        "text_alignment": "left",
+        "mobile_carousel": true,
+        "button_label": "",
+        "button_link": "",
+        "color_scheme": "scheme-6",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "countdown_hwtzge": {
+      "type": "countdown",
+      "name": "Contagem regressiva",
+      "settings": {
+        "end_date": "2026-12-05",
+        "end_time": "23:59",
+        "timezone_offset": "-03:00",
+        "overlay_opacity": 20,
+        "subheading": "Oferta por tempo limitado",
+        "heading": "Compre enquanto ainda da tempo!",
+        "text": "",
+        "button_label": "Ver kits",
+        "button_link": "https://guppi.com.br/products/kit-pre-venda?utm_term=stl_bcb001c0-7701-4e8b-b006-23bc9b240a44",
+        "expired_heading": "A pré-venda acabou!",
+        "expired_text": "<p>Fique de olho nas próximas ofertas.</p>",
+        "color_scheme": "scheme-2",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "blocks_nymBph": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_1ccfd08_yYchiw": {
+          "type": "ai_gen_block_1ccfd08",
+          "settings": {
+            "desktop_width_percent": 100,
+            "video": "shopify://files/videos/copy_0B6422B2-A295-42DB-9A96-2979423E6C46.mov",
+            "video_fit": "cover",
+            "heading": "Dá vontade de sentir de novo.",
+            "intro": "",
+            "card_heading": "Como é sentir Vanilla Cashmere?",
+            "card_text": "Explore as notas e sensações da nossa fragrância.",
+            "button_label": "Sinta o cheiro GÜPPI",
+            "button_link": "https://w2hkoy81528krabq-100954865969.shopifypreview.com/pages/cheiro-guppi"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_1ccfd08_yYchiw"
+      ],
+      "name": "Güppi campanha vídeo",
+      "settings": {}
+    },
+    "gp_story_3jQTFb": {
+      "type": "gp-story",
+      "name": "Güppi · Texto central",
+      "settings": {
+        "style": "story",
+        "eyebrow": "VANILLA CASHMERE",
+        "title": "Cheiro de pele macia,\ncomo um toque de cashmere.",
+        "text": "Fragrância autoral, cremosa e envolvente.",
+        "link_label": "Conheça o kit de pré-venda ↑",
+        "link": "",
+        "bg": "",
+        "show_wave": false,
+        "wave_color": "#f6f3ea",
+        "wave_color_2": "#9b7fc9",
+        "wave_color_3": "#decff0"
+      }
+    }
+  },
+  "order": [
+    "gp_marquee_cmQnFz",
+    "main",
+    "image_with_text_9ar76m",
+    "multicolumn_6QyTNL",
+    "countdown_hwtzge",
+    "blocks_nymBph",
+    "gp_story_3jQTFb"
+  ]
+}
